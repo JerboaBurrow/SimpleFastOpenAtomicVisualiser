@@ -50,7 +50,6 @@ jobs:
         ./build.sh -t -w -r -e
         mkdir windows
         cp build/sfoav/sfoav.exe windows/sfoav.exe
-        find /usr/ -iname libwinpthread-1.dll
         cp build/*.dll windows/
         cp LICENSE* windows/
 

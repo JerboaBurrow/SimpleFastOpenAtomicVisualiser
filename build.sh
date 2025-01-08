@@ -120,12 +120,7 @@ then
   )
 
   for p in /usr/lib/gcc/$PREFIX/*
-  do 
-    paths+=($p)
-  done
-
-  for p in /usr/x86_64-w64-mingw32*
-  do 
+  do
     paths+=($p)
   done
 
@@ -133,10 +128,13 @@ then
   for p in "${paths[@]}"
   do
     echo -e "$p\n"
-  done 
+  done
   echo -e "###############\n"
 
-  dll=()
+  dll=("libgcc_s_seh-1.dll"
+      "libstdc++-6.dll"
+      "libwinpthread-1.dll"
+  )
 
   for j in "${dll[@]}"
   do
