@@ -32,6 +32,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 set(OUTPUT_NAME sfoav)
 
 include_directories(include/vendored)
+include_directories(include)
 
 if (WINDOWS)
     set(LIB_JGL "${PROJECT_SOURCE_DIR}/lib/libjGL-windows.a")
