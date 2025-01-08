@@ -5,7 +5,7 @@ int main(int argv, char ** argc)
 
     uint8_t lod = 0;
     uint8_t count = 2;
-    uint8_t MSAA = 16;
+    uint8_t MSAA = 0;
     if (argv > 1)
     {
         lod = std::stoi(argc[1]);
@@ -82,11 +82,15 @@ int main(int argv, char ** argc)
     double delta = 0;
     unsigned frameId = 0;
     unsigned int rbo;
-    glGenRenderbuffers(1, &rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA, GL_DEPTH24_STENCIL8, resX, resY);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    if (MSAA > 0)
+    {
+        glGenRenderbuffers(1, &rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA, GL_DEPTH24_STENCIL8, resX, resY);
+        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+    }
 
     while (display.isOpen())
     {
@@ -181,7 +185,10 @@ int main(int argv, char ** argc)
         frameId = (frameId+1) % 60;
     }
 
-    glDeleteRenderbuffers(1, &rbo);
+    if (MSAA > 0)
+    {
+        glDeleteRenderbuffers(1, &rbo);
+    }
     jGLInstance->finish();
 
     return 0;
