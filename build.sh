@@ -1,12 +1,27 @@
 #!/bin/bash
 
+function findAndCopyDLL()
+{
+    for i in "${paths[@]}"
+    do
+        FILE="$i/$1"
+        if [ -f $FILE ]; then
+           echo -e "\033[1;34mFound DLL $FILE\033[0m"
+           cp $FILE build/
+           return 0
+        fi
+    done
+
+    return 1
+}
+
 WINDOWS=1
 RELEASE=0
 TEST=0
 OSX=1
 VALIDATION=0
 VERBOSE=0
-VK_SDK="include/vendored/VulkanSDK"
+VK_SDK="include/VulkanSDK"
 BENCHMARK=0
 EXAMPLES=0
 CLEAN=1
@@ -120,7 +135,7 @@ then
   )
 
   for p in /usr/lib/gcc/$PREFIX/*
-  do 
+  do
     paths+=($p)
   done
 
@@ -128,10 +143,13 @@ then
   for p in "${paths[@]}"
   do
     echo -e "$p\n"
-  done 
+  done
   echo -e "###############\n"
 
-  dll=()
+  dll=("libgcc_s_seh-1.dll"
+      "libstdc++-6.dll"
+      "libwinpthread-1.dll"
+  )
 
   for j in "${dll[@]}"
   do

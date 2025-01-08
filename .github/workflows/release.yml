@@ -1,0 +1,138 @@
+name: SFOAV CI
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:     'v*'
+    paths-ignore:
+      - 'doc/**'
+      - '.github/**'
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: install dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential xorg-dev mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev libxinerama-dev libxcursor-dev xvfb x11-apps vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
+
+    - name: linux-linux
+      run: |
+        ./build.sh -t -r -e
+        mkdir linux-x86_64
+        cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
+        cp LICENSE* linux-x86_64/
+
+    - name: build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-x86_64
+        path: linux-x86_64
+
+  windows:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+
+    - name: install dependencies
+      run: sudo apt-get update && sudo apt-get install -y xorg-dev build-essential mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev g++-mingw-w64-x86-64-posix gcc-mingw-w64-x86-64-posix libxinerama-dev libxcursor-dev vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
+
+    - name: linux-X-windows
+      run: |
+        ./build.sh -t -w -r -e
+        mkdir windows
+        cp build/sfoav/sfoav.exe windows/sfoav.exe
+        cp build/*.dll windows/
+        cp LICENSE* windows/
+
+    - name: build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows
+        path: windows
+
+  macos:
+    runs-on: macos-13
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: install dependencies
+      run: |
+          wget https://sdk.lunarg.com/sdk/download/latest/mac/vulkan-sdk.zip -O vulkan-sdk.zip
+          unzip vulkan-sdk.zip
+          sudo ./InstallVulkan.app/Contents/macOS/InstallVulkan --root ~/vulkan --accept-licenses --default-answer --confirm-command install
+          ls ~/vulkan
+          cd ~/vulkan/
+          python install_vulkan.py
+
+    - name: macos-macos
+      run: |
+        ./build.sh -o -e -r
+        mkdir macos
+        cp build/sfoav/sfoav macos/sfoav-macos
+        cp LICENSE* macos/
+
+    - name: build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos
+        path: macos
+
+  release:
+    needs: [linux, windows, macos]
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-22.04
+
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: get linux build
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-x86_64
+
+      - name: get windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows
+
+      - name: get macos build
+        uses: actions/download-artifact@v4
+        with:
+          name: macos
+
+      - name: pack
+        run: |
+          ls
+          for release in linux-x86_64 macos windows;
+          do
+          mkdir $release
+          mv sfoav-$release* $release/
+          cp LICENSE* $release/
+          zip -r $release.zip $release/*
+          done
+
+#     https://github.com/softprops/action-gh-release
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          prerelease: true
+          name: "release-${{ github.ref_name }}"
+          tag_name: ${{ github.ref }}
+          files: |
+            linux-x86_64.zip
+            windows.zip
+            macos.zip
