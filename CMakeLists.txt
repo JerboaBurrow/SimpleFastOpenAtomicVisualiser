@@ -31,21 +31,22 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
 set(OUTPUT_NAME sfoav)
 
+include_directories(include/vendored)
 include_directories(include)
 
 if (WINDOWS)
-    set(LIB_JGL "${PROJECT_SOURCE_DIR}/include/libjGL-windows.a")
+    set(LIB_JGL "${PROJECT_SOURCE_DIR}/lib/libjGL-windows.a")
     add_compile_definitions(WINDOWS)
     if (RELEASE)
         # launch as windows, not console app - so cmd does not open as well
         add_link_options(-mwindows)
     endif ()
 elseif(OSX)
-    set(LIB_JGL "${PROJECT_SOURCE_DIR}/include/libjGL-macos.a")
+    set(LIB_JGL "${PROJECT_SOURCE_DIR}/lib/libjGL-macos.a")
     add_compile_definitions(APPLE)
 else ()
     add_link_options(-no-pie)
-    set(LIB_JGL "${PROJECT_SOURCE_DIR}/include/libjGL-linux-x86_64.a")
+    set(LIB_JGL "${PROJECT_SOURCE_DIR}/lib/libjGL-linux-x86_64.a")
 endif()
 
 if (PROFILE)
