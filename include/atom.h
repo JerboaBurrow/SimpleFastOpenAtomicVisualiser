@@ -17,7 +17,7 @@ public:
         glm::vec3 force = glm::vec3(0),
         glm::vec4 colour = glm::vec4(1.0, 0.5, 0.5, 1.0)
     )
-    : 
+    :
       position(position),
       velocity(velocity),
       force(force),

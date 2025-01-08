@@ -5,6 +5,7 @@ int main(int argv, char ** argc)
 
     uint8_t lod = 0;
     uint8_t count = 2;
+    uint8_t MSAA = 16;
     if (argv > 1)
     {
         lod = std::stoi(argc[1]);
@@ -35,7 +36,7 @@ int main(int argv, char ** argc)
     camera.setPosition(0.0f, 0.0f);
 
     jGLInstance->setTextProjection(glm::ortho(0.0,double(resX),0.0,double(resY)));
-    jGLInstance->setMSAA(0);
+    jGLInstance->setMSAA(MSAA);
 
     float d = 1.5f;
 
@@ -80,12 +81,20 @@ int main(int argv, char ** argc)
     double deltas[60];
     double delta = 0;
     unsigned frameId = 0;
+    unsigned int rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA, GL_DEPTH24_STENCIL8, resX, resY);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
     while (display.isOpen())
     {
         auto tic = std::chrono::high_resolution_clock::now();
-        glClearColor(1.0,1.0,1.0,1.0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        jGLInstance->beginFrame();
+        jGLInstance->setClear(glm::vec4(1.0f));
+        jGLInstance->clear();
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -158,6 +167,7 @@ int main(int argv, char ** argc)
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
         );
 
+        jGLInstance->endFrame();
         display.loop();
 
         delta = 0.0;
@@ -171,6 +181,7 @@ int main(int argv, char ** argc)
         frameId = (frameId+1) % 60;
     }
 
+    glDeleteRenderbuffers(1, &rbo);
     jGLInstance->finish();
 
     return 0;
