@@ -1,5 +1,8 @@
 ## SimpleFastOpenAtomicVisualiser (SFOAV)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/feb05885-b8ac-4417-9f60-4fa4acce35c5" />
+  <br>125,000 "Atoms" in real time with 16x MSAA and 128 triangles per ball.
+</p>
 A simple program to quickly visualise atomic and molecular systems (AMSs).
 
 The code is accelerated using OpenGL for 3D rendering and builds for Linux, Windows, macOS, and Android.
