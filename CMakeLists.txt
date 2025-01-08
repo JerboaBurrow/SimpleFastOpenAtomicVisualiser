@@ -62,7 +62,6 @@ add_executable(${OUTPUT_NAME}
 target_compile_definitions(${OUTPUT_NAME} PUBLIC GLSL_VERSION="330")
 target_compile_definitions(${OUTPUT_NAME} PUBLIC MAX_SPRITE_BATCH_BOUND_TEXTURES=4)
 
-find_package(ZLIB REQUIRED)
 if(NOT WINDOWS)
     # ubuntu has a libz-mingw-w64-dev but not a libpng-mingw-w64-dev...
     # there are no link errors...
