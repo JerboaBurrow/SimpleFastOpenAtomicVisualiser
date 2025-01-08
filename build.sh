@@ -124,6 +124,11 @@ then
     paths+=($p)
   done
 
+  for p in /usr/x86_64-w64-mingw32*
+  do 
+    paths+=($p)
+  done
+
   echo -e "\n###############\nChecking Paths: \n"
   for p in "${paths[@]}"
   do

@@ -52,6 +52,7 @@ jobs:
         cp build/sfoav/sfoav.exe windows/sfoav.exe
         cp build/*.dll windows/
         cp LICENSE* windows/
+        find /usr/ -iname libwinpthread-1.dll
 
     - name: build artifact
       uses: actions/upload-artifact@v4
