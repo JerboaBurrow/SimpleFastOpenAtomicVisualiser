@@ -21,7 +21,7 @@ TEST=0
 OSX=1
 VALIDATION=0
 VERBOSE=0
-VK_SDK="include/VulkanSDK"
+VK_SDK="include/vendored/VulkanSDK"
 BENCHMARK=0
 EXAMPLES=0
 CLEAN=1
@@ -95,9 +95,9 @@ export VULKAN_SDK=$VK_SDK
 export VULKAN_LIBRARY="$VK_SDK/Linux/Lib"
 export VULKAN_INCLUDE_DIR="$VK_SDK/Include"
 
-if [[ $CLEAN -eq 1 ]]; 
+if [[ $CLEAN -eq 1 ]];
 then
-  for file in build CMakeFiles cmake_install.cmake CMakeCache.txt Makefile Particles
+  for file in build CMakeFiles cmake_install.cmake CMakeCache.txt Makefile
   do
     if [ -d $file ];
     then
@@ -112,16 +112,16 @@ then
 fi
 
 if [[ $WINDOWS -eq 0 ]];
-then 
+then
   export VULKAN_SDK=$VK_SDK/Windows
   export VULKAN_LIBRARY="$VK_SDK/Windows/Lib"
-  export VULKAN_INCLUDE_DIR="$VK_SDK/Include" 
+  export VULKAN_INCLUDE_DIR="$VK_SDK/Include"
   dir=$(pwd)
   ln -s "$dir/$VK_SDK/Windows/Lib" "$dir/$VK_SDK/Windows/lib"
   ln -s "$dir/$VK_SDK/Include" "$dir/$VK_SDK/Windows/Include"
   ln -s "$dir/$VK_SDK/Windows/Include" "$dir/$VK_SDK/Windows/include"
   cd build
-  cmake .. -D WINDOWS=ON -D SANITISE=$SANITISE -D VERBOSE=$VERBOSE -D EXAMPLES=$EXAMPLES -D VALIDATION=$VALIDATION -D RELEASE=$RELEASE -D TEST_SUITE=$TEST -D NO_WARN=$NO_WARN -D CMAKE_TOOLCHAIN_FILE=./windows.cmake 
+  cmake .. -D WINDOWS=ON -D SANITISE=$SANITISE -D VERBOSE=$VERBOSE -D EXAMPLES=$EXAMPLES -D VALIDATION=$VALIDATION -D RELEASE=$RELEASE -D TEST_SUITE=$TEST -D NO_WARN=$NO_WARN -D CMAKE_TOOLCHAIN_FILE=./windows.cmake
   make -j 4
   export STATUS=$?
   cd ..
@@ -155,6 +155,9 @@ then
   do
     findAndCopyDLL $j || echo "Could not find $j"
   done
+  rm $dir/$VK_SDK/Windows/lib
+  rm $dir/$VK_SDK/Windows/Include
+  rm $dir/$VK_SDK/Windows/include
 elif [[ $OSX -eq 0 ]];
 then
   cd build

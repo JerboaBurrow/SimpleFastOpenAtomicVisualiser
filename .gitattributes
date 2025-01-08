@@ -1,0 +1,3 @@
+include/vendored/** linguist-vendored
+include/icon.h linguist-vendored
+lib/** linguist-vendored
