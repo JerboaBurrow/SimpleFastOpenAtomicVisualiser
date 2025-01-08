@@ -30,7 +30,7 @@ std::unique_ptr<jGL::jGLInstance> jGLInstance;
 std::ostream & operator <<(std::ostream & o, glm::vec3 v)
 {
     return o << "[" << v.x << ", " << v.y << ", " << v.z << "]";
-} 
+}
 
 glm::vec3 cartesian2Spherical(glm::vec3 xyz)
 {

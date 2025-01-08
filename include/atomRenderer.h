@@ -28,14 +28,14 @@ public:
     )
     {
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
-        
+
         for (uint8_t i = 0; i < maxLevelOfDetail; i++)
         {
             HTM<float> htm;
             htm.build(i);
             meshes.insert(
                 {
-                    i, 
+                    i,
                     {
                         htm.vertices(),
                         htm.vertexNormals()
@@ -292,7 +292,7 @@ private:
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glEnable(GL_DEPTH_TEST);
-                glEnable(GL_CULL_FACE);  
+                glEnable(GL_CULL_FACE);
                 glCullFace(GL_BACK);
 
                 glDrawArraysInstanced(GL_TRIANGLES, 0, mesh.vertices.size(), count);

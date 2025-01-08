@@ -13,12 +13,12 @@
 
 #include <glm/glm.hpp>
 
-const uint32_t NULL_ID = std::numeric_limits<uint32_t>::max(); 
+const uint32_t NULL_ID = std::numeric_limits<uint32_t>::max();
 
 template <class T> using vec3 = glm::vec<3,T,glm::packed_highp>;
 
 template <class T>
-class Triangle 
+class Triangle
 {
 public:
 
@@ -55,7 +55,7 @@ public:
     }
   }
 
-  vec3<T> normal() const 
+  vec3<T> normal() const
   {
     vec3<T> u = y-x;
     vec3<T> v = z-x;
@@ -84,9 +84,9 @@ public:
 
   Trixel
   (
-    std::string id, 
-    vec3<T>  x, 
-    vec3<T>  y, 
+    std::string id,
+    vec3<T>  x,
+    vec3<T>  y,
     vec3<T>  z,
     uint32_t parent = NULL_ID,
     std::vector<uint32_t> children = std::vector<uint32_t>(4,NULL_ID)
@@ -317,7 +317,7 @@ private:
   std::vector<Trixel<T>> Mesh;
 
   std::vector<uint32_t> leafIndices() const
-  {                                                    
+  {
     std::vector<uint32_t> leaves;
     std::vector<uint32_t> stack {0,1,2,3,4,5,6,7};
 
