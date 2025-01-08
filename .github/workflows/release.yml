@@ -25,8 +25,7 @@ jobs:
       run: |
         ./build.sh -t -r -e
         mkdir linux-x86_64
-        cp -r build/Examples linux-x86_64-examples
-        cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64.a
+        cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
         cp LICENSE* linux-x86_64/
 
     - name: build artifact
@@ -50,7 +49,6 @@ jobs:
       run: |
         ./build.sh -t -w -r -e
         mkdir windows
-        cp -r build/Examples windows-examples
         cp build/sfoav/sfoav.exe windows/sfoav.exe
         cp build/*.dll windows/
         cp LICENSE* windows/
@@ -80,7 +78,6 @@ jobs:
       run: |
         ./build.sh -o -e -r
         mkdir macos
-        cp -r build/Examples macos-examples
         cp build/sfoav/sfoav macos/sfoav-macos
         cp LICENSE* macos/
 
