@@ -5,10 +5,23 @@
 
 #include <glm/glm.hpp>
 
+/**
+ * @brief An atom structure.
+ *
+ */
 class Atom
 {
 public:
 
+    /**
+     * @brief Construct a Atom
+     *
+     * @param position the atoms cartesian coordinates.
+     * @param scale the atoms spherical radius.
+     * @param velocity the atoms velocity.
+     * @param force the atoms force.
+     * @param colour the atoms colour.
+     */
     Atom
     (
         glm::vec3 position = glm::vec3(0),

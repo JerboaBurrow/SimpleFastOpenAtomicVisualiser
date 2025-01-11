@@ -3,9 +3,19 @@
 
 #include <triangle.h>
 
+/**
+ * @brief Golden ratio.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const T phi = (1.0+2.23606797749979)*0.5;
 
+/**
+ * @brief A centred Dodecahedron's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> DODECAHEDRON_VERTICES =
 {
@@ -31,6 +41,11 @@ const std::vector<vec3<T>> DODECAHEDRON_VERTICES =
     vec3<T>(-phi<T>, -1.0/phi<T>, 0.0)/phi<T>
 };
 
+/**
+ * @brief A centred Dodecahedron's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> DODECAHEDRON =
 {
@@ -72,13 +87,27 @@ const std::vector<Trixel<T>> DODECAHEDRON =
   {"35",DODECAHEDRON_VERTICES<T>[4],DODECAHEDRON_VERTICES<T>[5],DODECAHEDRON_VERTICES<T>[19]}
 };
 
-// unit size icosahedron
+/**
+ * @brief Golden ratio scaled for a unit icosahedron.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const T ICOSAHEDRON_X = 0.525731112119133606;
 
+/**
+ * @brief 1 scaled for a unit icosahedron.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const T ICOSAHEDRON_Z = 0.850650808352039932;
 
+/**
+ * @brief A centred Icosahedron's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> ICOSAHEDRON_VERTICES =
 {
@@ -87,6 +116,11 @@ const std::vector<vec3<T>> ICOSAHEDRON_VERTICES =
   {ICOSAHEDRON_Z<T>,ICOSAHEDRON_X<T>,0.0}, {-ICOSAHEDRON_Z<T>,ICOSAHEDRON_X<T>, 0.0}, {ICOSAHEDRON_Z<T>,-ICOSAHEDRON_X<T>,0.0}, {-ICOSAHEDRON_Z<T>,-ICOSAHEDRON_X<T>, 0.0}
 };
 
+/**
+ * @brief A centred Icosahedrons's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> ICOSAHEDRON =
 {
@@ -112,6 +146,11 @@ const std::vector<Trixel<T>> ICOSAHEDRON =
   {"19", ICOSAHEDRON_VERTICES<T>[11],ICOSAHEDRON_VERTICES<T>[2],ICOSAHEDRON_VERTICES<T>[7]}
 };
 
+/**
+ * @brief A centred Octahedron's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> OCTAHEDRON_VERTICES =
 {
@@ -123,6 +162,11 @@ const std::vector<vec3<T>> OCTAHEDRON_VERTICES =
   {0.0,0.0,-1.0}
 };
 
+/**
+ * @brief A centred Octahedron's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> OCTAHEDRON =
 {
@@ -139,6 +183,11 @@ const std::vector<Trixel<T>> OCTAHEDRON =
 template <class T>
 const T INV_SQRT3 = 1.0/1.7320508075688772;
 
+/**
+ * @brief A centred Tetrahedron's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> TETRAHEDRON_VERTICES =
 {
@@ -148,6 +197,11 @@ const std::vector<vec3<T>> TETRAHEDRON_VERTICES =
   vec3<T>(-1.0, -1.0, 1.0)*INV_SQRT3<T>
 };
 
+/**
+ * @brief A centred Tetrahedron's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> TETRAHEDRON =
 {
@@ -160,6 +214,11 @@ const std::vector<Trixel<T>> TETRAHEDRON =
 template <class T>
 const T INV_SQRT2 = 1.0/1.4142135623730951;
 
+/**
+ * @brief A centred Cube's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> CUBE_VERTICES =
 {
@@ -173,6 +232,11 @@ const std::vector<vec3<T>> CUBE_VERTICES =
   INV_SQRT2<T>*vec3<T>(-1.0, 1.0, -1.0)
 };
 
+/**
+ * @brief A centred Cube's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> CUBE =
 {
@@ -200,6 +264,11 @@ const T SQRT6 = 2.449489742783178;
 template <class T>
 const T C = 0.5021179759100816;
 
+/**
+ * @brief A centred Triagmented triangular prism's vertices.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<vec3<T>> TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES =
 {
@@ -214,6 +283,11 @@ const std::vector<vec3<T>> TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES =
   C<T>*vec3<T>(-(1.0+SQRT6<T>)/2.0, -(1.0+SQRT6<T>)/(2.0*SQRT3<T>), 0.0)
 };
 
+/**
+ * @brief A centred Triagmented triangular prism's triangulation.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
 const std::vector<Trixel<T>> TRIAUGMENTED_TRIANGULAR_PRISM =
 {
@@ -233,6 +307,12 @@ const std::vector<Trixel<T>> TRIAUGMENTED_TRIANGULAR_PRISM =
   {"13",TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES<T>[5],TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES<T>[8],TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES<T>[1]}
 };
 
+/**
+ * @brief Centre a triangulation at (0,0,0).
+ *
+ * @tparam T numeric type.
+ * @param mesh the triangulation to centre.
+ */
 template <class T>
 void centreMesh(std::vector<Trixel<T>> & mesh)
 {
