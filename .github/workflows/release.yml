@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: install dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential xorg-dev mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev libxinerama-dev libxcursor-dev xvfb x11-apps vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
+      run: sudo apt-get update && sudo apt-get install -y build-essential xvfb x11-apps imagemagick xorg-dev mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev libxinerama-dev libxcursor-dev xvfb x11-apps vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
 
     - name: linux-linux
       run: |
@@ -27,6 +27,23 @@ jobs:
         mkdir linux-x86_64
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
         cp LICENSE* linux-x86_64/
+
+    - name: mesh rendering test
+      working-directory: ${{github.workspace}}/build
+      run: |
+        export DISPLAY=:99
+        sudo Xvfb :99 -screen 0 512x512x24 &
+        sleep 5
+        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_models_test &
+        export PID=$!
+        sleep 10
+        xwd -root -silent | convert xwd:- png:screenshot.png
+        sleep 5 && kill $PID
+
+    - name: upload screenshot
+      uses: actions/upload-artifact@v4
+      with:
+        name: mesh-test.png
 
     - name: build artifact
       uses: actions/upload-artifact@v4
