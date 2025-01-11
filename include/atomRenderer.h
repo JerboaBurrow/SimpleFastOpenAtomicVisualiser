@@ -1,16 +1,17 @@
-#ifndef ATOMRENDERER
-#define ATOMRENDERER
+#ifndef ATOMRENDERER_H
+#define ATOMRENDERER_H
 
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <map>
 #include <utility>
+#include <algorithm>
 
 #include <jGL/OpenGL/gl.h>
 #include <jGL/OpenGL/Shader/glShader.h>
 
-#include <HTM.h>
+#include <hierarchicalTriangularMesh.h>
 
 #include <atom.h>
 
@@ -18,29 +19,68 @@ class AtomRenderer
 {
 public:
 
-    const uint8_t maxLevelOfDetail = 8;
-
     AtomRenderer
     (
         const std::vector<Atom> & atoms,
         uint8_t levelOfDetail = 0,
-        glm::vec3 cameraPosition = glm::vec3(0)
+        glm::vec3 cameraPosition = glm::vec3(0),
+        BASE_MESH mesh = BASE_MESH::ANY
     )
     {
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
 
-        for (uint8_t i = 0; i < maxLevelOfDetail; i++)
+        if (mesh == BASE_MESH::ANY)
         {
-            HTM<float> htm;
-            htm.build(i);
-            meshes.insert(
+            std::vector<HTM<float>> htms;
+
+            // Non-regular triangular faces not yet supported.
+            for (BASE_MESH m : {BASE_MESH::CUBE, BASE_MESH::DODECAHEDRON})
+            {
+                HTM<float> htm(m);
+                htm.build(0);
+                htms.push_back(htm);
+            }
+
+            for (BASE_MESH m : {BASE_MESH::TETRAHEDRON, BASE_MESH::OCTAHEDRON, BASE_MESH::ICOSAHEDRON})
+            {
+                for (uint8_t i = 0; i < 9; i++)
                 {
-                    i,
-                    {
-                        htm.vertices(),
-                        htm.vertexNormals()
-                    }
+                    HTM<float> htm(m);
+                    htm.build(i);
+                    htms.push_back(htm);
                 }
+            }
+
+            std::sort(htms.begin(), htms.end());
+
+            for (uint8_t i = 0; i < htms.size(); i++)
+            {
+                meshes.insert({i, {htms[i].vertices(), htms[i].vertexNormals()}});
+                triangleCounts.push_back(htms[i].triangles());
+            }
+        }
+        else
+        {
+            for (uint8_t i = 0; i < 7; i++)
+            {
+                HTM<float> htm(mesh);
+                htm.build(i);
+                meshes.insert({i, {htm.vertices(), htm.vertexNormals()}});
+                triangleCounts.push_back(htm.triangles());
+            }
+        }
+
+        for (uint8_t i = 0; i < meshes.size(); i++)
+        {
+            buffers.push_back
+            (
+                std::move(
+                    std::make_unique<AtomBuffer>
+                    (
+                        meshes[i],
+                        atoms.size()
+                    )
+                )
             );
         }
 
@@ -48,20 +88,65 @@ public:
         this->cameraPosition = cameraPosition;
         cameraDistances.resize(atoms.size());
 
-        buffer = std::make_unique<AtomBuffer>(meshes[levelOfDetail], atoms.size());
-        bufferLowRes = std::make_unique<AtomBuffer>(meshes[0], atoms.size());
         updateAtoms(atoms);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
     }
 
-    uint32_t triangles() const { return 8 * std::pow(4, levelOfDetail); }
+    AtomRenderer
+    (
+        const std::vector<Atom> & atoms,
+        std::vector<Trixel<float>> mesh,
+        uint8_t levelOfDetail = 0,
+        glm::vec3 cameraPosition = glm::vec3(0)
+    )
+    {
+        shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
 
-    void setLevelOfDetail(uint8_t lod){ levelOfDetail = std::min(lod, maxLevelOfDetail); }
+        for (uint8_t i = 0; i < 7; i++)
+        {
+            HTM<float> htm(mesh);
+            htm.build(i);
+            meshes.insert({i, {htm.vertices(), htm.vertexNormals()}});
+            triangleCounts.push_back(htm.triangles());
+        }
+
+        for (uint8_t i = 0; i < meshes.size(); i++)
+        {
+            buffers.push_back
+            (
+                std::move(
+                    std::make_unique<AtomBuffer>
+                    (
+                        meshes[i],
+                        atoms.size()
+                    )
+                )
+            );
+        }
+
+        setLevelOfDetail(levelOfDetail);
+        this->cameraPosition = cameraPosition;
+        cameraDistances.resize(atoms.size());
+
+        updateAtoms(atoms);
+
+        jGL::GL::glError("AtomRenderer::AtomRenderer");
+    }
+
+    uint32_t triangles() const
+    {
+        uint64_t triangles = 0;
+        uint8_t m = 0;
+        for (auto & buf : buffers) { triangles += buf->atomCount()*triangleCounts[m]; m++; }
+        return triangles;
+    }
+
+    void setLevelOfDetail(uint8_t lod){ levelOfDetail = std::min(lod, uint8_t(meshes.size())); }
 
     uint8_t getLevelOfDetail() const { return levelOfDetail; }
 
-    void updateAtoms(const std::vector<Atom> & atoms)
+    void updateAtoms(const std::vector<Atom> & atoms, std::map<uint64_t, uint8_t> levelsOfDetail = {})
     {
         uint64_t i = 0;
         uint64_t furthest = 0;
@@ -78,32 +163,39 @@ public:
             i++;
         }
 
-        highRes.clear();
-        lowRes.clear();
+        for (auto & buf : buffers) { buf->flip(); }
+
         float rcrit = 0.5f*(maxDistance-minDistance);
-        for (uint32_t i = 0; i < atoms.size(); i++)
+        for (uint64_t i = 0; i < atoms.size(); i++)
         {
-            float r = glm::length(atoms[furthest].position-atoms[i].position);
-            if (r < rcrit)
+            auto lod = levelsOfDetail.find(i);
+            if (lod == levelsOfDetail.end())
             {
-                lowRes.push_back(atoms[i]);
+                float r = glm::length(atoms[furthest].position-atoms[i].position);
+                if (r < rcrit)
+                {
+                    buffers[0]->insert(atoms[i]);
+                }
+                else
+                {
+                    buffers[levelOfDetail]->insert(atoms[i]);
+                }
             }
             else
             {
-                highRes.push_back(atoms[i]);
+                uint8_t l = lod->second;
+                if (l > meshes.size()-1) { l = meshes.size()-1; }
+                buffers[l]->insert(atoms[i]);
             }
         }
-        buffer->update(highRes);
-        buffer->updateVertexArray();
-        bufferLowRes->update(lowRes);
-        bufferLowRes->updateVertexArray();
+
+        for (auto & buf : buffers) { buf->updateVertexArray(); }
     }
 
     void draw()
     {
         shader->use();
-        bufferLowRes->draw(lowRes.size());
-        buffer->draw(highRes.size());
+        for (auto & buf : buffers) { buf->draw(); }
         jGL::GL::glError("AtomRenderer::draw");
     }
 
@@ -128,6 +220,7 @@ private:
     std::map<uint8_t, SphereMesh> meshes;
 
     uint64_t atomCount = 0;
+    std::vector<uint32_t> triangleCounts;
 
     std::vector<float> cameraDistances;
 
@@ -285,8 +378,27 @@ private:
             glDeleteVertexArrays(1, &vao);
         }
 
+        void flip() { index = 0; atoms = 0; }
+        void insert(const Atom & atom)
+        {
+            positionsAndScales[index] = atom.position.x;
+            positionsAndScales[index+1] = atom.position.y;
+            positionsAndScales[index+2] = atom.position.z;
+            positionsAndScales[index+3] = atom.scale;
+
+            colours[index] = atom.colour.r;
+            colours[index+1] = atom.colour.g;
+            colours[index+2] = atom.colour.b;
+            colours[index+3] = atom.colour.a;
+            index += 4;
+            atoms++;
+        }
+        uint32_t atomCount() const { return atoms; }
+
         void draw(uint32_t count)
         {
+            count = std::min(count, atoms);
+            if (count == 0) { return; }
             glBindVertexArray(vao);
 
                 glEnable(GL_BLEND);
@@ -300,22 +412,12 @@ private:
             glBindVertexArray(0);
         }
 
+        void draw() { draw(atoms); }
+
         void update(const std::vector<Atom> & atoms)
         {
-            uint32_t i = 0;
-            for (const Atom & atom : atoms)
-            {
-                positionsAndScales[i] = atom.position.x;
-                positionsAndScales[i+1] = atom.position.y;
-                positionsAndScales[i+2] = atom.position.z;
-                positionsAndScales[i+3] = atom.scale;
-
-                colours[i] = atom.colour.r;
-                colours[i+1] = atom.colour.g;
-                colours[i+2] = atom.colour.b;
-                colours[i+3] = atom.colour.a;
-                i+=4;
-            }
+            flip();
+            for (const Atom & atom : atoms) { insert(atom); }
         }
 
         void updateVertexArray()
@@ -344,19 +446,19 @@ private:
             glBindVertexArray(0);
         }
 
+    private:
+
         const SphereMesh & mesh;
         uint32_t size;
         GLuint vao, a_vertices, a_normals, a_positionsAndScales, a_colours;
         std::vector<float> positionsAndScales;
         std::vector<float> colours;
+
+        uint32_t index = 0;
+        uint32_t atoms = 0;
     };
 
-    std::unique_ptr<AtomBuffer> buffer;
-    std::unique_ptr<AtomBuffer> bufferLowRes;
-
-    std::vector<Atom> highRes;
-    std::vector<Atom> lowRes;
-
+    std::vector<std::unique_ptr<AtomBuffer>> buffers;
 };
 
-#endif /* ATOMRENDERER */
+#endif /* ATOMRENDERER_H */

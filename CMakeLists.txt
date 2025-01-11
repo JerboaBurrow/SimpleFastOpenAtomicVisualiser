@@ -111,3 +111,7 @@ if (WINDOWS)
     file(GLOB DLL "${PROJECT_SOURCE_DIR}/common/windows/*.dll")
     file(COPY ${DLL} DESTINATION "${CMAKE_BINARY_DIR}/${OUTPUT_NAME}/")
 endif()
+
+If (TEST_SUITE)
+    add_subdirectory(tests)
+endif()

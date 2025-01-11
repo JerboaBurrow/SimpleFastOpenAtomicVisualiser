@@ -9,10 +9,10 @@ The code is accelerated using OpenGL for 3D rendering and builds for Linux, Wind
 
 #### What it is
 
-- **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI. 
+- **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI.
 
 - **Fast**: rendering as fast as e.g. VMD or other 3d-viewers, with many efficiency options for level of detail.
-- **Open**: MIT licensed and open source, enabling 
+- **Open**: MIT licensed and open source, enabling
 commercial use, adaptation, extension etc. Including the (permissive) upstream licenses in ```LICENSES.md```.
 
 - **Atomic visualisation**: render, colourable, atoms and bonds in 3D space loaded from standard AMSs configuration and trajectory data files.
@@ -21,23 +21,33 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 
 #### Features (in development)
 
-- [ ] Atom ball meshes (of various triangle counts)
-  - [ ] Hierarchical triangular mesh (8, 32, 128, ...).
-  - [ ] Icosphere (20, 80, 320, ...).
-  - [ ] Cubosphere (6, 24, 96, ...).
+- [x] Atom ball meshes (of various triangle counts/LOD)
+  - [x] Tetrosphere (4, 16, 64, ...).
+  - [x] Hexosphere (6).
+  - [x] Octosphere (8, 32, 128, ...).
+  - [x] Icosphere (20, 80, 320, ...).
+  - [x] Dodecasphere (36).
+  - [ ] VDW scaled atom balls.
+- [ ] LOD
+  - [ ] Overrideable LOD per atom.
+  - [ ] Automatic LOD scaling.
+  - [ ] Configurable maximum level of detail (LOD).
 - [ ] Atom (bill-boarded) imposter spheres.
-- [ ] Bond tube meshes.
-- [ ] VDW scaled atom balls.
-- [ ] User supplied editable colour sets.
-- [ ] Standard colour sets.
-- [ ] Configurable level of detail (LOD).
-- [ ] Velocity colouring.
-- [ ] Force colouring.
-- [ ] Render to ```png```.
-- [ ] Render to ```gif```.
-- [ ] Headless context (e.g. for commandline HPC use).
-- [ ] Atom position file formats: DL_POLY CONFIG, XYZ, EXTXYZ, CIF.
-- [ ] Atom connectivity file formats: DL_POLY FIELD.
+- [ ] Bonds.
+  - [ ] Bond tube meshes.
+- [ ] Colouring
+  - [ ] User supplied editable colour sets.
+  - [ ] Standard colour sets.
+  - [ ] Velocity colouring.
+  - [ ] Force colouring.
+- [ ] Input
+  - [ ] Atom position file formats: DL_POLY CONFIG, XYZ, EXTXYZ, CIF.
+  - [ ] Atom connectivity file formats: DL_POLY FIELD.
+- [ ] Output
+  - [ ] Render to ```png```.
+  - [ ] Render to ```gif```.
+  - [ ] Headless context (e.g. for commandline HPC use).
+- [ ] Desktop app (linux, windows, and macOS).
 - [ ] Android app.
 
 ---

@@ -1,39 +1,26 @@
-#include <main.h>
+#include <models.h>
+
 int main(int argv, char ** argc)
 {
-
-    uint8_t lod = 0;
-    uint8_t count = 2;
-    uint8_t MSAA = 16;
-    BASE_MESH mesh = BASE_MESH::ANY;
-    if (argv > 1)
-    {
-        lod = std::stoi(argc[1]);
-    }
-
-    if (argv > 2)
-    {
-        count = std::stoi(argc[2]);
-    }
-
-    if (argv > 3)
-    {
-        mesh = BASE_MESH(std::min(uint8_t(std::stoi(argc[3])), uint8_t(BASE_MESH::ANY)));
-    }
-
     jGL::DesktopDisplay::Config conf;
+
+    uint8_t MSAA = 0;
+    if (argv > 1) { MSAA = std::stoi(argc[1]); }
 
     conf.VULKAN = false;
 
     #ifdef MACOS
     conf.COCOA_RETINA = true;
     #endif
-    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastAtomicVisualiser", conf);
+    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastAtomicVisualiser - Model test", conf);
     display.setFrameLimit(60);
     std::vector<std::byte> vicon(icon.begin(), icon.end());
     display.setIcon({vicon});
 
     glewInit();
+
+    std::string vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+    std::string device = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
 
     jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX,resY)));
 
@@ -46,14 +33,15 @@ int main(int argv, char ** argc)
     float d = 1.75f;
 
     std::vector<Atom> atoms;
+    std::map<uint64_t, uint8_t> lods;
+    int col = 0;
+    int row = 0;
     for (int i = 0; i < count; i++)
     {
-        for (int j = 0; j < count; j++)
-        {
-            for (int k = 0; k < count; k++){
-                atoms.push_back({{d*(i-4), d*k, d*(j-4)}, 1.0f});
-            }
-        }
+        atoms.push_back({{d*row, d*col, 0.0}, 1.0f});
+        lods.insert({i,i});
+        row++;
+        if (i % cols == 0) { col++; row = 0; }
     }
 
     center(atoms);
@@ -74,7 +62,7 @@ int main(int argv, char ** argc)
         glm::vec3(0.0, 1.0, 0.0)
     );
 
-    AtomRenderer renderer(atoms, lod, spherical2cartesian(cameraPositionSpherical), mesh);
+    AtomRenderer renderer(atoms, 0, spherical2cartesian(cameraPositionSpherical));
     renderer.setProjection(projection * view);
     renderer.setLighting
     (
@@ -104,6 +92,8 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
         jGLInstance->setClear(glm::vec4(1.0f));
         jGLInstance->clear();
+
+        cameraPositionSpherical.z += dphi/20.0;
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -158,7 +148,7 @@ int main(int argv, char ** argc)
             0.1f
         );
 
-        renderer.updateAtoms(atoms);
+        renderer.updateAtoms(atoms, lods);
         renderer.draw();
 
         std::stringstream debugText;
@@ -166,13 +156,13 @@ int main(int argv, char ** argc)
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Triangles: " << renderer.triangles() << "\n"
-                  << "Pos: " << cameraPositionSpherical;
+                  << "Total triangles: " << renderer.triangles() << "\n"
+                  << vendor << " " << device;
 
         jGLInstance->text(
             debugText.str(),
-            glm::vec2(64.0f, resY-64.0f),
-            0.5f,
+            glm::vec2(64.0f, resY-32.0f),
+            0.25f,
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
         );
 
