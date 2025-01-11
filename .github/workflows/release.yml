@@ -29,8 +29,8 @@ jobs:
         cp LICENSE* linux-x86_64/
 
     - name: mesh rendering test
-      working-directory: ${{github.workspace}}/build
       run: |
+        cd build
         export DISPLAY=:99
         sudo Xvfb :99 -screen 0 512x512x24 &
         sleep 5
@@ -39,6 +39,7 @@ jobs:
         sleep 10
         xwd -root -silent | convert xwd:- png:screenshot.png
         sleep 5 && kill $PID
+        ls
 
     - name: upload screenshot
       uses: actions/upload-artifact@v4
