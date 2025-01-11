@@ -3,23 +3,40 @@
 
 #include <triangle.h>
 
+/**
+ * @brief The null Trixel identity.
+ *
+ */
 const uint32_t NULL_ID = std::numeric_limits<uint32_t>::max();
 
+/**
+ * @brief A triangular pixel of a hierarchical triangular mesh.
+ * @remark @see HTM.
+ * @tparam T numeric type.
+ */
 template <class T>
 class Trixel: public Triangle<T>
 {
-private:
-
-  std::string ID;
-  uint32_t parent;
-  std::vector<uint32_t> children;
-
 public:
 
+  /**
+   * @brief Construct a new empty Trixel.
+   *
+   */
   Trixel()
   : Triangle<T>(), ID(""), parent(NULL_ID), children(std::vector<uint32_t>(4,NULL_ID))
   {};
 
+  /**
+   * @brief Construct a new Trixel
+   *
+   * @param id the identity.
+   * @param x first vertex.
+   * @param y second vertex.
+   * @param z third vertex.
+   * @param parent the parent Trixel.
+   * @param children child Trixels.
+   */
   Trixel
   (
     std::string id,
@@ -32,16 +49,31 @@ public:
   : Triangle<T>(x, y, z), ID(id), parent(parent), children(children)
   {};
 
+  /**
+   * @brief Return the Trixel's id
+   *
+   * @return std::string the string id.
+   */
   std::string getID() const
   {
     return ID;
   }
 
+  /**
+   * @brief Set the Trixel's parent Trixel.
+   *
+   * @param p the parent's id.
+   */
   void setParent(uint32_t & p)
   {
     parent = p;
   }
 
+  /**
+   * @brief Set the Trixel's children.
+   *
+   * @param c childrens' ids.
+   */
   void setChildren(std::vector<uint32_t> & c)
   {
     if (c.size() == children.size())
@@ -53,13 +85,32 @@ public:
     }
   }
 
+  /**
+   * @brief Get the Trixel's children.
+   *
+   * @return const std::vector<uint32_t>& childrens' ids.
+   */
   const std::vector<uint32_t> & getChildren() const
   {
     return children;
   }
 
+private:
+
+  std::string ID;
+  uint32_t parent;
+  std::vector<uint32_t> children;
+
 };
 
+/**
+ * @brief Subdivide a Trixel.
+ *
+ * @remark Subdivides into 4 Trixels (like a Triforce).
+ * @tparam T numeric type.
+ * @param trix the Trixel to subdivide.
+ * @return std::array<Trixel<T>, 4> The resulting subdivision.
+ */
 template <class T>
 std::array<Trixel<T>, 4> subdivideTrixel(Trixel<T> & trix)
 {

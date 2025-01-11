@@ -15,10 +15,27 @@
 
 #include <atom.h>
 
+/**
+ * @brief Render atoms as sphere meshes.
+ *
+ * @remark @see HierarchicalTriangularMesh.
+ * @remark The level of detail can be automatically de-scaled with distance.
+ * @remark The level of detail can be overriden.
+ */
 class AtomRenderer
 {
 public:
 
+    /**
+     * @brief Construct a new AtomRenderer from a BASE_MESH type.
+     *
+     * @remark BASE_MESH::ANY will sample from refinements of all BASE_MESH types. Giving a finer range of level of detail .
+     * @remark Choosing a specific BASE_MESH will mean the level of detail is refinements of just that mesh.
+     * @param atoms the atoms to draw.
+     * @param levelOfDetail the level of detail.
+     * @param cameraPosition the cartesian position of the camera.
+     * @param mesh the base mesh type. @see BASE_MESH.
+     */
     AtomRenderer
     (
         const std::vector<Atom> & atoms,
@@ -31,12 +48,12 @@ public:
 
         if (mesh == BASE_MESH::ANY)
         {
-            std::vector<HTM<float>> htms;
+            std::vector<HierarchicalTriangularMesh<float>> htms;
 
             // Non-regular triangular faces not yet supported.
             for (BASE_MESH m : {BASE_MESH::CUBE, BASE_MESH::DODECAHEDRON})
             {
-                HTM<float> htm(m);
+                HierarchicalTriangularMesh<float> htm(m);
                 htm.build(0);
                 htms.push_back(htm);
             }
@@ -45,7 +62,7 @@ public:
             {
                 for (uint8_t i = 0; i < 9; i++)
                 {
-                    HTM<float> htm(m);
+                    HierarchicalTriangularMesh<float> htm(m);
                     htm.build(i);
                     htms.push_back(htm);
                 }
@@ -63,7 +80,7 @@ public:
         {
             for (uint8_t i = 0; i < 7; i++)
             {
-                HTM<float> htm(mesh);
+                HierarchicalTriangularMesh<float> htm(mesh);
                 htm.build(i);
                 meshes.insert({i, {htm.vertices(), htm.vertexNormals()}});
                 triangleCounts.push_back(htm.triangles());
@@ -93,6 +110,14 @@ public:
         jGL::GL::glError("AtomRenderer::AtomRenderer");
     }
 
+    /**
+     * @brief Construct a new AtomRenderer from a triangulation.
+     *
+     * @param atoms the atoms to draw.
+     * @param mesh the triangulation to use.
+     * @param levelOfDetail the level of detail.
+     * @param cameraPosition the cartesian position of the camera.
+     */
     AtomRenderer
     (
         const std::vector<Atom> & atoms,
@@ -105,7 +130,7 @@ public:
 
         for (uint8_t i = 0; i < 7; i++)
         {
-            HTM<float> htm(mesh);
+            HierarchicalTriangularMesh<float> htm(mesh);
             htm.build(i);
             meshes.insert({i, {htm.vertices(), htm.vertexNormals()}});
             triangleCounts.push_back(htm.triangles());
@@ -132,8 +157,14 @@ public:
         updateAtoms(atoms);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
+
     }
 
+    /**
+     * @brief The number of triangles drawn.
+     *
+     * @return uint32_t the number of triangles.
+     */
     uint32_t triangles() const
     {
         uint64_t triangles = 0;
@@ -142,10 +173,34 @@ public:
         return triangles;
     }
 
-    void setLevelOfDetail(uint8_t lod){ levelOfDetail = std::min(lod, uint8_t(meshes.size())); }
+    /**
+     * @brief Set the current level of detail.
+     *
+     * @param lod the new level of detail.
+     */
+    void setLevelOfDetail(uint8_t lod){ levelOfDetail = std::min(lod, uint8_t(meshes.size()-1)); }
 
+    /**
+     * @brief Get the current level of detail.
+     *
+     * @return uint8_t the current level of detail.
+     */
     uint8_t getLevelOfDetail() const { return levelOfDetail; }
 
+    /**
+     * @brief Get the maximum level of detail.
+     *
+     * @return uint8_t the maximum level of detail.
+     */
+    uint8_t maxLevelOfDetail() const { return meshes.size()-1; }
+
+    /**
+     * @brief Update buffers with new Atom data.
+     *
+     * @remark will upload data to the GPU.
+     * @param atoms the new Atom data to upload.
+     * @param levelsOfDetail overried level of detail per atom.
+     */
     void updateAtoms(const std::vector<Atom> & atoms, std::map<uint64_t, uint8_t> levelsOfDetail = {})
     {
         uint64_t i = 0;
@@ -192,6 +247,10 @@ public:
         for (auto & buf : buffers) { buf->updateVertexArray(); }
     }
 
+    /**
+     * @brief Draw the current Atoms
+     *
+     */
     void draw()
     {
         shader->use();
@@ -199,8 +258,20 @@ public:
         jGL::GL::glError("AtomRenderer::draw");
     }
 
+    /**
+     * @brief Set the Projection matrix (projection * view).
+     *
+     * @param p the projection matrix.
+     */
     void setProjection(glm::mat4 p) { shader->use(); shader->setUniform<glm::mat4>("proj", p); }
 
+    /**
+     * @brief Set the lighting of the scene.
+     *
+     * @param position the camera/light position.
+     * @param colour the light colour.
+     * @param ambient the ambient light strength.
+     */
     void setLighting(glm::vec3 position, glm::vec3 colour, float ambient)
     {
         cameraPosition = position;
@@ -261,8 +332,19 @@ private:
         "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a);\n"
         "}";
 
+    /**
+     * @brief Manages OpenGL arrays for Atoms
+     * @remark is constructed with a set maximum number of atoms.
+     * @remark Atoms are instance rendered with a single mesh.
+     */
     struct AtomBuffer
     {
+        /**
+         * @brief Construct a new AtomBuffer.
+         *
+         * @param mesh the mesh to instance draw with.
+         * @param atoms the maximum number of atoms in this buffer.
+         */
         AtomBuffer
         (
             const SphereMesh & mesh,
@@ -378,7 +460,17 @@ private:
             glDeleteVertexArrays(1, &vao);
         }
 
+        /**
+         * @brief Set the buffer position to the start.
+         *
+         */
         void flip() { index = 0; atoms = 0; }
+
+        /**
+         * @brief Insert (update) an Atoms data.
+         *
+         * @param atom the Atom data to insert.
+         */
         void insert(const Atom & atom)
         {
             positionsAndScales[index] = atom.position.x;
@@ -393,8 +485,19 @@ private:
             index += 4;
             atoms++;
         }
+
+        /**
+         * @brief The maximum number of Atoms to draw.
+         *
+         * @return uint32_t number of atoms.
+         */
         uint32_t atomCount() const { return atoms; }
 
+        /**
+         * @brief Draw the atoms.
+         *
+         * @param count override number of atoms.
+         */
         void draw(uint32_t count)
         {
             count = std::min(count, atoms);
@@ -412,14 +515,27 @@ private:
             glBindVertexArray(0);
         }
 
+        /**
+         * @brief Draw all the Atoms.
+         *
+         */
         void draw() { draw(atoms); }
 
-        void update(const std::vector<Atom> & atoms)
+        /**
+         * @brief Insert a batch of Atoms.
+         *
+         * @param atoms the batch of Atoms to insert.
+         */
+        void insert(const std::vector<Atom> & atoms)
         {
             flip();
             for (const Atom & atom : atoms) { insert(atom); }
         }
 
+        /**
+         * @brief Upload Atom data to the GPU.
+         *
+         */
         void updateVertexArray()
         {
             glBindVertexArray(vao);

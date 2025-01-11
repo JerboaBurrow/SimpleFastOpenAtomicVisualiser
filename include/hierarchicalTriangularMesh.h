@@ -1,5 +1,5 @@
-#ifndef HTM_H
-#define HTM_H
+#ifndef HIERARCHICALTRIANGULARMESH_H
+#define HIERARCHICALTRIANGULARMESH_H
 
 #include <iostream>
 #include <fstream>
@@ -17,14 +17,28 @@
 #include <trixel.h>
 #include <meshes.h>
 
+/**
+ * @brief Base mesh types for refinement.
+ *
+ */
 enum class BASE_MESH : uint8_t {ICOSAHEDRON, OCTAHEDRON, DODECAHEDRON, CUBE, TETRAHEDRON, TRIAUGMENTED_TRIANGULAR_PRISM, ANY};
 
+/**
+ * @brief A refineable mesh of triangles.
+ *
+ * @tparam T numeric type.
+ */
 template <class T>
-class HTM
+class HierarchicalTriangularMesh
 {
 public:
 
-  HTM(BASE_MESH mesh)
+  /**
+   * @brief Construct a new Hierarchical Triangular Mesh from a library base.
+   *
+   * @param mesh either a specific base or any. @see meshes.h.
+   */
+  HierarchicalTriangularMesh(BASE_MESH mesh)
   : depth(0)
   {
     // depth 0 hard coded
@@ -56,17 +70,37 @@ public:
     rootMeshSize = this->mesh.size();
   };
 
-  HTM(const std::vector<Trixel<T>> & baseMesh)
+  /**
+   * @brief Construct a new Hierarchical Triangular Mesh from a user base mesh.
+   *
+   * @param baseMesh a user supplied triangulation.
+   */
+  HierarchicalTriangularMesh(const std::vector<Trixel<T>> & baseMesh)
   : depth(0), mesh(baseMesh)
   {
     rootMeshSize = this->mesh.size();
     centreMesh<T>(this->mesh);
   };
 
+  /**
+   * @brief Get the number of refinements.
+   *
+   * @return uint32_t refinements calculated.
+   */
   uint32_t size() const { return depth; }
 
+  /**
+   * @brief Get the number of triangles at the largest refinement.
+   *
+   * @return uint32_t the number of triangles.
+   */
   uint32_t triangles() const { return rootMeshSize * std::pow(4, depth); }
 
+  /**
+   * @brief Refine the mesh to a give depth.
+   *
+   * @param depth depth of refinement.
+   */
   void build(uint32_t depth = 0)
   {
     this->depth = depth;
@@ -95,6 +129,11 @@ public:
     return;
   }
 
+  /**
+   * @brief The triangulation at the current refinement.
+   *
+   * @return std::vector<Trixel<T>> the triangulation.
+   */
   std::vector<Trixel<T>> leaves() const
   {
     std::vector<Trixel<T>> l;
@@ -106,6 +145,11 @@ public:
     return l;
   }
 
+  /**
+   * @brief Get the vertices of the mesh.
+   *
+   * @return std::vector<T> vertices flattened for each triangle.
+   */
   std::vector<T> vertices() const
   {
     std::vector<T> v;
@@ -125,6 +169,11 @@ public:
     return v;
   }
 
+  /**
+   * @brief Get the normal vectors for each triangle.
+   *
+   * @return std::vector<T> the normal vectors, flattened.
+   */
   std::vector<T> vertexNormals() const
   {
     std::vector<T> n;
@@ -142,35 +191,6 @@ public:
       }
     }
     return n;
-  }
-
-  void writeLeaves(const std::string & filename) const
-  {
-    std::ofstream output;
-    output.open(filename);
-    if (output.is_open())
-    {
-      std::vector<uint32_t> leaves = leafIndices();
-      for (uint32_t i = 0; i < leaves.size(); i++)
-      {
-        Trixel<T> trix = mesh[leaves[i]];
-        auto v = trix.getVertices();
-        for (uint32_t j = 0; j < v.size(); j++)
-        {
-          for (uint32_t k = 0; k < 3; k++)
-          {
-            output << v[j][k] << ",";
-          }
-        }
-        output << trix.getID() << std::endl;
-      }
-      output.close();
-    }
-    else
-    {
-      std::cout << "Error in reading output file: " << filename << std::endl;
-      exit (EXIT_FAILURE);
-    }
   }
 
 private:
@@ -223,7 +243,17 @@ private:
   }
 };
 
+/**
+ * @brief HierarchicalTriangularMesh ordering.
+ *
+ * @remark Ordered by number of triangles.
+ * @tparam T numeric type.
+ * @param a mesh a.
+ * @param b mesh b.
+ * @return true if a has less triangles than b.
+ * @return false if a has more than or the same triangles as b.
+ */
 template <class T>
-bool operator <(const HTM<T> & a, const HTM<T> & b) { return a.triangles() < b.triangles(); }
+bool operator <(const HierarchicalTriangularMesh<T> & a, const HierarchicalTriangularMesh<T> & b) { return a.triangles() < b.triangles(); }
 
-#endif /* HTM_H */
+#endif /* HIERARCHICALTRIANGULARMESH_H */
