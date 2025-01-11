@@ -1,5 +1,5 @@
-#ifndef MAIN
-#define MAIN
+#ifndef MODELS_H
+#define MODELS_H
 
 #include <sstream>
 
@@ -22,6 +22,8 @@ const unsigned int resY = resX;
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;
 const float dphi = (2.0*3.14)*0.05;
+const int count = 28;
+const int cols = 4;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
 
@@ -93,4 +95,4 @@ std::string fixedLengthNumber(double x, unsigned length)
     return dtrunc;
 }
 
-#endif /* MAIN */
+#endif /* MODELS_H */
