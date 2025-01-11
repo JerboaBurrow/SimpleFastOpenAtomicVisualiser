@@ -1,0 +1,37 @@
+<map id="include/hierarchicalTriangularMesh.h" name="include/hierarchicalTriangularMesh.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="428,5,641,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,85,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="428,44,277,66,100,96,99,91,276,61,427,38"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="110,93,183,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="436,48,198,96,197,91,435,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="208,93,267,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="464,48,281,96,279,91,463,43"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="280,240,347,265"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="447,48,404,67,367,95,346,126,331,162,322,197,318,226,312,226,317,196,326,160,341,124,363,91,401,62,445,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="390,240,453,265"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="447,48,410,67,395,79,382,95,375,111,372,128,376,164,390,198,407,227,402,230,385,200,371,165,366,128,370,109,378,92,391,76,407,62,444,43"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="487,240,543,265"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="554,44,570,66,583,93,584,106,583,119,582,157,579,173,572,193,558,215,541,233,537,229,554,211,567,191,574,172,576,156,577,118,579,106,577,94,566,69,550,47"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="567,240,630,265"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="563,44,584,65,601,92,610,128,613,164,607,227,602,226,608,164,605,129,596,94,580,69,559,48"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="744,93,821,119"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="595,43,734,87,733,92,593,48"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="845,93,904,119"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="624,43,832,90,831,96,623,48"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="928,93,1003,119"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="642,41,915,90,914,96,641,46"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="655,240,759,265"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="566,43,595,65,622,92,647,126,669,162,699,226,695,228,664,165,643,129,618,95,591,69,563,48"/>
+<area shape="rect" id="Node000013" href="$trixel_8h.html" title=" " alt="" coords="501,93,568,119"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="537,46,537,79,532,79,532,46"/>
+<area shape="rect" id="Node000015" href="$meshes_8h.html" title=" " alt="" coords="392,93,477,119"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="512,48,462,87,459,82,509,43"/>
+<area shape="rect" id="Node000014" href="$triangle_8h.html" title=" " alt="" coords="473,167,557,192"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="534,120,524,154,519,153,529,118"/>
+<area shape="poly" id="edge14_Node000014_Node000005" title=" " alt="" coords="483,195,360,238,358,233,481,190"/>
+<area shape="poly" id="edge15_Node000014_Node000006" title=" " alt="" coords="501,194,449,234,446,229,498,190"/>
+<area shape="poly" id="edge16_Node000014_Node000007" title=" " alt="" coords="517,192,517,226,512,226,512,192"/>
+<area shape="poly" id="edge17_Node000014_Node000008" title=" " alt="" coords="530,190,576,229,573,233,526,194"/>
+<area shape="poly" id="edge18_Node000014_Node000012" title=" " alt="" coords="546,190,663,232,661,237,545,195"/>
+<area shape="poly" id="edge20_Node000015_Node000014" title=" " alt="" coords="449,117,493,156,490,160,446,121"/>
+</map>
