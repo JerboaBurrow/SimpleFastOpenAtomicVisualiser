@@ -6,6 +6,7 @@ int main(int argv, char ** argc)
     uint8_t count = 2;
     uint8_t MSAA = 16;
     BASE_MESH mesh = BASE_MESH::ANY;
+    bool impostors = false;
     if (argv > 1)
     {
         lod = std::stoi(argc[1]);
@@ -18,7 +19,9 @@ int main(int argv, char ** argc)
 
     if (argv > 3)
     {
-        mesh = BASE_MESH(std::min(uint8_t(std::stoi(argc[3])), uint8_t(BASE_MESH::ANY)));
+        uint8_t m = std::min(uint8_t(std::stoi(argc[3])), uint8_t(BASE_MESH::ANY)+1);
+        if (m < BASH_MESH:ANY){ mesh = BASE_MESH(m); }
+        else { impostors = true; }
     }
 
     jGL::DesktopDisplay::Config conf;
@@ -58,7 +61,7 @@ int main(int argv, char ** argc)
 
     center(atoms);
 
-    glm::vec3 cameraPositionSpherical = glm::vec3(1*count, 1.96f, M_PI);
+    glm::vec3 cameraPositionSpherical = glm::vec3(d*count, 1.96f, M_PI);
 
     glm::mat4 projection = glm::perspective
     (
@@ -75,7 +78,8 @@ int main(int argv, char ** argc)
     );
 
     AtomRenderer renderer(atoms, lod, spherical2cartesian(cameraPositionSpherical), mesh);
-    renderer.setProjection(projection * view);
+    renderer.setProjection(projection);
+    renderer.setView(view);
     renderer.setLighting
     (
         spherical2cartesian(cameraPositionSpherical),
@@ -104,6 +108,9 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
         jGLInstance->setClear(glm::vec4(1.0f));
         jGLInstance->clear();
+
+        if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
+        else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -150,7 +157,8 @@ int main(int argv, char ** argc)
             glm::vec3(0.0, 1.0, 0.0)
         );
 
-        renderer.setProjection(projection * view);
+        renderer.setProjection(projection);
+        renderer.setView(view);
         renderer.setLighting
         (
             spherical2cartesian(cameraPositionSpherical),
@@ -159,14 +167,14 @@ int main(int argv, char ** argc)
         );
 
         renderer.updateAtoms(atoms);
-        renderer.draw();
+        renderer.draw(impostors);
 
         std::stringstream debugText;
 
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Triangles: " << renderer.triangles() << "\n"
+                  << "Atoms/Triangles: " << atoms.size() << "/" << renderer.triangles(true) << "\n"
                   << "Pos: " << cameraPositionSpherical;
 
         jGLInstance->text(

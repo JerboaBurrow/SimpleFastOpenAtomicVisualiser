@@ -44,7 +44,10 @@ public:
         BASE_MESH mesh = BASE_MESH::ANY
     )
     {
-        shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
+        meshShader = std::make_unique<jGL::GL::glShader>(meshVertexShader, meshFragmentShader);
+        imposterShader = std::make_unique<jGL::GL::glShader>(imposterVertexShader, imposterFragmentShader);
+        imposterShader->use();
+        imposterShader->setUniform<float>("clipCorrection", 1.5f);
 
         if (mesh == BASE_MESH::ANY)
         {
@@ -60,7 +63,7 @@ public:
 
             for (BASE_MESH m : {BASE_MESH::TETRAHEDRON, BASE_MESH::OCTAHEDRON, BASE_MESH::ICOSAHEDRON})
             {
-                for (uint8_t i = 0; i < 9; i++)
+                for (uint8_t i = 0; i < 7; i++)
                 {
                     HierarchicalTriangularMesh<float> htm(m);
                     htm.build(i);
@@ -126,8 +129,10 @@ public:
         glm::vec3 cameraPosition = glm::vec3(0)
     )
     {
-        shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
-
+        meshShader = std::make_unique<jGL::GL::glShader>(meshVertexShader, meshFragmentShader);
+        imposterShader = std::make_unique<jGL::GL::glShader>(imposterVertexShader, imposterFragmentShader);
+        imposterShader->use();
+        imposterShader->setUniform<float>("clipCorrection", 1.5f);
         for (uint8_t i = 0; i < 7; i++)
         {
             HierarchicalTriangularMesh<float> htm(mesh);
@@ -163,13 +168,21 @@ public:
     /**
      * @brief The number of triangles drawn.
      *
+     * @param imposters draw with impostor spheres inplace of meshes.
      * @return uint32_t the number of triangles.
      */
-    uint32_t triangles() const
+    uint32_t triangles(bool impostor = false) const
     {
         uint64_t triangles = 0;
-        uint8_t m = 0;
-        for (auto & buf : buffers) { triangles += buf->atomCount()*triangleCounts[m]; m++; }
+        if (impostor)
+        {
+            for (auto & buf : buffers) { triangles += buf->atomCount()*2; }
+        }
+        else
+        {
+            uint8_t m = 0;
+            for (auto & buf : buffers) { triangles += buf->atomCount()*triangleCounts[m]; m++; }
+        }
         return triangles;
     }
 
@@ -250,20 +263,35 @@ public:
     /**
      * @brief Draw the current Atoms
      *
+     *  @param imposters draw with impostor spheres inplace of meshes.
      */
-    void draw()
+    void draw(bool imposters = false)
     {
-        shader->use();
-        for (auto & buf : buffers) { buf->draw(); }
+        if (imposters)
+        {
+            imposterShader->use();
+        }
+        else
+        {
+            meshShader->use();
+        }
+        for (auto & buf : buffers) { buf->draw(imposters); }
         jGL::GL::glError("AtomRenderer::draw");
     }
 
     /**
-     * @brief Set the Projection matrix (projection * view).
+     * @brief Set the view matrix.
+     *
+     * @param v the view matrix.
+     */
+    void setView(glm::mat4 v) { view = v; setProjectionView(); }
+
+    /**
+     * @brief Set the Projection matrix.
      *
      * @param p the projection matrix.
      */
-    void setProjection(glm::mat4 p) { shader->use(); shader->setUniform<glm::mat4>("proj", p); }
+    void setProjection(glm::mat4 p) { projection = p; setProjectionView(); }
 
     /**
      * @brief Set the lighting of the scene.
@@ -275,14 +303,19 @@ public:
     void setLighting(glm::vec3 position, glm::vec3 colour, float ambient)
     {
         cameraPosition = position;
-        shader->setUniform<glm::vec4>("lightPos", glm::vec4(position, 1.0f));
-        shader->setUniform<glm::vec4>("lightColour", glm::vec4(colour, 1.0f));
-        shader->setUniform<float>("ambientLight", ambient);
+        meshShader->use();
+        meshShader->setUniform<glm::vec4>("lightPos", glm::vec4(position, 1.0f));
+        meshShader->setUniform<glm::vec4>("lightColour", glm::vec4(colour, 1.0f));
+        meshShader->setUniform<float>("ambientLight", ambient);
+        imposterShader->use();
+        imposterShader->setUniform<glm::vec4>("lightPos", glm::vec4(position, 1.0f));
+        imposterShader->setUniform<glm::vec4>("lightColour", glm::vec4(colour, 1.0f));
+        imposterShader->setUniform<float>("ambientLight", ambient);
     }
 
 private:
 
-    std::unique_ptr<jGL::GL::glShader> shader;
+    std::unique_ptr<jGL::GL::glShader> meshShader, imposterShader;
     glm::vec3 cameraPosition;
     uint8_t levelOfDetail;
 
@@ -295,7 +328,9 @@ private:
 
     std::vector<float> cameraDistances;
 
-    const char * vertexShader =
+    glm::mat4 view, projection;
+
+    const char * meshVertexShader =
         "#version " GLSL_VERSION "\n"
         "precision lowp float; precision lowp int;\n"
         "layout(location=0) in vec3 a_vertices;\n"
@@ -315,7 +350,7 @@ private:
         "    o_normal = a_normals;\n"
         "}";
 
-    const char * fragmentShader =
+    const char * meshFragmentShader =
         "#version " GLSL_VERSION "\n"
         "precision lowp float; precision lowp int;\n"
         "uniform vec4 lightPos;\n"
@@ -331,6 +366,66 @@ private:
         "    float diff = max(dot(normalize(o_normal), lightDir), 0.0);\n"
         "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a);\n"
         "}";
+
+    const char * imposterVertexShader =
+        "#version " GLSL_VERSION "\n"
+        "precision lowp float; precision lowp int;\n"
+        "layout(location=0) in vec2 a_vertices;\n"
+        "layout(location=1) in vec4 a_positionsAndScales;\n"
+        "layout(location=2) in vec4 a_colours;\n"
+        "out vec2 billboard;\n"
+        "uniform mat4 view;\n"
+        "uniform mat4 proj;\n"
+        "uniform float clipCorrection;\n"
+        "out vec4 atomPosScale;\n"
+        "out vec3 atomViewPos;\n"
+        "out vec4 o_colour;\n"
+        "void main()\n"
+        "{\n"
+        "    billboard = a_vertices * clipCorrection;\n"
+        "    atomViewPos = (view * vec4(a_positionsAndScales.xyz, 1.0)).xyz;"
+        "    gl_Position = proj * (vec4(atomViewPos, 1.0)+vec4(a_positionsAndScales.w * a_vertices * clipCorrection, 0.0, 1.0));"
+        "    atomPosScale = a_positionsAndScales;\n"
+        "    o_colour = a_colours;\n"
+        "}";
+
+    const char * imposterFragmentShader =
+        "#version " GLSL_VERSION "\n"
+        "precision lowp float; precision lowp int;\n"
+        "in vec2 billboard;\n"
+        "in vec3 atomViewPos;\n"
+        "in vec4 atomPosScale;\n"
+        "in vec4 o_colour;\n"
+        "out vec4 colour;\n"
+        "uniform mat4 view;\n"
+        "uniform mat4 proj;\n"
+        "uniform vec4 lightPos;\n"
+        "uniform vec4 lightColour;\n"
+        "uniform float ambientLight;\n"
+        "void main()\n"
+        "{\n"
+        "    vec3 lightViewPos = (view*lightPos).xyz;\n"
+        "    vec3 rayDirection = normalize(vec3(billboard * atomPosScale.w, 0.0) + atomViewPos);"
+        "    float b = 2.0 * dot(rayDirection, -atomViewPos);"
+        "    float r2 = atomPosScale.w*atomPosScale.w;"
+        "    float determinant = b * b - (4.0 * (dot(atomViewPos, atomViewPos) - r2));"
+        "    if(determinant < 0.0) { discard; }"
+        "    determinant = sqrt(determinant);"
+        "    vec3 viewPos = rayDirection * min((-b+determinant)*0.5, (-b-determinant)*0.5);"
+        "    vec3 viewNormal = normalize(viewPos - atomViewPos);"
+        "    vec4 clipPos = proj * vec4(viewPos, 1.0);\n"
+        "    float ndcDepth = clipPos.z / clipPos.w;\n"
+        "    gl_FragDepth = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;\n"
+        "    float diff = max(dot(normalize(viewNormal), normalize(lightViewPos-atomViewPos)), 0.0);\n"
+        "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a);\n"
+        "}";
+
+    void setProjectionView()
+    {
+        meshShader->setUniform<glm::mat4>("proj", projection*view);
+        imposterShader->setUniform<glm::mat4>("view", view);
+        imposterShader->setUniform<glm::mat4>("proj", projection);
+    }
 
     /**
      * @brief Manages OpenGL arrays for Atoms
@@ -352,7 +447,9 @@ private:
         )
         : mesh(mesh), size(atoms)
         {
-            glGenVertexArrays(1, &vao);
+            glGenVertexArrays(1, &vao_mesh);
+            glGenVertexArrays(1, &vao_imposter);
+            glGenBuffers(1, &a_quad);
             glGenBuffers(1, &a_vertices);
             glGenBuffers(1, &a_normals);
             glGenBuffers(1, &a_colours);
@@ -361,7 +458,7 @@ private:
             positionsAndScales.resize(size*4);
             colours.resize(size*4);
 
-            glBindVertexArray(vao);
+            glBindVertexArray(vao_mesh);
 
                 glBindBuffer(GL_ARRAY_BUFFER, a_vertices);
                     glBufferData
@@ -449,6 +546,60 @@ private:
                     glVertexAttribDivisor(3, 1);
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
             glBindVertexArray(0);
+
+            glBindVertexArray(vao_imposter);
+
+                glBindBuffer(GL_ARRAY_BUFFER, a_quad);
+                    glBufferData
+                    (
+                        GL_ARRAY_BUFFER,
+                        sizeof(float)*quad.size(),
+                        &quad[0],
+                        GL_STATIC_DRAW
+                    );
+
+                    glEnableVertexAttribArray(0);
+                    glVertexAttribPointer
+                    (
+                        0,
+                        2,
+                        GL_FLOAT,
+                        false,
+                        2*sizeof(float),
+                        0
+                    );
+                    // never increment per instance
+                    glVertexAttribDivisor(0, 0);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                glBindBuffer(GL_ARRAY_BUFFER, a_positionsAndScales);
+                    glEnableVertexAttribArray(1);
+                    glVertexAttribPointer
+                    (
+                        1,
+                        4,
+                        GL_FLOAT,
+                        false,
+                        4*sizeof(float),
+                        0
+                    );
+                    glVertexAttribDivisor(1, 1);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                glBindBuffer(GL_ARRAY_BUFFER, a_colours);
+                    glEnableVertexAttribArray(2);
+                    glVertexAttribPointer
+                    (
+                        2,
+                        4,
+                        GL_FLOAT,
+                        false,
+                        4*sizeof(float),
+                        0
+                    );
+                    glVertexAttribDivisor(2, 1);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
         }
 
         ~AtomBuffer()
@@ -457,7 +608,9 @@ private:
             glDeleteBuffers(1, &a_normals);
             glDeleteBuffers(1, &a_colours);
             glDeleteBuffers(1, &a_positionsAndScales);
-            glDeleteVertexArrays(1, &vao);
+            glDeleteBuffers(1, &a_quad);
+            glDeleteVertexArrays(1, &vao_mesh);
+            glDeleteVertexArrays(1, &vao_imposter);
         }
 
         /**
@@ -497,29 +650,44 @@ private:
          * @brief Draw the atoms.
          *
          * @param count override number of atoms.
+         * @param imposters draw with impostor spheres inplace of meshes.
          */
-        void draw(uint32_t count)
+        void draw(uint32_t count, bool imposters)
         {
             count = std::min(count, atoms);
             if (count == 0) { return; }
-            glBindVertexArray(vao);
 
-                glEnable(GL_BLEND);
-                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                glEnable(GL_DEPTH_TEST);
-                glEnable(GL_CULL_FACE);
-                glCullFace(GL_BACK);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_DEPTH_TEST);
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_BACK);
 
-                glDrawArraysInstanced(GL_TRIANGLES, 0, mesh.vertices.size(), count);
+            if (imposters) {
+                glFrontFace(GL_CW);
+                glBindVertexArray(vao_imposter);
 
-            glBindVertexArray(0);
+                    glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, count);
+
+                glBindVertexArray(0);
+                glFrontFace(GL_CCW);
+            }
+            else
+            {
+                glBindVertexArray(vao_mesh);
+
+                    glDrawArraysInstanced(GL_TRIANGLES, 0, mesh.vertices.size(), count);
+
+                glBindVertexArray(0);
+            }
         }
 
         /**
          * @brief Draw all the Atoms.
          *
+         * @param imposters draw with impostor spheres inplace of meshes.
          */
-        void draw() { draw(atoms); }
+        void draw(bool imposters = false) { draw(atoms, imposters); }
 
         /**
          * @brief Insert a batch of Atoms.
@@ -538,7 +706,7 @@ private:
          */
         void updateVertexArray()
         {
-            glBindVertexArray(vao);
+            glBindVertexArray(vao_mesh);
 
                 glBindBuffer(GL_ARRAY_BUFFER, a_positionsAndScales);
                     glBufferSubData
@@ -559,6 +727,7 @@ private:
                         &colours[0]
                     );
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
+
             glBindVertexArray(0);
         }
 
@@ -566,12 +735,20 @@ private:
 
         const SphereMesh & mesh;
         uint32_t size;
-        GLuint vao, a_vertices, a_normals, a_positionsAndScales, a_colours;
+        GLuint vao_mesh, vao_imposter, a_vertices, a_quad, a_normals, a_positionsAndScales, a_colours;
         std::vector<float> positionsAndScales;
         std::vector<float> colours;
 
         uint32_t index = 0;
         uint32_t atoms = 0;
+
+        const std::array<float, 8> quad =
+        {
+            -1.0,-1.0,
+            -1.0,1.0,
+            1.0,-1.0,
+            1.0,1.0
+        };
     };
 
     std::vector<std::unique_ptr<AtomBuffer>> buffers;
