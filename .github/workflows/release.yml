@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: mesh-test.png
-        path: screenshot.png
+        path: build/screenshot.png
 
     - name: build artifact
       uses: actions/upload-artifact@v4
