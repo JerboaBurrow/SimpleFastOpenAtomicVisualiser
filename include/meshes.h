@@ -4,7 +4,7 @@
 #include <triangle.h>
 
 template <class T>
-const T phi = (1.0+std::sqrt(5.0))*0.5;
+const T phi = (1.0+2.23606797749979)*0.5;
 
 template <class T>
 const std::vector<vec3<T>> DODECAHEDRON_VERTICES =
@@ -137,7 +137,7 @@ const std::vector<Trixel<T>> OCTAHEDRON =
 };
 
 template <class T>
-constexpr T INV_SQRT3 = 1.0/std::sqrt(3.0);
+const T INV_SQRT3 = 1.0/1.7320508075688772;
 
 template <class T>
 const std::vector<vec3<T>> TETRAHEDRON_VERTICES =
@@ -158,7 +158,7 @@ const std::vector<Trixel<T>> TETRAHEDRON =
 };
 
 template <class T>
-constexpr T INV_SQRT2 = 1.0/std::sqrt(2.0);
+const T INV_SQRT2 = 1.0/1.4142135623730951;
 
 template <class T>
 const std::vector<vec3<T>> CUBE_VERTICES =
@@ -191,13 +191,14 @@ const std::vector<Trixel<T>> CUBE =
 };
 
 template <class T>
-constexpr T SQRT3 = std::sqrt(3.0);
+const T SQRT3 = 1.7320508075688772;
 
 template <class T>
-constexpr T SQRT6 = std::sqrt(6.0);
+const T SQRT6 = 2.449489742783178;
 
+// 1.0/std::sqrt((1.0/12.0)*std::pow(1.0 + std::sqrt(6.0),2.0) + std::pow(-0.5*std::sqrt(6.0) - 0.5,2.0));
 template <class T>
-constexpr T C = 1.0/std::sqrt((1.0/12.0)*std::pow(1.0 + std::sqrt(6.0),2.0) + std::pow(-0.5*std::sqrt(6.0) - 0.5,2.0));
+const T C = 0.5021179759100816;
 
 template <class T>
 const std::vector<vec3<T>> TRIAUGMENTED_TRIANGULAR_PRISM_VERTICES =
