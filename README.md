@@ -22,12 +22,18 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 #### Features (in development)
 
 - [x] Atom ball meshes (of various triangle counts/LOD)
-  - [x] Tetrosphere (4, 16, 64, ...).
-  - [x] Hexosphere (6).
-  - [x] Octosphere (8, 32, 128, ...).
+  - [x] Tetrasphere (4, 16, 64, ...).
+  - [ ] Hexosphere (6, ...).
+  - [x] Octasphere (8, 32, 128, ...).
   - [x] Icosphere (20, 80, 320, ...).
-  - [x] Dodecasphere (36).
+  - [ ] Dodecasphere (36).
+  - [ ] TTP sphere (14, 56, 224, ...).
   - [ ] VDW scaled atom balls.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f2533df3-28fc-4b32-8954-1735ceb001b0"/>
+  <br>A motley collection of sphere meshes for LOD scaling.
+</p>
+
 - [ ] LOD
   - [ ] Overrideable LOD per atom.
   - [ ] Automatic LOD scaling.
