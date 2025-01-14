@@ -19,8 +19,8 @@ int main(int argv, char ** argc)
 
     if (argv > 3)
     {
-        uint8_t m = std::min(uint8_t(std::stoi(argc[3])), uint8_t(BASE_MESH::ANY)+1);
-        if (m < BASH_MESH:ANY){ mesh = BASE_MESH(m); }
+        uint8_t m = std::min(uint8_t(std::stoi(argc[3])), uint8_t(uint8_t(BASE_MESH::ANY)+1));
+        if (m <= uint8_t(BASE_MESH::ANY)){ mesh = BASE_MESH(m); }
         else { impostors = true; }
     }
 
