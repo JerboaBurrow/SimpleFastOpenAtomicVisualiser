@@ -33,20 +33,28 @@ int main(int argv, char ** argc)
     float d = 1.75f;
 
     std::vector<Atom> atoms;
+    std::vector<Atom> impostorAtoms;
     std::map<uint64_t, uint8_t> lods;
     int col = 0;
     int row = 0;
     for (int i = 0; i < count; i++)
     {
         atoms.push_back({{d*row, d*col, 0.0}, 1.0f});
+        impostorAtoms.push_back({{d*row, d*col, 0.0}, 1.0f});
         lods.insert({i,i});
         row++;
         if (i % cols == 0) { col++; row = 0; }
     }
 
     center(atoms);
+    center(impostorAtoms);
+    for (int i = 0; i < count; i++)
+    {
+        atoms[i].position -= vec3<float>(-d*cols*0.75,0.0,0.0);
+        impostorAtoms[i].position += vec3<float>(-d*cols*0.75,0.0,0.0);
+    }
 
-    glm::vec3 cameraPositionSpherical = glm::vec3(1*count, 1.96f, M_PI);
+    glm::vec3 cameraPositionSpherical = glm::vec3(1*count, M_PI*0.5f, M_PI);
 
     glm::mat4 projection = glm::perspective
     (
@@ -63,8 +71,19 @@ int main(int argv, char ** argc)
     );
 
     AtomRenderer renderer(atoms, 0, spherical2cartesian(cameraPositionSpherical));
-    renderer.setProjection(projection * view);
+    AtomRenderer impostorRenderer(impostorAtoms, 0, spherical2cartesian(cameraPositionSpherical));
+    renderer.setView(view);
+    renderer.setProjection(projection);
     renderer.setLighting
+    (
+        spherical2cartesian(cameraPositionSpherical),
+        {1.0f, 1.0f, 1.0f},
+        0.1f
+    );
+
+    impostorRenderer.setView(view);
+    impostorRenderer.setProjection(projection);
+    impostorRenderer.setLighting
     (
         spherical2cartesian(cameraPositionSpherical),
         {1.0f, 1.0f, 1.0f},
@@ -140,7 +159,7 @@ int main(int argv, char ** argc)
             glm::vec3(0.0, 1.0, 0.0)
         );
 
-        renderer.setProjection(projection * view);
+        renderer.setView(view);
         renderer.setLighting
         (
             spherical2cartesian(cameraPositionSpherical),
@@ -149,14 +168,26 @@ int main(int argv, char ** argc)
         );
 
         renderer.updateAtoms(atoms, lods);
-        renderer.draw();
+        renderer.draw(false);
+
+        impostorRenderer.setView(view);
+        impostorRenderer.setLighting
+        (
+            spherical2cartesian(cameraPositionSpherical),
+            {1.0f, 1.0f, 1.0f},
+            0.1f
+        );
+
+        impostorRenderer.updateAtoms(impostorAtoms);
+        impostorRenderer.draw(true);
 
         std::stringstream debugText;
 
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Total triangles: " << renderer.triangles() << "\n"
+                  << "Triangles/Atom: \n" << "  Meshed: " << renderer.triangles() << "/" << atoms.size() << "\n"
+                  << "  Impostors: " << impostorRenderer.triangles(true) << "/" << atoms.size() << "\n"
                   << vendor << " " << device;
 
         jGLInstance->text(
