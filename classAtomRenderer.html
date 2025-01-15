@@ -90,9 +90,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9934f70e962740dc614b47e96d7d364" id="r_ab9934f70e962740dc614b47e96d7d364"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#ab9934f70e962740dc614b47e96d7d364">AtomRenderer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms, std::vector&lt; <a class="el" href="classTrixel.html">Trixel</a>&lt; <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> &gt; &gt; mesh, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint8_t</a> levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0))</td></tr>
 <tr class="memdesc:ab9934f70e962740dc614b47e96d7d364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classAtomRenderer.html" title="Render atoms as sphere meshes.">AtomRenderer</a> from a triangulation.  <br /></td></tr>
 <tr class="separator:ab9934f70e962740dc614b47e96d7d364"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80f046ca0bde3b911431d7002f08e40a" id="r_a80f046ca0bde3b911431d7002f08e40a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a80f046ca0bde3b911431d7002f08e40a">triangles</a> () <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a></td></tr>
-<tr class="memdesc:a80f046ca0bde3b911431d7002f08e40a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of triangles drawn.  <br /></td></tr>
-<tr class="separator:a80f046ca0bde3b911431d7002f08e40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af781840b85f359a76ec112b77fc136b7" id="r_af781840b85f359a76ec112b77fc136b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#af781840b85f359a76ec112b77fc136b7">triangles</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">impostor</a>=<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a>) <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a></td></tr>
+<tr class="memdesc:af781840b85f359a76ec112b77fc136b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of triangles drawn.  <br /></td></tr>
+<tr class="separator:af781840b85f359a76ec112b77fc136b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2850e81ce456feacb20770b38666eef" id="r_ae2850e81ce456feacb20770b38666eef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#ae2850e81ce456feacb20770b38666eef">setLevelOfDetail</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint8_t</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">lod</a>)</td></tr>
 <tr class="memdesc:ae2850e81ce456feacb20770b38666eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current level of detail.  <br /></td></tr>
 <tr class="separator:ae2850e81ce456feacb20770b38666eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,11 +105,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac570800c0897394e2ac5836fccf37d4b" id="r_ac570800c0897394e2ac5836fccf37d4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#ac570800c0897394e2ac5836fccf37d4b">updateAtoms</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms, std::map&lt; <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint64_t</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint8_t</a> &gt; <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">levelsOfDetail</a>={})</td></tr>
 <tr class="memdesc:ac570800c0897394e2ac5836fccf37d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update buffers with new <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> data.  <br /></td></tr>
 <tr class="separator:ac570800c0897394e2ac5836fccf37d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a667f0a5ffedf768bcce69568d30eacc6" id="r_a667f0a5ffedf768bcce69568d30eacc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a667f0a5ffedf768bcce69568d30eacc6">draw</a> ()</td></tr>
-<tr class="memdesc:a667f0a5ffedf768bcce69568d30eacc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the current Atoms.  <br /></td></tr>
-<tr class="separator:a667f0a5ffedf768bcce69568d30eacc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4f9b64ff94eb08a41b547dbd2013d0" id="r_afc4f9b64ff94eb08a41b547dbd2013d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#afc4f9b64ff94eb08a41b547dbd2013d0">draw</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">imposters</a>=<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a>)</td></tr>
+<tr class="memdesc:afc4f9b64ff94eb08a41b547dbd2013d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the current Atoms.  <br /></td></tr>
+<tr class="separator:afc4f9b64ff94eb08a41b547dbd2013d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac903835293ad899cc6cb8d9c0524d5f3" id="r_ac903835293ad899cc6cb8d9c0524d5f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3">setView</a> (glm::mat4 <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">v</a>)</td></tr>
+<tr class="memdesc:ac903835293ad899cc6cb8d9c0524d5f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the view matrix.  <br /></td></tr>
+<tr class="separator:ac903835293ad899cc6cb8d9c0524d5f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70e6436ca66a4c466950426078cba195" id="r_a70e6436ca66a4c466950426078cba195"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a70e6436ca66a4c466950426078cba195">setProjection</a> (glm::mat4 <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">p</a>)</td></tr>
-<tr class="memdesc:a70e6436ca66a4c466950426078cba195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Projection matrix (projection * view).  <br /></td></tr>
+<tr class="memdesc:a70e6436ca66a4c466950426078cba195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Projection matrix.  <br /></td></tr>
 <tr class="separator:a70e6436ca66a4c466950426078cba195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23111424a17581c30d00778ab3d8ce3e" id="r_a23111424a17581c30d00778ab3d8ce3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e">setLighting</a> (glm::vec3 position, glm::vec3 colour, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">ambient</a>)</td></tr>
 <tr class="memdesc:a23111424a17581c30d00778ab3d8ce3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the lighting of the scene.  <br /></td></tr>
@@ -246,8 +249,8 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a667f0a5ffedf768bcce69568d30eacc6" name="a667f0a5ffedf768bcce69568d30eacc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a667f0a5ffedf768bcce69568d30eacc6">&#9670;&#160;</a></span>draw()</h2>
+<a id="afc4f9b64ff94eb08a41b547dbd2013d0" name="afc4f9b64ff94eb08a41b547dbd2013d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4f9b64ff94eb08a41b547dbd2013d0">&#9670;&#160;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +261,8 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
         <tr>
           <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> AtomRenderer::draw </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a>&#160;</td>
+          <td class="paramname"><em>imposters</em> = <code><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a></code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -270,6 +274,12 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 </div><div class="memdoc">
 
 <p>Draw the current Atoms. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imposters</td><td>draw with impostor spheres inplace of meshes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -439,7 +449,7 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 </table>
 </div><div class="memdoc">
 
-<p>Set the Projection matrix (projection * view). </p>
+<p>Set the Projection matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>the projection matrix. </td></tr>
@@ -449,8 +459,42 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 
 </div>
 </div>
-<a id="a80f046ca0bde3b911431d7002f08e40a" name="a80f046ca0bde3b911431d7002f08e40a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80f046ca0bde3b911431d7002f08e40a">&#9670;&#160;</a></span>triangles()</h2>
+<a id="ac903835293ad899cc6cb8d9c0524d5f3" name="ac903835293ad899cc6cb8d9c0524d5f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac903835293ad899cc6cb8d9c0524d5f3">&#9670;&#160;</a></span>setView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> AtomRenderer::setView </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the view matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the view matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af781840b85f359a76ec112b77fc136b7" name="af781840b85f359a76ec112b77fc136b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af781840b85f359a76ec112b77fc136b7">&#9670;&#160;</a></span>triangles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,7 +505,8 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
         <tr>
           <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint32_t</a> AtomRenderer::triangles </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a>&#160;</td>
+          <td class="paramname"><em>impostor</em> = <code><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a></code></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -473,6 +518,12 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 </div><div class="memdoc">
 
 <p>The number of triangles drawn. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imposters</td><td>draw with impostor spheres inplace of meshes. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>uint32_t the number of triangles. </dd></dl>
 
 </div>

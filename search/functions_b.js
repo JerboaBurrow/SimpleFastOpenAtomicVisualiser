@@ -6,7 +6,8 @@ var searchData=
   ['setparent_3',['setParent',['../classTrixel.html#a1cda3184b37e05935f11f710aeb04f8f',1,'Trixel']]],
   ['setprojection_4',['setProjection',['../classAtomRenderer.html#a70e6436ca66a4c466950426078cba195',1,'AtomRenderer']]],
   ['setvertices_5',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],
-  ['size_6',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
-  ['spherical2cartesian_7',['spherical2cartesian',['../main_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'main.h']]],
-  ['subdividetrixel_8',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]]
+  ['setview_6',['setView',['../classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3',1,'AtomRenderer']]],
+  ['size_7',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
+  ['spherical2cartesian_8',['spherical2cartesian',['../main_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'main.h']]],
+  ['subdividetrixel_9',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]]
 ];
