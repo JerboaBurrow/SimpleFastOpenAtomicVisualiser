@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['phi_0',['phi',['../meshes_8h.html#a5a7933eb2f6850e89e72f605c71dbe91',1,'meshes.h']]],
-  ['position_1',['position',['../classAtom.html#a6203936c817773d74620f4644d8551fc',1,'Atom']]]
+  ['octahedron_0',['OCTAHEDRON',['../meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba',1,'meshes.h']]],
+  ['octahedron_5fvertices_1',['OCTAHEDRON_VERTICES',['../meshes_8h.html#a7c4e5574e481116f560fd61dc9ea90c8',1,'meshes.h']]]
 ];

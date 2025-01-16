@@ -7,5 +7,6 @@ var searchData=
   ['dphi_4',['dphi',['../main_8h.html#a77aa1d699d1c28c1c6f1c1d268764135',1,'main.h']]],
   ['dr_5',['dr',['../main_8h.html#a26b9be004b6103eeb1f7498c61e699e1',1,'main.h']]],
   ['draw_6',['draw',['../classAtomRenderer.html#afc4f9b64ff94eb08a41b547dbd2013d0',1,'AtomRenderer']]],
-  ['dtheta_7',['dtheta',['../main_8h.html#a97c24c468ffc4d140dda4eb4b13a892f',1,'main.h']]]
+  ['dtheta_7',['dtheta',['../main_8h.html#a97c24c468ffc4d140dda4eb4b13a892f',1,'main.h']]],
+  ['dy_8',['Dy',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ac7142cf9913b2210eca7f98e8fc365da',1,'element.h']]]
 ];

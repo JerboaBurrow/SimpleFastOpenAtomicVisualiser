@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['leaves_0',['leaves',['../classHierarchicalTriangularMesh.html#ad6f06cdd0d28b67e1853000f89bbf90b',1,'HierarchicalTriangularMesh']]]
+  ['jglinstance_0',['jGLInstance',['../main_8h.html#aad1b9055209d0e0bd2117c0305c65464',1,'main.h']]]
 ];

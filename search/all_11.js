@@ -1,4 +1,29 @@
 var searchData=
 [
-  ['updateatoms_0',['updateAtoms',['../classAtomRenderer.html#ac570800c0897394e2ac5836fccf37d4b',1,'AtomRenderer']]]
+  ['s_0',['S',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a5dbc98dcc983a70728bd082d1a47546e',1,'element.h']]],
+  ['sb_1',['Sb',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ada16f2cb03094a7bacfd9c425df967dc',1,'element.h']]],
+  ['sc_2',['Sc',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5acb3f593eee6bf3a8ca2a807055521c5c',1,'element.h']]],
+  ['scale_3',['scale',['../classAtom.html#a77b8f41d48dfe92b02c109dc2075a355',1,'Atom']]],
+  ['se_4',['Se',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa59bd4a85b4f8a13ce1135d82748d70b',1,'element.h']]],
+  ['setchildren_5',['setChildren',['../classTrixel.html#acf851a595544276d4281569745346460',1,'Trixel']]],
+  ['setlevelofdetail_6',['setLevelOfDetail',['../classAtomRenderer.html#ae2850e81ce456feacb20770b38666eef',1,'AtomRenderer']]],
+  ['setlighting_7',['setLighting',['../classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e',1,'AtomRenderer']]],
+  ['setparent_8',['setParent',['../classTrixel.html#a1cda3184b37e05935f11f710aeb04f8f',1,'Trixel']]],
+  ['setprojection_9',['setProjection',['../classAtomRenderer.html#a70e6436ca66a4c466950426078cba195',1,'AtomRenderer']]],
+  ['setvertices_10',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],
+  ['setview_11',['setView',['../classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3',1,'AtomRenderer']]],
+  ['si_12',['Si',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a29bf7a323f1088692c1ad29f08f4f573',1,'element.h']]],
+  ['size_13',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
+  ['sm_14',['Sm',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a20c4c6104a283ee7383776e722439342',1,'element.h']]],
+  ['sn_15',['Sn',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6cb321460d08fef1babca1ef07a2ddec',1,'element.h']]],
+  ['spherical2cartesian_16',['spherical2cartesian',['../util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'util.h']]],
+  ['sqrt3_17',['SQRT3',['../meshes_8h.html#a62e500de71c0b8594db5bc91a54dd628',1,'meshes.h']]],
+  ['sqrt6_18',['SQRT6',['../meshes_8h.html#a112f3ebae68a48f74c1bcc9f2f9bddf8',1,'meshes.h']]],
+  ['sr_19',['Sr',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8aed7b13501e351db8ecf73c4fa5e65e',1,'element.h']]],
+  ['string_5ffrom_5felement_20',['STRING_FROM_ELEMENT',['../element_8h.html#a5990bb4cdd4d39a5bcf8aeb339b4d36a',1,'element.h']]],
+  ['stringsymboltocolour_21',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
+  ['stringsymboltoelement_22',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
+  ['stringsymboltoelementradius_23',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
+  ['subdividetrixel_24',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
+  ['symbol_25',['symbol',['../classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1',1,'Atom']]]
 ];

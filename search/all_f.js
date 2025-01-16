@@ -1,16 +1,14 @@
 var searchData=
 [
-  ['scale_0',['scale',['../classAtom.html#a77b8f41d48dfe92b02c109dc2075a355',1,'Atom']]],
-  ['setchildren_1',['setChildren',['../classTrixel.html#acf851a595544276d4281569745346460',1,'Trixel']]],
-  ['setlevelofdetail_2',['setLevelOfDetail',['../classAtomRenderer.html#ae2850e81ce456feacb20770b38666eef',1,'AtomRenderer']]],
-  ['setlighting_3',['setLighting',['../classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e',1,'AtomRenderer']]],
-  ['setparent_4',['setParent',['../classTrixel.html#a1cda3184b37e05935f11f710aeb04f8f',1,'Trixel']]],
-  ['setprojection_5',['setProjection',['../classAtomRenderer.html#a70e6436ca66a4c466950426078cba195',1,'AtomRenderer']]],
-  ['setvertices_6',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],
-  ['setview_7',['setView',['../classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3',1,'AtomRenderer']]],
-  ['size_8',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
-  ['spherical2cartesian_9',['spherical2cartesian',['../main_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'main.h']]],
-  ['sqrt3_10',['SQRT3',['../meshes_8h.html#a62e500de71c0b8594db5bc91a54dd628',1,'meshes.h']]],
-  ['sqrt6_11',['SQRT6',['../meshes_8h.html#a112f3ebae68a48f74c1bcc9f2f9bddf8',1,'meshes.h']]],
-  ['subdividetrixel_12',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]]
+  ['p_0',['P',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a44c29edb103a2872f519ad0c9a0fdaaa',1,'element.h']]],
+  ['pa_1',['Pa',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa13df921d517c3e3508b5a752a79d53b',1,'element.h']]],
+  ['pb_2',['Pb',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0789e060643d0f6b1d638830a383387b',1,'element.h']]],
+  ['pd_3',['Pd',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a70c62818a3aed8e80d799f643acf98b2',1,'element.h']]],
+  ['phi_4',['phi',['../meshes_8h.html#a5a7933eb2f6850e89e72f605c71dbe91',1,'meshes.h']]],
+  ['pm_5',['Pm',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a50ff364aba0bc0868a2ac51275f5cf42',1,'element.h']]],
+  ['po_6',['Po',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0cbf7941fef6ce0531b500b26e89d008',1,'element.h']]],
+  ['position_7',['position',['../classAtom.html#a6203936c817773d74620f4644d8551fc',1,'Atom']]],
+  ['pr_8',['Pr',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5abb17fc8ecf947279911e814c8e48f8a7',1,'element.h']]],
+  ['pt_9',['Pt',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a999edda14328d5f86e5e5a981fbea493',1,'element.h']]],
+  ['pu_10',['Pu',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ad6889a89a0bb45b31e300ca0972e66f9',1,'element.h']]]
 ];

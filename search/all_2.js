@@ -1,10 +1,22 @@
 var searchData=
 [
-  ['c_0',['C',['../meshes_8h.html#ad0ffe4e857267d794277d327380078c8',1,'meshes.h']]],
-  ['cartesian2spherical_1',['cartesian2Spherical',['../main_8h.html#af47d0eeb76203e06f023871134fd221c',1,'main.h']]],
-  ['center_2',['center',['../main_8h.html#a1d49c29717dc8a0cae1cc0a072deb53e',1,'main.h']]],
-  ['centremesh_3',['centreMesh',['../meshes_8h.html#a72f1ba88b424409f18b57adbb354b9f5',1,'meshes.h']]],
-  ['colour_4',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
-  ['cube_5',['cube',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'CUBE:&#160;meshes.h'],['../hierarchicalTriangularMesh_8h.html#a64cd2594249c0b08877c156c25832d8aafbfd6568f88d940b586c9ddf8f68236d',1,'CUBE:&#160;hierarchicalTriangularMesh.h']]],
-  ['cube_5fvertices_6',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]]
+  ['c_0',['c',['../meshes_8h.html#ad0ffe4e857267d794277d327380078c8',1,'C:&#160;meshes.h'],['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0d61f8370cad1d412f80b84d143e1257',1,'C:&#160;element.h']]],
+  ['ca_1',['Ca',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a346dd877a908ff6c7132acb0910a33d8',1,'element.h']]],
+  ['cartesian2spherical_2',['cartesian2Spherical',['../util_8h.html#af47d0eeb76203e06f023871134fd221c',1,'util.h']]],
+  ['cd_3',['Cd',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a1261c406ebcfd0bcdc532969d6a73458',1,'element.h']]],
+  ['ce_4',['Ce',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a3cc3b8d3e69bb5d5086df205779b622e',1,'element.h']]],
+  ['center_5',['center',['../util_8h.html#a1d49c29717dc8a0cae1cc0a072deb53e',1,'util.h']]],
+  ['centremesh_6',['centreMesh',['../meshes_8h.html#a72f1ba88b424409f18b57adbb354b9f5',1,'meshes.h']]],
+  ['cf_7',['Cf',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5af820ebf9ae1baa74ccb23710d5baf203',1,'element.h']]],
+  ['cl_8',['Cl',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a30781641129e34de0449ccb1fba670da',1,'element.h']]],
+  ['cm_9',['Cm',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a4d42fd7ad795178d64613eba2a2aa9ad',1,'element.h']]],
+  ['co_10',['Co',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6bc2d2565ee5fbde75273949f2d2df0a',1,'element.h']]],
+  ['colour_11',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
+  ['colour_2eh_12',['colour.h',['../colour_8h.html',1,'']]],
+  ['cpk_5fcolours_13',['CPK_COLOURS',['../colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917',1,'colour.h']]],
+  ['cr_14',['Cr',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a46ce6eed09dd5a60280b497637d1697a',1,'element.h']]],
+  ['cs_15',['Cs',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8b847cfae498e96e3fa08a56cb42b838',1,'element.h']]],
+  ['cu_16',['Cu',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa78dd5e8411c67a38ac02dde3250c029',1,'element.h']]],
+  ['cube_17',['cube',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'CUBE:&#160;meshes.h'],['../hierarchicalTriangularMesh_8h.html#a64cd2594249c0b08877c156c25832d8aafbfd6568f88d940b586c9ddf8f68236d',1,'CUBE:&#160;hierarchicalTriangularMesh.h']]],
+  ['cube_5fvertices_18',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]]
 ];

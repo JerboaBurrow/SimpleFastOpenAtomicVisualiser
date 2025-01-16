@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['resx_0',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
-  ['resy_1',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]]
+  ['phi_0',['phi',['../meshes_8h.html#a5a7933eb2f6850e89e72f605c71dbe91',1,'meshes.h']]],
+  ['position_1',['position',['../classAtom.html#a6203936c817773d74620f4644d8551fc',1,'Atom']]]
 ];
