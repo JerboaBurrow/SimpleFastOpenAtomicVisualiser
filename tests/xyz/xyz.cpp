@@ -1,28 +1,17 @@
-#include <main.h>
+#include <xyzTest.h>
 int main(int argv, char ** argc)
 {
 
-    uint8_t lod = 0;
-    uint8_t count = 2;
-    uint8_t MSAA = 16;
-    BASE_MESH mesh = BASE_MESH::ANY;
-    bool impostors = false;
-    if (argv > 1)
-    {
-        lod = std::stoi(argc[1]);
-    }
+    uint8_t MSAA = 0;
+    if (argv > 1) { MSAA = std::stoi(argc[1]); }
 
-    if (argv > 2)
+    XYZ xyz("psilocybin.xyz");
+    auto atoms = xyz.readFrame(0);
+    for (auto & atom : atoms)
     {
-        count = std::stoi(argc[2]);
+        std::cout << atom << "\n";
     }
-
-    if (argv > 3)
-    {
-        uint8_t m = std::min(uint8_t(std::stoi(argc[3])), uint8_t(uint8_t(BASE_MESH::ANY)+1));
-        if (m <= uint8_t(BASE_MESH::ANY)){ mesh = BASE_MESH(m); }
-        else { impostors = true; }
-    }
+    center(atoms);
 
     jGL::DesktopDisplay::Config conf;
 
@@ -46,22 +35,7 @@ int main(int argv, char ** argc)
     jGLInstance->setTextProjection(glm::ortho(0.0,double(resX),0.0,double(resY)));
     jGLInstance->setMSAA(MSAA);
 
-    float d = 1.75f;
-
-    std::vector<Atom> atoms;
-    for (int i = 0; i < count; i++)
-    {
-        for (int j = 0; j < count; j++)
-        {
-            for (int k = 0; k < count; k++){
-                atoms.push_back({{d*(i-4), d*k, d*(j-4)}, 1.0f});
-            }
-        }
-    }
-
-    center(atoms);
-
-    glm::vec3 cameraPositionSpherical = glm::vec3(d*count, 1.96f, M_PI);
+    glm::vec3 cameraPositionSpherical = glm::vec3(28.0f, 1.96f, M_PI);
 
     glm::mat4 projection = glm::perspective
     (
@@ -77,7 +51,7 @@ int main(int argv, char ** argc)
         glm::vec3(0.0, 1.0, 0.0)
     );
 
-    AtomRenderer renderer(atoms, lod, spherical2cartesian(cameraPositionSpherical), mesh);
+    AtomRenderer renderer(atoms, 0, spherical2cartesian(cameraPositionSpherical), BASE_MESH::ANY);
     renderer.setProjection(projection);
     renderer.setView(view);
     renderer.setLighting
@@ -108,6 +82,10 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
         jGLInstance->setClear(glm::vec4(1.0f));
         jGLInstance->clear();
+
+        cameraPositionSpherical.z += dphi/10.0;
+        if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
+        else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -164,7 +142,7 @@ int main(int argv, char ** argc)
         );
 
         renderer.updateAtoms(atoms);
-        renderer.draw(impostors);
+        renderer.draw(true);
 
         std::stringstream debugText;
 

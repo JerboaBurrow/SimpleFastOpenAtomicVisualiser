@@ -37,15 +37,25 @@ jobs:
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_models_test &
         export PID=$!
         sleep 10
-        xwd -root -silent | convert xwd:- png:screenshot.png
+        xwd -root -silent | convert xwd:- png:screensho-meshes.png
         sleep 5 && kill $PID
-        ls
 
-    - name: upload screenshot
+        export DISPLAY=:99
+        sudo Xvfb :99 -screen 0 512x512x24 &
+        sleep 5
+        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_xyz_test &
+        export PID=$!
+        sleep 10
+        xwd -root -silent | convert xwd:- png:screenshot-xyz.png
+        sleep 5 && kill $PID
+        mkdir screenshots
+        mv *.png screenshots
+
+    - name: upload screenshots
       uses: actions/upload-artifact@v4
       with:
-        name: mesh-test.png
-        path: build/screenshot.png
+        name: screenshots
+        path: build/screenshots
 
     - name: build artifact
       uses: actions/upload-artifact@v4
