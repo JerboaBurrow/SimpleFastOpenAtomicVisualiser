@@ -28,27 +28,30 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
   - [x] Icosphere (20, 80, 320, ...).
   - [ ] Dodecasphere (36).
   - [ ] TTP sphere (14, 56, 224, ...).
-  - [ ] VDW scaled atom balls.
+  - [x] VDW scaled atom balls.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f2533df3-28fc-4b32-8954-1735ceb001b0"/>
   <br>A motley collection of sphere meshes for LOD scaling.
 </p>
 
 - [ ] LOD
-  - [ ] Overrideable LOD per atom.
+  - [x] Overrideable LOD per atom.
   - [ ] Automatic LOD scaling.
   - [ ] Configurable maximum level of detail (LOD).
-- [ ] Atom (bill-boarded) imposter spheres.
+- [x] Atom (bill-boarded) imposter spheres.
 - [ ] Bonds.
   - [ ] Bond tube meshes.
+  - [ ] Impostor bonds.
 - [ ] Colouring
   - [ ] User supplied editable colour sets.
   - [ ] Standard colour sets.
+    - [x] CPK.
   - [ ] Velocity colouring.
   - [ ] Force colouring.
 - [ ] Input
-  - [ ] Atom position file formats: DL_POLY CONFIG, XYZ, EXTXYZ, CIF.
-  - [ ] Atom connectivity file formats: DL_POLY FIELD.
+  - [ ] Atom position file formats.
+    - [x] XYZ/EXTXYZ.
+  - [ ] Atom connectivity file formats.
 - [ ] Output
   - [ ] Render to ```png```.
   - [ ] Render to ```gif```.
