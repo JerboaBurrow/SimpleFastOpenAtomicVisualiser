@@ -9,11 +9,24 @@
 
 #include <hierarchicalTriangularMesh.h>
 
+/**
+ * @brief true if a string starts with -[prefix].
+ *
+ * @param s string to check
+ * @param prefix the prefix (without -)
+ * @return true s is "-[prefix][...]"
+ * @return false s is not "-[prefix][...]"
+ */
 bool startsWith(std::string s, std::string & prefix)
 {
     return s.rfind("-"+prefix, 0) == 0;
 }
 
+/**
+ * @brief A command line argument.
+ *
+ * @tparam T the value's type
+ */
 template <class T>
 struct Argument
 {
@@ -21,6 +34,16 @@ struct Argument
     T value;
 };
 
+/**
+ * @brief Extract the value of an argument.
+ *
+ * @tparam T the argument's type.
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ */
 template <class T>
 void getArgument
 (
@@ -30,6 +53,16 @@ void getArgument
     const uint8_t count
 );
 
+/**
+ * @brief Extract a uint8_t argument.
+ *
+ * @tparam uint8_t
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ */
 template <>
 void getArgument<uint8_t>
 (
@@ -45,6 +78,16 @@ void getArgument<uint8_t>
     }
 }
 
+/**
+ * @brief Extract a std::filesystem::path argument.
+ *
+ * @tparam std::filesystem::path
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ */
 template <>
 void getArgument<std::filesystem::path>
 (
@@ -60,6 +103,16 @@ void getArgument<std::filesystem::path>
     }
 }
 
+/**
+ * @brief Extract a BASE_MESH argument.
+ *
+ * @tparam BASE_MESH
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ */
 template <>
 void getArgument<BASE_MESH>
 (
@@ -75,6 +128,17 @@ void getArgument<BASE_MESH>
     }
 }
 
+/**
+ * @brief Extract a bool argument.
+ *
+ * @tparam bool
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ * @remark Acts as a switch, i.e. no argument is required.
+ */
 template <>
 void getArgument<bool>
 (
@@ -90,9 +154,19 @@ void getArgument<bool>
     }
 }
 
+/**
+ * @brief Extract command line arguments.
+ * @remark Values of arguments are check at construction.
+ */
 struct CommandLine
 {
 
+    /**
+     * @brief Extract values from argv.
+     *
+     * @param count the size of commandLine.
+     * @param commandLine the value of argv.
+     */
     CommandLine(uint8_t count, char ** commandLine)
     {
         if (count == 1) { return; }
