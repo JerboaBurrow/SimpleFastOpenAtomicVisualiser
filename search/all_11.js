@@ -20,10 +20,12 @@ var searchData=
   ['sqrt3_17',['SQRT3',['../meshes_8h.html#a62e500de71c0b8594db5bc91a54dd628',1,'meshes.h']]],
   ['sqrt6_18',['SQRT6',['../meshes_8h.html#a112f3ebae68a48f74c1bcc9f2f9bddf8',1,'meshes.h']]],
   ['sr_19',['Sr',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8aed7b13501e351db8ecf73c4fa5e65e',1,'element.h']]],
-  ['string_5ffrom_5felement_20',['STRING_FROM_ELEMENT',['../element_8h.html#a5990bb4cdd4d39a5bcf8aeb339b4d36a',1,'element.h']]],
-  ['stringsymboltocolour_21',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
-  ['stringsymboltoelement_22',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
-  ['stringsymboltoelementradius_23',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['subdividetrixel_24',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
-  ['symbol_25',['symbol',['../classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1',1,'Atom']]]
+  ['startswith_20',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
+  ['string_5ffrom_5felement_21',['STRING_FROM_ELEMENT',['../element_8h.html#a5990bb4cdd4d39a5bcf8aeb339b4d36a',1,'element.h']]],
+  ['stringsymboltocolour_22',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
+  ['stringsymboltoelement_23',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
+  ['stringsymboltoelementradius_24',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
+  ['structure_25',['structure',['../structCommandLine.html#ab4c0706e8ddff80dd222af99844d453f',1,'CommandLine']]],
+  ['subdividetrixel_26',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
+  ['symbol_27',['symbol',['../classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1',1,'Atom']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['phi_0',['phi',['../meshes_8h.html#a5a7933eb2f6850e89e72f605c71dbe91',1,'meshes.h']]],
-  ['position_1',['position',['../classAtom.html#a6203936c817773d74620f4644d8551fc',1,'Atom']]]
+  ['name_0',['name',['../structArgument.html#a9176a2328f9acbc6242052891d1155b2',1,'Argument']]],
+  ['null_5fid_1',['NULL_ID',['../trixel_8h.html#a0edbd55406fd129356e93ea2fe1834b3',1,'trixel.h']]]
 ];

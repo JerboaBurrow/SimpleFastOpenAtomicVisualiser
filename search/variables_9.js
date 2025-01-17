@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['resx_0',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
-  ['resy_1',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]]
+  ['octahedron_0',['OCTAHEDRON',['../meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba',1,'meshes.h']]],
+  ['octahedron_5fvertices_1',['OCTAHEDRON_VERTICES',['../meshes_8h.html#a7c4e5574e481116f560fd61dc9ea90c8',1,'meshes.h']]]
 ];
