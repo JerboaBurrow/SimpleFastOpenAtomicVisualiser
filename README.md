@@ -7,6 +7,8 @@ A simple program to quickly visualise atomic and molecular systems (AMSs).
 
 The code is accelerated using OpenGL for 3D rendering and builds for Linux, Windows, macOS, and Android.
 
+#### [Documentation](https://jerboaburrow.github.io/SimpleFastOpenAtomicVisualiser/)
+
 #### What it is
 
 - **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI.
