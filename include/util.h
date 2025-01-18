@@ -107,6 +107,19 @@ std::string fixedLengthNumber(double x, unsigned length)
     return dtrunc;
 }
 
+void subFullBuffer(GLuint & buffer, float * data, GLuint size)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glBufferSubData
+        (
+            GL_ARRAY_BUFFER,
+            0,
+            sizeof(float)*size,
+            data
+        );
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void enableBuffer
 (
     GLuint & buffer,

@@ -37,6 +37,7 @@ int main(int argv, char ** argc)
         std::cout << atom << "\n";
     }
     center(atoms);
+    std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
 
     glm::vec3 cameraPositionSpherical = glm::vec3(10.0f, 1.96f, M_PI);
 
@@ -54,7 +55,7 @@ int main(int argv, char ** argc)
         glm::vec3(0.0, 1.0, 0.0)
     );
 
-    AtomRenderer renderer
+    AtomRenderer atomRenderer
     (
         atoms,
         options.levelOfDetail.value,
@@ -62,9 +63,27 @@ int main(int argv, char ** argc)
         options.mesh.value
     );
 
-    renderer.setProjection(projection);
-    renderer.setView(view);
-    renderer.setLighting
+    BondRenderer bondRenderer
+    (
+        bonds,
+        atoms,
+        bonds.size()
+    );
+
+    std::cout << bonds.size() << "\n";
+
+    atomRenderer.setProjection(projection);
+    atomRenderer.setView(view);
+    atomRenderer.setLighting
+    (
+        spherical2cartesian(cameraPositionSpherical),
+        {1.0f, 1.0f, 1.0f},
+        0.1f
+    );
+
+    bondRenderer.setProjection(projection);
+    bondRenderer.setView(view);
+    bondRenderer.setLighting
     (
         spherical2cartesian(cameraPositionSpherical),
         {1.0f, 1.0f, 1.0f},
@@ -92,10 +111,6 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
         jGLInstance->setClear(glm::vec4(1.0f));
         jGLInstance->clear();
-
-        cameraPositionSpherical.z -= dphi/10.0;
-        if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
-        else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -142,24 +157,35 @@ int main(int argv, char ** argc)
             glm::vec3(0.0, 1.0, 0.0)
         );
 
-        renderer.setProjection(projection);
-        renderer.setView(view);
-        renderer.setLighting
+        atomRenderer.setProjection(projection);
+        atomRenderer.setView(view);
+        atomRenderer.setLighting
         (
             spherical2cartesian(cameraPositionSpherical),
             {1.0f, 1.0f, 1.0f},
             0.1f
         );
 
-        renderer.updateAtoms(atoms);
-        renderer.draw(!options.meshes.value);
+        bondRenderer.setProjection(projection);
+        bondRenderer.setView(view);
+        bondRenderer.setLighting
+        (
+            spherical2cartesian(cameraPositionSpherical),
+            {1.0f, 1.0f, 1.0f},
+            0.1f
+        );
+
+        atomRenderer.updateAtoms(atoms);
+        //atomRenderer.draw(!options.meshes.value);
+
+        bondRenderer.draw();
 
         std::stringstream debugText;
 
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Atoms/Triangles: " << atoms.size() << "/" << renderer.triangles(true) << "\n"
+                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true) << "\n"
                   << "Pos: " << cameraPositionSpherical;
 
         jGLInstance->text(

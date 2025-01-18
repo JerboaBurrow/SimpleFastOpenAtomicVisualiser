@@ -403,17 +403,24 @@ private:
         "uniform vec4 lightPos;\n"
         "uniform vec4 lightColour;\n"
         "uniform float ambientLight;\n"
+        "bool sphereHit(vec3 rayDirection, vec3 centre, float radius, out vec3 pos, out vec3 normal)\n"
+        "{\n"
+        "    float b = 2.0 * dot(rayDirection, -centre);\n"
+        "    float r2 = radius*radius;\n"
+        "    float determinant = b * b - (4.0 * (dot(centre, centre) - r2));\n"
+        "    if(determinant < 0.0) { return false; }\n"
+        "    determinant = sqrt(determinant);\n"
+        "    pos = rayDirection * min((-b+determinant)*0.5, (-b-determinant)*0.5);\n"
+        "    normal = normalize(pos - centre);\n"
+        "    return true;\n"
+        "}\n"
         "void main()\n"
         "{\n"
         "    vec3 lightViewPos = (view*lightPos).xyz;\n"
         "    vec3 rayDirection = normalize(vec3(billboard * atomPosScale.w, 0.0) + atomViewPos);"
-        "    float b = 2.0 * dot(rayDirection, -atomViewPos);"
-        "    float r2 = atomPosScale.w*atomPosScale.w;"
-        "    float determinant = b * b - (4.0 * (dot(atomViewPos, atomViewPos) - r2));"
-        "    if(determinant < 0.0) { discard; }"
-        "    determinant = sqrt(determinant);"
-        "    vec3 viewPos = rayDirection * min((-b+determinant)*0.5, (-b-determinant)*0.5);"
-        "    vec3 viewNormal = normalize(viewPos - atomViewPos);"
+        "    vec3 viewNormal; vec3 viewPos;\n"
+        "    bool hit = sphereHit(rayDirection, atomViewPos, atomPosScale.w, viewPos, viewNormal);\n"
+        "    if (!hit) { discard; }\n"
         "    vec4 clipPos = proj * vec4(viewPos, 1.0);\n"
         "    float ndcDepth = clipPos.z / clipPos.w;\n"
         "    gl_FragDepth = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;\n"
@@ -645,25 +652,8 @@ private:
         {
             glBindVertexArray(vao_mesh);
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_positionsAndScales);
-                    glBufferSubData
-                    (
-                        GL_ARRAY_BUFFER,
-                        0,
-                        sizeof(float)*positionsAndScales.size(),
-                        &positionsAndScales[0]
-                    );
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-                glBindBuffer(GL_ARRAY_BUFFER, a_colours);
-                    glBufferSubData
-                    (
-                        GL_ARRAY_BUFFER,
-                        0,
-                        sizeof(float)*colours.size(),
-                        &colours[0]
-                    );
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                subFullBuffer(a_positionsAndScales, positionsAndScales.data(), positionsAndScales.size());
+                subFullBuffer(a_colours, colours.data(), colours.size());
 
             glBindVertexArray(0);
         }
