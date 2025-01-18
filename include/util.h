@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <string>
+#include <limits.h>
 
 #include <jGL/OpenGL/gl.h>
 #include <glm/glm.hpp>
@@ -79,6 +80,26 @@ void center(std::vector<Atom> & atoms)
     {
         atom.position -= com;
     }
+}
+
+/**
+ * @brief Calculate the extent of some Atoms
+ *
+ * @param atoms the Atom list.
+ */
+glm::vec3 extent(std::vector<Atom> & atoms)
+{
+    glm::vec3 min = glm::vec3(std::numeric_limits<float>::max());
+    glm::vec3 max = glm::vec3(-std::numeric_limits<float>::max());
+    for (const auto & atom : atoms)
+    {
+        for (uint8_t i = 0; i < 3; i++)
+        {
+            min[i] = std::min(min[i], atom.position[i]);
+            max[i] = std::max(max[i], atom.position[i]);
+        }
+    }
+    return max-min;
 }
 
 /**

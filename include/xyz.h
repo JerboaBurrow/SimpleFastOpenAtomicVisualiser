@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 
-#include <atom.h>
+#include <structure.h>
 
 /**
  * @brief Read XYZ and EXTXYZ files
@@ -21,7 +21,7 @@
  * @remark A trajectory is a simple concatenation of multiple XYZ files.
  * @remark EXTXYZ includes a more detail specification for the comment line.
  */
-class XYZ
+class XYZ : public Structure
 {
 public:
 
@@ -31,56 +31,13 @@ public:
      * @param path the file path of the XYZ file.
      */
     XYZ(std::filesystem::path path)
-    : path(path),
-      filestream(std::ifstream(path)),
-      currentFrame(0)
+    : Structure(path)
     {
         readAtomCount();
         readFrameCount();
     }
 
-    /**
-     * @brief Get the number of atoms in the XYZ.
-     *
-     * @return uint64_t the number of atoms.
-     */
-    uint64_t atomCount() const { return atoms; }
-
-    /**
-     * @brief Read a single frame at position frame.
-     *
-     * @param frame the frame position.
-     * @return std::vector<Atom> the Atoms read.
-     */
-    std::vector<Atom> readFrame(uint64_t frame)
-    {
-        std::vector<Atom> data;
-        if (frame > frames) { return data; }
-        if (frame == currentFrame)
-        {
-            readFrame(data);
-        }
-        else if (frame > currentFrame)
-        {
-            skipFrames(frame-currentFrame);
-            readFrame(data);
-        }
-        else
-        {
-            filestream.seekg(std::ios::beg);
-            skipFrames(frame-1);
-            readFrame(data);
-        }
-        return data;
-    }
-
 private:
-
-    std::filesystem::path path;
-    std::ifstream filestream;
-    uint64_t atoms;
-    uint64_t frames;
-    uint64_t currentFrame;
 
     void readAtomCount()
     {
@@ -94,25 +51,15 @@ private:
 
     void readFrameCount()
     {
-        filestream.seekg(std::ios::beg);
-        uint64_t lines = std::count
-        (
-            std::istreambuf_iterator<char>
-            {filestream},
-            {},
-            '\n'
-        );
-        frames = lines / (atoms+uint64_t(2));
-        filestream.seekg(std::ios::beg);
+        frames = linesInFile / (atoms+uint64_t(2));
     }
 
     void skipFrame()
     {
-        filestream.ignore
-        (
-            std::numeric_limits<std::streamsize>::max(),
-            '\n'
-        );
+        for (uint64_t a = 0; a < atoms+2; a++)
+        {
+            skipLine();
+        }
     }
 
     void skipFrames(uint64_t count)
@@ -123,7 +70,7 @@ private:
         }
     }
 
-    void readFrame(std::vector<Atom> & data)
+    void getFrame(std::vector<Atom> & data)
     {
         std::string line;
         std::stringstream ss;

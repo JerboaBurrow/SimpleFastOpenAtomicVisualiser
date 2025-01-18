@@ -30,14 +30,22 @@ int main(int argv, char ** argc)
         throw std::runtime_error("No atoms path specified, specify one with -atoms <path>");
     }
 
-    XYZ xyz(options.structure.value);
-    auto atoms = xyz.readFrame(0);
+    CONFIG structure(options.structure.value);
+    auto atoms = structure.readFrame(0);
     center(atoms);
 
-    std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
+    glm::vec3 ext = extent(atoms);
 
     float polarDirection = 1.0f;
-    glm::vec3 cameraPositionSpherical = glm::vec3(10.0f, 1.96f, M_PI);
+
+    glm::vec3 cameraPositionSpherical = glm::vec3
+    (
+        2.0f*std::max(std::max(ext.x, ext.y), ext.z),
+        M_PI*0.5f,
+        M_PI
+    );
+
+    std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
 
     glm::mat4 projection = glm::perspective
     (
