@@ -67,9 +67,6 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 
 To keep it simple the following features won't be implemented. For these and more use a complex feature rich visualiser like VMD https://www.ks.uiuc.edu/Research/vmd/.
 
-- Publication quality images.
-- Ray tracing.
-- Materials, fog, detailed lighting, PBR, and other effects.
 - Structures and environments.
 - System editing (atom positions, types, bonds).
 - Script extensions.

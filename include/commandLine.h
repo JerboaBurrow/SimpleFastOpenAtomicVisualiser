@@ -79,6 +79,31 @@ void getArgument<uint8_t>
 }
 
 /**
+ * @brief Extract a float argument.
+ *
+ * @tparam float
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ */
+template <>
+void getArgument<float>
+(
+    Argument<float> & arg,
+    char ** commandLine,
+    const uint8_t c,
+    const uint8_t count
+)
+{
+    if (c < count-1  && startsWith(commandLine[c], arg.name))
+    {
+        arg.value = std::stof(commandLine[c+1]);
+    }
+}
+
+/**
  * @brief Extract a std::filesystem::path argument.
  *
  * @tparam std::filesystem::path
@@ -177,6 +202,7 @@ struct CommandLine
             getArgument<bool>(meshes, commandLine, c, count);
             getArgument<BASE_MESH>(mesh, commandLine, c, count);
             getArgument<std::filesystem::path>(structure, commandLine, c, count);
+            getArgument<float>(bondCutoff, commandLine, c, count);
         }
     }
 
@@ -185,6 +211,7 @@ struct CommandLine
     Argument<BASE_MESH> mesh = {"mesh", BASE_MESH::ANY};
     Argument<bool> meshes = {"meshes", false};
     Argument<std::filesystem::path> structure = {"atoms", {}};
+    Argument<float> bondCutoff = {"bondCutOff", 0.0f};
 
 };
 

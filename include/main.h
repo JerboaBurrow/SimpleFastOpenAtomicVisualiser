@@ -16,10 +16,10 @@
 
 #include <atom.h>
 #include <atomRenderer.h>
+#include <bondRenderer.h>
 #include <util.h>
 #include <commandLine.h>
 #include <xyz.h>
-
 const unsigned int resX = 512;
 const unsigned int resY = resX;
 
