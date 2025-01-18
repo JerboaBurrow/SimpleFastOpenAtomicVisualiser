@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 
+#include <jGL/OpenGL/gl.h>
 #include <glm/glm.hpp>
 
 /**
@@ -104,6 +105,62 @@ std::string fixedLengthNumber(double x, unsigned length)
         }
     }
     return dtrunc;
+}
+
+void enableBuffer
+(
+    GLuint & buffer,
+    GLuint attribute,
+    GLuint size,
+    GLuint divisor
+)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glEnableVertexAttribArray(attribute);
+        glVertexAttribPointer
+        (
+            attribute,
+            size,
+            GL_FLOAT,
+            false,
+            size*sizeof(float),
+            0
+        );
+        glVertexAttribDivisor(attribute, divisor);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void createBuffer
+(
+    GLuint & buffer,
+    const float * data,
+    GLuint dataSize,
+    int drawType,
+    GLuint attribute,
+    GLuint size,
+    GLuint divisor
+)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glEnableVertexAttribArray(attribute);
+        glBufferData
+        (
+            GL_ARRAY_BUFFER,
+            sizeof(float)*dataSize,
+            data,
+            drawType
+        );
+        glVertexAttribPointer
+        (
+            attribute,
+            size,
+            GL_FLOAT,
+            false,
+            size*sizeof(float),
+            0
+        );
+        glVertexAttribDivisor(attribute, divisor);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 #endif /* UTIL_H */
