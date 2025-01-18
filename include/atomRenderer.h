@@ -13,6 +13,7 @@
 
 #include <hierarchicalTriangularMesh.h>
 
+#include <util.h>
 #include <atom.h>
 
 /**
@@ -460,145 +461,81 @@ private:
 
             glBindVertexArray(vao_mesh);
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_vertices);
-                    glBufferData
-                    (
-                        GL_ARRAY_BUFFER,
-                        sizeof(float)*mesh.vertices.size(),
-                        &mesh.vertices[0],
-                        GL_STATIC_DRAW
-                    );
-                    glEnableVertexAttribArray(0);
-                    glVertexAttribPointer
-                    (
-                        0,
-                        3,
-                        GL_FLOAT,
-                        false,
-                        3*sizeof(float),
-                        0
-                    );
-                    // never increment per instance
-                    glVertexAttribDivisor(0, 0);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                createBuffer
+                (
+                    a_vertices,
+                    mesh.vertices.data(),
+                    mesh.vertices.size(),
+                    GL_STATIC_DRAW,
+                    0,
+                    3,
+                    0
+                );
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_normals);
-                    glBufferData
-                    (
-                        GL_ARRAY_BUFFER,
-                        sizeof(float)*mesh.normals.size(),
-                        &mesh.normals[0],
-                        GL_STATIC_DRAW
-                    );
-                    glEnableVertexAttribArray(1);
-                    glVertexAttribPointer
-                    (
-                        1,
-                        3,
-                        GL_FLOAT,
-                        false,
-                        3*sizeof(float),
-                        0
-                    );
-                    // never increment per instance
-                    glVertexAttribDivisor(1, 0);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                createBuffer
+                (
+                    a_normals,
+                    mesh.normals.data(),
+                    mesh.normals.size(),
+                    GL_STATIC_DRAW,
+                    1,
+                    3,
+                    0
+                );
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_positionsAndScales);
-                    glBufferData
-                    (
-                        GL_ARRAY_BUFFER,
-                        sizeof(float)*positionsAndScales.size(),
-                        &positionsAndScales[0],
-                        GL_DYNAMIC_DRAW
-                    );
-                    glEnableVertexAttribArray(2);
-                    glVertexAttribPointer
-                    (
-                        2,
-                        4,
-                        GL_FLOAT,
-                        false,
-                        4*sizeof(float),
-                        0
-                    );
-                    glVertexAttribDivisor(2, 1);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                createBuffer
+                (
+                    a_positionsAndScales,
+                    positionsAndScales.data(),
+                    positionsAndScales.size(),
+                    GL_DYNAMIC_DRAW,
+                    2,
+                    4,
+                    1
+                );
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_colours);
-                    glBufferData
-                    (
-                        GL_ARRAY_BUFFER,
-                        sizeof(float)*colours.size(),
-                        &colours[0],
-                        GL_DYNAMIC_DRAW
-                    );
-                    glEnableVertexAttribArray(3);
-                    glVertexAttribPointer
-                    (
-                        3,
-                        4,
-                        GL_FLOAT,
-                        false,
-                        4*sizeof(float),
-                        0
-                    );
-                    glVertexAttribDivisor(3, 1);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                createBuffer
+                (
+                    a_colours,
+                    colours.data(),
+                    colours.size(),
+                    GL_DYNAMIC_DRAW,
+                    3,
+                    4,
+                    1
+                );
+
             glBindVertexArray(0);
 
             glBindVertexArray(vao_imposter);
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_quad);
-                    glBufferData
-                    (
-                        GL_ARRAY_BUFFER,
-                        sizeof(float)*quad.size(),
-                        &quad[0],
-                        GL_STATIC_DRAW
-                    );
+                createBuffer
+                (
+                    a_quad,
+                    quad.data(),
+                    quad.size(),
+                    GL_STATIC_DRAW,
+                    0,
+                    2,
+                    0
+                );
 
-                    glEnableVertexAttribArray(0);
-                    glVertexAttribPointer
-                    (
-                        0,
-                        2,
-                        GL_FLOAT,
-                        false,
-                        2*sizeof(float),
-                        0
-                    );
-                    // never increment per instance
-                    glVertexAttribDivisor(0, 0);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                enableBuffer
+                (
+                    a_positionsAndScales,
+                    1,
+                    4,
+                    1
+                );
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_positionsAndScales);
-                    glEnableVertexAttribArray(1);
-                    glVertexAttribPointer
-                    (
-                        1,
-                        4,
-                        GL_FLOAT,
-                        false,
-                        4*sizeof(float),
-                        0
-                    );
-                    glVertexAttribDivisor(1, 1);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                enableBuffer
+                (
+                    a_colours,
+                    2,
+                    4,
+                    1
+                );
 
-                glBindBuffer(GL_ARRAY_BUFFER, a_colours);
-                    glEnableVertexAttribArray(2);
-                    glVertexAttribPointer
-                    (
-                        2,
-                        4,
-                        GL_FLOAT,
-                        false,
-                        4*sizeof(float),
-                        0
-                    );
-                    glVertexAttribDivisor(2, 1);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
             glBindVertexArray(0);
         }
 
