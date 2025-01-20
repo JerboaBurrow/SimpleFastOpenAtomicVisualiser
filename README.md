@@ -46,7 +46,7 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 - [x] Atom (bill-boarded) imposter spheres.
 - [ ] Bonds.
   - [ ] Bond tube meshes.
-  - [ ] Impostor bonds.
+  - [x] Impostor bonds.
 - [ ] Colouring
   - [ ] User supplied editable colour sets.
   - [ ] Standard colour sets.
