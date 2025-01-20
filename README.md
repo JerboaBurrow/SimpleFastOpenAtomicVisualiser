@@ -2,7 +2,8 @@
 <p align="center">
   <img height=256px src="https://github.com/user-attachments/assets/feb05885-b8ac-4417-9f60-4fa4acce35c5" />
   <img height=256px src="https://github.com/user-attachments/assets/8f109e8a-aa71-425a-8694-270695ce138c"/>
-  <br>125,000 "Atoms" in real time with 16x MSAA and 128 triangles per ball.
+  <br>[Left] 125,000 "Atoms" in real time with 16x MSAA and 128 triangles per ball.
+  <br>[Right] Pislocybin molecule with 2 triangles per bond (ray-traced).
 </p>
 A simple program to quickly visualise atomic and molecular systems (AMSs).
 
