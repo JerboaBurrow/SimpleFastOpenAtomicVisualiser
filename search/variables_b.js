@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['resx_0',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
-  ['resy_1',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]]
+  ['name_0',['name',['../structArgument.html#a9176a2328f9acbc6242052891d1155b2',1,'Argument']]],
+  ['null_5fid_1',['NULL_ID',['../trixel_8h.html#a0edbd55406fd129356e93ea2fe1834b3',1,'trixel.h']]]
 ];

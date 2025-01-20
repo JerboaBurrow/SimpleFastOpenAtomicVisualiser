@@ -80,19 +80,22 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;jGL/OpenGL/gl.h&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for util.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__incl.png" border="0" usemap="#ainclude_2util_8h" alt=""/></div>
 <map name="ainclude_2util_8h" id="ainclude_2util_8h">
-<area shape="rect" title=" " alt="" coords="69,5,175,31"/>
+<area shape="rect" title=" " alt="" coords="127,5,234,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,68,104"/>
-<area shape="poly" title=" " alt="" coords="110,33,63,72,59,68,107,29"/>
+<area shape="poly" title=" " alt="" coords="159,33,74,75,71,70,156,28"/>
 <area shape="rect" title=" " alt="" coords="93,79,151,104"/>
-<area shape="poly" title=" " alt="" coords="125,31,125,65,119,65,119,31"/>
-<area shape="rect" title=" " alt="" coords="175,79,279,104"/>
-<area shape="poly" title=" " alt="" coords="140,28,200,69,198,73,137,33"/>
+<area shape="poly" title=" " alt="" coords="173,33,142,70,138,67,169,29"/>
+<area shape="rect" title=" " alt="" coords="176,79,303,104"/>
+<area shape="poly" title=" " alt="" coords="192,29,223,67,219,70,188,33"/>
+<area shape="rect" title=" " alt="" coords="327,79,431,104"/>
+<area shape="poly" title=" " alt="" coords="213,28,335,71,333,76,212,33"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -100,11 +103,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__dep__incl.png" border="0" usemap="#ainclude_2util_8hdep" alt=""/></div>
 <map name="ainclude_2util_8hdep" id="ainclude_2util_8hdep">
-<area shape="rect" title=" " alt="" coords="11,5,118,31"/>
-<area shape="rect" href="main_8h.html" title=" " alt="" coords="5,79,124,104"/>
-<area shape="poly" title=" " alt="" coords="67,44,67,79,62,79,62,44"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="12,152,117,177"/>
-<area shape="poly" title=" " alt="" coords="67,118,67,152,62,152,62,118"/>
+<area shape="rect" title=" " alt="" coords="167,5,274,31"/>
+<area shape="rect" href="atomRenderer_8h.html" title=" " alt="" coords="5,79,183,104"/>
+<area shape="poly" title=" " alt="" coords="190,40,116,81,113,76,187,35"/>
+<area shape="rect" href="main_8h.html" title=" " alt="" coords="161,152,280,177"/>
+<area shape="poly" title=" " alt="" coords="223,45,223,152,218,152,218,45"/>
+<area shape="rect" href="bondRenderer_8h.html" title=" " alt="" coords="259,79,433,104"/>
+<area shape="poly" title=" " alt="" coords="254,35,327,76,324,81,251,40"/>
+<area shape="poly" title=" " alt="" coords="128,108,201,149,199,154,125,113"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="168,225,273,251"/>
+<area shape="poly" title=" " alt="" coords="223,191,223,225,218,225,218,191"/>
+<area shape="poly" title=" " alt="" coords="315,113,242,154,240,149,313,108"/>
 </map>
 </div>
 </div>
@@ -124,6 +133,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a993c1a4171c23f9731e0b97ee43c2cc7" id="r_a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a993c1a4171c23f9731e0b97ee43c2cc7">fixedLengthNumber</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">double</a> x, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">unsigned</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">length</a>)</td></tr>
 <tr class="memdesc:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a double to a fixes length std::string.  <br /></td></tr>
 <tr class="separator:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28bf4ceab8dc8d02c66dfe5f975af519" id="r_a28bf4ceab8dc8d02c66dfe5f975af519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">subFullBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">data</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size)</td></tr>
+<tr class="memdesc:a28bf4ceab8dc8d02c66dfe5f975af519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute a GL_ARRAY_BUFFER fully.  <br /></td></tr>
+<tr class="separator:a28bf4ceab8dc8d02c66dfe5f975af519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80efbe036b07598e951c2a6c222e2c96" id="r_a80efbe036b07598e951c2a6c222e2c96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a80efbe036b07598e951c2a6c222e2c96">enableBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">attribute</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">divisor</a>)</td></tr>
+<tr class="memdesc:a80efbe036b07598e951c2a6c222e2c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable a GL_ARRAY_BUFFER.  <br /></td></tr>
+<tr class="separator:a80efbe036b07598e951c2a6c222e2c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3971f7f37836082291c26e06b02de92" id="r_aa3971f7f37836082291c26e06b02de92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#aa3971f7f37836082291c26e06b02de92">createBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">data</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">dataSize</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">int</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">drawType</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">attribute</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">divisor</a>)</td></tr>
+<tr class="memdesc:aa3971f7f37836082291c26e06b02de92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a GL_ARRAY_BUFFER from data.  <br /></td></tr>
+<tr class="separator:aa3971f7f37836082291c26e06b02de92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af47d0eeb76203e06f023871134fd221c" name="af47d0eeb76203e06f023871134fd221c"></a>
@@ -176,6 +194,129 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">atoms</td><td>the <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> list to centre. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa3971f7f37836082291c26e06b02de92" name="aa3971f7f37836082291c26e06b02de92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3971f7f37836082291c26e06b02de92">&#9670;&#160;</a></span>createBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> createBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>dataSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">int</a>&#160;</td>
+          <td class="paramname"><em>drawType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>attribute</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>divisor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a GL_ARRAY_BUFFER from data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id. </td></tr>
+    <tr><td class="paramname">data</td><td>the data to upload. </td></tr>
+    <tr><td class="paramname">dataSize</td><td>the amount of data. </td></tr>
+    <tr><td class="paramname">drawType</td><td>the draw type. </td></tr>
+    <tr><td class="paramname">attribute</td><td>the vertex attribute. </td></tr>
+    <tr><td class="paramname">size</td><td>dimension. </td></tr>
+    <tr><td class="paramname">divisor</td><td>the instance divisor. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a80efbe036b07598e951c2a6c222e2c96" name="a80efbe036b07598e951c2a6c222e2c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80efbe036b07598e951c2a6c222e2c96">&#9670;&#160;</a></span>enableBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> enableBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>attribute</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>divisor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable a GL_ARRAY_BUFFER. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id. </td></tr>
+    <tr><td class="paramname">attribute</td><td>the vertex attributed. </td></tr>
+    <tr><td class="paramname">size</td><td>the dimension. </td></tr>
+    <tr><td class="paramname">divisor</td><td>the intancing divisor. </td></tr>
   </table>
   </dd>
 </dl>
@@ -247,6 +388,50 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec3 the cartesian vector. </dd></dl>
+
+</div>
+</div>
+<a id="a28bf4ceab8dc8d02c66dfe5f975af519" name="a28bf4ceab8dc8d02c66dfe5f975af519"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28bf4ceab8dc8d02c66dfe5f975af519">&#9670;&#160;</a></span>subFullBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> subFullBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Substitute a GL_ARRAY_BUFFER fully. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id </td></tr>
+    <tr><td class="paramname">data</td><td>the new data. </td></tr>
+    <tr><td class="paramname">size</td><td>the size. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

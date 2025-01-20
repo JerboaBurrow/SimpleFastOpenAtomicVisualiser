@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['element_5ffrom_5fstring_0',['ELEMENT_FROM_STRING',['../element_8h.html#ad1e406e9873de44d01e037701a40d8c4',1,'element.h']]],
-  ['element_5fradius_1',['ELEMENT_RADIUS',['../element_8h.html#afbc1c19c089491aa816dab4ea6972f50',1,'element.h']]]
+  ['c_0',['C',['../meshes_8h.html#ad0ffe4e857267d794277d327380078c8',1,'meshes.h']]],
+  ['colour_1',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
+  ['cpk_5fcolours_2',['CPK_COLOURS',['../colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917',1,'colour.h']]],
+  ['cube_3',['CUBE',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'meshes.h']]],
+  ['cube_5fvertices_4',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]]
 ];

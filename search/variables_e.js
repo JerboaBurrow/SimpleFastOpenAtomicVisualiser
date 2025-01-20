@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value_0',['value',['../structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79',1,'Argument']]],
-  ['velocity_1',['velocity',['../classAtom.html#abdd01cd7027fea4b54226593ccc0de18',1,'Atom']]]
+  ['resx_0',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
+  ['resy_1',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['levelofdetail_0',['levelOfDetail',['../structCommandLine.html#aaff51a529d65a2c03d522a27896a29b0',1,'CommandLine']]]
+  ['hideatoms_0',['hideAtoms',['../structCommandLine.html#ab268d13aaac2e9b9212dc1b254994c38',1,'CommandLine']]]
 ];

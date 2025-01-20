@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['documentation_0',['Welcome to the documentation!',['../index.html',1,'']]],
-  ['documentation_2emd_1',['DOCUMENTATION.md',['../DOCUMENTATION_8md.html',1,'']]],
-  ['dodecahedron_2',['dodecahedron',['../meshes_8h.html#ab12306d98b7f88582b0c5b070f2a050e',1,'DODECAHEDRON:&#160;meshes.h'],['../hierarchicalTriangularMesh_8h.html#a64cd2594249c0b08877c156c25832d8aa5258c000018fad087b90e6d45a31fa2e',1,'DODECAHEDRON:&#160;hierarchicalTriangularMesh.h']]],
-  ['dodecahedron_5fvertices_3',['DODECAHEDRON_VERTICES',['../meshes_8h.html#a6e42d5a86de84bc541819644f60d4bb8',1,'meshes.h']]],
-  ['dphi_4',['dphi',['../main_8h.html#a77aa1d699d1c28c1c6f1c1d268764135',1,'main.h']]],
-  ['dr_5',['dr',['../main_8h.html#a26b9be004b6103eeb1f7498c61e699e1',1,'main.h']]],
-  ['draw_6',['draw',['../classAtomRenderer.html#afc4f9b64ff94eb08a41b547dbd2013d0',1,'AtomRenderer']]],
-  ['dtheta_7',['dtheta',['../main_8h.html#a97c24c468ffc4d140dda4eb4b13a892f',1,'main.h']]],
-  ['dy_8',['Dy',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ac7142cf9913b2210eca7f98e8fc365da',1,'element.h']]]
+  ['determinebonds_0',['determineBonds',['../bond_8h.html#a2429d405636780d4a559349bfb39669c',1,'bond.h']]],
+  ['documentation_1',['Welcome to the documentation!',['../index.html',1,'']]],
+  ['documentation_2emd_2',['DOCUMENTATION.md',['../DOCUMENTATION_8md.html',1,'']]],
+  ['dodecahedron_3',['dodecahedron',['../meshes_8h.html#ab12306d98b7f88582b0c5b070f2a050e',1,'DODECAHEDRON:&#160;meshes.h'],['../hierarchicalTriangularMesh_8h.html#a64cd2594249c0b08877c156c25832d8aa5258c000018fad087b90e6d45a31fa2e',1,'DODECAHEDRON:&#160;hierarchicalTriangularMesh.h']]],
+  ['dodecahedron_5fvertices_4',['DODECAHEDRON_VERTICES',['../meshes_8h.html#a6e42d5a86de84bc541819644f60d4bb8',1,'meshes.h']]],
+  ['dphi_5',['dphi',['../main_8h.html#a77aa1d699d1c28c1c6f1c1d268764135',1,'main.h']]],
+  ['dr_6',['dr',['../main_8h.html#a26b9be004b6103eeb1f7498c61e699e1',1,'main.h']]],
+  ['draw_7',['draw',['../classAtomRenderer.html#afc4f9b64ff94eb08a41b547dbd2013d0',1,'AtomRenderer::draw()'],['../classBondRenderer.html#aba62a5538481e6b25e4b6a6b7a2e13ae',1,'BondRenderer::draw(uint32_t count)'],['../classBondRenderer.html#a0c54a745e42f1589cc05e1c5ded5b817',1,'BondRenderer::draw()']]],
+  ['dtheta_8',['dtheta',['../main_8h.html#a97c24c468ffc4d140dda4eb4b13a892f',1,'main.h']]],
+  ['dy_9',['Dy',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ac7142cf9913b2210eca7f98e8fc365da',1,'element.h']]]
 ];
