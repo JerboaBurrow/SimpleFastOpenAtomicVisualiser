@@ -107,6 +107,13 @@ std::string fixedLengthNumber(double x, unsigned length)
     return dtrunc;
 }
 
+/**
+ * @brief Substitute a GL_ARRAY_BUFFER fully.
+ *
+ * @param buffer the GL_ARRAY_BUFFER id
+ * @param data the new data.
+ * @param size the size.
+ */
 void subFullBuffer(GLuint & buffer, float * data, GLuint size)
 {
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -120,6 +127,14 @@ void subFullBuffer(GLuint & buffer, float * data, GLuint size)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+/**
+ * @brief Enable a GL_ARRAY_BUFFER.
+ *
+ * @param buffer the GL_ARRAY_BUFFER id.
+ * @param attribute the vertex attributed.
+ * @param size the dimension.
+ * @param divisor the intancing divisor.
+ */
 void enableBuffer
 (
     GLuint & buffer,
@@ -143,6 +158,17 @@ void enableBuffer
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+/**
+ * @brief Create a GL_ARRAY_BUFFER from data.
+ *
+ * @param buffer the GL_ARRAY_BUFFER id.
+ * @param data the data to upload.
+ * @param dataSize the amount of data.
+ * @param drawType the draw type.
+ * @param attribute the vertex attribute.
+ * @param size dimension.
+ * @param divisor the instance divisor.
+ */
 void createBuffer
 (
     GLuint & buffer,
