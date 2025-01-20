@@ -32,11 +32,8 @@ int main(int argv, char ** argc)
 
     XYZ xyz(options.structure.value);
     auto atoms = xyz.readFrame(0);
-    for (auto & atom : atoms)
-    {
-        std::cout << atom << "\n";
-    }
     center(atoms);
+
     std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
 
     glm::vec3 cameraPositionSpherical = glm::vec3(10.0f, 1.96f, M_PI);
@@ -70,8 +67,6 @@ int main(int argv, char ** argc)
         bonds.size()
     );
 
-    std::cout << bonds.size() << "\n";
-
     atomRenderer.setProjection(projection);
     atomRenderer.setView(view);
     atomRenderer.setLighting
@@ -89,6 +84,8 @@ int main(int argv, char ** argc)
         {1.0f, 1.0f, 1.0f},
         0.1f
     );
+
+    bondRenderer.setBondScale(options.bondSize.value);
 
     double deltas[60];
     double delta = 0;
@@ -111,6 +108,11 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
         jGLInstance->setClear(glm::vec4(1.0f));
         jGLInstance->clear();
+
+        if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
+        {
+            options.hideAtoms.value = !options.hideAtoms.value;
+        }
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
@@ -175,8 +177,11 @@ int main(int argv, char ** argc)
             0.1f
         );
 
-        atomRenderer.updateAtoms(atoms);
-        //atomRenderer.draw(!options.meshes.value);
+        if (!options.hideAtoms.value)
+        {
+            atomRenderer.updateAtoms(atoms);
+            atomRenderer.draw(!options.meshes.value);
+        }
 
         bondRenderer.draw();
 

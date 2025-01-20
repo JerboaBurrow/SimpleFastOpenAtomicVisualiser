@@ -32,7 +32,7 @@ public:
     {
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
-        shader->setUniform<float>("clipCorrection", 1.5f);
+        shader->setUniform<float>("clipCorrection", 1.75f);
         setBondScale(1.0f);
         init();
 
