@@ -203,6 +203,8 @@ struct CommandLine
             getArgument<BASE_MESH>(mesh, commandLine, c, count);
             getArgument<std::filesystem::path>(structure, commandLine, c, count);
             getArgument<float>(bondCutoff, commandLine, c, count);
+            getArgument<float>(bondSize, commandLine, c, count);
+            getArgument<bool>(hideAtoms, commandLine, c, count);
         }
     }
 
@@ -212,6 +214,8 @@ struct CommandLine
     Argument<bool> meshes = {"meshes", false};
     Argument<std::filesystem::path> structure = {"atoms", {}};
     Argument<float> bondCutoff = {"bondCutOff", 0.0f};
+    Argument<float> bondSize = {"bondSize", 1.0f};
+    Argument<bool> hideAtoms = {"hideAtoms", false};
 
 };
 
