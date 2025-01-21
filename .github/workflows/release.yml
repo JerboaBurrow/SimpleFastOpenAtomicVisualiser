@@ -28,6 +28,10 @@ jobs:
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
         cp LICENSE* linux-x86_64/
 
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
+
     - name: mesh rendering test
       run: |
         cd build
@@ -82,6 +86,10 @@ jobs:
         cp build/*.dll windows/
         cp LICENSE* windows/
 
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
+
     - name: build artifact
       uses: actions/upload-artifact@v4
       with:
@@ -105,10 +113,14 @@ jobs:
 
     - name: macos-macos
       run: |
-        ./build.sh -o -e -r
+        ./build.sh -o -e -r -t
         mkdir macos
         cp build/sfoav/sfoav macos/sfoav-macos
         cp LICENSE* macos/
+
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
 
     - name: build artifact
       uses: actions/upload-artifact@v4
