@@ -1,2 +1,3 @@
+enable_testing()
 add_subdirectory(models)
-add_subdirectory(xyz)
+add_subdirectory(test_structure_input)

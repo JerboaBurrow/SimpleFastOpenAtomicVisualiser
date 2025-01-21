@@ -20,6 +20,8 @@
 #include <util.h>
 #include <commandLine.h>
 #include <xyz.h>
+#include <config.h>
+
 const unsigned int resX = 512;
 const unsigned int resY = resX;
 

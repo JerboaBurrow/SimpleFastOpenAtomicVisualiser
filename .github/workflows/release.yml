@@ -28,6 +28,10 @@ jobs:
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
         cp LICENSE* linux-x86_64/
 
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
+
     - name: mesh rendering test
       run: |
         cd build
@@ -39,17 +43,6 @@ jobs:
         sleep 10
         xwd -root -silent | convert xwd:- png:screensho-meshes.png
         sleep 5 && kill $PID
-
-        export DISPLAY=:99
-        sudo Xvfb :99 -screen 0 512x512x24 &
-        sleep 5
-        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_xyz_test &
-        export PID=$!
-        sleep 10
-        xwd -root -silent | convert xwd:- png:screenshot-xyz.png
-        sleep 5 && kill $PID
-        mkdir screenshots
-        mv *.png screenshots
 
     - name: upload screenshots
       uses: actions/upload-artifact@v4
@@ -82,6 +75,10 @@ jobs:
         cp build/*.dll windows/
         cp LICENSE* windows/
 
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
+
     - name: build artifact
       uses: actions/upload-artifact@v4
       with:
@@ -105,10 +102,14 @@ jobs:
 
     - name: macos-macos
       run: |
-        ./build.sh -o -e -r
+        ./build.sh -o -e -r -t
         mkdir macos
         cp build/sfoav/sfoav macos/sfoav-macos
         cp LICENSE* macos/
+
+    - name: unit tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
 
     - name: build artifact
       uses: actions/upload-artifact@v4

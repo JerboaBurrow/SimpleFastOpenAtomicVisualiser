@@ -113,5 +113,6 @@ if (WINDOWS)
 endif()
 
 If (TEST_SUITE)
+    enable_testing()
     add_subdirectory(tests)
 endif()

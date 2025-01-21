@@ -8,20 +8,44 @@
 #include <vector>
 #include <algorithm>
 
-#include <atom.h>
+#include <structure.h>
+
+/**
+ * @brief Check if a path is XYZ'y
+ *
+ * @param path the path to check.
+ * @return true if the path ends with "xyz" or "extxzy" in any case.
+ * @return false false otherwise.
+ */
+bool ostensiblyXYZLike(std::filesystem::path path)
+{
+    std::string ext = path.extension().string();
+    std::transform
+    (
+        ext.begin(),
+        ext.end(),
+        ext.begin(),
+        [](unsigned char c){ return std::tolower(c); }
+    );
+    if (ext.rfind(".xyz", 0) == 0 || ext.rfind(".extxyz", 0) == 0)
+    {
+        return true;
+    }
+    return false;
+}
 
 /**
  * @brief Read XYZ and EXTXYZ files
- * @remark The file structure is n+2 lines for n atoms.
+ * @remark The file structure is nLine reads: ++line2 lines for nLine reads:  +lineatoms.
  * - Atom count [integer]
  * - Comment line [string]
- * - n entries of the form
+ * - nLine reads:  +lineentries of the form
  *   - Symbol [string]
  *   - Position [float, float, float]
  * @remark A trajectory is a simple concatenation of multiple XYZ files.
  * @remark EXTXYZ includes a more detail specification for the comment line.
  */
-class XYZ
+class XYZ : public Structure
 {
 public:
 
@@ -31,56 +55,13 @@ public:
      * @param path the file path of the XYZ file.
      */
     XYZ(std::filesystem::path path)
-    : path(path),
-      filestream(std::ifstream(path)),
-      currentFrame(0)
+    : Structure(path)
     {
         readAtomCount();
         readFrameCount();
     }
 
-    /**
-     * @brief Get the number of atoms in the XYZ.
-     *
-     * @return uint64_t the number of atoms.
-     */
-    uint64_t atomCount() const { return atoms; }
-
-    /**
-     * @brief Read a single frame at position frame.
-     *
-     * @param frame the frame position.
-     * @return std::vector<Atom> the Atoms read.
-     */
-    std::vector<Atom> readFrame(uint64_t frame)
-    {
-        std::vector<Atom> data;
-        if (frame > frames) { return data; }
-        if (frame == currentFrame)
-        {
-            readFrame(data);
-        }
-        else if (frame > currentFrame)
-        {
-            skipFrames(frame-currentFrame);
-            readFrame(data);
-        }
-        else
-        {
-            filestream.seekg(std::ios::beg);
-            skipFrames(frame-1);
-            readFrame(data);
-        }
-        return data;
-    }
-
 private:
-
-    std::filesystem::path path;
-    std::ifstream filestream;
-    uint64_t atoms;
-    uint64_t frames;
-    uint64_t currentFrame;
 
     void readAtomCount()
     {
@@ -89,30 +70,21 @@ private:
         std::getline(filestream, line);
         std::stringstream count(line);
         count >> atoms;
+        checkRead(count, line, "XYZ readAtomCount");
         filestream.seekg(std::ios::beg);
     }
 
     void readFrameCount()
     {
-        filestream.seekg(std::ios::beg);
-        uint64_t lines = std::count
-        (
-            std::istreambuf_iterator<char>
-            {filestream},
-            {},
-            '\n'
-        );
-        frames = lines / (atoms+uint64_t(2));
-        filestream.seekg(std::ios::beg);
+        frames = linesInFile / (atoms+uint64_t(2));
     }
 
     void skipFrame()
     {
-        filestream.ignore
-        (
-            std::numeric_limits<std::streamsize>::max(),
-            '\n'
-        );
+        for (uint64_t a = 0; a < atoms+2; a++)
+        {
+            skipLine();
+        }
     }
 
     void skipFrames(uint64_t count)
@@ -123,7 +95,7 @@ private:
         }
     }
 
-    void readFrame(std::vector<Atom> & data)
+    void getFrame(std::vector<Atom> & data)
     {
         std::string line;
         std::stringstream ss;
@@ -139,6 +111,7 @@ private:
                 >> atom.position.x
                 >> atom.position.y
                 >> atom.position.z;
+            checkRead(ss, line, "XYZ reading atom "+std::to_string(a));
             atom.symbol = stringSymbolToElement(symbol);
             atom.scale = ELEMENT_RADIUS.at(atom.symbol);
             atom.colour = CPK_COLOURS.at(atom.symbol);
