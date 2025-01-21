@@ -71,7 +71,7 @@ jobs:
       run: |
         ./build.sh -t -w -r -e
         mkdir windows
-        cp build/sfoav/sfoav.exe windows/sfoav.exe
+        cp build/sfoav/sfoav.exe windows/sfoav-windows.exe
         cp build/*.dll windows/
         cp LICENSE* windows/
 
