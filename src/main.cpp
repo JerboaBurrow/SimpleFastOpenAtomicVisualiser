@@ -36,6 +36,7 @@ int main(int argv, char ** argc)
 
     std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
 
+    float polarDirection = 1.0f;
     glm::vec3 cameraPositionSpherical = glm::vec3(10.0f, 1.96f, M_PI);
 
     glm::mat4 projection = glm::perspective
@@ -45,11 +46,12 @@ int main(int argv, char ** argc)
         1000.0f
     );
 
+    float up = 1.0;
     glm::mat4 view = glm::lookAt
     (
         spherical2cartesian(cameraPositionSpherical),
         glm::vec3(0.0, 0.0, 0.0),
-        glm::vec3(0.0, 1.0, 0.0)
+        glm::vec3(0.0, up, 0.0)
     );
 
     AtomRenderer atomRenderer
@@ -124,11 +126,29 @@ int main(int argv, char ** argc)
         }
         if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.y += dtheta;
+            cameraPositionSpherical.y += dtheta*polarDirection;
+            if (cameraPositionSpherical.y > M_PI || cameraPositionSpherical.y < 0.0)
+            {
+                cameraPositionSpherical.y -= 2.0*dtheta*polarDirection;
+                polarDirection = -1.0*polarDirection;
+                cameraPositionSpherical.z += M_PI;
+                if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
+                else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
+                up *= -1.0;
+            }
         }
         if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.y -= dtheta;
+            cameraPositionSpherical.y -= dtheta*polarDirection;
+            if (cameraPositionSpherical.y > M_PI || cameraPositionSpherical.y < 0.0)
+            {
+                cameraPositionSpherical.y += 2.0*dtheta*polarDirection;
+                polarDirection = -1.0*polarDirection;
+                cameraPositionSpherical.z += M_PI;
+                if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
+                else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
+                up *= -1.0;
+            }
         }
         if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
         {
@@ -156,7 +176,7 @@ int main(int argv, char ** argc)
         (
             spherical2cartesian(cameraPositionSpherical),
             glm::vec3(0.0, 0.0, 0.0),
-            glm::vec3(0.0, 1.0, 0.0)
+            glm::vec3(0.0, up, 0.0)
         );
 
         atomRenderer.setProjection(projection);
