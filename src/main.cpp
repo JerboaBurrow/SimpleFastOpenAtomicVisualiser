@@ -30,8 +30,19 @@ int main(int argv, char ** argc)
         throw std::runtime_error("No atoms path specified, specify one with -atoms <path>");
     }
 
-    CONFIG structure(options.structure.value);
-    auto atoms = structure.readFrame(0);
+    std::vector<Atom> atoms;
+
+    if (ostensiblyXYZLike(options.structure.value))
+    {
+        XYZ structure(options.structure.value);
+        atoms = structure.readFrame(0);
+    }
+    else
+    {
+        CONFIG structure(options.structure.value);
+        atoms = structure.readFrame(0);
+    }
+
     center(atoms);
 
     glm::vec3 ext = extent(atoms);

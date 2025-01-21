@@ -147,12 +147,14 @@ private:
             std::getline(filestream, line);
             ss = std::stringstream(line);
             ss >> symbol >> index;
+            checkRead(ss, line, "CONFIG reading atom "+std::to_string(a));
 
             std::getline(filestream, line);
             ss = std::stringstream(line);
             ss  >> atom.position.x
                 >> atom.position.y
                 >> atom.position.z;
+            checkRead(ss, line, "CONFIG reading atom "+std::to_string(a));
 
             if (levcfg > 0)
             {
@@ -161,6 +163,7 @@ private:
                 ss  >> atom.velocity.x
                     >> atom.velocity.y
                     >> atom.velocity.z;
+                checkRead(ss, line, "CONFIG reading atom "+std::to_string(a));
             }
             if (levcfg > 1)
             {
@@ -169,6 +172,7 @@ private:
                 ss  >> atom.force.x
                     >> atom.force.y
                     >> atom.force.z;
+                checkRead(ss, line, "CONFIG reading atom "+std::to_string(a));
             }
 
             atom.symbol = stringSymbolToElement(symbol);
@@ -186,14 +190,17 @@ private:
         std::getline(filestream, line);
         data = std::stringstream(line);
         data >> cellA.x >> cellA.y >> cellA.z;
+        checkRead(data, line, "getCell");
 
         std::getline(filestream, line);
         data = std::stringstream(line);
         data >> cellB.x >> cellB.y >> cellB.z;
+        checkRead(data, line, "getCell");
 
         std::getline(filestream, line);
         data = std::stringstream(line);
         data >> cellC.x >> cellC.y >> cellC.z;
+        checkRead(data, line, "getCell");
     }
 
     bool extractHistoryStepMetaData()

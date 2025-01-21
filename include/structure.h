@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
+#include <exception>
 #include <atom.h>
 
 /**
@@ -24,7 +24,7 @@ public:
       filestream(std::ifstream(path)),
       currentFrame(0)
     {
-      countLinesInFile();
+        countLinesInFile();
     }
 
     /**
@@ -106,11 +106,11 @@ protected:
 
     void skipLine()
     {
-      filestream.ignore
-      (
-          std::numeric_limits<std::streamsize>::max(),
-          '\n'
-      );
+        filestream.ignore
+        (
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
     }
 
     void countLinesInFile()
@@ -123,6 +123,30 @@ protected:
           {},
           '\n'
       );
+    }
+
+    void checkRead
+    (
+        std::stringstream & ss,
+        std::string lastInput,
+        std::string context
+    )
+    {
+        if (ss.fail())
+        {
+            std::stringstream message;
+            message << "File "
+                    << path.c_str()
+                    << " failed to read line"
+                    << "\n  Line reads: \""
+                    << lastInput
+                    << "\""
+                    << "\n  Context: "+context;
+            throw std::runtime_error
+            (
+                message.str()
+            );
+        }
     }
 };
 

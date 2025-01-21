@@ -4,6 +4,8 @@
 #include <cmath>
 #include <string>
 #include <limits.h>
+#include <filesystem>
+#include <algorithm>
 
 #include <jGL/OpenGL/gl.h>
 #include <glm/glm.hpp>

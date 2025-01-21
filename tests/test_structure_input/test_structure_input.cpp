@@ -8,6 +8,10 @@ SCENARIO("XYZ reading")
 {
     GIVEN("psilocybin.xyz")
     {
+        THEN("ostensiblyXYZLike(\"psilocybin.xyz\") is true")
+        {
+            REQUIRE(ostensiblyXYZLike("psilocybin.xyz"));
+        }
         WHEN("An XYZ, xyz, is instanced with it")
         {
             XYZ xyz("psilocybin.xyz");
@@ -36,6 +40,10 @@ SCENARIO("CONFIG reading")
 {
     GIVEN("CONFIG")
     {
+        THEN("ostensiblyXYZLike(\"CONFIG\") is false")
+        {
+            REQUIRE(!ostensiblyXYZLike("CONFIG"));
+        }
         WHEN("A CONFIG, config, is instanced with it")
         {
             CONFIG config("CONFIG");
@@ -92,6 +100,10 @@ SCENARIO("REVCON reading")
 {
     GIVEN("REVCON")
     {
+        THEN("ostensiblyXYZLike(\"REVCON\") is false")
+        {
+            REQUIRE(!ostensiblyXYZLike("REVCON"));
+        }
         WHEN("A CONFIG, revcon, is instanced with it")
         {
             CONFIG revcon("REVCON");
@@ -148,6 +160,10 @@ SCENARIO("HISTORY reading")
 {
     GIVEN("HISTORY")
     {
+        THEN("ostensiblyXYZLike(\"HISTORY\") is false")
+        {
+            REQUIRE(!ostensiblyXYZLike("HISTORY"));
+        }
         WHEN("A CONFIG, history, is instanced with it")
         {
             CONFIG history("HISTORY");
