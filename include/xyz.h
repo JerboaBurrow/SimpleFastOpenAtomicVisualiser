@@ -19,7 +19,7 @@
  */
 bool ostensiblyXYZLike(std::filesystem::path path)
 {
-    std::string ext = path.extension();
+    std::string ext = path.extension().string();
     std::transform
     (
         ext.begin(),
