@@ -1,0 +1,7 @@
+<map id="Structure" name="Structure">
+<area shape="rect" id="Node000001" title="Specification for the structure file interface." alt="" coords="44,5,125,31"/>
+<area shape="rect" id="Node000002" href="$classCONFIG.html" title="Read CONFIG files." alt="" coords="5,79,79,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,44,51,80,47,77,68,41"/>
+<area shape="rect" id="Node000003" href="$classXYZ.html" title="Read XYZ and EXTXYZ files." alt="" coords="103,79,151,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,41,123,77,118,80,96,44"/>
+</map>

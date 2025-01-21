@@ -9,11 +9,15 @@ var searchData=
   ['setvertices_6',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],
   ['setview_7',['setview',['../classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3',1,'AtomRenderer::setView()'],['../classBondRenderer.html#ae19f943d9fb8edec07d6f01ef3df8623',1,'BondRenderer::setView()']]],
   ['size_8',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
-  ['spherical2cartesian_9',['spherical2cartesian',['../util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'util.h']]],
-  ['startswith_10',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
-  ['stringsymboltocolour_11',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
-  ['stringsymboltoelement_12',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
-  ['stringsymboltoelementradius_13',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['subdividetrixel_14',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
-  ['subfullbuffer_15',['subFullBuffer',['../util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'util.h']]]
+  ['skipframe_9',['skipFrame',['../classStructure.html#a85f6236156733789fd082fa00c1a6c04',1,'Structure']]],
+  ['skipframes_10',['skipFrames',['../classStructure.html#a46b53a82fc0affafa1802f977729ee77',1,'Structure']]],
+  ['skipline_11',['skipLine',['../classStructure.html#a6c061bfb833a264755daa81cfdb567c5',1,'Structure']]],
+  ['spherical2cartesian_12',['spherical2cartesian',['../util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'util.h']]],
+  ['startswith_13',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
+  ['stringsymboltocolour_14',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
+  ['stringsymboltoelement_15',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
+  ['stringsymboltoelementradius_16',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
+  ['structure_17',['Structure',['../classStructure.html#ad2e9741b95ec5e393bc3513993d86dc4',1,'Structure']]],
+  ['subdividetrixel_18',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
+  ['subfullbuffer_19',['subFullBuffer',['../util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'util.h']]]
 ];

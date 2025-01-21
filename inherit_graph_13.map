@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classXYZ.html" title="Read XYZ and EXTXYZ files." alt="" coords="5,5,53,31"/>
+<area shape="rect" id="Node000000" href="$classTriangle.html" title="A 3D triangle." alt="" coords="5,5,116,31"/>
+<area shape="rect" id="Node000001" href="$classTrixel.html" title="A triangular pixel of a hierarchical triangular mesh." alt="" coords="164,5,259,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="130,15,164,15,164,21,130,21"/>
 </map>
