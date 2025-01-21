@@ -39,6 +39,10 @@ public:
         readMetaData();
     }
 
+    glm::vec3 getCellA() const { return cellA; }
+    glm::vec3 getCellB() const { return cellB; }
+    glm::vec3 getCellC() const { return cellC; }
+
 private:
 
     bool HISTORY = false;
@@ -60,6 +64,7 @@ private:
         std::stringstream data(line);
         // HISTORY requires checking megatm.
         frames = 1;
+        timeStep = 0;
         data >> levcfg >> imcon >> atoms;
         if (data.fail())
         {
@@ -68,31 +73,27 @@ private:
         }
         else
         {
-            // Could be a HISTORY file.
+            // Could be a HISTORY or REVCON file.
             data = std::stringstream(line);
-            uint8_t records;
-            data >> levcfg >> imcon >> atoms >> frames >> records;
-            if (!data.fail())
+            data >> levcfg >> imcon >> atoms >> frames;
+            if (extractHistoryStepMetaData())
             {
                 HISTORY = true;
-                // First frame meta data.
-                skipLine();
+            }
+            else
+            {
+                // A REVCON
+                frames = 1;
             }
         }
 
-        if (HISTORY || (!HISTORY && imcon != 0))
+        if (HISTORY){ getCell(); }
+        else
         {
-            std::getline(filestream, line);
-            data = std::stringstream(line);
-            data >> cellA.x >> cellA.y >> cellA.z;
-
-            std::getline(filestream, line);
-            data = std::stringstream(line);
-            data >> cellB.x >> cellB.y >> cellB.z;
-
-            std::getline(filestream, line);
-            data = std::stringstream(line);
-            data >> cellC.x >> cellC.y >> cellC.z;
+            filestream.seekg(std::ios::beg);
+            skipLine();
+            skipLine();
+            getCell();
         }
 
         if (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }
@@ -132,6 +133,11 @@ private:
     {
         std::string line;
         std::stringstream ss;
+        if (HISTORY)
+        {
+            skipLine();
+            getCell();
+        }
         for (uint64_t a = 0; a < atoms; a++)
         {
             std::string symbol;
@@ -171,6 +177,37 @@ private:
             data.push_back(atom);
         }
         currentFrame++;
+    }
+
+    void getCell()
+    {
+        std::string line;
+        std::stringstream data;
+        std::getline(filestream, line);
+        data = std::stringstream(line);
+        data >> cellA.x >> cellA.y >> cellA.z;
+
+        std::getline(filestream, line);
+        data = std::stringstream(line);
+        data >> cellB.x >> cellB.y >> cellB.z;
+
+        std::getline(filestream, line);
+        data = std::stringstream(line);
+        data >> cellC.x >> cellC.y >> cellC.z;
+    }
+
+    bool extractHistoryStepMetaData()
+    {
+        std::string line;
+        std::stringstream data;
+        std::getline(filestream, line);
+        if (line.rfind("timestep", 0) == 0)
+        {
+            data = std::stringstream(line.substr(9));
+            data >> timeStep;
+            return true;
+        }
+        return false;
     }
 };
 #endif /* CONFIG_H */

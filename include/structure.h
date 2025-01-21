@@ -69,12 +69,27 @@ public:
         return data;
     }
 
+    /**
+     * @brief Get the number of frames.
+     *
+     * @return uint64_t the frame count.
+     */
+    uint64_t frameCount() const { return frames; }
+
+    /**
+     * @brief Get the current frame index.
+     *
+     * @return uint64_t the current frame index.
+     */
+    uint64_t framePosition() const { return currentFrame; }
+
 protected:
 
     std::filesystem::path path;
     std::ifstream filestream;
     uint64_t atoms;
     uint64_t frames;
+    uint64_t timeStep;
     uint64_t currentFrame;
     uint64_t linesInFile;
 
