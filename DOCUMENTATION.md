@@ -27,7 +27,7 @@ To render a structure file ```struct.xyz``` simply call
 sfoav -atoms struct.xyz
 ```
 
-[!important]
+> [!important]
 SFOAV can process ```.xyz```, ```.extxyz```, and DL_POLY ```CONFIG```, ```REVCON``` and ```HISTORY``` files. If the file name does not match these patterns all types will be attempted.
 
 This will bring up the view centring the atoms in ```struct.xyz```. The camera can be rotated around the origin using ```A``` and ```S``` for distance, ```W``` and ```D``` for the azimuthal angle and ```Q``` and ```E``` for inclination angle. The atoms' Van der Waals sphere may be hidden and unhidden using ```H```.
@@ -44,7 +44,7 @@ To draw bonds between atoms 1.5 Angstroms apart
 sfoav -atoms struct.xyz -bondCutOff 1.5
 ```
 
-[!tip]
+> [!tip]
 Meshes are much slower than the ray-traced elements due to higher triangle counts.
 
 To render using meshes at 10 levels of detail
