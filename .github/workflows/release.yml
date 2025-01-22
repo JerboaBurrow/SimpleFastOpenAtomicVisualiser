@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SimpleFastOpenAtomicVisualiser.pdf
-          path: docs/latex/refman.pdf
+          path: docs/docs/latex/refman.pdf
 
   linux:
     runs-on: ubuntu-20.04
@@ -63,14 +63,14 @@ jobs:
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_models_test &
         export PID=$!
         sleep 10
-        xwd -root -silent | convert xwd:- png:screensho-meshes.png
+        xwd -root -silent | convert xwd:- png:screenshot-meshes.png
         sleep 5 && kill $PID
 
     - name: upload screenshots
       uses: actions/upload-artifact@v4
       with:
         name: screenshots
-        path: build/screenshots
+        path: build/screenshot-meshes.png
 
     - name: build artifact
       uses: actions/upload-artifact@v4
