@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install dependencies
-        run: sudo apt-get update && sudo apt-get install -y doxygen
+        run: apk add doxygen
 
       - name: Build doxygen
         working-directory: ${{github.workspace}}/docs
@@ -165,6 +165,11 @@ jobs:
         with:
           name: macos
 
+      - name: get manual
+        uses: actions/download-artifact@v4
+        with:
+          name: SimpleFastOpenAtomicVisualiser.pdf
+
       - name: pack
         run: |
           ls
@@ -173,6 +178,7 @@ jobs:
           mkdir $release
           mv sfoav-$release* $release/
           cp LICENSE* $release/
+          cp SimpleFastOpenAtomicVisualiser.pdf $release
           zip -r $release.zip $release/*
           done
 
