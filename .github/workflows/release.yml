@@ -12,6 +12,30 @@ on:
 
 jobs:
 
+  build-manual:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/moderncv/debian-texlive-docker:main
+    steps:
+
+      - name: install dependencies
+        run: sudo apt-get update && sudo apt-get install -y doxygen
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build doxygen
+        working-directory: ${{github.workspace}}/docs
+        run: |
+          doxygen -c doxygen.config
+          (cd docs/latex; make; ls)
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimpleFastOpenAtomicVisualiser.pdf
+          path: docs/latex/refman.pdf
+
   linux:
     runs-on: ubuntu-20.04
 
