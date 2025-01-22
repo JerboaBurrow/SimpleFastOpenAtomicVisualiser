@@ -23,9 +23,8 @@ jobs:
         run: apk add doxygen
 
       - name: Build doxygen
-        working-directory: ${{github.workspace}}/docs
         run: |
-          doxygen doxygen.config
+          doxygen docs/doxygen.config
           (cd docs/latex; make; ls)
 
       - name: Upload PDF
