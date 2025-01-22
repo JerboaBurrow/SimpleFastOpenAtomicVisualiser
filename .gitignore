@@ -13,3 +13,4 @@ include/vendored/VulkanSDK/Windows/Include
 include/vendored/VulkanSDK/Windows/Include
 include/vendored/VulkanSDK/Windows/lib
 docs/html
+docs/latex
