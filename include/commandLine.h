@@ -6,6 +6,8 @@
 #include <cstdint>
 #include <memory.h>
 #include <filesystem>
+#include <iostream>
+#include <cstdlib>
 
 #include <hierarchicalTriangularMesh.h>
 
@@ -31,7 +33,63 @@ template <class T>
 struct Argument
 {
     std::string name;
+    std::string description;
+    T defaultValue;
     T value;
+    bool required;
+
+    /**
+     * @brief Construct a new Argument
+     *
+     * @tparam T the Argument's value type.
+     * @param name the arguments name (without "-" prefix).
+     * @param description the help description.
+     * @param defaultValue the default value.
+     * @param required if the Argument must be passed.
+     */
+    Argument
+    (
+        std::string name,
+        std::string description,
+        T defaultValue,
+        bool required = false
+    )
+    : name(name),
+      description(description),
+      defaultValue(defaultValue),
+      value(defaultValue),
+      required(required)
+    {}
+
+    /**
+     * @brief Return a formatted help message.
+     *
+     * @return std::string the help message including name, description, default value and requirement.
+     */
+    std::string help() const
+    {
+        std::stringstream h;
+        h << " -"
+          << name
+          << "\n "
+          << "  " << description;
+        if (required)
+        {
+            h << "\n   Default: none."
+              << "\n   Required: "
+              << (required ? "true" : "false")
+              << ".";
+        }
+        else
+        {
+            h << "\n   Default: "
+              << defaultValue
+              << "\n   Required: "
+              << (required ? "true" : "false")
+              << ".";
+        }
+        return h.str();
+    }
 };
 
 /**
@@ -194,9 +252,10 @@ struct CommandLine
      */
     CommandLine(uint8_t count, char ** commandLine)
     {
-        if (count == 1) { return; }
+        if (count == 1) { help(); return; }
         for (uint8_t c = 1; c < count; c++)
         {
+            checkHelp(commandLine[c]);
             getArgument<uint8_t>(levelOfDetail, commandLine, c, count);
             getArgument<uint8_t>(msaa, commandLine, c, count);
             getArgument<bool>(meshes, commandLine, c, count);
@@ -208,14 +267,58 @@ struct CommandLine
         }
     }
 
-    Argument<uint8_t> levelOfDetail = {"levelOfDetail", 0};
-    Argument<uint8_t> msaa = {"msaa", 0};
-    Argument<BASE_MESH> mesh = {"mesh", BASE_MESH::ANY};
-    Argument<bool> meshes = {"meshes", false};
-    Argument<std::filesystem::path> structure = {"atoms", {}};
-    Argument<float> bondCutoff = {"bondCutOff", 0.0f};
-    Argument<float> bondSize = {"bondSize", 1.0f};
-    Argument<bool> hideAtoms = {"hideAtoms", false};
+    Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0, false};
+    Argument<uint8_t> msaa = {"msaa", "MSAA level [0-32].", 0, false};
+    Argument<BASE_MESH> mesh = {"mesh", "The procedural mesh type.", BASE_MESH::ANY, false};
+    Argument<bool> meshes = {"meshes", "Whether to use meshes for atoms.", false, false};
+    Argument<std::filesystem::path> structure = {"atoms", "The structure path.", {}, true};
+    Argument<float> bondCutoff = {"bondCutOff","Angstrom cutoff to create a bond.", 0.0f, false};
+    Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f, false};
+    Argument<bool> hideAtoms = {"hideAtoms", "Whether to hide atoms (toggle-able at runtime).", false, false};
+
+    void checkHelp(std::string arg)
+    {
+        if (arg == "-h" || arg == "-v" || arg == "-help" || arg == "-version")
+        {
+            help();
+        }
+    }
+
+    const char * banner = R"( ________  ________ ________  ________  ___      ___
+|\   ____\|\  _____\\   __  \|\   __  \|\  \    /  /|
+\ \  \___|\ \  \__/\ \  \|\  \ \  \|\  \ \  \  /  / /
+ \ \_____  \ \   __\\ \  \\\  \ \   __  \ \  \/  / /
+  \|____|\  \ \  \_| \ \  \\\  \ \  \ \  \ \    / /
+    ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /
+   |\_________\|__|    \|_______|\|__|\|__|\|__|/
+   \|_________| SimpleFastOpenAtomicVisualiser)";
+    void help() const
+    {
+        std::stringstream h;
+        h << banner
+          << "\n\n"
+          << "Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
+          << "License: MIT, Jerboa 2025.\n"
+          << "\nUsage:\n"
+          << structure.help()
+          << "\n"
+          << msaa.help()
+          << "\n"
+          << mesh.help()
+          << "\n"
+          << meshes.help()
+          << "\n"
+          << levelOfDetail.help()
+          << "\n"
+          << bondCutoff.help()
+          << "\n"
+          << bondSize.help()
+          << "\n"
+          << hideAtoms.help()
+          << "\n";
+        std::cout << h.str();
+        std::exit(EXIT_SUCCESS);
+    }
 
 };
 
