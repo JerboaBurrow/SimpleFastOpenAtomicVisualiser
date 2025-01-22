@@ -15,14 +15,12 @@ jobs:
   build-manual:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/moderncv/debian-texlive-docker:main
+      image: ghcr.io/xu-cheng/texlive-full:20250101
     steps:
+      - uses: actions/checkout@v4
 
       - name: install dependencies
         run: sudo apt-get update && sudo apt-get install -y doxygen
-
-      - name: Checkout
-        uses: actions/checkout@v4
 
       - name: Build doxygen
         working-directory: ${{github.workspace}}/docs
