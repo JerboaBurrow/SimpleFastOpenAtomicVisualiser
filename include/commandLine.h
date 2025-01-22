@@ -276,6 +276,12 @@ struct CommandLine
     Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f, false};
     Argument<bool> hideAtoms = {"hideAtoms", "Whether to hide atoms (toggle-able at runtime).", false, false};
 
+    /**
+     * @brief Determine if help should be printed.
+     *
+     * @param arg the argument to check.
+     * @remark Calls std::exit(EXIT_SUCCESS);
+     */
     void checkHelp(std::string arg)
     {
         if (arg == "-h" || arg == "-v" || arg == "-help" || arg == "-version")
@@ -284,6 +290,10 @@ struct CommandLine
         }
     }
 
+    /**
+     * @brief The text banner.
+     *
+     */
     const char * banner = R"( ________  ________ ________  ________  ___      ___
 |\   ____\|\  _____\\   __  \|\   __  \|\  \    /  /|
 \ \  \___|\ \  \__/\ \  \|\  \ \  \|\  \ \  \  /  / /
@@ -292,6 +302,11 @@ struct CommandLine
     ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /
    |\_________\|__|    \|_______|\|__|\|__|\|__|/
    \|_________| SimpleFastOpenAtomicVisualiser)";
+
+    /**
+     * @brief Print the help message and std::exit(EXIT_SUCCESS);.
+     *
+     */
     void help() const
     {
         std::stringstream h;
