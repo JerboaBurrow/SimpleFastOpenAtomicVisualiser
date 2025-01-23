@@ -9,10 +9,10 @@ A simple program to quickly visualise atomic and molecular systems (AMSs).
 
 The code is accelerated using OpenGL for 3D rendering and builds for Linux, Windows, macOS, and Android.
 
-#### [Documentation](https://jerboaburrow.github.io/SimpleFastOpenAtomicVisualiser/)
+## [Documentation](https://jerboaburrow.github.io/SimpleFastOpenAtomicVisualiser/)
 
 
-#### What it is
+## What it is
 
 - **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI.
 
@@ -22,9 +22,49 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 
 - **Atomic visualisation**: render, colourable, atoms and bonds in 3D space loaded from standard AMSs configuration and trajectory data files.
 
+## Quickstart
+
+To render a structure file ```struct.xyz``` simply call
+
+```shell
+sfoav -atoms struct.xyz
+```
+
+> [!important]
+> SFOAV can process ```.xyz```, ```.extxyz```, and DL_POLY ```CONFIG```, ```REVCON``` and ```HISTORY``` files. If the file name does not match these patterns all types will be attempted.
+
+This will bring up the view centring the atoms in ```struct.xyz```. The camera can be rotated around the origin using ```A``` and ```S``` for distance, ```W``` and ```D``` for the azimuthal angle and ```Q``` and ```E``` for inclination angle. The atoms' Van der Waals sphere may be hidden and unhidden using ```H```.
+
+To enable MSAA at 16x
+
+```shell
+sfoav -atoms struct.xyz -msaa 16
+```
+
+To draw bonds between atoms 1.5 Angstroms apart
+
+```shell
+sfoav -atoms struct.xyz -bondCutOff 1.5
+```
+
+> [!tip]
+> Meshes are much slower than the ray-traced elements due to higher triangle counts.
+
+To render using meshes at 10 levels of detail
+
+```shell
+sfoav -atoms struct.xyz -levelOfDetail 10 -meshes
+```
+
+To render with only Tetrahedral bases meshes at 5 levels of detail
+
+```shell
+sfoav -atoms struct.xyz -levelOfDetail 5 -meshes 4
+```
+
 ---
 
-#### Features (in development)
+## Features (in development)
 
 - [x] Atom ball meshes (of various triangle counts/LOD)
   - [x] Tetrasphere (4, 16, 64, ...).
@@ -66,7 +106,7 @@ commercial use, adaptation, extension etc. Including the (permissive) upstream l
 
 ---
 
-#### Out of scope
+## Out of scope
 
 To keep it simple the following features won't be implemented. For these and more use a complex feature rich visualiser like VMD https://www.ks.uiuc.edu/Research/vmd/.
 
@@ -75,7 +115,7 @@ To keep it simple the following features won't be implemented. For these and mor
 - Script extensions.
 - Simulation.
 
-#### Contributions
+## Contributions
 
 Please follow this workflow:
 
