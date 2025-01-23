@@ -9,7 +9,7 @@ var searchData=
   ['am_6',['Am',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5af07ec1b01555ed1939e25db154cc4450',1,'element.h']]],
   ['any_7',['ANY',['../hierarchicalTriangularMesh_8h.html#a64cd2594249c0b08877c156c25832d8aa8e1bde3c3d303163521522cf1d62f21f',1,'hierarchicalTriangularMesh.h']]],
   ['ar_8',['Ar',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a864d72283695e6edd1fcdceb473de77f',1,'element.h']]],
-  ['argument_9',['Argument',['../structArgument.html',1,'']]],
+  ['argument_9',['argument',['../structArgument.html#aa74e77ab6524cda54ed6f0a0f3d840d0',1,'Argument::Argument()'],['../structArgument.html',1,'Argument&lt; T &gt;']]],
   ['argument_3c_20base_5fmesh_20_3e_10',['Argument&lt; BASE_MESH &gt;',['../structArgument.html',1,'']]],
   ['argument_3c_20bool_20_3e_11',['Argument&lt; bool &gt;',['../structArgument.html',1,'']]],
   ['argument_3c_20float_20_3e_12',['Argument&lt; float &gt;',['../structArgument.html',1,'']]],
@@ -22,7 +22,7 @@ var searchData=
   ['atomcount_19',['atomCount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure']]],
   ['atomindexa_20',['atomIndexA',['../structBond.html#aa3146480e061c281e58cca612a0df5cf',1,'Bond']]],
   ['atomindexb_21',['atomIndexB',['../structBond.html#ab3d7af24e95906072ab05423925394e2',1,'Bond']]],
-  ['atomrenderer_22',['atomrenderer',['../classAtomRenderer.html#aa76ad11c26c5e57f0a383a05c7e5921a',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0), BASE_MESH mesh=BASE_MESH::ANY)'],['../classAtomRenderer.html#ab9934f70e962740dc614b47e96d7d364',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, std::vector&lt; Trixel&lt; float &gt; &gt; mesh, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0))'],['../classAtomRenderer.html',1,'AtomRenderer']]],
+  ['atomrenderer_22',['atomrenderer',['../classAtomRenderer.html#ab9934f70e962740dc614b47e96d7d364',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, std::vector&lt; Trixel&lt; float &gt; &gt; mesh, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0))'],['../classAtomRenderer.html#aa76ad11c26c5e57f0a383a05c7e5921a',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0), BASE_MESH mesh=BASE_MESH::ANY)'],['../classAtomRenderer.html',1,'AtomRenderer']]],
   ['atomrenderer_2eh_23',['atomRenderer.h',['../atomRenderer_8h.html',1,'']]],
   ['atoms_24',['atoms',['../classStructure.html#a5d21c406b93fe04b68b70aa16b385f68',1,'Structure']]],
   ['au_25',['Au',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a515322af1eb924f2a4cee609d1f39bfa',1,'element.h']]]
