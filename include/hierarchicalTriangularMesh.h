@@ -23,6 +23,39 @@
  */
 enum class BASE_MESH : uint8_t {ICOSAHEDRON, OCTAHEDRON, DODECAHEDRON, CUBE, TETRAHEDRON, TRIAUGMENTED_TRIANGULAR_PRISM, ANY};
 
+std::ostream & operator<<(std::ostream & o, const BASE_MESH & mesh)
+{
+  if (mesh == BASE_MESH::ICOSAHEDRON)
+  {
+    o << "ICOSAHEDRON";
+  }
+  if (mesh == BASE_MESH::OCTAHEDRON)
+  {
+    o << "OCTAHEDRON";
+  }
+  if (mesh == BASE_MESH::DODECAHEDRON)
+  {
+    o << "DODECAHEDRON";
+  }
+  if (mesh == BASE_MESH::CUBE)
+  {
+    o << "CUBE";
+  }
+  if (mesh == BASE_MESH::TETRAHEDRON)
+  {
+    o << "TETRAHEDRON";
+  }
+  if (mesh == BASE_MESH::TRIAUGMENTED_TRIANGULAR_PRISM)
+  {
+    o << "TRIAUGMENTED_TRIANGULAR_PRISM";
+  }
+  if (mesh == BASE_MESH::ANY)
+  {
+    o << "ANY";
+  }
+  return o;
+}
+
 /**
  * @brief A refineable mesh of triangles.
  *
