@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SimpleFastOpenAtomicVisualiser: Welcome to the documentation!</title>
+<title>SimpleFastOpenAtomicVisualiser: SimpleFastOpenAtomicVisualiser</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,11 +69,102 @@ $(function() {
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Welcome to the documentation! </div></div>
+  <div class="headertitle"><div class="title">SimpleFastOpenAtomicVisualiser </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_DOCUMENTATION"></a> You can find the latest Doxygen docs at <a href="https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/">https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/</a></p>
-<p>The API will be very unstable until 0.1.X, expect many breaking changes until then. </p>
+<div class="textblock"><p><a class="anchor" id="md_DOCUMENTATION"></a> </p><div class="fragment"><div class="line"> ________  ________ ________  ________  ___      ___</div>
+<div class="line">|\   ____\|\  _____\\   __  \|\   __  \|\  \    /  /|</div>
+<div class="line">\ \  \___|\ \  \__/\ \  \|\  \ \  \|\  \ \  \  /  / /</div>
+<div class="line"> \ \_____  \ \   __\\ \  \\\  \ \   __  \ \  \/  / /</div>
+<div class="line">  \|____|\  \ \  \_| \ \  \\\  \ \  \ \  \ \    / /</div>
+<div class="line">    ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /</div>
+<div class="line">   |\_________\|__|    \|_______|\|__|\|__|\|__|/</div>
+<div class="line">   \|_________| SimpleFastOpenAtomicVisualiser</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md0"></a>
+About</h1>
+<p>SimpleFastOpenAtomicVisualiser (SFOAV) is intented to enable fast visualisation of atomic and molecular structure files and trajectories.</p>
+<p>It is an MIT licensed C++ project hosted here <a href="https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser">https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/</a>. The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.</p>
+<p>You can find the latest html Doxygen docs at <a href="https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/">https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/</a>.</p>
+<p>The API will be very unstable until 0.1.X, expect many breaking changes until then.</p>
+<div class="image">
+<img src="ch4.png" alt="" width="50%"/>
+<div class="caption">
+Methane visualised using VDW radii (left) and bonds (right)</div></div>
+    <h1><a class="anchor" id="autotoc_md1"></a>
+Quickstart</h1>
+<p>To render a structure file <code>struct.xyz</code> simply call</p>
+<div class="fragment"><div class="line">sfoav struct.xyz</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;[!important] SFOAV can process <code>.xyz</code>, <code>.extxyz</code>, and DL_POLY <code><a class="el" href="classCONFIG.html" title="Read CONFIG files.">CONFIG</a></code>, <code>REVCON</code> and <code>HISTORY</code> files. If the file name does not match these patterns all types will be attempted. </p>
+</blockquote>
+<p>This will bring up the view centring the atoms in <code>struct.xyz</code>.</p>
+<p>The camera is centered on (0, 0, 0) and can be moved in spherical coordinates relative to it. The atoms can also be translated relative to (0, 0, 0).</p>
+<p>At runtime the following key-controls can be used:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Key   </th><th class="markdownTableHeadLeft">Action    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">H   </td><td class="markdownTableBodyLeft">Toggle atom drawing.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">W   </td><td class="markdownTableBodyLeft">Zoom towards the origin.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">S   </td><td class="markdownTableBodyLeft">Zoom away from the origin.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">Q   </td><td class="markdownTableBodyLeft">Incline the view.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">E   </td><td class="markdownTableBodyLeft">Decline the view.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Rotate the view.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">D   </td><td class="markdownTableBodyLeft">Rotate the view.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">LEFT   </td><td class="markdownTableBodyLeft">Translate the atoms in -x    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">RIGHT   </td><td class="markdownTableBodyLeft">Translate the atoms in +x    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">UP   </td><td class="markdownTableBodyLeft">Translate the atoms in +z    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">DOWN   </td><td class="markdownTableBodyLeft">Translate the atoms in -z    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">.   </td><td class="markdownTableBodyLeft">Translate the atoms in -y    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">/   </td><td class="markdownTableBodyLeft">Translate the atoms in +y    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">SPACE   </td><td class="markdownTableBodyLeft">Reset to the default view and atom positions   </td></tr>
+</table>
+<p>To enable MSAA at 16x</p>
+<div class="fragment"><div class="line">sfoav struct.xyz -msaa 16</div>
+</div><!-- fragment --><p>To draw bonds between atoms 1.5 Angstroms apart</p>
+<div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+Meshes</h2>
+<blockquote class="doxtable">
+<p>&zwj;[!tip] Meshes are much slower than the ray-traced elements due to higher triangle counts. </p>
+</blockquote>
+<p>To render using meshes at 10 levels of detail</p>
+<div class="fragment"><div class="line">sfoav struct.xyz -levelOfDetail 10 -meshes</div>
+</div><!-- fragment --><p>To render with only Tetrahedral bases meshes at 5 levels of detail</p>
+<div class="fragment"><div class="line">sfoav struct.xyz -levelOfDetail 5 -meshes 4</div>
+</div><!-- fragment --><p>The available meshes are.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Mesh   </th><th class="markdownTableHeadLeft">value of -meshes   </th><th class="markdownTableHeadLeft">Note    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">ICOSAHEDRON   </td><td class="markdownTableBodyLeft" colspan="2">0    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">OCTAHEDRON   </td><td class="markdownTableBodyLeft" colspan="2">1    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">DODECAHEDRON   </td><td class="markdownTableBodyLeft">1   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">CUBE   </td><td class="markdownTableBodyLeft">3   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">TETRAHEDRON   </td><td class="markdownTableBodyLeft" colspan="2">4    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">TRIAUGMENTED_TRIANGULAR_PRISM   </td><td class="markdownTableBodyLeft">5   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">ANY   </td><td class="markdownTableBodyLeft">6   </td><td class="markdownTableBodyLeft">Uses all mesh types controlled by LOD   </td></tr>
+</table>
+<p>The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['documentation_0',['Welcome to the documentation!',['../index.html',1,'']]]
+  ['simplefastopenatomicvisualiser_0',['SimpleFastOpenAtomicVisualiser',['../index.html',1,'']]]
 ];
