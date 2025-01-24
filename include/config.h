@@ -180,7 +180,6 @@ private:
             atom.colour = CPK_COLOURS.at(atom.symbol);
             data.push_back(atom);
         }
-        currentFrame++;
     }
 
     void getCell()

@@ -34,15 +34,8 @@ public:
      */
     virtual uint64_t atomCount() const { return atoms; }
 
-
     /**
-     * @brief Read a single frame at position frame.
-     *
-     * @param frame the frame position.
-     * @return std::vector<Atom> the Atoms read.
-     */
-    /**
-     * @brief Read a single frame at position frame.
+     * @brief Read a single frame at position frame, and increment the current frame.
      *
      * @param frame the frame position.
      * @return std::vector<Atom> the Atoms read.
@@ -50,21 +43,24 @@ public:
     virtual std::vector<Atom> readFrame(uint64_t frame)
     {
         std::vector<Atom> data;
-        if (frame > frames-1) { return data; }
+        frame = frame % frames;
         if (frame == currentFrame)
         {
             getFrame(data);
+            currentFrame++;
         }
         else if (frame > currentFrame)
         {
             skipFrames(frame-currentFrame);
             getFrame(data);
+            currentFrame = frame + 1;
         }
         else
         {
             beginning();
-            skipFrames(frame-1);
+            if (frame > 0) { skipFrames(frame-1); }
             getFrame(data);
+            currentFrame = frame + 1;
         }
         return data;
     }
