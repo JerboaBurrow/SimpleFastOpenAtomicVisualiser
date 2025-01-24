@@ -55,7 +55,6 @@ public:
             M_PI
         );
         focus = {0.0, 0.0, 0.0};
-        polarDirection = 1.0;
         up = 1.0;
 
         projection = glm::perspective
@@ -87,15 +86,14 @@ public:
      */
     void incline(float increment)
     {
-        positionSpherical.y += increment*polarDirection;
+        positionSpherical.y += increment*up;
         if (positionSpherical.y > M_PI || positionSpherical.y < 0.0)
         {
-            positionSpherical.y -= 2.0*increment*polarDirection;
-            polarDirection = -1.0*polarDirection;
+            positionSpherical.y -= 2.0*increment*up;
+            up = -1.0*up;
             positionSpherical.z += M_PI;
             if ( positionSpherical.z < 0) { positionSpherical.z += 2.0*M_PI; }
             else if ( positionSpherical.z > 2.0*M_PI) { positionSpherical.z = std::fmod(positionSpherical.z, 2.0*M_PI); }
-            up *= -1.0;
         }
         setView();
     }
@@ -141,7 +139,6 @@ private:
 
     glm::vec3 positionSpherical;
     glm::vec3 focus;
-    float polarDirection;
     float up;
 
     glm::mat4 projection;
