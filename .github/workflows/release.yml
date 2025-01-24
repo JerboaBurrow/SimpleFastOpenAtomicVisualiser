@@ -12,6 +12,27 @@ on:
 
 jobs:
 
+  build-manual:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xu-cheng/texlive-full:20250101
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install dependencies
+        run: apk add doxygen
+
+      - name: Build doxygen
+        run: |
+          doxygen docs/doxygen.config
+          (cd docs/latex; make; ls)
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimpleFastOpenAtomicVisualiser.pdf
+          path: docs/latex/refman.pdf
+
   linux:
     runs-on: ubuntu-20.04
 
@@ -41,14 +62,14 @@ jobs:
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav_models_test &
         export PID=$!
         sleep 10
-        xwd -root -silent | convert xwd:- png:screensho-meshes.png
+        xwd -root -silent | convert xwd:- png:screenshot-meshes.png
         sleep 5 && kill $PID
 
     - name: upload screenshots
       uses: actions/upload-artifact@v4
       with:
         name: screenshots
-        path: build/screenshots
+        path: build/screenshot-meshes.png
 
     - name: build artifact
       uses: actions/upload-artifact@v4
@@ -143,6 +164,11 @@ jobs:
         with:
           name: macos
 
+      - name: get manual
+        uses: actions/download-artifact@v4
+        with:
+          name: SimpleFastOpenAtomicVisualiser.pdf
+
       - name: pack
         run: |
           ls
@@ -151,6 +177,7 @@ jobs:
           mkdir $release
           mv sfoav-$release* $release/
           cp LICENSE* $release/
+          cp SimpleFastOpenAtomicVisualiser.pdf $release
           zip -r $release.zip $release/*
           done
 

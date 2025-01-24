@@ -21,7 +21,16 @@
  * @brief Base mesh types for refinement.
  *
  */
-enum class BASE_MESH : uint8_t {ICOSAHEDRON, OCTAHEDRON, DODECAHEDRON, CUBE, TETRAHEDRON, TRIAUGMENTED_TRIANGULAR_PRISM, ANY};
+enum class BASE_MESH : uint8_t
+{
+  ICOSAHEDRON,
+  OCTAHEDRON,
+  DODECAHEDRON,
+  CUBE,
+  TETRAHEDRON,
+  TRIAUGMENTED_TRIANGULAR_PRISM,
+  ANY
+};
 
 std::ostream & operator<<(std::ostream & o, const BASE_MESH & mesh)
 {
