@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['leaves_0',['leaves',['../classHierarchicalTriangularMesh.html#ad6f06cdd0d28b67e1853000f89bbf90b',1,'HierarchicalTriangularMesh']]]
+  ['incline_0',['incline',['../classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0',1,'Camera']]]
 ];

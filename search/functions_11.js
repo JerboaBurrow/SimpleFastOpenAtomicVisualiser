@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xyz_0',['XYZ',['../classXYZ.html#ad57c33752ab40479047719d5330f9647',1,'XYZ']]]
+  ['updateatoms_0',['updateAtoms',['../classAtomRenderer.html#ac570800c0897394e2ac5836fccf37d4b',1,'AtomRenderer']]]
 ];

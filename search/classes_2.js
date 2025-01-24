@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['commandline_0',['CommandLine',['../structCommandLine.html',1,'']]],
-  ['config_1',['CONFIG',['../classCONFIG.html',1,'']]]
+  ['camera_0',['Camera',['../classCamera.html',1,'']]],
+  ['commandline_1',['CommandLine',['../structCommandLine.html',1,'']]],
+  ['config_2',['CONFIG',['../classCONFIG.html',1,'']]]
 ];

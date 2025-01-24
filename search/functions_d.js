@@ -1,23 +1,4 @@
 var searchData=
 [
-  ['setbondscale_0',['setBondScale',['../classBondRenderer.html#aa852e6524bd8f67de0b80f4322f49e71',1,'BondRenderer']]],
-  ['setchildren_1',['setChildren',['../classTrixel.html#acf851a595544276d4281569745346460',1,'Trixel']]],
-  ['setlevelofdetail_2',['setLevelOfDetail',['../classAtomRenderer.html#ae2850e81ce456feacb20770b38666eef',1,'AtomRenderer']]],
-  ['setlighting_3',['setlighting',['../classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e',1,'AtomRenderer::setLighting()'],['../classBondRenderer.html#aba6fc9682c900cfe97d95207f3d7111a',1,'BondRenderer::setLighting()']]],
-  ['setparent_4',['setParent',['../classTrixel.html#a1cda3184b37e05935f11f710aeb04f8f',1,'Trixel']]],
-  ['setprojection_5',['setprojection',['../classAtomRenderer.html#a70e6436ca66a4c466950426078cba195',1,'AtomRenderer::setProjection()'],['../classBondRenderer.html#a6025f2eabc7070fcc06ef2c74e91fd9a',1,'BondRenderer::setProjection()']]],
-  ['setvertices_6',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],
-  ['setview_7',['setview',['../classAtomRenderer.html#ac903835293ad899cc6cb8d9c0524d5f3',1,'AtomRenderer::setView()'],['../classBondRenderer.html#ae19f943d9fb8edec07d6f01ef3df8623',1,'BondRenderer::setView()']]],
-  ['size_8',['size',['../classHierarchicalTriangularMesh.html#a7f0a18289234ff7f6aefd0da6c66dba8',1,'HierarchicalTriangularMesh']]],
-  ['skipframe_9',['skipFrame',['../classStructure.html#a85f6236156733789fd082fa00c1a6c04',1,'Structure']]],
-  ['skipframes_10',['skipFrames',['../classStructure.html#a46b53a82fc0affafa1802f977729ee77',1,'Structure']]],
-  ['skipline_11',['skipLine',['../classStructure.html#a6c061bfb833a264755daa81cfdb567c5',1,'Structure']]],
-  ['spherical2cartesian_12',['spherical2cartesian',['../util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'util.h']]],
-  ['startswith_13',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
-  ['stringsymboltocolour_14',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
-  ['stringsymboltoelement_15',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
-  ['stringsymboltoelementradius_16',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['structure_17',['Structure',['../classStructure.html#ad2e9741b95ec5e393bc3513993d86dc4',1,'Structure']]],
-  ['subdividetrixel_18',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
-  ['subfullbuffer_19',['subFullBuffer',['../util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'util.h']]]
+  ['position_0',['position',['../classCamera.html#ab7396b4643603c8f588224cc134702af',1,'Camera']]]
 ];
