@@ -163,6 +163,7 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
+            center(atoms);
             camera.reset(atoms);
         }
 
