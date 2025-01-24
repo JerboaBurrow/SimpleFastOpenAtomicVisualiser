@@ -19,7 +19,7 @@ You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/Sim
 
 The API will be very unstable until 0.1.X, expect many breaking changes until then.
 
-![Methane visualised using VDW radii](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=8cm}
+![Methane visualised using VDW radii (left) and bonds (right)](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=8cm}
 
 # Quickstart
 
@@ -54,7 +54,6 @@ At runtime the following key-controls can be used:
 | .      | Translate the atoms in -y |
 | /      | Translate the atoms in +y |
 | SPACE  | Reset to the default view and atom positions |
-|||
 
 To enable MSAA at 16x
 
@@ -87,7 +86,7 @@ sfoav struct.xyz -levelOfDetail 5 -meshes 4
 
 The available meshes are.
 
-| Mesh | Argument to -meshes  | Note |
+| Mesh | value of -meshes  | Note |
 | :----- | :---- | :---- |
 | ICOSAHEDRON | 0 ||
 | OCTAHEDRON | 1 ||
@@ -96,6 +95,5 @@ The available meshes are.
 | TETRAHEDRON | 4 ||
 | TRIAUGMENTED_TRIANGULAR_PRISM | 5 | Known issues at higher LOD|
 | ANY | 6 | Uses all mesh types controlled by LOD|
-| ||
 
 The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.
