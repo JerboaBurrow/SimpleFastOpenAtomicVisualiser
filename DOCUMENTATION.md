@@ -19,7 +19,7 @@ You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/Sim
 
 The API will be very unstable until 0.1.X, expect many breaking changes until then.
 
-![Methane visualised using VDW radii](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=5cm}
+![Methane visualised using VDW radii](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=8cm}
 
 # Quickstart
 
