@@ -84,12 +84,17 @@ void center(std::vector<Atom> & atoms)
     }
 }
 
+void translate(std::vector<Atom> & atoms, glm::vec3 r)
+{
+    for (auto & atom : atoms) { atom.position += r; }
+}
+
 /**
  * @brief Calculate the extent of some Atoms
  *
  * @param atoms the Atom list.
  */
-glm::vec3 extent(std::vector<Atom> & atoms)
+glm::vec3 extent(const std::vector<Atom> & atoms)
 {
     glm::vec3 min = glm::vec3(std::numeric_limits<float>::max());
     glm::vec3 max = glm::vec3(-std::numeric_limits<float>::max());

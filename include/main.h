@@ -21,6 +21,7 @@
 #include <commandLine.h>
 #include <xyz.h>
 #include <config.h>
+#include <camera.h>
 
 const unsigned int resX = 512;
 const unsigned int resY = resX;
