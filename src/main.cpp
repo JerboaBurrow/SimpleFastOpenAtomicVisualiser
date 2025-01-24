@@ -19,8 +19,8 @@ int main(int argv, char ** argc)
 
     jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX,resY)));
 
-    jGL::OrthoCam camera(resX, resY, glm::vec2(0.0,0.0));
-    camera.setPosition(0.0f, 0.0f);
+    jGL::OrthoCam jglCamera(resX, resY, glm::vec2(0.0,0.0));
+    jglCamera.setPosition(0.0f, 0.0f);
 
     jGLInstance->setTextProjection(glm::ortho(0.0,double(resX),0.0,double(resY)));
     jGLInstance->setMSAA(options.msaa.value);
@@ -45,39 +45,15 @@ int main(int argv, char ** argc)
 
     center(atoms);
 
-    glm::vec3 ext = extent(atoms);
-
-    float polarDirection = 1.0f;
-
-    glm::vec3 cameraPositionSpherical = glm::vec3
-    (
-        2.0f*std::max(std::max(ext.x, ext.y), ext.z),
-        M_PI*0.5f,
-        M_PI
-    );
+    Camera camera {atoms, resX, resY};
 
     std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
-
-    glm::mat4 projection = glm::perspective
-    (
-        glm::radians(45.0f), float(resX)/float(resY),
-        0.1f,
-        1000.0f
-    );
-
-    float up = 1.0;
-    glm::mat4 view = glm::lookAt
-    (
-        spherical2cartesian(cameraPositionSpherical),
-        glm::vec3(0.0, 0.0, 0.0),
-        glm::vec3(0.0, up, 0.0)
-    );
 
     AtomRenderer atomRenderer
     (
         atoms,
         options.levelOfDetail.value,
-        spherical2cartesian(cameraPositionSpherical),
+        camera.position(),
         options.mesh.value
     );
 
@@ -88,20 +64,20 @@ int main(int argv, char ** argc)
         bonds.size()
     );
 
-    atomRenderer.setProjection(projection);
-    atomRenderer.setView(view);
+    atomRenderer.setProjection(camera.getProjection());
+    atomRenderer.setView(camera.getView());
     atomRenderer.setLighting
     (
-        spherical2cartesian(cameraPositionSpherical),
+        camera.position(),
         {1.0f, 1.0f, 1.0f},
         0.1f
     );
 
-    bondRenderer.setProjection(projection);
-    bondRenderer.setView(view);
+    bondRenderer.setProjection(camera.getProjection());
+    bondRenderer.setView(camera.getView());
     bondRenderer.setLighting
     (
-        spherical2cartesian(cameraPositionSpherical),
+        camera.position(),
         {1.0f, 1.0f, 1.0f},
         0.1f
     );
@@ -137,81 +113,74 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.x -= dr;
+            camera.zoom(-dr);
         }
         if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.x += dr;
+            camera.zoom(dr);
         }
         if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.y += dtheta*polarDirection;
-            if (cameraPositionSpherical.y > M_PI || cameraPositionSpherical.y < 0.0)
-            {
-                cameraPositionSpherical.y -= 2.0*dtheta*polarDirection;
-                polarDirection = -1.0*polarDirection;
-                cameraPositionSpherical.z += M_PI;
-                if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
-                else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
-                up *= -1.0;
-            }
+            camera.incline(dtheta);
         }
         if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.y -= dtheta*polarDirection;
-            if (cameraPositionSpherical.y > M_PI || cameraPositionSpherical.y < 0.0)
-            {
-                cameraPositionSpherical.y += 2.0*dtheta*polarDirection;
-                polarDirection = -1.0*polarDirection;
-                cameraPositionSpherical.z += M_PI;
-                if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
-                else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
-                up *= -1.0;
-            }
+            camera.incline(-dtheta);
         }
         if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.z -= dphi;
-            if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
-            else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
+            camera.rotate(-dphi);
         }
         if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical.z += dphi;
-            if ( cameraPositionSpherical.z < 0) { cameraPositionSpherical.z += 2.0*M_PI; }
-            else if ( cameraPositionSpherical.z > 2.0*M_PI) { cameraPositionSpherical.z = std::fmod(cameraPositionSpherical.z, 2.0*M_PI); }
+            camera.rotate(dphi);
         }
 
         if (display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical = cartesian2Spherical(spherical2cartesian(cameraPositionSpherical) - glm::vec3(dr, 0.0, 0.0));
+            translate(atoms, {-dr, 0.0, 0.0});
         }
         if (display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::HOLD))
         {
-            cameraPositionSpherical = cartesian2Spherical(spherical2cartesian(cameraPositionSpherical) + glm::vec3(dr, 0.0, 0.0));
+            translate(atoms, {dr, 0.0, 0.0});
+        }
+        if (display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::HOLD))
+        {
+            translate(atoms, {0.0, -dr, 0.0});
+        }
+        if (display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::HOLD))
+        {
+            translate(atoms, {0.0, dr, 0.0});
+        }
+        if (display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::HOLD))
+        {
+            translate(atoms, {0.0, 0.0, -dr});
+        }
+        if (display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::HOLD))
+        {
+            translate(atoms, {0.0, 0.0, dr});
         }
 
-        view = glm::lookAt
-        (
-            spherical2cartesian(cameraPositionSpherical),
-            glm::vec3(0.0, 0.0, 0.0),
-            glm::vec3(0.0, up, 0.0)
-        );
+        if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
+        {
+            center(atoms);
+            camera.reset(atoms);
+        }
 
-        atomRenderer.setProjection(projection);
-        atomRenderer.setView(view);
+        atomRenderer.setProjection(camera.getProjection());
+        atomRenderer.setView(camera.getView());
         atomRenderer.setLighting
         (
-            spherical2cartesian(cameraPositionSpherical),
+            camera.position(),
             {1.0f, 1.0f, 1.0f},
             0.1f
         );
 
-        bondRenderer.setProjection(projection);
-        bondRenderer.setView(view);
+        bondRenderer.setProjection(camera.getProjection());
+        bondRenderer.setView(camera.getView());
         bondRenderer.setLighting
         (
-            spherical2cartesian(cameraPositionSpherical),
+            camera.position(),
             {1.0f, 1.0f, 1.0f},
             0.1f
         );
@@ -229,8 +198,7 @@ int main(int argv, char ** argc)
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true) << "\n"
-                  << "Pos: " << cameraPositionSpherical;
+                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
 
         jGLInstance->text(
             debugText.str(),
