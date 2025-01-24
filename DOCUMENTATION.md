@@ -19,14 +19,14 @@ You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/Sim
 
 The API will be very unstable until 0.1.X, expect many breaking changes until then.
 
-![Methane visualised using VDW radii](docs/images/ch4.png){text-align: center, width: 50%}
+![Methane visualised using VDW radii](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=5cm}
 
 # Quickstart
 
 To render a structure file ```struct.xyz``` simply call
 
 ```shell
-sfoav -atoms struct.xyz
+sfoav struct.xyz
 ```
 
 > [!important]
@@ -37,13 +37,13 @@ This will bring up the view centring the atoms in ```struct.xyz```. The camera c
 To enable MSAA at 16x
 
 ```shell
-sfoav -atoms struct.xyz -msaa 16
+sfoav struct.xyz -msaa 16
 ```
 
 To draw bonds between atoms 1.5 Angstroms apart
 
 ```shell
-sfoav -atoms struct.xyz -bondCutOff 1.5
+sfoav struct.xyz -bondCutOff 1.5
 ```
 
 > [!tip]
@@ -52,11 +52,11 @@ sfoav -atoms struct.xyz -bondCutOff 1.5
 To render using meshes at 10 levels of detail
 
 ```shell
-sfoav -atoms struct.xyz -levelOfDetail 10 -meshes
+sfoav struct.xyz -levelOfDetail 10 -meshes
 ```
 
 To render with only Tetrahedral bases meshes at 5 levels of detail
 
 ```shell
-sfoav -atoms struct.xyz -levelOfDetail 5 -meshes 4
+sfoav struct.xyz -levelOfDetail 5 -meshes 4
 ```
