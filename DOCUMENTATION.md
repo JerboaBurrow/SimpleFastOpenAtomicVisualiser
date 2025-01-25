@@ -92,7 +92,7 @@ The available meshes are.
 | :----- | :---- | :---- |
 | ICOSAHEDRON | 0 ||
 | OCTAHEDRON | 1 ||
-| DODECAHEDRON | 1 | Known issues at higher LOD|
+| DODECAHEDRON | 2 | Known issues at higher LOD|
 | CUBE | 3 |Known issues at higher LOD|
 | TETRAHEDRON | 4 ||
 | TRIAUGMENTED_TRIANGULAR_PRISM | 5 | Known issues at higher LOD|
