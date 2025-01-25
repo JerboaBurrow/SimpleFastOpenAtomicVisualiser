@@ -41,7 +41,7 @@ jobs:
 
     - name: install dependencies
       run: |
-        sudo apt-get update && sudo apt-get install -y build-essential gcov xvfb x11-apps imagemagick xorg-dev mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev libxinerama-dev libxcursor-dev xvfb x11-apps vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
+        sudo apt-get update && sudo apt-get install -y build-essential xvfb x11-apps imagemagick xorg-dev mesa-common-dev libx11-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libopenal-dev libsndfile1-dev libudev-dev libxinerama-dev libxcursor-dev xvfb x11-apps vulkan-tools libvulkan-dev vulkan-validationlayers-dev spirv-tools
         python3 -m pip install gcovr
     - name: linux-linux
       run: |
