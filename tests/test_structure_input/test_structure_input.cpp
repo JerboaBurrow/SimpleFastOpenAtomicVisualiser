@@ -1,5 +1,8 @@
 #include <config.h>
 #include <xyz.h>
+#include <util.h>
+
+#include <memory>
 
 SCENARIO("XYZ reading")
 {
@@ -8,6 +11,10 @@ SCENARIO("XYZ reading")
         THEN("ostensiblyXYZLike(\"psilocybin.xyz\") is true")
         {
             REQUIRE(ostensiblyXYZLike("psilocybin.xyz"));
+        }
+        THEN("ostensiblyCONFIGLike(\"psilocybin.xyz\") is false")
+        {
+            REQUIRE(!ostensiblyCONFIGLike("psilocybin.xyz"));
         }
         WHEN("An XYZ, xyz, is instanced with it")
         {
@@ -31,6 +38,49 @@ SCENARIO("XYZ reading")
             }
         }
     }
+
+    GIVEN("ethanol.REVCON")
+    {
+        THEN("ostensiblyXYZLike(\"ethanol.REVCON\") is false")
+        {
+            REQUIRE(!ostensiblyXYZLike("ethanol.REVCON"));
+        }
+        THEN("ostensiblyCONFIGLike(\"ethanol.REVCON\") is true")
+        {
+            REQUIRE(ostensiblyCONFIGLike("ethanol.REVCON"));
+        }
+        WHEN("An XYZ, xyz, is instanced with it")
+        {
+            XYZ xyz("ethanol.REVCON");
+            THEN("xyz has 576 atoms")
+            {
+                REQUIRE(xyz.atomCount() == 576);
+            }
+            WHEN("A frame is obtained")
+            {
+                auto frame = xyz.readFrame(0);
+                THEN("There are 576 Atoms")
+                {
+                    REQUIRE(frame.size() == 576);
+                }
+                THEN("The first atom is Element::C with position [1.32798964, 2.30608850, 1.98705342]")
+                {
+                    frame[0].symbol = Element::C;
+                    frame[0].position = glm::vec3(1.32798964, 2.30608850, 1.98705342);
+                }
+            }
+        }
+        THEN("readStructureFile, successfully reads in [EXT]XYZ format.")
+        {
+            std::unique_ptr<Structure> structure;
+            readStructureFile("ethanol.REVCON", structure);
+            AND_THEN("structure has 576 atoms")
+            {
+                REQUIRE(structure->atomCount() == 576);
+            }
+        }
+
+    }
 }
 
 SCENARIO("CONFIG reading")
@@ -40,6 +90,10 @@ SCENARIO("CONFIG reading")
         THEN("ostensiblyXYZLike(\"CONFIG\") is false")
         {
             REQUIRE(!ostensiblyXYZLike("CONFIG"));
+        }
+        THEN("ostensiblyCONFIGLike(\"CONFIG\") is true")
+        {
+            REQUIRE(ostensiblyCONFIGLike("CONFIG"));
         }
         WHEN("A CONFIG, config, is instanced with it")
         {
@@ -101,6 +155,10 @@ SCENARIO("REVCON reading")
         {
             REQUIRE(!ostensiblyXYZLike("REVCON"));
         }
+        THEN("ostensiblyCONFIGLike(\"REVCON\") is true")
+        {
+            REQUIRE(ostensiblyCONFIGLike("REVCON"));
+        }
         WHEN("A CONFIG, revcon, is instanced with it")
         {
             CONFIG revcon("REVCON");
@@ -160,6 +218,10 @@ SCENARIO("HISTORY reading")
         THEN("ostensiblyXYZLike(\"HISTORY\") is false")
         {
             REQUIRE(!ostensiblyXYZLike("HISTORY"));
+        }
+        THEN("ostensiblyCONFIGLike(\"HISTORY\") is true")
+        {
+            REQUIRE(ostensiblyCONFIGLike("HISTORY"));
         }
         WHEN("A CONFIG, history, is instanced with it")
         {

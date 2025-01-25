@@ -31,15 +31,7 @@ int main(int argv, char ** argc)
     }
 
     std::unique_ptr<Structure> structure;
-
-    if (ostensiblyXYZLike(options.structure.value))
-    {
-        structure = std::make_unique<XYZ>(options.structure.value);
-    }
-    else
-    {
-        structure = std::make_unique<CONFIG>(options.structure.value);
-    }
+    readStructureFile(options.structure.value, structure);
 
     std::vector<Atom> atoms = structure->readFrame(0);
     center(atoms);

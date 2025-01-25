@@ -13,7 +13,7 @@
 
 #include <hierarchicalTriangularMesh.h>
 
-#include <util.h>
+#include <glUtils.h>
 #include <atom.h>
 
 /**
