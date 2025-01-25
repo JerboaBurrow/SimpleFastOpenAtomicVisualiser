@@ -24,7 +24,7 @@ public:
       filestream(std::ifstream(path)),
       currentFrame(0)
     {
-        countLinesInFile();
+        countContentLinesInFile();
     }
 
     /**
@@ -34,15 +34,8 @@ public:
      */
     virtual uint64_t atomCount() const { return atoms; }
 
-
     /**
-     * @brief Read a single frame at position frame.
-     *
-     * @param frame the frame position.
-     * @return std::vector<Atom> the Atoms read.
-     */
-    /**
-     * @brief Read a single frame at position frame.
+     * @brief Read a single frame at position frame, and increment the current frame.
      *
      * @param frame the frame position.
      * @return std::vector<Atom> the Atoms read.
@@ -50,21 +43,24 @@ public:
     virtual std::vector<Atom> readFrame(uint64_t frame)
     {
         std::vector<Atom> data;
-        if (frame > frames-1) { return data; }
+        frame = frame % frames;
         if (frame == currentFrame)
         {
             getFrame(data);
+            currentFrame++;
         }
         else if (frame > currentFrame)
         {
             skipFrames(frame-currentFrame);
             getFrame(data);
+            currentFrame = frame + 1;
         }
         else
         {
             beginning();
-            skipFrames(frame-1);
+            if (frame > 0) { skipFrames(frame-1); }
             getFrame(data);
+            currentFrame = frame + 1;
         }
         return data;
     }
@@ -95,7 +91,7 @@ protected:
 
     virtual void beginning()
     {
-      filestream.seekg(std::ios::beg);
+        filestream.seekg(std::ios::beg);
     }
 
     virtual void getFrame(std::vector<Atom> & data) = 0;
@@ -113,16 +109,18 @@ protected:
         );
     }
 
-    void countLinesInFile()
+    void countContentLinesInFile()
     {
-      filestream.seekg(std::ios::beg);
-      linesInFile = std::count
-      (
-          std::istreambuf_iterator<char>
-          {filestream},
-          {},
-          '\n'
-      );
+        filestream.seekg(std::ios::beg);
+        linesInFile = 0;
+        std::string line;
+        // Count lines with content, not by POSIX \n.
+        while (std::getline(filestream, line))
+        {
+            linesInFile++;
+        }
+        filestream.clear();
+        filestream.seekg(std::ios::beg);
     }
 
     void checkRead

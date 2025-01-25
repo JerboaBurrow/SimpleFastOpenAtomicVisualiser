@@ -30,19 +30,18 @@ int main(int argv, char ** argc)
         throw std::runtime_error("No atoms path specified, specify one with -atoms <path>");
     }
 
-    std::vector<Atom> atoms;
+    std::unique_ptr<Structure> structure;
 
     if (ostensiblyXYZLike(options.structure.value))
     {
-        XYZ structure(options.structure.value);
-        atoms = structure.readFrame(0);
+        structure = std::make_unique<XYZ>(options.structure.value);
     }
     else
     {
-        CONFIG structure(options.structure.value);
-        atoms = structure.readFrame(0);
+        structure = std::make_unique<CONFIG>(options.structure.value);
     }
 
+    std::vector<Atom> atoms = structure->readFrame(0);
     center(atoms);
 
     Camera camera {atoms, resX, resY};
@@ -167,6 +166,24 @@ int main(int argv, char ** argc)
             camera.reset(atoms);
         }
 
+        if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
+        {
+            glm::vec3 com = getCenter(atoms);
+            atoms = structure->readFrame(structure->framePosition());
+            center(atoms);
+            translate(atoms, com);
+        }
+        if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
+        {
+            glm::vec3 com = getCenter(atoms);
+            uint64_t f = structure->framePosition();
+            if (f > 2) { f -= 2; }
+            else { f = structure->frameCount()-2+f;}
+            atoms = structure->readFrame(f);
+            center(atoms);
+            translate(atoms, com);
+        }
+
         atomRenderer.setProjection(camera.getProjection());
         atomRenderer.setView(camera.getView());
         atomRenderer.setLighting
@@ -195,10 +212,15 @@ int main(int argv, char ** argc)
 
         std::stringstream debugText;
 
+        uint64_t frame = structure->framePosition();
+        if (frame > 0) { frame -= 1; }
+        else { frame = structure->frameCount()-1; }
+
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
+                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
+                  << "Frame: " << frame+1 << "/" << structure->frameCount();
 
         jGLInstance->text(
             debugText.str(),

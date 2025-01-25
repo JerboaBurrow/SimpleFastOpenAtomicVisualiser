@@ -66,50 +66,6 @@ glm::vec3 spherical2cartesian(glm::vec3 rthetaphi)
 }
 
 /**
- * @brief Subtract the centre of mass of some Atoms
- *
- * @param atoms the Atom list to centre.
- */
-void center(std::vector<Atom> & atoms)
-{
-    glm::vec3 com = glm::vec3(0);
-    for (const auto & atom : atoms)
-    {
-        com += atom.position;
-    }
-    com /= float(atoms.size());
-    for (auto & atom : atoms)
-    {
-        atom.position -= com;
-    }
-}
-
-void translate(std::vector<Atom> & atoms, glm::vec3 r)
-{
-    for (auto & atom : atoms) { atom.position += r; }
-}
-
-/**
- * @brief Calculate the extent of some Atoms
- *
- * @param atoms the Atom list.
- */
-glm::vec3 extent(const std::vector<Atom> & atoms)
-{
-    glm::vec3 min = glm::vec3(std::numeric_limits<float>::max());
-    glm::vec3 max = glm::vec3(-std::numeric_limits<float>::max());
-    for (const auto & atom : atoms)
-    {
-        for (uint8_t i = 0; i < 3; i++)
-        {
-            min[i] = std::min(min[i], atom.position[i]);
-            max[i] = std::max(max[i], atom.position[i]);
-        }
-    }
-    return max-min;
-}
-
-/**
  * @brief Convert a double to a fixes length std::string.
  *
  * @param x the value to convert.
