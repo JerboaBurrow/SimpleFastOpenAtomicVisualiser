@@ -85,7 +85,7 @@ About</h1>
 <p>SimpleFastOpenAtomicVisualiser (SFOAV) is intented to enable fast visualisation of atomic and molecular structure files and trajectories.</p>
 <p>It is an MIT licensed C++ project hosted here <a href="https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser">https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/</a>. The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.</p>
 <p>You can find the latest html Doxygen docs at <a href="https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/">https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/</a>.</p>
-<p>The API will be very unstable until 0.1.X, expect many breaking changes until then.</p>
+<p>The UI will be very unstable until 0.1.X, expect many breaking changes until then.</p>
 <div class="image">
 <img src="ch4.png" alt="" width="50%"/>
 <div class="caption">
@@ -130,7 +130,11 @@ Quickstart</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">/   </td><td class="markdownTableBodyLeft">Translate the atoms in +y    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">SPACE   </td><td class="markdownTableBodyLeft">Reset to the default view and atom positions   </td></tr>
+<td class="markdownTableBodyLeft">SPACE   </td><td class="markdownTableBodyLeft">Reset to the default view and atom positions    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">F   </td><td class="markdownTableBodyLeft">Move forward in time    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">B   </td><td class="markdownTableBodyLeft">Move backward in time   </td></tr>
 </table>
 <p>To enable MSAA at 16x</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -msaa 16</div>
@@ -154,7 +158,7 @@ Meshes</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">OCTAHEDRON   </td><td class="markdownTableBodyLeft" colspan="2">1    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">DODECAHEDRON   </td><td class="markdownTableBodyLeft">1   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
+<td class="markdownTableBodyLeft">DODECAHEDRON   </td><td class="markdownTableBodyLeft">2   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">CUBE   </td><td class="markdownTableBodyLeft">3   </td><td class="markdownTableBodyLeft">Known issues at higher LOD    </td></tr>
 <tr class="markdownTableRowOdd">
