@@ -77,7 +77,7 @@ SCENARIO("XYZ reading")
             auto atoms = structure->atomCount();
             AND_THEN("structure has 576 atoms")
             {
-                REQUIRE(atoms = 576);
+                REQUIRE(atoms == 576);
             }
         }
 
