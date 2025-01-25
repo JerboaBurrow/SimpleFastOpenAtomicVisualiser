@@ -24,7 +24,7 @@ public:
       filestream(std::ifstream(path)),
       currentFrame(0)
     {
-        countLinesInFile();
+        countContentLinesInFile();
     }
 
     /**
@@ -91,7 +91,7 @@ protected:
 
     virtual void beginning()
     {
-      filestream.seekg(std::ios::beg);
+        filestream.seekg(std::ios::beg);
     }
 
     virtual void getFrame(std::vector<Atom> & data) = 0;
@@ -109,16 +109,18 @@ protected:
         );
     }
 
-    void countLinesInFile()
+    void countContentLinesInFile()
     {
-      filestream.seekg(std::ios::beg);
-      linesInFile = std::count
-      (
-          std::istreambuf_iterator<char>
-          {filestream},
-          {},
-          '\n'
-      );
+        filestream.seekg(std::ios::beg);
+        linesInFile = 0;
+        std::string line;
+        // Count lines with content, not by POSIX \n.
+        while (std::getline(filestream, line))
+        {
+            linesInFile++;
+        }
+        filestream.clear();
+        filestream.seekg(std::ios::beg);
     }
 
     void checkRead
