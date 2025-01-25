@@ -7,8 +7,50 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <array>
 
 #include <structure.h>
+
+/**
+ * @brief Check if a path is CONFIG'y
+ *
+ * @param path the path to check.
+ * @return true if
+ *  - The path stem is CONFIG, REVCON, CFGMIN, or HISTORY.
+ *  - The extension is one of the above.
+ *  - The above cases any type-case.
+ * @return false false otherwise.
+ */
+bool ostensiblyCONFIGLike(std::filesystem::path path)
+{
+    const std::array<std::string, 4> names {"config", "revcon", "cfgmin", "history"};
+    std::string ext = path.extension().string();
+    std::string stem = path.stem().string();
+
+    for (std::string * s : {&ext, &stem})
+    {
+        std::transform
+        (
+            s->begin(),
+            s->end(),
+            s->begin(),
+            [](unsigned char c){ return std::tolower(c); }
+        );
+    }
+
+    for (auto name : names)
+    {
+        if (ext.rfind("."+name, 0) == 0)
+        {
+            return true;
+        }
+        if (stem.rfind(name, 0) == 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @brief Read CONFIG files

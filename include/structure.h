@@ -65,6 +65,8 @@ public:
         return data;
     }
 
+    virtual ~Structure() = default;
+
     /**
      * @brief Get the number of frames.
      *

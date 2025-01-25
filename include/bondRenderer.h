@@ -3,7 +3,7 @@
 
 #include <jGL/OpenGL/gl.h>
 
-#include <util.h>
+#include <glUtils.h>
 #include <atom.h>
 #include <bond.h>
 

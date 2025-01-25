@@ -18,6 +18,7 @@
 #include <atomRenderer.h>
 #include <bondRenderer.h>
 #include <util.h>
+#include <glUtils.h>
 #include <commandLine.h>
 #include <xyz.h>
 #include <config.h>
