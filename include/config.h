@@ -25,7 +25,7 @@ bool ostensiblyCONFIGLike(std::filesystem::path path)
 {
     const std::array<std::string, 4> names {"config", "revcon", "cfgmin", "history"};
     std::string ext = path.extension().string();
-    std::string stem = path.stem();
+    std::string stem = path.stem().string();
 
     for (std::string * s : {&ext, &stem})
     {
