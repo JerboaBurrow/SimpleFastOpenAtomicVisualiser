@@ -19,5 +19,5 @@ var searchData=
   ['stringsymboltoelementradius_16',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
   ['structure_17',['Structure',['../classStructure.html#ad2e9741b95ec5e393bc3513993d86dc4',1,'Structure']]],
   ['subdividetrixel_18',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
-  ['subfullbuffer_19',['subFullBuffer',['../util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'util.h']]]
+  ['subfullbuffer_19',['subFullBuffer',['../glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'glUtils.h']]]
 ];

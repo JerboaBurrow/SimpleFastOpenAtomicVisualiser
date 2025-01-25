@@ -83,28 +83,83 @@ $(function() {
 <code>#include &lt;limits.h&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;jGL/OpenGL/gl.h&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="xyz_8h_source.html">xyz.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="config_8h_source.html">config.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for util.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__incl.png" border="0" usemap="#ainclude_2util_8h" alt=""/></div>
 <map name="ainclude_2util_8h" id="ainclude_2util_8h">
-<area shape="rect" title=" " alt="" coords="263,5,370,31"/>
+<area shape="rect" title=" " alt="" coords="547,5,654,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,68,104"/>
-<area shape="poly" title=" " alt="" coords="272,33,82,81,81,76,270,28"/>
-<area shape="rect" title=" " alt="" coords="93,79,151,104"/>
-<area shape="poly" title=" " alt="" coords="286,33,166,77,164,72,284,28"/>
-<area shape="rect" title=" " alt="" coords="176,79,247,104"/>
-<area shape="poly" title=" " alt="" coords="301,33,241,73,238,69,298,28"/>
-<area shape="rect" title=" " alt="" coords="271,79,362,104"/>
-<area shape="poly" title=" " alt="" coords="319,31,319,65,314,65,314,31"/>
-<area shape="rect" title=" " alt="" coords="386,79,471,104"/>
-<area shape="poly" title=" " alt="" coords="336,28,400,69,397,73,333,33"/>
-<area shape="rect" title=" " alt="" coords="496,79,623,104"/>
-<area shape="poly" title=" " alt="" coords="356,28,508,72,506,77,355,33"/>
-<area shape="rect" title=" " alt="" coords="647,79,751,104"/>
-<area shape="poly" title=" " alt="" coords="371,27,634,75,633,81,370,32"/>
+<area shape="poly" title=" " alt="" coords="547,26,345,46,217,62,88,81,82,82,81,77,87,76,216,57,344,41,547,21"/>
+<area shape="rect" title=" " alt="" coords="551,372,610,397"/>
+<area shape="poly" title=" " alt="" coords="548,26,425,40,279,66,213,85,158,107,137,120,122,133,112,148,109,164,109,239,112,255,122,269,137,282,158,295,213,318,279,336,421,363,538,377,537,382,421,368,277,341,211,323,156,300,134,287,118,272,107,257,103,240,103,163,107,146,118,130,134,115,156,102,211,80,278,61,424,35,547,21"/>
+<area shape="rect" title=" " alt="" coords="1152,79,1223,104"/>
+<area shape="poly" title=" " alt="" coords="654,21,864,41,1133,76,1138,77,1137,82,1132,81,864,46,654,26"/>
+<area shape="rect" title=" " alt="" coords="245,225,335,251"/>
+<area shape="poly" title=" " alt="" coords="548,32,492,47,430,71,368,106,340,128,316,154,301,182,294,212,289,211,296,180,312,150,337,124,365,102,427,67,491,42,546,27"/>
+<area shape="rect" title=" " alt="" coords="359,225,445,251"/>
+<area shape="poly" title=" " alt="" coords="574,33,537,51,495,77,455,111,423,153,412,183,406,212,401,211,407,181,418,151,451,108,492,73,534,46,571,28"/>
+<area shape="rect" title=" " alt="" coords="1247,79,1325,104"/>
+<area shape="poly" title=" " alt="" coords="654,19,901,37,1065,53,1234,76,1233,81,1064,59,900,42,654,25"/>
+<area shape="rect" title=" " alt="" coords="976,225,1039,251"/>
+<area shape="poly" title=" " alt="" coords="654,19,730,28,821,50,868,67,913,89,954,116,991,150,1000,164,1006,180,1011,211,1005,212,1001,181,995,167,987,154,951,121,910,94,865,72,819,55,729,34,654,24"/>
+<area shape="rect" title=" " alt="" coords="871,372,975,397"/>
+<area shape="poly" title=" " alt="" coords="654,20,782,33,934,59,1004,77,1062,100,1084,114,1102,129,1113,145,1117,163,1117,240,1113,264,1103,287,1088,307,1069,324,1025,351,979,370,977,365,1022,347,1066,320,1084,303,1098,284,1108,263,1111,239,1111,164,1108,147,1098,132,1081,118,1059,105,1002,83,933,64,781,39,654,26"/>
+<area shape="rect" href="xyz_8h.html" title=" " alt="" coords="505,79,563,104"/>
+<area shape="poly" title=" " alt="" coords="592,33,556,70,552,67,588,29"/>
+<area shape="rect" href="config_8h.html" title=" " alt="" coords="609,79,683,104"/>
+<area shape="poly" title=" " alt="" coords="610,30,634,66,629,69,606,32"/>
+<area shape="poly" title=" " alt="" coords="506,98,416,113,362,125,310,141,266,161,235,186,226,200,223,215,226,231,235,249,264,283,300,311,341,333,383,349,468,370,538,379,537,384,467,376,382,355,338,338,297,315,261,287,230,252,220,233,218,215,221,198,231,182,263,157,308,136,361,120,415,107,505,93"/>
+<area shape="poly" title=" " alt="" coords="506,98,470,103,427,113,383,130,342,154,317,183,301,214,296,211,313,179,339,150,380,125,425,108,469,98,505,92"/>
+<area shape="poly" title=" " alt="" coords="510,106,476,126,444,154,425,183,412,213,407,211,420,181,440,150,473,122,507,102"/>
+<area shape="poly" title=" " alt="" coords="564,99,735,149,964,220,962,225,733,155,562,104"/>
+<area shape="rect" title=" " alt="" coords="729,225,803,251"/>
+<area shape="poly" title=" " alt="" coords="563,95,631,113,669,129,705,150,735,180,756,212,752,215,731,183,702,154,667,133,629,118,562,100"/>
+<area shape="rect" title=" " alt="" coords="469,225,543,251"/>
+<area shape="poly" title=" " alt="" coords="534,105,513,212,508,211,529,104"/>
+<area shape="rect" href="structure_8h.html" title=" " alt="" coords="600,152,692,177"/>
+<area shape="poly" title=" " alt="" coords="553,102,617,142,614,147,551,106"/>
+<area shape="poly" title=" " alt="" coords="638,179,622,200,608,226,598,261,590,297,584,358,579,358,585,296,592,260,604,224,618,197,634,176"/>
+<area shape="poly" title=" " alt="" coords="600,178,349,228,348,222,599,173"/>
+<area shape="poly" title=" " alt="" coords="608,180,455,224,454,219,606,175"/>
+<area shape="poly" title=" " alt="" coords="693,171,963,223,963,223,962,228,961,228,692,176"/>
+<area shape="poly" title=" " alt="" coords="667,175,736,216,733,220,664,180"/>
+<area shape="poly" title=" " alt="" coords="625,180,542,221,540,217,622,175"/>
+<area shape="rect" title=" " alt="" coords="619,225,705,251"/>
+<area shape="poly" title=" " alt="" coords="651,177,659,212,654,213,646,178"/>
+<area shape="rect" href="atom_8h.html" title=" " alt="" coords="881,225,949,251"/>
+<area shape="poly" title=" " alt="" coords="690,175,868,222,867,227,689,180"/>
+<area shape="poly" title=" " alt="" coords="919,251,925,358,919,358,913,251"/>
+<area shape="rect" title=" " alt="" coords="1001,445,1067,471"/>
+<area shape="poly" title=" " alt="" coords="940,249,969,269,996,297,1014,331,1025,368,1035,431,1030,432,1020,369,1009,333,992,300,966,273,937,253"/>
+<area shape="rect" title=" " alt="" coords="869,445,949,471"/>
+<area shape="poly" title=" " alt="" coords="930,249,955,276,980,312,990,333,996,355,996,377,990,399,971,423,948,441,944,436,967,419,985,396,991,376,991,356,985,335,976,315,950,279,926,253"/>
+<area shape="rect" href="element_8h.html" title=" " alt="" coords="759,372,847,397"/>
+<area shape="poly" title=" " alt="" coords="913,252,896,286,871,326,831,365,827,361,867,322,891,284,908,250"/>
+<area shape="rect" href="colour_8h.html" title=" " alt="" coords="783,299,856,324"/>
+<area shape="poly" title=" " alt="" coords="901,253,848,292,845,288,898,249"/>
+<area shape="poly" title=" " alt="" coords="841,395,988,440,986,445,840,400"/>
+<area shape="poly" title=" " alt="" coords="822,395,882,435,879,440,819,400"/>
+<area shape="rect" title=" " alt="" coords="737,445,787,471"/>
+<area shape="poly" title=" " alt="" coords="799,399,778,435,773,432,794,396"/>
+<area shape="poly" title=" " alt="" coords="783,326,624,373,623,368,782,321"/>
+<area shape="poly" title=" " alt="" coords="838,322,896,362,893,366,835,326"/>
+<area shape="poly" title=" " alt="" coords="819,325,811,359,806,358,814,324"/>
+<area shape="poly" title=" " alt="" coords="798,326,771,346,750,373,746,387,746,403,753,432,748,433,740,403,740,387,745,371,768,342,795,322"/>
+<area shape="poly" title=" " alt="" coords="679,102,731,125,785,159,807,179,821,202,826,226,818,252,805,267,786,283,734,315,622,369,620,364,732,310,783,279,801,263,813,249,820,226,816,204,803,183,782,163,729,130,677,107"/>
+<area shape="poly" title=" " alt="" coords="618,107,332,223,330,218,616,102"/>
+<area shape="poly" title=" " alt="" coords="628,107,435,221,432,216,625,102"/>
+<area shape="poly" title=" " alt="" coords="683,93,832,112,909,128,939,138,961,150,975,163,987,179,1002,211,998,214,982,182,971,167,958,154,937,143,907,133,831,117,683,98"/>
+<area shape="poly" title=" " alt="" coords="683,92,748,97,825,108,894,125,921,136,939,150,947,168,945,183,933,196,915,207,867,223,817,233,816,228,866,218,913,202,930,192,940,181,942,168,935,154,918,141,893,130,824,113,748,103,683,97"/>
+<area shape="poly" title=" " alt="" coords="636,106,589,154,529,217,525,213,585,150,632,103"/>
+<area shape="poly" title=" " alt="" coords="649,104,649,138,643,138,643,104"/>
+<area shape="rect" title=" " alt="" coords="869,152,925,177"/>
+<area shape="poly" title=" " alt="" coords="684,101,856,149,854,154,682,106"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -112,20 +167,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__dep__incl.png" border="0" usemap="#ainclude_2util_8hdep" alt=""/></div>
 <map name="ainclude_2util_8hdep" id="ainclude_2util_8hdep">
-<area shape="rect" title=" " alt="" coords="230,5,337,31"/>
-<area shape="rect" href="atomRenderer_8h.html" title=" " alt="" coords="5,79,183,104"/>
-<area shape="poly" title=" " alt="" coords="241,38,126,81,124,76,239,33"/>
-<area shape="rect" href="main_8h.html" title=" " alt="" coords="224,152,343,177"/>
-<area shape="poly" title=" " alt="" coords="267,43,257,60,249,79,248,99,254,118,275,150,270,153,249,120,242,100,243,78,252,58,263,40"/>
-<area shape="rect" href="bondRenderer_8h.html" title=" " alt="" coords="259,79,433,104"/>
-<area shape="poly" title=" " alt="" coords="305,39,338,77,334,80,301,43"/>
-<area shape="rect" href="camera_8h.html" title=" " alt="" coords="457,79,592,104"/>
-<area shape="poly" title=" " alt="" coords="336,32,486,76,485,81,335,37"/>
-<area shape="poly" title=" " alt="" coords="138,106,253,149,251,154,136,111"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="231,225,336,251"/>
-<area shape="poly" title=" " alt="" coords="286,191,286,225,281,225,281,191"/>
-<area shape="poly" title=" " alt="" coords="329,116,295,154,291,150,325,113"/>
-<area shape="poly" title=" " alt="" coords="473,110,323,154,322,149,472,105"/>
+<area shape="rect" title=" " alt="" coords="71,5,178,31"/>
+<area shape="rect" href="camera_8h.html" title=" " alt="" coords="5,79,140,104"/>
+<area shape="poly" title=" " alt="" coords="110,43,83,80,79,77,106,40"/>
+<area shape="rect" href="main_8h.html" title=" " alt="" coords="65,152,184,177"/>
+<area shape="poly" title=" " alt="" coords="142,42,154,71,157,88,155,105,146,131,134,153,130,150,141,129,150,103,151,88,149,73,137,44"/>
+<area shape="poly" title=" " alt="" coords="91,114,118,150,114,153,87,117"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="72,225,177,251"/>
+<area shape="poly" title=" " alt="" coords="127,191,127,225,122,225,122,191"/>
 </map>
 </div>
 </div>
@@ -142,15 +191,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a993c1a4171c23f9731e0b97ee43c2cc7" id="r_a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a993c1a4171c23f9731e0b97ee43c2cc7">fixedLengthNumber</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">double</a> x, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">unsigned</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">length</a>)</td></tr>
 <tr class="memdesc:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a double to a fixes length std::string.  <br /></td></tr>
 <tr class="separator:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28bf4ceab8dc8d02c66dfe5f975af519" id="r_a28bf4ceab8dc8d02c66dfe5f975af519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">subFullBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">data</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size)</td></tr>
-<tr class="memdesc:a28bf4ceab8dc8d02c66dfe5f975af519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute a GL_ARRAY_BUFFER fully.  <br /></td></tr>
-<tr class="separator:a28bf4ceab8dc8d02c66dfe5f975af519"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80efbe036b07598e951c2a6c222e2c96" id="r_a80efbe036b07598e951c2a6c222e2c96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a80efbe036b07598e951c2a6c222e2c96">enableBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">attribute</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">divisor</a>)</td></tr>
-<tr class="memdesc:a80efbe036b07598e951c2a6c222e2c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable a GL_ARRAY_BUFFER.  <br /></td></tr>
-<tr class="separator:a80efbe036b07598e951c2a6c222e2c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3971f7f37836082291c26e06b02de92" id="r_aa3971f7f37836082291c26e06b02de92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#aa3971f7f37836082291c26e06b02de92">createBuffer</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">buffer</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">data</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">dataSize</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">int</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">drawType</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">attribute</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> size, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">divisor</a>)</td></tr>
-<tr class="memdesc:aa3971f7f37836082291c26e06b02de92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a GL_ARRAY_BUFFER from data.  <br /></td></tr>
-<tr class="separator:aa3971f7f37836082291c26e06b02de92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a82cf33e9c338d1b89232a98b79721" id="r_a96a82cf33e9c338d1b89232a98b79721"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a96a82cf33e9c338d1b89232a98b79721">readStructureFile</a> (std::filesystem::path path, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::unique_ptr</a>&lt; <a class="el" href="classStructure.html">Structure</a> &gt; &amp;structure)</td></tr>
+<tr class="memdesc:a96a82cf33e9c338d1b89232a98b79721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a structure file from the path.  <br /></td></tr>
+<tr class="separator:a96a82cf33e9c338d1b89232a98b79721"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af47d0eeb76203e06f023871134fd221c" name="af47d0eeb76203e06f023871134fd221c"></a>
@@ -180,129 +223,6 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec3 spherical vector. </dd></dl>
-
-</div>
-</div>
-<a id="aa3971f7f37836082291c26e06b02de92" name="aa3971f7f37836082291c26e06b02de92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3971f7f37836082291c26e06b02de92">&#9670;&#160;</a></span>createBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> createBuffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>dataSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">int</a>&#160;</td>
-          <td class="paramname"><em>drawType</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>attribute</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>divisor</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a GL_ARRAY_BUFFER from data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id. </td></tr>
-    <tr><td class="paramname">data</td><td>the data to upload. </td></tr>
-    <tr><td class="paramname">dataSize</td><td>the amount of data. </td></tr>
-    <tr><td class="paramname">drawType</td><td>the draw type. </td></tr>
-    <tr><td class="paramname">attribute</td><td>the vertex attribute. </td></tr>
-    <tr><td class="paramname">size</td><td>dimension. </td></tr>
-    <tr><td class="paramname">divisor</td><td>the instance divisor. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a80efbe036b07598e951c2a6c222e2c96" name="a80efbe036b07598e951c2a6c222e2c96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80efbe036b07598e951c2a6c222e2c96">&#9670;&#160;</a></span>enableBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> enableBuffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>attribute</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>divisor</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable a GL_ARRAY_BUFFER. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id. </td></tr>
-    <tr><td class="paramname">attribute</td><td>the vertex attributed. </td></tr>
-    <tr><td class="paramname">size</td><td>the dimension. </td></tr>
-    <tr><td class="paramname">divisor</td><td>the intancing divisor. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -344,6 +264,46 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
 
 </div>
 </div>
+<a id="a96a82cf33e9c338d1b89232a98b79721" name="a96a82cf33e9c338d1b89232a98b79721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a82cf33e9c338d1b89232a98b79721">&#9670;&#160;</a></span>readStructureFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> readStructureFile </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::unique_ptr</a>&lt; <a class="el" href="classStructure.html">Structure</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>structure</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a structure file from the path. </p>
+<dl class="section remark"><dt>Remarks</dt><dd>Will attemp to automatically detect CONFIG-like of [EXT]<a class="el" href="classXYZ.html" title="Read XYZ and EXTXYZ files.">XYZ</a> files. </dd>
+<dd>
+Will try both on failure. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the structure file's path. </td></tr>
+    <tr><td class="paramname">structure</td><td>the structure unique pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="abf79d5d2b1fa4f488ac4660f2d33d90a" name="abf79d5d2b1fa4f488ac4660f2d33d90a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf79d5d2b1fa4f488ac4660f2d33d90a">&#9670;&#160;</a></span>spherical2cartesian()</h2>
 
@@ -371,50 +331,6 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec3 the cartesian vector. </dd></dl>
-
-</div>
-</div>
-<a id="a28bf4ceab8dc8d02c66dfe5f975af519" name="a28bf4ceab8dc8d02c66dfe5f975af519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28bf4ceab8dc8d02c66dfe5f975af519">&#9670;&#160;</a></span>subFullBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> subFullBuffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">GLuint</a>&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Substitute a GL_ARRAY_BUFFER fully. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>the GL_ARRAY_BUFFER id </td></tr>
-    <tr><td class="paramname">data</td><td>the new data. </td></tr>
-    <tr><td class="paramname">size</td><td>the size. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
