@@ -1,9 +1,6 @@
 #include <config.h>
 #include <xyz.h>
 
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-
 SCENARIO("XYZ reading")
 {
     GIVEN("psilocybin.xyz")
