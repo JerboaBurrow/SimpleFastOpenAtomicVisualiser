@@ -17,7 +17,7 @@ It is an MIT licensed C++ project hosted here [https://github.com/JerboaBurrow/S
 
 You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/](https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/).
 
-The API will be very unstable until 0.1.X, expect many breaking changes until then.
+The UI will be very unstable until 0.1.X, expect many breaking changes until then.
 
 ![Methane visualised using VDW radii (left) and bonds (right)](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=8cm}
 
@@ -54,6 +54,8 @@ At runtime the following key-controls can be used:
 | .      | Translate the atoms in -y |
 | /      | Translate the atoms in +y |
 | SPACE  | Reset to the default view and atom positions |
+| F      | Move forward in time  |
+| B      | Move backward in time |
 
 To enable MSAA at 16x
 
@@ -90,7 +92,7 @@ The available meshes are.
 | :----- | :---- | :---- |
 | ICOSAHEDRON | 0 ||
 | OCTAHEDRON | 1 ||
-| DODECAHEDRON | 1 | Known issues at higher LOD|
+| DODECAHEDRON | 2 | Known issues at higher LOD|
 | CUBE | 3 |Known issues at higher LOD|
 | TETRAHEDRON | 4 ||
 | TRIAUGMENTED_TRIANGULAR_PRISM | 5 | Known issues at higher LOD|
