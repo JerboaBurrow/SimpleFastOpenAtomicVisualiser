@@ -54,6 +54,8 @@ At runtime the following key-controls can be used:
 | .      | Translate the atoms in -y |
 | /      | Translate the atoms in +y |
 | SPACE  | Reset to the default view and atom positions |
+| F      | Move forward in time  |
+| B      | Move backward in time |
 
 To enable MSAA at 16x
 
