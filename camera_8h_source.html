@@ -108,7 +108,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">   48</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">reset</a>(<span class="keyword">const</span> std::vector&lt;Atom&gt; &amp; atoms)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        glm::vec3 ext = <a class="code hl_function" href="util_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a>(atoms);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        glm::vec3 ext = <a class="code hl_function" href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a>(atoms);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        positionSpherical = glm::vec3</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        (</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            2.0f*std::max(std::max(ext.x, ext.y), ext.z),</div>
@@ -195,6 +195,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">#endif </span><span class="comment">/* CAMERA_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aatom_8h_html"><div class="ttname"><a href="atom_8h.html">atom.h</a></div></div>
+<div class="ttc" id="aatom_8h_html_a8f22f6f993dd09e5340698195c7f02b2"><div class="ttname"><a href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a></div><div class="ttdeci">glm::vec3 extent(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Calculate the extent of some Atoms.</div><div class="ttdef"><b>Definition</b> atom.h:136</div></div>
 <div class="ttc" id="aclassCamera_html"><div class="ttname"><a href="classCamera.html">Camera</a></div><div class="ttdoc">A 3D projective camera centered on a focus moving on a sphere.</div><div class="ttdef"><b>Definition</b> camera.h:26</div></div>
 <div class="ttc" id="aclassCamera_html_a104196e052c28be88d97126de9c10191"><div class="ttname"><a href="classCamera.html#a104196e052c28be88d97126de9c10191">Camera::Camera</a></div><div class="ttdeci">Camera(const std::vector&lt; Atom &gt; &amp;atoms, uint16_t resX, uint16_t resY)</div><div class="ttdoc">Construct a new Camera focussing on some Atoms.</div><div class="ttdef"><b>Definition</b> camera.h:36</div></div>
 <div class="ttc" id="aclassCamera_html_a5890b40d92902a1b15624c268aab1c53"><div class="ttname"><a href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">Camera::getProjection</a></div><div class="ttdeci">glm::mat4 getProjection() const</div><div class="ttdoc">Get the Projection matrix.</div><div class="ttdef"><b>Definition</b> camera.h:126</div></div>
@@ -207,7 +208,6 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="amain_8h_html_a5712d9bb0647ca69e086a4825a60bbd9"><div class="ttname"><a href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a></div><div class="ttdeci">const unsigned int resY</div><div class="ttdef"><b>Definition</b> main.h:27</div></div>
 <div class="ttc" id="amain_8h_html_a5e8e5da525c1f3a4722baf79c907173f"><div class="ttname"><a href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a></div><div class="ttdeci">const unsigned int resX</div><div class="ttdef"><b>Definition</b> main.h:26</div></div>
 <div class="ttc" id="autil_8h_html"><div class="ttname"><a href="util_8h.html">util.h</a></div></div>
-<div class="ttc" id="autil_8h_html_a8f22f6f993dd09e5340698195c7f02b2"><div class="ttname"><a href="util_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a></div><div class="ttdeci">glm::vec3 extent(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Calculate the extent of some Atoms.</div><div class="ttdef"><b>Definition</b> util.h:97</div></div>
 <div class="ttc" id="autil_8h_html_abf79d5d2b1fa4f488ac4660f2d33d90a"><div class="ttname"><a href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a></div><div class="ttdeci">glm::vec3 spherical2cartesian(glm::vec3 rthetaphi)</div><div class="ttdoc">convert spherical coordinates to cartesian coordinates.</div><div class="ttdef"><b>Definition</b> util.h:57</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

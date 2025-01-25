@@ -103,7 +103,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae7ffc203112cf236149caf491591a7b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of atoms in the file.  <br /></td></tr>
 <tr class="separator:ae7ffc203112cf236149caf491591a7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7680b3f56dedffc9b6286ce9da2314fd" id="r_a7680b3f56dedffc9b6286ce9da2314fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">virtual</a> std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#a7680b3f56dedffc9b6286ce9da2314fd">readFrame</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint64_t</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">frame</a>)</td></tr>
-<tr class="memdesc:a7680b3f56dedffc9b6286ce9da2314fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single frame at position frame.  <br /></td></tr>
+<tr class="memdesc:a7680b3f56dedffc9b6286ce9da2314fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single frame at position frame, and increment the current frame.  <br /></td></tr>
 <tr class="separator:a7680b3f56dedffc9b6286ce9da2314fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc1887d5fa7ba412ef2ebb7ad1741689" id="r_acc1887d5fa7ba412ef2ebb7ad1741689"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint64_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#acc1887d5fa7ba412ef2ebb7ad1741689">frameCount</a> () <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a></td></tr>
 <tr class="memdesc:acc1887d5fa7ba412ef2ebb7ad1741689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of frames.  <br /></td></tr>
@@ -124,8 +124,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a46b53a82fc0affafa1802f977729ee77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c061bfb833a264755daa81cfdb567c5" id="r_a6c061bfb833a264755daa81cfdb567c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#a6c061bfb833a264755daa81cfdb567c5">skipLine</a> ()</td></tr>
 <tr class="separator:a6c061bfb833a264755daa81cfdb567c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80106d05c4c27e89d84f384b7f1be4e5" id="r_a80106d05c4c27e89d84f384b7f1be4e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#a80106d05c4c27e89d84f384b7f1be4e5">countLinesInFile</a> ()</td></tr>
-<tr class="separator:a80106d05c4c27e89d84f384b7f1be4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e853939d598f9c78da269aff304dcd" id="r_af8e853939d598f9c78da269aff304dcd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#af8e853939d598f9c78da269aff304dcd">countContentLinesInFile</a> ()</td></tr>
+<tr class="separator:af8e853939d598f9c78da269aff304dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b53b4c4b923c895c1628be2a12bf1a" id="r_ad1b53b4c4b923c895c1628be2a12bf1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a> (std::stringstream &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">ss</a>, std::string <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">lastInput</a>, std::string <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">context</a>)</td></tr>
 <tr class="separator:ad1b53b4c4b923c895c1628be2a12bf1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -275,8 +275,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a80106d05c4c27e89d84f384b7f1be4e5" name="a80106d05c4c27e89d84f384b7f1be4e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80106d05c4c27e89d84f384b7f1be4e5">&#9670;&#160;</a></span>countLinesInFile()</h2>
+<a id="af8e853939d598f9c78da269aff304dcd" name="af8e853939d598f9c78da269aff304dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e853939d598f9c78da269aff304dcd">&#9670;&#160;</a></span>countContentLinesInFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +285,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> Structure::countLinesInFile </td>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> Structure::countContentLinesInFile </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -406,15 +406,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Read a single frame at position frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frame</td><td>the frame position. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;Atom&gt; the Atoms read.</dd></dl>
-<p>Read a single frame at position frame.</p>
+<p>Read a single frame at position frame, and increment the current frame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">frame</td><td>the frame position. </td></tr>

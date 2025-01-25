@@ -11,7 +11,7 @@ var searchData=
   ['timestep_8',['timeStep',['../classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1',1,'Structure']]],
   ['tl_9',['Tl',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0de3ba01184b62b2d8e5b01ca4842f76',1,'element.h']]],
   ['tm_10',['Tm',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0f3526400dc9d9fd89be71e0074ee009',1,'element.h']]],
-  ['translate_11',['translate',['../util_8h.html#ab7c1a5a69bdf49e0d875287e99f91fb0',1,'util.h']]],
+  ['translate_11',['translate',['../atom_8h.html#ab7c1a5a69bdf49e0d875287e99f91fb0',1,'atom.h']]],
   ['triangle_12',['triangle',['../classTriangle.html#a94e673f4ebc48d2079f556467b41a1ee',1,'Triangle::Triangle(vec3&lt; T &gt; v1, vec3&lt; T &gt; v2, vec3&lt; T &gt; v3)'],['../classTriangle.html#ac07539a08453e522dafb2acd3c7f9992',1,'Triangle::Triangle()'],['../classTriangle.html',1,'Triangle&lt; T &gt;']]],
   ['triangle_2eh_13',['triangle.h',['../triangle_8h.html',1,'']]],
   ['triangles_14',['triangles',['../classHierarchicalTriangularMesh.html#aa5919b5fda6d37b5461ba50a04a28512',1,'HierarchicalTriangularMesh::triangles()'],['../classBondRenderer.html#a29bcb2e828718e080b669765cd2a73b6',1,'BondRenderer::triangles()'],['../classAtomRenderer.html#af781840b85f359a76ec112b77fc136b7',1,'AtomRenderer::triangles()']]],

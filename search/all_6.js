@@ -12,11 +12,12 @@ var searchData=
   ['getcella_9',['getCellA',['../classCONFIG.html#a3ef9100706ab5cefee6322b795b56293',1,'CONFIG']]],
   ['getcellb_10',['getCellB',['../classCONFIG.html#a92621b2a352076fec1a80433e10aa65b',1,'CONFIG']]],
   ['getcellc_11',['getCellC',['../classCONFIG.html#a7621032c94947017fa7aeea04ba98126',1,'CONFIG']]],
-  ['getchildren_12',['getChildren',['../classTrixel.html#a487541e6595431e068baa15e5b169ca7',1,'Trixel']]],
-  ['getframe_13',['getFrame',['../classStructure.html#a3b7c546f860dc71d3c534553ac8a18f4',1,'Structure']]],
-  ['getid_14',['getID',['../classTrixel.html#ac481846319f04048518bc62b8e980f26',1,'Trixel']]],
-  ['getlevelofdetail_15',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
-  ['getprojection_16',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
-  ['getvertices_17',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
-  ['getview_18',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]]
+  ['getcenter_12',['getCenter',['../atom_8h.html#a2966ceafb83e1e96f930ae502d706199',1,'atom.h']]],
+  ['getchildren_13',['getChildren',['../classTrixel.html#a487541e6595431e068baa15e5b169ca7',1,'Trixel']]],
+  ['getframe_14',['getFrame',['../classStructure.html#a3b7c546f860dc71d3c534553ac8a18f4',1,'Structure']]],
+  ['getid_15',['getID',['../classTrixel.html#ac481846319f04048518bc62b8e980f26',1,'Trixel']]],
+  ['getlevelofdetail_16',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
+  ['getprojection_17',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
+  ['getvertices_18',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
+  ['getview_19',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]]
 ];
