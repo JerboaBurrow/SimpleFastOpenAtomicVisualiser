@@ -17,7 +17,7 @@ It is an MIT licensed C++ project hosted here [https://github.com/JerboaBurrow/S
 
 You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/](https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/).
 
-The API will be very unstable until 0.1.X, expect many breaking changes until then.
+The UI will be very unstable until 0.1.X, expect many breaking changes until then.
 
 ![Methane visualised using VDW radii (left) and bonds (right)](docs/images/ch4.png){text-align: center, html: width=50%, latex: width=8cm}
 
