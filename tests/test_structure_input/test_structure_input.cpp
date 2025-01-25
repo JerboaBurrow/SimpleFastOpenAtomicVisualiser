@@ -74,9 +74,10 @@ SCENARIO("XYZ reading")
         {
             std::unique_ptr<Structure> structure;
             readStructureFile("ethanol.REVCON", structure);
+            auto atoms = structure->atomCount();
             AND_THEN("structure has 576 atoms")
             {
-                REQUIRE(structure->atomCount() == 576);
+                REQUIRE(atoms = 576);
             }
         }
 
