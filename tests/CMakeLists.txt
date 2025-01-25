@@ -24,15 +24,17 @@ include(Catch)
 set_target_properties(${OUTPUT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 catch_discover_tests(${OUTPUT_NAME} WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    include(CodeCoverage)
-    append_coverage_compiler_flags_to_target(${OUTPUT_NAME})
-    setup_target_for_coverage_gcovr(
-        NAME ctest_coverage
-        EXECUTABLE ctest
-        DEPENDENCIES ${OUTPUT_NAME}
-        EXCLUDE "include/vendored/*" "tests/*"
-    )
+if (NOT WINDOWS AND NOT OSX)
+    if(CMAKE_COMPILER_IS_GNUCXX)
+        include(CodeCoverage)
+        append_coverage_compiler_flags_to_target(${OUTPUT_NAME})
+        setup_target_for_coverage_gcovr(
+            NAME ctest_coverage
+            EXECUTABLE ctest
+            DEPENDENCIES ${OUTPUT_NAME}
+            EXCLUDE "include/vendored/*" "tests/*"
+        )
+    endif()
 endif()
 
 file(COPY "test_structure_input/CONFIG" DESTINATION "${CMAKE_BINARY_DIR}")
