@@ -60,7 +60,9 @@ jobs:
       run: |
         {
           echo 'SUMMARY<<EOF'
-          "\`\`\``cat build/cov.txt`\`\`\`"
+          echo "\`\`\`"
+          cat build/cov.txt
+          echo "\`\`\`"
           echo EOF
         } >> "$GITHUB_ENV"
 
