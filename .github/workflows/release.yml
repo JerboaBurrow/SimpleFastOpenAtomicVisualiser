@@ -25,13 +25,13 @@ jobs:
       - name: Build doxygen
         run: |
           doxygen docs/doxygen.config
-          (cd docs/latex; make; ls)
+          (cd docs/latex; make; ls; mv refman.pdf SimpleFastOpenAtomicVisualiser.pdf)
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
           name: SimpleFastOpenAtomicVisualiser.pdf
-          path: docs/latex/refman.pdf
+          path: docs/latex/SimpleFastOpenAtomicVisualiser.pdf
 
   linux:
     runs-on: ubuntu-20.04
