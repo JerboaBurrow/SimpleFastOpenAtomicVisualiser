@@ -9,5 +9,6 @@ var searchData=
   ['fr_6',['Fr',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5afa717ba17306cd76900510df8ac8013e',1,'element.h']]],
   ['framecount_7',['frameCount',['../classStructure.html#acc1887d5fa7ba412ef2ebb7ad1741689',1,'Structure']]],
   ['frameposition_8',['framePosition',['../classStructure.html#a1e669c19a900385911066d995099de9a',1,'Structure']]],
-  ['frames_9',['frames',['../classStructure.html#a62adaf338f53264d616cf6f0d7c69938',1,'Structure']]]
+  ['framepositions_9',['framePositions',['../classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3',1,'Structure']]],
+  ['frames_10',['frames',['../classStructure.html#a62adaf338f53264d616cf6f0d7c69938',1,'Structure']]]
 ];
