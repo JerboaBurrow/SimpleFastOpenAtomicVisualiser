@@ -79,6 +79,7 @@ public:
     : Structure(path)
     {
         readMetaData();
+        cachePositions();
     }
 
     glm::vec3 getCellA() const { return cellA; }
@@ -141,25 +142,8 @@ private:
         if (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }
         else { metaDataLines = 2; }
         linesPerAtom = 2+(levcfg > 0 ? 1 : 0)+(levcfg > 1 ? 1 : 0);
+        linesPerFrame = atoms*linesPerAtom+4;
         beginning();
-    }
-
-    void skipFrame()
-    {
-        if (!HISTORY) { return; }
-        for (uint64_t a = 0; a < atoms*linesPerAtom+4; a++)
-        {
-            skipLine();
-        }
-    }
-
-    void skipFrames(uint64_t count)
-    {
-        if (!HISTORY) { return; }
-        for (uint64_t f = 0; f < count; f++)
-        {
-            skipFrame();
-        }
     }
 
     void beginning()

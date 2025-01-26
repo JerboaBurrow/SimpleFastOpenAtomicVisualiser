@@ -14,6 +14,10 @@
  * @brief Specification for the structure file interface.
  * @remark @see XYZ for an XYZ/EXTXYZ implementation.
  * @remark @see CONFIG for a CONFIG implementation.
+ * @remark Implementors must set:
+ *   - atoms: the atom count.
+ *   - frames: the frame count.
+ *   - linesPerFrame: the (constant) lines in each frame.
  */
 class Structure
 {
@@ -22,7 +26,12 @@ public:
     Structure(std::filesystem::path path)
     : path(path),
       filestream(std::ifstream(path)),
-      currentFrame(0)
+      atoms(0),
+      frames(0),
+      linesPerFrame(0),
+      timeStep(0),
+      currentFrame(0),
+      linesInFile(0)
     {
         countContentLinesInFile();
     }
@@ -44,24 +53,31 @@ public:
     {
         std::vector<Atom> data;
         frame = frame % frames;
-        if (frame == currentFrame)
+        if (framePositions.find(frame) != framePositions.cend())
         {
-            getFrame(data);
-            currentFrame++;
-        }
-        else if (frame > currentFrame)
-        {
-            skipFrames(frame-currentFrame);
-            getFrame(data);
-            currentFrame = frame + 1;
+            filestream.seekg(framePositions[frame]);
         }
         else
         {
-            beginning();
-            if (frame > 0) { skipFrames(frame-1); }
-            getFrame(data);
-            currentFrame = frame + 1;
+            if (frame == currentFrame)
+            {
+                framePositions[frame] = filestream.tellg();
+            }
+            else if (frame > currentFrame)
+            {
+                skipFrames(frame-currentFrame);
+                framePositions[frame] = filestream.tellg();
+            }
+            else
+            {
+                beginning();
+                if (frame > 0) { skipFrames(frame-1); }
+                framePositions[frame] = filestream.tellg();
+            }
         }
+
+        getFrame(data);
+        currentFrame = frame + 1;
         return data;
     }
 
@@ -87,9 +103,12 @@ protected:
     std::ifstream filestream;
     uint64_t atoms;
     uint64_t frames;
+    uint64_t linesPerFrame;
     uint64_t timeStep;
     uint64_t currentFrame;
     uint64_t linesInFile;
+
+    std::map<uint64_t, uint64_t> framePositions;
 
     virtual void beginning()
     {
@@ -98,9 +117,23 @@ protected:
 
     virtual void getFrame(std::vector<Atom> & data) = 0;
 
-    virtual void skipFrame() = 0;
+    void skipFrame()
+    {
+        if (currentFrame == frames-1) { return; }
+        for (uint64_t a = 0; a < linesPerFrame; a++)
+        {
+            skipLine();
+        }
+    }
 
-    virtual void skipFrames(uint64_t count) = 0;
+    virtual void skipFrames(uint64_t count)
+    {
+        if (currentFrame == frames-1) { return; }
+        for (uint64_t f = 0; f < count; f++)
+        {
+            skipFrame();
+        }
+    }
 
     void skipLine()
     {
@@ -109,6 +142,17 @@ protected:
             std::numeric_limits<std::streamsize>::max(),
             '\n'
         );
+    }
+
+    void cachePositions()
+    {
+        beginning();
+        for (uint64_t f = 0; f < frames; f++)
+        {
+            framePositions[f] = filestream.tellg();
+            skipFrame();
+        }
+        beginning();
     }
 
     void countContentLinesInFile()

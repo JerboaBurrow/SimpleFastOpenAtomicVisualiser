@@ -58,7 +58,9 @@ public:
     : Structure(path)
     {
         readAtomCount();
+        linesPerFrame = atoms+2;
         readFrameCount();
+        cachePositions();
     }
 
 private:
@@ -79,24 +81,9 @@ private:
         frames = linesInFile / (atoms+uint64_t(2));
     }
 
-    void skipFrame()
-    {
-        for (uint64_t a = 0; a < atoms+2; a++)
-        {
-            skipLine();
-        }
-    }
-
-    void skipFrames(uint64_t count)
-    {
-        for (uint64_t f = 0; f < count; f++)
-        {
-            skipFrame();
-        }
-    }
-
     void getFrame(std::vector<Atom> & data)
     {
+        auto a = filestream.tellg();
         std::string line;
         std::stringstream ss;
         std::getline(filestream, line);
