@@ -1,6 +1,28 @@
 cmake_minimum_required(VERSION 3.1)
 project(sfoav)
 
+set(PRODUCT $ENV{PRODUCT})
+set(MAJOR $ENV{MAJOR})
+set(MINOR $ENV{MINOR})
+set(PATCH $ENV{PATCH})
+
+set(COMPANY "Jerboa")
+set(PRODUCT_NAME "SimpleFastOpenAtomicVisualiser")
+set(DESCRIPTION "Visualise atoms and molecule structure files.")
+set(COPYRIGHT "Copyright (C) Jerboa 2025 - MIT")
+
+string(TIMESTAMP TODAY "%Y-%m-%d:%H:%M:%S")
+add_compile_definitions(TIMESTAMP="${TODAY}")
+add_compile_definitions(PRODUCT=${PRODUCT})
+add_compile_definitions(MAJOR=${MAJOR})
+add_compile_definitions(MINOR=${MINOR})
+add_compile_definitions(PATCH=${PATCH})
+
+add_compile_definitions(COMPANY=${COMPANY})
+add_compile_definitions(PRODUCT_NAME=${PRODUCT_NAME})
+add_compile_definitions(DESCRIPTION=${DESCRIPTION})
+add_compile_definitions(COPYRIGHT=${COPYRIGHT})
+
 list(APPEND CMAKE_CXX_SOURCE_FILE_EXTENSIONS shader)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -80,6 +102,9 @@ target_link_libraries(${OUTPUT_NAME}
     ${ZLIB_LIBRARIES}
     ${CMAKE_DL_LIBS}
 )
+
+target_compile_definitions(${OUTPUT_NAME} PUBLIC VERSION="Version: ${PRODUCT}-${MAJOR}.${MINOR}.${PATCH}")
+
 
 if(NOT WINDOWS)
     target_link_libraries(${OUTPUT_NAME}
