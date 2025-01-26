@@ -313,6 +313,10 @@ struct CommandLine
     CommandLine(uint8_t count, char ** commandLine)
     {
         if (count == 1) { help(); return; }
+        for (uint8_t c = 1; c < count; c++)
+        {
+            checkHelp(commandLine[c]);
+        }
         if (!getArgument<std::filesystem::path>(structure, commandLine, structure.position, count))
         {
             std::cout << "A structure path must be given as argument 1\n";
@@ -321,7 +325,6 @@ struct CommandLine
 
         for (uint8_t c = 1; c < count; c++)
         {
-            checkHelp(commandLine[c]);
             getArgument<uint8_t>(levelOfDetail, commandLine, c, count);
             getArgument<uint8_t>(msaa, commandLine, c, count);
             getArgument<bool>(meshes, commandLine, c, count);
@@ -379,6 +382,7 @@ struct CommandLine
           << "\n\n"
           << "Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
           << "License: MIT, Jerboa 2025.\n"
+          << VERSION
           << "\nUsage:\n"
           << structure.help()
           << "\n"
