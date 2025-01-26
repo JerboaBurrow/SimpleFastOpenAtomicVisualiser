@@ -104,7 +104,6 @@ private:
             atom.colour = CPK_COLOURS.at(atom.symbol);
             data.push_back(atom);
         }
-        std::cout << filestream.tellg()-a << "\n";
     }
 };
 
