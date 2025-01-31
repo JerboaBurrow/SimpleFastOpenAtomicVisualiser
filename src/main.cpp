@@ -38,7 +38,11 @@ int main(int argv, char ** argc)
 
     Camera camera {atoms, resX, resY};
 
-    std::vector<Bond> bonds = determineBonds(atoms, options.bondCutoff.value);
+    std::vector<Bond> bonds;
+    if (options.bondCutoff.value > 0.0)
+    {
+        bonds = determineBonds(atoms, options.bondCutoff.value);
+    }
 
     AtomRenderer atomRenderer
     (
@@ -88,6 +92,8 @@ int main(int argv, char ** argc)
         glBindRenderbuffer(GL_RENDERBUFFER, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
     }
+
+    bool elementsNeedUpdate = false;
 
     while (display.isOpen())
     {
@@ -164,6 +170,11 @@ int main(int argv, char ** argc)
             atoms = structure->readFrame(structure->framePosition());
             center(atoms);
             translate(atoms, com);
+            if (options.bondCutoff.value > 0.0)
+            {
+                bonds = determineBonds(atoms, options.bondCutoff.value);
+            }
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
         {
@@ -174,6 +185,11 @@ int main(int argv, char ** argc)
             atoms = structure->readFrame(f);
             center(atoms);
             translate(atoms, com);
+            if (options.bondCutoff.value > 0.0)
+            {
+                bonds = determineBonds(atoms, options.bondCutoff.value);
+            }
+            elementsNeedUpdate = true;
         }
 
         atomRenderer.setProjection(camera.getProjection());
@@ -196,10 +212,11 @@ int main(int argv, char ** argc)
 
         if (!options.hideAtoms.value)
         {
-            atomRenderer.updateAtoms(atoms);
+            if (elementsNeedUpdate) { atomRenderer.updateAtoms(atoms); }
             atomRenderer.draw(!options.meshes.value);
         }
 
+        if (elementsNeedUpdate) { bondRenderer.update(bonds, atoms); }
         bondRenderer.draw();
 
         std::stringstream debugText;
@@ -208,11 +225,16 @@ int main(int argv, char ** argc)
         if (frame > 0) { frame -= 1; }
         else { frame = structure->frameCount()-1; }
 
+        auto cx = fixedLengthNumber(camera.position().x, 6);
+        auto cy = fixedLengthNumber(camera.position().y, 6);
+        auto cz = fixedLengthNumber(camera.position().z, 6);
+
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
                   << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
-                  << "Frame: " << frame+1 << "/" << structure->frameCount();
+                  << "Frame: " << frame+1 << "/" << structure->frameCount()
+                  << "\nCamera: " << cx << ", " << cy << ", " << cz;
 
         jGLInstance->text(
             debugText.str(),
