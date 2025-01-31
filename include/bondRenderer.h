@@ -106,6 +106,26 @@ public:
     }
 
     /**
+     * @brief Update the bonds rendered on the GPU.
+     *
+     * @param bonds the new bonds.
+     * @param atoms the new atoms.
+     */
+    void update
+    (
+        const std::vector<Bond> & bonds,
+        const std::vector<Atom> & atoms
+    )
+    {
+        flip();
+        for (const Bond & bond : bonds)
+        {
+            insert(bond, atoms);
+        }
+        updateVertexArray();
+    }
+
+    /**
      * @brief Draw the bonds.
      *
      * @param count override number of bonds.
