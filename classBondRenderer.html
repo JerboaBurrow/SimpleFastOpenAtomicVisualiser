@@ -103,6 +103,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a29bcb2e828718e080b669765cd2a73b6" id="r_a29bcb2e828718e080b669765cd2a73b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#a29bcb2e828718e080b669765cd2a73b6">triangles</a> () <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a></td></tr>
 <tr class="memdesc:a29bcb2e828718e080b669765cd2a73b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of triangles drawn.  <br /></td></tr>
 <tr class="separator:a29bcb2e828718e080b669765cd2a73b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b86d1ebc1c82a18b99b4223a988abfc" id="r_a3b86d1ebc1c82a18b99b4223a988abfc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#a3b86d1ebc1c82a18b99b4223a988abfc">update</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="structBond.html">Bond</a> &gt; &amp;bonds, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms)</td></tr>
+<tr class="memdesc:a3b86d1ebc1c82a18b99b4223a988abfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the bonds rendered on the GPU.  <br /></td></tr>
+<tr class="separator:a3b86d1ebc1c82a18b99b4223a988abfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba62a5538481e6b25e4b6a6b7a2e13ae" id="r_aba62a5538481e6b25e4b6a6b7a2e13ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#aba62a5538481e6b25e4b6a6b7a2e13ae">draw</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint32_t</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">count</a>)</td></tr>
 <tr class="memdesc:aba62a5538481e6b25e4b6a6b7a2e13ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the bonds.  <br /></td></tr>
 <tr class="separator:aba62a5538481e6b25e4b6a6b7a2e13ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,6 +434,51 @@ Public Member Functions</h2></td></tr>
 
 <p>The number of triangles drawn. </p>
 <dl class="section return"><dt>Returns</dt><dd>uint32_t the number of triangles. </dd></dl>
+
+</div>
+</div>
+<a id="a3b86d1ebc1c82a18b99b4223a988abfc" name="a3b86d1ebc1c82a18b99b4223a988abfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b86d1ebc1c82a18b99b4223a988abfc">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> BondRenderer::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="structBond.html">Bond</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bonds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>atoms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the bonds rendered on the GPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bonds</td><td>the new bonds. </td></tr>
+    <tr><td class="paramname">atoms</td><td>the new atoms. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
