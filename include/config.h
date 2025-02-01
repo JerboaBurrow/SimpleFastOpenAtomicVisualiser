@@ -161,7 +161,6 @@ private:
 
     void getAtoms()
     {
-        atomsRead = 0;
         std::string line;
         std::stringstream ss;
         if (HISTORY)
@@ -216,6 +215,7 @@ private:
 
     void getFrame()
     {
+        atomsRead = 0;
         if (blockingReads) { getAtoms(); return; }
         std::thread io = std::thread
         (

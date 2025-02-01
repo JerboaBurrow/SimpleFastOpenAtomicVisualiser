@@ -48,7 +48,7 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
-    glm::vec3 com;
+    glm::vec3 com = glm::vec3(0);;
 
     structure->readFrame(0);
     while (!structure->frameReadComplete())
@@ -137,6 +137,8 @@ int main(int argv, char ** argc)
 
     bondRenderer.setBondScale(options.bondSize.value);
 
+    elementsNeedUpdate = true;
+
     while (display.isOpen())
     {
         auto tic = std::chrono::high_resolution_clock::now();
@@ -178,32 +180,39 @@ int main(int argv, char ** argc)
         if (display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {-dr, 0.0, 0.0});
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {dr, 0.0, 0.0});
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {0.0, -dr, 0.0});
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {0.0, dr, 0.0});
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {0.0, 0.0, -dr});
+            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::HOLD))
         {
             translate(structure->atoms, {0.0, 0.0, dr});
+            elementsNeedUpdate = true;
         }
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
             center(structure->atoms);
             camera.reset(structure->atoms);
+            elementsNeedUpdate = true;
         }
 
         if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
@@ -267,6 +276,8 @@ int main(int argv, char ** argc)
 
         if (elementsNeedUpdate) { bondRenderer.update(bonds, structure->atoms); }
         bondRenderer.draw();
+
+        elementsNeedUpdate = false;
 
         std::stringstream debugText;
 

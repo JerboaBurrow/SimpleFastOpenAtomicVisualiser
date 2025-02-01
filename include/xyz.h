@@ -82,7 +82,6 @@ private:
 
     void getAtoms()
     {
-        atomsRead = 0;
         std::string line;
         std::stringstream ss;
         std::getline(filestream, line);
@@ -108,6 +107,7 @@ private:
 
     void getFrame()
     {
+        atomsRead = 0;
         if (blockingReads) { getAtoms(); return; }
         std::thread io = std::thread
         (
