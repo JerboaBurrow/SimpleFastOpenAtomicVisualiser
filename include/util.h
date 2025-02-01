@@ -13,6 +13,7 @@
 
 #include <xyz.h>
 #include <config.h>
+#include <colour.h>
 
 /**
  * @brief Map cartesian coordinates to spherical.
@@ -146,5 +147,67 @@ void readStructureFile
         }
     }
 }
+
+const std::vector<Atom> sfoavAtoms =
+{
+    {Element::S, {-11.3966, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-10.3966, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-9.39655, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-10.3966, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-9.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-8.39655, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-8.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-11.3966, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-11.3966, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-10.3966, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-9.39655, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::S, {-8.39655, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},
+    {Element::F, {-6.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-5.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-4.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-6.39655, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-5.39655, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-6.39655, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-6.39655, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-6.39655, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-4.39655, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::F, {-3.39655, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::F), CPK_COLOURS.at(Element::F)},
+    {Element::Ar, {-1.39655, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {-1.39655, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {-1.39655, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {-1.39655, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {-0.396552, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {0.603448, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {1.60345, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {1.60345, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {1.60345, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {1.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {0.603448, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::Ar, {-0.396552, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::Ar), CPK_COLOURS.at(Element::Ar)},
+    {Element::O, {3.60345, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {3.60345, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {3.60345, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {3.60345, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {3.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {4.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {5.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {6.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {6.60345, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {6.60345, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {6.60345, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {6.60345, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {5.60345, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::O, {4.60345, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::O), CPK_COLOURS.at(Element::O)},
+    {Element::V, {8.60345, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {11.6034, 1.89655, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {8.60345, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {8.60345, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {11.6034, 0.896552, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {11.6034, -0.103448, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {10.6034, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {9.60345, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {8.60345, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)},
+    {Element::V, {11.6034, -1.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::V), CPK_COLOURS.at(Element::V)}
+};
 
 #endif /* UTIL_H */

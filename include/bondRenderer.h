@@ -33,6 +33,8 @@ public:
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
         shader->setUniform<float>("clipCorrection", 1.75f);
+        shader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
+        shader->setUniform<float>("ambientLight", 0.1f);
         setBondScale(1.0f);
         init();
 
@@ -75,13 +77,32 @@ public:
      * @param colour the light colour.
      * @param ambient the ambient light strength.
      */
-    void setLighting(glm::vec3 position, glm::vec3 colour, float ambient)
+    void setLighting
+    (
+        glm::vec3 position,
+        glm::vec3 colour = {1.0f, 1.0f, 1.0f},
+        float ambient = 0.1f
+    )
     {
         cameraPosition = position;
         shader->use();
         shader->setUniform<glm::vec4>("lightPos", glm::vec4(position, 1.0f));
         shader->setUniform<glm::vec4>("lightColour", glm::vec4(colour, 1.0f));
         shader->setUniform<float>("ambientLight", ambient);
+    }
+
+    /**
+     * @brief Update shaders from a Camera.
+     *
+     * @param camera the camera to update from.
+     */
+    void updateCamera(const Camera & camera)
+    {
+        cameraPosition = camera.position();
+        shader->use();
+        shader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
+        setView(camera.getView());
+        setProjection(camera.getProjection());
     }
 
     /**
