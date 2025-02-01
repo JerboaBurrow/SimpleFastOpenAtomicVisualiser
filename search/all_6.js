@@ -14,7 +14,7 @@ var searchData=
   ['getcellc_11',['getCellC',['../classCONFIG.html#a7621032c94947017fa7aeea04ba98126',1,'CONFIG']]],
   ['getcenter_12',['getCenter',['../atom_8h.html#a2966ceafb83e1e96f930ae502d706199',1,'atom.h']]],
   ['getchildren_13',['getChildren',['../classTrixel.html#a487541e6595431e068baa15e5b169ca7',1,'Trixel']]],
-  ['getframe_14',['getFrame',['../classStructure.html#a3b7c546f860dc71d3c534553ac8a18f4',1,'Structure']]],
+  ['getframe_14',['getFrame',['../classStructure.html#a297b652c8b581773d8198d1de929740e',1,'Structure']]],
   ['getid_15',['getID',['../classTrixel.html#ac481846319f04048518bc62b8e980f26',1,'Trixel']]],
   ['getlevelofdetail_16',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
   ['getprojection_17',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],

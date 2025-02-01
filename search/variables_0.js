@@ -5,5 +5,6 @@ var searchData=
   ['a_5fvertices_2',['a_vertices',['../bondRenderer_8h.html#a6c9a85d11b5b794978ceda7e0a86d494',1,'bondRenderer.h']]],
   ['atomindexa_3',['atomIndexA',['../structBond.html#aa3146480e061c281e58cca612a0df5cf',1,'Bond']]],
   ['atomindexb_4',['atomIndexB',['../structBond.html#ab3d7af24e95906072ab05423925394e2',1,'Bond']]],
-  ['atoms_5',['atoms',['../classStructure.html#a5d21c406b93fe04b68b70aa16b385f68',1,'Structure']]]
+  ['atoms_5',['atoms',['../classStructure.html#a719de7ae18af60a2d7086203b323b7ab',1,'Structure']]],
+  ['atomsread_6',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]]
 ];

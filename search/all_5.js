@@ -10,5 +10,8 @@ var searchData=
   ['framecount_7',['frameCount',['../classStructure.html#acc1887d5fa7ba412ef2ebb7ad1741689',1,'Structure']]],
   ['frameposition_8',['framePosition',['../classStructure.html#a1e669c19a900385911066d995099de9a',1,'Structure']]],
   ['framepositions_9',['framePositions',['../classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3',1,'Structure']]],
-  ['frames_10',['frames',['../classStructure.html#a62adaf338f53264d616cf6f0d7c69938',1,'Structure']]]
+  ['framepositionsloaded_10',['framePositionsLoaded',['../classStructure.html#a9a54bc6b9d213370d83651ae354266ad',1,'Structure']]],
+  ['framereadcomplete_11',['frameReadComplete',['../classStructure.html#a4dd2ed04cff82871344a84b59147845a',1,'Structure']]],
+  ['framereadprogress_12',['frameReadProgress',['../classStructure.html#acc30f7687f6d3bd1e3ea490ccccd3e85',1,'Structure']]],
+  ['frames_13',['frames',['../classStructure.html#a62adaf338f53264d616cf6f0d7c69938',1,'Structure']]]
 ];

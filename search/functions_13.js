@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xyz_0',['XYZ',['../classXYZ.html#ad57c33752ab40479047719d5330f9647',1,'XYZ']]]
+  ['xyz_0',['XYZ',['../classXYZ.html#a025ffa1dace4ce80228e2930bbf1728f',1,'XYZ']]]
 ];
