@@ -26,15 +26,17 @@ class Structure
 {
 public:
 
-    Structure(std::filesystem::path path)
+    Structure(std::filesystem::path path, bool blocking = false)
     : path(path),
+      blockingReads(blocking),
       filestream(std::ifstream(path)),
       natoms(0),
       frames(0),
       linesPerFrame(0),
       timeStep(0),
       currentFrame(0),
-      linesInFile(0)
+      linesInFile(0),
+      atomsRead(0)
     {}
 
     /**
@@ -82,12 +84,7 @@ public:
             }
         }
 
-        std::thread io = std::thread
-        (
-            &Structure::getFrame,
-            this
-        );
-        io.detach();
+        getFrame();
         currentFrame = frame + 1;
     }
 
@@ -149,6 +146,7 @@ public:
 protected:
 
     std::filesystem::path path;
+    bool blockingReads;
     std::ifstream filestream;
     uint64_t natoms;
     uint64_t frames;
@@ -201,6 +199,7 @@ protected:
 
     void scanPositions()
     {
+        if (blockingReads) { cachePositions(); return; }
         // Non-blocking read of latter frame positions.
         std::thread io = std::thread
         (

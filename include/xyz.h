@@ -53,9 +53,10 @@ public:
      * @brief Construct a new XYZ object to read from path.
      *
      * @param path the file path of the XYZ file.
+     * @param blocking if reads are blocking or detached.
      */
-    XYZ(std::filesystem::path path)
-    : Structure(path)
+    XYZ(std::filesystem::path path, bool blocking = false)
+    : Structure(path, blocking)
     {
         // Check first frame/meta data format.
         initialise();
@@ -79,10 +80,9 @@ private:
         atoms.resize(natoms);
     }
 
-    void getFrame()
+    void getAtoms()
     {
         atomsRead = 0;
-        auto a = filestream.tellg();
         std::string line;
         std::stringstream ss;
         std::getline(filestream, line);
@@ -104,6 +104,17 @@ private:
             atoms[a] = atom;
             atomsRead = a+1;
         }
+    }
+
+    void getFrame()
+    {
+        if (blockingReads) { getAtoms(); return; }
+        std::thread io = std::thread
+        (
+            &XYZ::getAtoms,
+            this
+        );
+        io.detach();
     }
 };
 
