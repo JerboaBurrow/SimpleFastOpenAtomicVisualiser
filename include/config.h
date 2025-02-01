@@ -74,9 +74,10 @@ public:
      * @brief Construct a new CONFIG object to read from path.
      *
      * @param path the file path of the CONFIG file.
+     * @param blocking if reads are blocking or detached.
      */
-    CONFIG(std::filesystem::path path)
-    : Structure(path)
+    CONFIG(std::filesystem::path path, bool blocking = false)
+    : Structure(path, blocking)
     {
         // Check first frame/meta data format.
         initialise();
@@ -158,7 +159,7 @@ private:
         }
     }
 
-    void getFrame()
+    void getAtoms()
     {
         atomsRead = 0;
         std::string line;
@@ -211,6 +212,17 @@ private:
             atoms[a] = atom;
             atomsRead = a+1;
         }
+    }
+
+    void getFrame()
+    {
+        if (blockingReads) { getAtoms(); return; }
+        std::thread io = std::thread
+        (
+            &CONFIG::getAtoms,
+            this
+        );
+        io.detach();
     }
 
     void getCell()

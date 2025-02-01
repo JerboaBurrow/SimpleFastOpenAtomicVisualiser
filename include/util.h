@@ -102,8 +102,14 @@ std::string fixedLengthNumber(double x, unsigned length)
  * @remark Will try both on failure.
  * @param path the structure file's path.
  * @param structure the structure unique pointer.
+ * @param blocking whether reads are blocking or detached.
  */
-void readStructureFile(std::filesystem::path path, std::unique_ptr<Structure> & structure)
+void readStructureFile
+(
+    std::filesystem::path path,
+    std::unique_ptr<Structure> & structure,
+    bool blocking = false
+)
 {
     if (!ostensiblyXYZLike(path))
     {
@@ -113,7 +119,7 @@ void readStructureFile(std::filesystem::path path, std::unique_ptr<Structure> & 
         }
         try
         {
-            structure = std::make_unique<CONFIG>(path);
+            structure = std::make_unique<CONFIG>(path, blocking);
         }
         catch (std::runtime_error & e)
         {
@@ -121,14 +127,14 @@ void readStructureFile(std::filesystem::path path, std::unique_ptr<Structure> & 
                       << path
                       << " as a CONFIG-like:\n"
                       << e.what() << "\n Trying [EXT]XYZ\n";
-            structure = std::make_unique<XYZ>(path);
+            structure = std::make_unique<XYZ>(path, blocking);
         }
     }
     else
     {
         try
         {
-            structure = std::make_unique<XYZ>(path);
+            structure = std::make_unique<XYZ>(path, blocking);
         }
         catch (std::runtime_error & e)
         {
@@ -136,7 +142,7 @@ void readStructureFile(std::filesystem::path path, std::unique_ptr<Structure> & 
                       << path
                       << " as an [EXT]XYZ:\n"
                       << e.what() << "\n Trying CONFIG-like\n";
-            structure = std::make_unique<CONFIG>(path);
+            structure = std::make_unique<CONFIG>(path, blocking);
         }
     }
 }
