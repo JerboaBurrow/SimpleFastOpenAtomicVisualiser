@@ -57,38 +57,37 @@ public:
     XYZ(std::filesystem::path path)
     : Structure(path)
     {
-        readAtomCount();
-        linesPerFrame = atoms+2;
-        readFrameCount();
-        cachePositions();
+        // Check first frame/meta data format.
+        initialise();
+        scanPositions();
     }
 
 private:
 
-    void readAtomCount()
+    void initialise()
     {
-        filestream.seekg(std::ios::beg);
+        beginning();
         std::string line;
         std::getline(filestream, line);
         std::stringstream count(line);
-        count >> atoms;
+        count >> natoms;
         checkRead(count, line, "XYZ readAtomCount");
-        filestream.seekg(std::ios::beg);
+        beginning();
+        framePositions[0] = filestream.tellg();
+        frames = 1;
+        linesPerFrame = natoms+2;
+        atoms.resize(natoms);
     }
 
-    void readFrameCount()
+    void getFrame()
     {
-        frames = linesInFile / (atoms+uint64_t(2));
-    }
-
-    void getFrame(std::vector<Atom> & data)
-    {
+        atomsRead = 0;
         auto a = filestream.tellg();
         std::string line;
         std::stringstream ss;
         std::getline(filestream, line);
         std::getline(filestream, line);
-        for (uint64_t a = 0; a < atoms; a++)
+        for (uint64_t a = 0; a < atoms.size(); a++)
         {
             std::getline(filestream, line);
             std::string symbol;
@@ -102,7 +101,8 @@ private:
             atom.symbol = stringSymbolToElement(symbol);
             atom.scale = ELEMENT_RADIUS.at(atom.symbol);
             atom.colour = CPK_COLOURS.at(atom.symbol);
-            data.push_back(atom);
+            atoms[a] = atom;
+            atomsRead = a+1;
         }
     }
 };

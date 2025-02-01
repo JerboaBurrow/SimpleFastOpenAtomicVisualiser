@@ -19,13 +19,16 @@ SCENARIO("XYZ reading")
         WHEN("An XYZ, xyz, is instanced with it")
         {
             XYZ xyz("psilocybin.xyz");
+            while (!xyz.framePositionsLoaded()) {}
             THEN("xyz has 36 atoms")
             {
                 REQUIRE(xyz.atomCount() == 36);
             }
             WHEN("A frame is obtained")
             {
-                auto frame = xyz.readFrame(0);
+                xyz.readFrame(0);
+                while (!xyz.frameReadComplete()) {}
+                auto frame = xyz.atoms;
                 THEN("There are 36 Atoms")
                 {
                     REQUIRE(frame.size() == 36);
@@ -52,13 +55,16 @@ SCENARIO("XYZ reading")
         WHEN("An XYZ, xyz, is instanced with it")
         {
             XYZ xyz("ethanol.REVCON");
+            while (!xyz.framePositionsLoaded()) {}
             THEN("xyz has 576 atoms")
             {
                 REQUIRE(xyz.atomCount() == 576);
             }
             WHEN("A frame is obtained")
             {
-                auto frame = xyz.readFrame(0);
+                xyz.readFrame(0);
+                while (!xyz.frameReadComplete()) {}
+                auto frame = xyz.atoms;
                 THEN("There are 576 Atoms")
                 {
                     REQUIRE(frame.size() == 576);
@@ -99,6 +105,7 @@ SCENARIO("CONFIG reading")
         WHEN("A CONFIG, config, is instanced with it")
         {
             CONFIG config("CONFIG");
+            while (!config.framePositionsLoaded()) {}
             THEN("config has 100 atoms")
             {
                 REQUIRE(config.atomCount() == 100);
@@ -121,7 +128,9 @@ SCENARIO("CONFIG reading")
             }
             WHEN("A frame is obtained")
             {
-                auto frame = config.readFrame(0);
+                config.readFrame(0);
+                while (!config.frameReadComplete()) {}
+                auto frame = config.atoms;
                 THEN("There are 100 Atoms")
                 {
                     REQUIRE(frame.size() == 100);
@@ -163,6 +172,7 @@ SCENARIO("REVCON reading")
         WHEN("A CONFIG, revcon, is instanced with it")
         {
             CONFIG revcon("REVCON");
+            while (!revcon.framePositionsLoaded()) {}
             THEN("revcon has 1024 atoms")
             {
                 REQUIRE(revcon.atomCount() == 1024);
@@ -185,7 +195,9 @@ SCENARIO("REVCON reading")
             }
             WHEN("A frame is obtained")
             {
-                auto frame = revcon.readFrame(0);
+                revcon.readFrame(0);
+                while (!revcon.frameReadComplete()) {}
+                auto frame = revcon.atoms;
                 THEN("There are 1024 Atoms")
                 {
                     REQUIRE(frame.size() == 1024);
@@ -227,6 +239,7 @@ SCENARIO("HISTORY reading")
         WHEN("A CONFIG, history, is instanced with it")
         {
             CONFIG history("HISTORY");
+            while (!history.framePositionsLoaded()) {}
             THEN("history has 320 atoms")
             {
                 REQUIRE(history.atomCount() == 320);
@@ -249,7 +262,9 @@ SCENARIO("HISTORY reading")
             }
             WHEN("A frame is obtained")
             {
-                auto frame = history.readFrame(0);
+                history.readFrame(0);
+                while (!history.frameReadComplete()) {}
+                auto frame = history.atoms;
                 THEN("There are 320 Atoms")
                 {
                     REQUIRE(frame.size() == 320);

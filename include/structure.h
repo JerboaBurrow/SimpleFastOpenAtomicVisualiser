@@ -5,9 +5,12 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
+#include <array>
 #include <algorithm>
 #include <exception>
+
+#include <vendored/jThread/jThread.h>
+
 #include <atom.h>
 
 /**
@@ -26,32 +29,35 @@ public:
     Structure(std::filesystem::path path)
     : path(path),
       filestream(std::ifstream(path)),
-      atoms(0),
+      natoms(0),
       frames(0),
       linesPerFrame(0),
       timeStep(0),
       currentFrame(0),
       linesInFile(0)
-    {
-        countContentLinesInFile();
-    }
+    {}
 
     /**
      * @brief Get the number of atoms in the file.
      *
      * @return uint64_t the number of atoms.
      */
-    virtual uint64_t atomCount() const { return atoms; }
+    virtual uint64_t atomCount() const { return atoms.size(); }
 
     /**
      * @brief Read a single frame at position frame, and increment the current frame.
      *
+     * @remark Structure::frameCount is the maximum readable frame.
+     * If frame is larger it will be %'d.
+     *
+     * @see framePosition for the status of detached frame caching.
+     * @see getAtoms for accessing the read data.
+     *
      * @param frame the frame position.
-     * @return std::vector<Atom> the Atoms read.
      */
-    virtual std::vector<Atom> readFrame(uint64_t frame)
+    virtual void readFrame(uint64_t frame)
     {
-        std::vector<Atom> data;
+        if (atoms.size() != natoms) { atoms.resize(natoms); }
         frame = frame % frames;
         if (framePositions.find(frame) != framePositions.cend())
         {
@@ -76,9 +82,13 @@ public:
             }
         }
 
-        getFrame(data);
+        std::thread io = std::thread
+        (
+            &Structure::getFrame,
+            this
+        );
+        io.detach();
         currentFrame = frame + 1;
-        return data;
     }
 
     virtual ~Structure() = default;
@@ -97,32 +107,75 @@ public:
      */
     uint64_t framePosition() const { return currentFrame; }
 
+    /**
+     * @brief Check if frames start positions have been loaded.
+     *
+     * @remark Frame start position offsets are loaded in a
+     * detached I/O thread. The result of this method indicates
+     * whether the I/O read has completed.
+     *
+     * @remark Structure::frameCount will be update while the
+     * detached read is progressing.
+     *
+     * @remark Structure::readFrame will only allow reads up to
+     * Structure::framePosition.
+     *
+     * @return true if all frame start offsets have been loaded.
+     * @return false frame start positions are still being read.
+     */
+    bool framePositionsLoaded() const { return cacheComplete; }
+
+    /**
+     * @brief Progress of the current frame read.
+     *
+     * @return uint64_t count of Atom read into atoms.
+     */
+    uint64_t frameReadProgress() const { return atomsRead; }
+
+    /**
+     * @brief If the frame has been fully read into atoms.
+     *
+     * @return true if all Atoms in the frame have been read.
+     * @return false if reading is in progress.
+     */
+    bool frameReadComplete() const { return atomsRead == atoms.size(); }
+
+    /**
+     * @brief The Atoms read in the current frame.
+     *
+     */
+    std::vector<Atom> atoms;
+
 protected:
 
     std::filesystem::path path;
     std::ifstream filestream;
-    uint64_t atoms;
+    uint64_t natoms;
     uint64_t frames;
     uint64_t linesPerFrame;
     uint64_t timeStep;
     uint64_t currentFrame;
     uint64_t linesInFile;
+    uint64_t atomsRead;
+
+    bool cacheComplete = false;
 
     std::map<uint64_t, uint64_t> framePositions;
+
 
     virtual void beginning()
     {
         filestream.seekg(std::ios::beg);
     }
 
-    virtual void getFrame(std::vector<Atom> & data) = 0;
+    virtual void getFrame() = 0;
 
     void skipFrame()
     {
         if (currentFrame == frames-1) { return; }
         for (uint64_t a = 0; a < linesPerFrame; a++)
         {
-            skipLine();
+            skipLine(filestream);
         }
     }
 
@@ -135,24 +188,49 @@ protected:
         }
     }
 
-    void skipLine()
+    void skipLine(std::ifstream & in)
     {
-        filestream.ignore
+        in.ignore
         (
             std::numeric_limits<std::streamsize>::max(),
             '\n'
         );
     }
 
+    virtual void initialise() = 0;
+
+    void scanPositions()
+    {
+        // Non-blocking read of latter frame positions.
+        std::thread io = std::thread
+        (
+            &Structure::cachePositions,
+            this
+        );
+        io.detach();
+    }
+
     void cachePositions()
     {
-        beginning();
-        for (uint64_t f = 0; f < frames; f++)
+        cacheComplete = false;
+        std::ifstream scanFileStream(path);
+        scanFileStream.seekg(framePositions[0]);
+        uint64_t f = 1;
+        for (uint64_t a = 0; a < linesPerFrame; a++)
         {
-            framePositions[f] = filestream.tellg();
-            skipFrame();
+            skipLine(scanFileStream);
         }
-        beginning();
+        while (scanFileStream.peek() != EOF)
+        {
+            framePositions[f] = scanFileStream.tellg();
+            f++;
+            frames = f;
+            for (uint64_t a = 0; a < linesPerFrame; a++)
+            {
+                skipLine(scanFileStream);
+            }
+        }
+        cacheComplete = true;
     }
 
     void countContentLinesInFile()
