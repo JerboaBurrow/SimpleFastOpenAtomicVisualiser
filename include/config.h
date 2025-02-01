@@ -78,8 +78,9 @@ public:
     CONFIG(std::filesystem::path path)
     : Structure(path)
     {
-        readMetaData();
-        cachePositions();
+        // Check first frame/meta data format.
+        initialise();
+        scanPositions();
     }
 
     glm::vec3 getCellA() const { return cellA; }
@@ -98,35 +99,34 @@ private:
     glm::vec3 cellB;
     glm::vec3 cellC;
 
-    void readMetaData()
+    void initialise()
     {
         filestream.seekg(std::ios::beg);
         std::string line;
-        skipLine();
+        skipLine(filestream);
         std::getline(filestream, line);
         std::stringstream data(line);
-        // HISTORY requires checking megatm.
-        frames = 1;
         timeStep = 0;
-        data >> levcfg >> imcon >> atoms;
+        data >> levcfg >> imcon >> natoms;
         if (data.fail())
         {
-            // Old CONFIGs had optional megatm.
-            atoms = (linesInFile-2) / (levcfg+1);
+            std::stringstream message;
+            message << path.c_str()
+                    << " does not have an atom count.\n"
+                    << "Please add the atom count after imcon.\n";
+            throw std::runtime_error
+            (
+                message.str()
+            );
         }
         else
         {
             // Could be a HISTORY or REVCON file.
             data = std::stringstream(line);
-            data >> levcfg >> imcon >> atoms >> frames;
+            data >> levcfg >> imcon >> natoms >> frames;
             if (extractHistoryStepMetaData())
             {
                 HISTORY = true;
-            }
-            else
-            {
-                // A REVCON
-                frames = 1;
             }
         }
 
@@ -134,16 +134,19 @@ private:
         else
         {
             filestream.seekg(std::ios::beg);
-            skipLine();
-            skipLine();
+            skipLine(filestream);
+            skipLine(filestream);
             getCell();
         }
 
         if (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }
         else { metaDataLines = 2; }
         linesPerAtom = 2+(levcfg > 0 ? 1 : 0)+(levcfg > 1 ? 1 : 0);
-        linesPerFrame = atoms*linesPerAtom+4;
+        linesPerFrame = natoms*linesPerAtom+4;
         beginning();
+        framePositions[0] = filestream.tellg();
+        frames = 1;
+        atoms.resize(natoms);
     }
 
     void beginning()
@@ -151,20 +154,21 @@ private:
         filestream.seekg(std::ios::beg);
         for (uint64_t l = 0; l < metaDataLines; l++)
         {
-            skipLine();
+            skipLine(filestream);
         }
     }
 
-    void getFrame(std::vector<Atom> & data)
+    void getFrame()
     {
+        atomsRead = 0;
         std::string line;
         std::stringstream ss;
         if (HISTORY)
         {
-            skipLine();
+            skipLine(filestream);
             getCell();
         }
-        for (uint64_t a = 0; a < atoms; a++)
+        for (uint64_t a = 0; a < atoms.size(); a++)
         {
             std::string symbol;
             uint64_t index;
@@ -204,7 +208,8 @@ private:
             atom.symbol = stringSymbolToElement(symbol);
             atom.scale = ELEMENT_RADIUS.at(atom.symbol);
             atom.colour = CPK_COLOURS.at(atom.symbol);
-            data.push_back(atom);
+            atoms[a] = atom;
+            atomsRead = a+1;
         }
     }
 

@@ -25,6 +25,22 @@ int main(int argv, char ** argc)
     jGLInstance->setTextProjection(glm::ortho(0.0,double(resX),0.0,double(resY)));
     jGLInstance->setMSAA(options.msaa.value);
 
+    double deltas[60];
+    double delta = 0;
+    unsigned frameId = 0;
+    unsigned int rbo;
+    bool readInProgress = false;
+    bool elementsNeedUpdate = false;
+
+    if (options.msaa.value > 0)
+    {
+        glGenRenderbuffers(1, &rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glRenderbufferStorageMultisample(GL_RENDERBUFFER, options.msaa.value, GL_DEPTH24_STENCIL8, resX, resY);
+        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+    }
+
     if (options.structure.value.empty())
     {
         throw std::runtime_error("No atoms path specified, specify one with -atoms <path>");
@@ -32,21 +48,63 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
+    glm::vec3 com;
 
-    std::vector<Atom> atoms = structure->readFrame(0);
-    center(atoms);
+    structure->readFrame(0);
+    while (!structure->frameReadComplete())
+    {
+        auto tic = std::chrono::high_resolution_clock::now();
+        jGLInstance->beginFrame();
+        jGLInstance->setClear(glm::vec4(1.0f));
+        jGLInstance->clear();
 
-    Camera camera {atoms, resX, resY};
+        std::stringstream debugText;
+
+        uint64_t frame = structure->framePosition();
+        if (frame > 0) { frame -= 1; }
+        else { frame = structure->frameCount()-1; }
+
+        debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
+                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
+                  << ")\n"
+                  << "Frame: " << frame+1 << "/" << structure->frameCount()
+                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
+                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
+
+        jGLInstance->text(
+            debugText.str(),
+            glm::vec2(64.0f, resY-64.0f),
+            0.5f,
+            glm::vec4(0.0f,0.0f,0.0f,1.0f)
+        );
+
+        jGLInstance->endFrame();
+        display.loop();
+
+        delta = 0.0;
+        for (int n = 0; n < 60; n++)
+        {
+            delta += deltas[n];
+        }
+        delta /= 60.0;
+        auto toc = std::chrono::high_resolution_clock::now();
+        deltas[frameId] = std::chrono::duration_cast<std::chrono::milliseconds>(toc-tic).count();
+        frameId = (frameId+1) % 60;
+    }
+
+    center(structure->atoms);
 
     std::vector<Bond> bonds;
     if (options.bondCutoff.value > 0.0)
     {
-        bonds = determineBonds(atoms, options.bondCutoff.value);
+        bonds = determineBonds(structure->atoms, options.bondCutoff.value);
     }
+
+    Camera camera {structure->atoms, resX, resY};
 
     AtomRenderer atomRenderer
     (
-        atoms,
+        structure->atoms,
         options.levelOfDetail.value,
         camera.position(),
         options.mesh.value
@@ -55,7 +113,7 @@ int main(int argv, char ** argc)
     BondRenderer bondRenderer
     (
         bonds,
-        atoms,
+        structure->atoms,
         bonds.size()
     );
 
@@ -78,22 +136,6 @@ int main(int argv, char ** argc)
     );
 
     bondRenderer.setBondScale(options.bondSize.value);
-
-    double deltas[60];
-    double delta = 0;
-    unsigned frameId = 0;
-    unsigned int rbo;
-
-    if (options.msaa.value > 0)
-    {
-        glGenRenderbuffers(1, &rbo);
-        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-        glRenderbufferStorageMultisample(GL_RENDERBUFFER, options.msaa.value, GL_DEPTH24_STENCIL8, resX, resY);
-        glBindRenderbuffer(GL_RENDERBUFFER, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-    }
-
-    bool elementsNeedUpdate = false;
 
     while (display.isOpen())
     {
@@ -135,59 +177,66 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::HOLD))
         {
-            translate(atoms, {-dr, 0.0, 0.0});
+            translate(structure->atoms, {-dr, 0.0, 0.0});
         }
         if (display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::HOLD))
         {
-            translate(atoms, {dr, 0.0, 0.0});
+            translate(structure->atoms, {dr, 0.0, 0.0});
         }
         if (display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::HOLD))
         {
-            translate(atoms, {0.0, -dr, 0.0});
+            translate(structure->atoms, {0.0, -dr, 0.0});
         }
         if (display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::HOLD))
         {
-            translate(atoms, {0.0, dr, 0.0});
+            translate(structure->atoms, {0.0, dr, 0.0});
         }
         if (display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::HOLD))
         {
-            translate(atoms, {0.0, 0.0, -dr});
+            translate(structure->atoms, {0.0, 0.0, -dr});
         }
         if (display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::HOLD))
         {
-            translate(atoms, {0.0, 0.0, dr});
+            translate(structure->atoms, {0.0, 0.0, dr});
         }
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
-            center(atoms);
-            camera.reset(atoms);
+            center(structure->atoms);
+            camera.reset(structure->atoms);
         }
 
         if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
         {
-            glm::vec3 com = getCenter(atoms);
-            atoms = structure->readFrame(structure->framePosition());
-            center(atoms);
-            translate(atoms, com);
-            if (options.bondCutoff.value > 0.0)
+            if (!readInProgress)
             {
-                bonds = determineBonds(atoms, options.bondCutoff.value);
+                com = getCenter(structure->atoms);
+                structure->readFrame(structure->framePosition());
+                readInProgress = true;
             }
-            elementsNeedUpdate = true;
         }
         if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
         {
-            glm::vec3 com = getCenter(atoms);
-            uint64_t f = structure->framePosition();
-            if (f > 2) { f -= 2; }
-            else { f = structure->frameCount()-2+f;}
-            atoms = structure->readFrame(f);
-            center(atoms);
-            translate(atoms, com);
+            if (!readInProgress)
+            {
+                com = getCenter(structure->atoms);
+                uint64_t f = structure->framePosition();
+                if (f > 2) { f -= 2; }
+                else { f = structure->frameCount()-2+f;}
+                structure->readFrame(f);
+                readInProgress = true;
+            }
+        }
+
+        if (readInProgress && structure->frameReadComplete())
+        {
+            // Previous threaded read is done.
+            readInProgress = false;
+            center(structure->atoms);
+            translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
-                bonds = determineBonds(atoms, options.bondCutoff.value);
+                bonds = determineBonds(structure->atoms, options.bondCutoff.value);
             }
             elementsNeedUpdate = true;
         }
@@ -212,11 +261,11 @@ int main(int argv, char ** argc)
 
         if (!options.hideAtoms.value)
         {
-            if (elementsNeedUpdate) { atomRenderer.updateAtoms(atoms); }
+            if (elementsNeedUpdate) { atomRenderer.updateAtoms(structure->atoms); }
             atomRenderer.draw(!options.meshes.value);
         }
 
-        if (elementsNeedUpdate) { bondRenderer.update(bonds, atoms); }
+        if (elementsNeedUpdate) { bondRenderer.update(bonds, structure->atoms); }
         bondRenderer.draw();
 
         std::stringstream debugText;
@@ -232,8 +281,9 @@ int main(int argv, char ** argc)
         debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
                   << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                   << ")\n"
-                  << "Atoms/Triangles: " << atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
+                  << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
                   << "Frame: " << frame+1 << "/" << structure->frameCount()
+                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                   << "\nCamera: " << cx << ", " << cy << ", " << cz;
 
         jGLInstance->text(
