@@ -32,17 +32,17 @@ public:
         Element symbol,
         glm::vec3 position = glm::vec3(0),
         float scale = 1.0f,
+        glm::vec4 colour = glm::vec4(1.0, 0.5, 0.5, 1.0),
         glm::vec3 velocity = glm::vec3(0),
-        glm::vec3 force = glm::vec3(0),
-        glm::vec4 colour = glm::vec4(1.0, 0.5, 0.5, 1.0)
+        glm::vec3 force = glm::vec3(0)
     )
     :
       symbol(symbol),
       position(position),
-      velocity(velocity),
-      force(force),
+      scale(scale),
       colour(colour),
-      scale(scale)
+      velocity(velocity),
+      force(force)
     {}
 
      /**
@@ -58,24 +58,25 @@ public:
     (
         glm::vec3 position = glm::vec3(0),
         float scale = 1.0f,
+        glm::vec4 colour = glm::vec4(1.0, 0.5, 0.5, 1.0),
         glm::vec3 velocity = glm::vec3(0),
-        glm::vec3 force = glm::vec3(0),
-        glm::vec4 colour = glm::vec4(1.0, 0.5, 0.5, 1.0)
+        glm::vec3 force = glm::vec3(0)
     ) : Atom(
           Element::Unknown,
           position,
           scale,
+          colour,
           velocity,
-          force,
-          colour)
+          force
+        )
     {}
 
     Element symbol;
     glm::vec3 position;
+    float scale;
+    glm::vec4 colour;
     glm::vec3 velocity;
     glm::vec3 force;
-    glm::vec4 colour;
-    float scale;
 
 private:
 };

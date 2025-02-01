@@ -48,49 +48,34 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
-    glm::vec3 com = glm::vec3(0);;
+    glm::vec3 com = glm::vec3(0);
 
     structure->readFrame(0);
-    while (!structure->frameReadComplete())
+
+    Camera loadingCamera {sfoavAtoms, resX, resY};
+    loadingCamera.rotate(-M_PI/2.0);
+
+    AtomRenderer loadingAtoms
+    (
+        sfoavAtoms,
+        options.levelOfDetail.value,
+        loadingCamera.position(),
+        options.mesh.value
+    );
+
+    while (display.isOpen() && !structure->frameReadComplete())
     {
-        auto tic = std::chrono::high_resolution_clock::now();
-        jGLInstance->beginFrame();
-        jGLInstance->setClear(glm::vec4(1.0f));
-        jGLInstance->clear();
-
-        std::stringstream debugText;
-
         uint64_t frame = structure->framePosition();
         if (frame > 0) { frame -= 1; }
         else { frame = structure->frameCount()-1; }
-
-        debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
-                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                  << ")\n"
-                  << "Frame: " << frame+1 << "/" << structure->frameCount()
-                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
-                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-
-        jGLInstance->text(
-            debugText.str(),
-            glm::vec2(64.0f, resY-64.0f),
-            0.5f,
-            glm::vec4(0.0f,0.0f,0.0f,1.0f)
-        );
-
-        jGLInstance->endFrame();
-        display.loop();
-
-        delta = 0.0;
-        for (int n = 0; n < 60; n++)
-        {
-            delta += deltas[n];
-        }
-        delta /= 60.0;
-        auto toc = std::chrono::high_resolution_clock::now();
-        deltas[frameId] = std::chrono::duration_cast<std::chrono::milliseconds>(toc-tic).count();
-        frameId = (frameId+1) % 60;
+        std::stringstream progress;
+        progress << "Frame: " << frame+1 << "/" << structure->frameCount()
+                 << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
+                 << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str());
     }
+
+    if (!display.isOpen()) { return 0; }
 
     center(structure->atoms);
 
@@ -117,24 +102,6 @@ int main(int argv, char ** argc)
         bonds.size()
     );
 
-    atomRenderer.setProjection(camera.getProjection());
-    atomRenderer.setView(camera.getView());
-    atomRenderer.setLighting
-    (
-        camera.position(),
-        {1.0f, 1.0f, 1.0f},
-        0.1f
-    );
-
-    bondRenderer.setProjection(camera.getProjection());
-    bondRenderer.setView(camera.getView());
-    bondRenderer.setLighting
-    (
-        camera.position(),
-        {1.0f, 1.0f, 1.0f},
-        0.1f
-    );
-
     bondRenderer.setBondScale(options.bondSize.value);
 
     elementsNeedUpdate = true;
@@ -152,61 +119,8 @@ int main(int argv, char ** argc)
             options.hideAtoms.value = !options.hideAtoms.value;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
-        {
-            camera.zoom(-dr);
-        }
-        if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
-        {
-            camera.zoom(dr);
-        }
-        if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
-        {
-            camera.incline(dtheta);
-        }
-        if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
-        {
-            camera.incline(-dtheta);
-        }
-        if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
-        {
-            camera.rotate(-dphi);
-        }
-        if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
-        {
-            camera.rotate(dphi);
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {-dr, 0.0, 0.0});
-            elementsNeedUpdate = true;
-        }
-        if (display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {dr, 0.0, 0.0});
-            elementsNeedUpdate = true;
-        }
-        if (display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {0.0, -dr, 0.0});
-            elementsNeedUpdate = true;
-        }
-        if (display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {0.0, dr, 0.0});
-            elementsNeedUpdate = true;
-        }
-        if (display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {0.0, 0.0, -dr});
-            elementsNeedUpdate = true;
-        }
-        if (display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::HOLD))
-        {
-            translate(structure->atoms, {0.0, 0.0, dr});
-            elementsNeedUpdate = true;
-        }
+        cameraControls(display, camera);
+        elementsNeedUpdate = atomControls(display, structure->atoms);
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
@@ -250,23 +164,8 @@ int main(int argv, char ** argc)
             elementsNeedUpdate = true;
         }
 
-        atomRenderer.setProjection(camera.getProjection());
-        atomRenderer.setView(camera.getView());
-        atomRenderer.setLighting
-        (
-            camera.position(),
-            {1.0f, 1.0f, 1.0f},
-            0.1f
-        );
-
-        bondRenderer.setProjection(camera.getProjection());
-        bondRenderer.setView(camera.getView());
-        bondRenderer.setLighting
-        (
-            camera.position(),
-            {1.0f, 1.0f, 1.0f},
-            0.1f
-        );
+        atomRenderer.updateCamera(camera);
+        bondRenderer.updateCamera(camera);
 
         if (!options.hideAtoms.value)
         {

@@ -15,6 +15,7 @@
 
 #include <glUtils.h>
 #include <atom.h>
+#include <camera.h>
 
 /**
  * @brief Render atoms as sphere meshes.
@@ -49,6 +50,12 @@ public:
         imposterShader = std::make_unique<jGL::GL::glShader>(imposterVertexShader, imposterFragmentShader);
         imposterShader->use();
         imposterShader->setUniform<float>("clipCorrection", 1.5f);
+        imposterShader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
+        imposterShader->setUniform<float>("ambientLight", 0.1f);
+
+        meshShader->use();
+        meshShader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
+        meshShader->setUniform<float>("ambientLight", 0.1f);
 
         if (mesh == BASE_MESH::ANY)
         {
@@ -301,7 +308,12 @@ public:
      * @param colour the light colour.
      * @param ambient the ambient light strength.
      */
-    void setLighting(glm::vec3 position, glm::vec3 colour, float ambient)
+    void setLighting
+    (
+        glm::vec3 position,
+        glm::vec3 colour = {1.0f, 1.0f, 1.0f},
+        float ambient = 0.1f
+    )
     {
         cameraPosition = position;
         meshShader->use();
@@ -312,6 +324,22 @@ public:
         imposterShader->setUniform<glm::vec4>("lightPos", glm::vec4(position, 1.0f));
         imposterShader->setUniform<glm::vec4>("lightColour", glm::vec4(colour, 1.0f));
         imposterShader->setUniform<float>("ambientLight", ambient);
+    }
+
+    /**
+     * @brief Update shaders from a Camera.
+     *
+     * @param camera the camera to update from.
+     */
+    void updateCamera(const Camera & camera)
+    {
+        cameraPosition = camera.position();
+        meshShader->use();
+        meshShader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
+        imposterShader->use();
+        imposterShader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
+        setView(camera.getView());
+        setProjection(camera.getProjection());
     }
 
 private:
