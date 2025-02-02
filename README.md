@@ -1,9 +1,7 @@
 ## SimpleFastOpenAtomicVisualiser (SFOAV)
 <p align="center">
-  <img height=256px src="https://github.com/user-attachments/assets/feb05885-b8ac-4417-9f60-4fa4acce35c5" />
   <img height=256px src="https://github.com/user-attachments/assets/8f109e8a-aa71-425a-8694-270695ce138c"/>
-  <br>[Left] 125,000 "Atoms" in real time with 16x MSAA and 128 triangles per ball.
-  <br>[Right] Pislocybin molecule with 2 triangles per bond (ray-traced).
+  <br>Pislocybin molecule with 2 triangles per bond (ray-traced).
 </p>
 A simple program to quickly visualise atomic and molecular systems (AMSs).
 
@@ -33,9 +31,15 @@ sfoav struct.xyz
 > [!important]
 > SFOAV can process ```.xyz```, ```.extxyz```, and DL_POLY ```CONFIG```, ```REVCON``` and ```HISTORY``` files. If the file name does not match these patterns all types will be attempted.
 
-This will bring up the view centring the atoms in ```struct.xyz```.
+This will bring up the view centring the atoms in ```struct.xyz``` in the first frame (if applicable). The camera is centered on (0, 0, 0) and can be moved in spherical coordinates relative to it. The atoms can also be translated relative to (0, 0, 0).
 
-The camera is centered on (0, 0, 0) and can be moved in spherical coordinates relative to it. The atoms can also be translated relative to (0, 0, 0).
+> [!note]
+> Reading of structure files is done in a background thread. For large structure files you may be presented with a loading screen. An intel i7-4790K and Kingston A400 SATA SSD is capable of around 1,000,000 (positions only) atoms per second read.
+
+If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively.
+
+> [!note]
+> When reading HISTORY files or XYZ/EXTXYZ with multiple frames, SFOAV will cache the filepositions (not data) of each frame in the background. For large trajectory files this may take some time, but you will always be able to play up to the most recently cached frame.
 
 At runtime the following key-controls can be used:
 
@@ -70,36 +74,9 @@ To draw bonds between atoms 1.5 Angstroms apart
 sfoav struct.xyz -bondCutOff 1.5
 ```
 
-## Meshes
+## Performance
 
-> [!tip]
-> Meshes are much slower than the ray-traced elements due to higher triangle counts.
-
-To render using meshes at 10 levels of detail
-
-```shell
-sfoav struct.xyz -levelOfDetail 10 -meshes
-```
-
-To render with only Tetrahedral bases meshes at 5 levels of detail
-
-```shell
-sfoav struct.xyz -levelOfDetail 5 -meshes 4
-```
-
-The available meshes are.
-
-| Mesh | value of -meshes  | Note |
-| :----- | :---- | :---- |
-| ICOSAHEDRON | 0 ||
-| OCTAHEDRON | 1 ||
-| DODECAHEDRON | 2 | Known issues at higher LOD|
-| CUBE | 3 |Known issues at higher LOD|
-| TETRAHEDRON | 4 ||
-| TRIAUGMENTED_TRIANGULAR_PRISM | 5 | Known issues at higher LOD|
-| ANY | 6 | Uses all mesh types controlled by LOD|
-
-The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.
+For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.
 
 ---
 
@@ -147,12 +124,13 @@ The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the
 
 ## Out of scope
 
-To keep it simple the following features won't be implemented. For these and more use a complex feature rich visualiser like VMD https://www.ks.uiuc.edu/Research/vmd/.
+To keep it simple the following features won't be implemented.
 
 - Structures and environments.
 - System editing (atom positions, types, bonds).
 - Script extensions.
 - Simulation.
+- Every structure format under the sun.
 
 ## Contributions
 
