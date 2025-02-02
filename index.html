@@ -97,8 +97,14 @@ Quickstart</h1>
 </div><!-- fragment --><blockquote class="doxtable">
 <p>&zwj;[!important] SFOAV can process <code>.xyz</code>, <code>.extxyz</code>, and DL_POLY <code><a class="el" href="classCONFIG.html" title="Read CONFIG files.">CONFIG</a></code>, <code>REVCON</code> and <code>HISTORY</code> files. If the file name does not match these patterns all types will be attempted. </p>
 </blockquote>
-<p>This will bring up the view centring the atoms in <code>struct.xyz</code>.</p>
-<p>The camera is centered on (0, 0, 0) and can be moved in spherical coordinates relative to it. The atoms can also be translated relative to (0, 0, 0).</p>
+<p>This will bring up the view centring the atoms in <code>struct.xyz</code> in the first frame (if applicable). The camera is centered on (0, 0, 0) and can be moved in spherical coordinates relative to it. The atoms can also be translated relative to (0, 0, 0).</p>
+<blockquote class="doxtable">
+<p>&zwj;[!note] Reading of structure files is done in a background thread. For large structure files you may be presented with a loading screen. An intel i7-4790K and Kingston A400 SATA SSD is capable of around 1,000,000 (positions only) atoms per second read. </p>
+</blockquote>
+<p>If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively.</p>
+<blockquote class="doxtable">
+<p>&zwj;[!note] When reading HISTORY files or XYZ/EXTXYZ with multiple frames, SFOAV will cache the filepositions (not data) of each frame in the background. For large trajectory files this may take some time, but you will always be able to play up to the most recently cached frame. </p>
+</blockquote>
 <p>At runtime the following key-controls can be used:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -141,6 +147,9 @@ Quickstart</h1>
 </div><!-- fragment --><p>To draw bonds between atoms 1.5 Angstroms apart</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+Performance</h2>
+<p>For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Meshes</h2>
 <blockquote class="doxtable">
 <p>&zwj;[!tip] Meshes are much slower than the ray-traced elements due to higher triangle counts. </p>
@@ -148,11 +157,11 @@ Meshes</h2>
 <p>To render using meshes at 10 levels of detail</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -levelOfDetail 10 -meshes</div>
 </div><!-- fragment --><p>To render with only Tetrahedral bases meshes at 5 levels of detail</p>
-<div class="fragment"><div class="line">sfoav struct.xyz -levelOfDetail 5 -meshes 4</div>
+<div class="fragment"><div class="line">sfoav struct.xyz -levelOfDetail 5 -meshes -mesh 4</div>
 </div><!-- fragment --><p>The available meshes are.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">Mesh   </th><th class="markdownTableHeadLeft">value of -meshes   </th><th class="markdownTableHeadLeft">Note    </th></tr>
+<th class="markdownTableHeadLeft">Mesh   </th><th class="markdownTableHeadLeft">value of -meshe   </th><th class="markdownTableHeadLeft">Note    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">ICOSAHEDRON   </td><td class="markdownTableBodyLeft" colspan="2">0    </td></tr>
 <tr class="markdownTableRowEven">

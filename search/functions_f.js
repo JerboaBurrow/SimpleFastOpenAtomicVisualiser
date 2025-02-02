@@ -4,7 +4,7 @@ var searchData=
   ['setbondscale_1',['setBondScale',['../classBondRenderer.html#aa852e6524bd8f67de0b80f4322f49e71',1,'BondRenderer']]],
   ['setchildren_2',['setChildren',['../classTrixel.html#acf851a595544276d4281569745346460',1,'Trixel']]],
   ['setlevelofdetail_3',['setLevelOfDetail',['../classAtomRenderer.html#ae2850e81ce456feacb20770b38666eef',1,'AtomRenderer']]],
-  ['setlighting_4',['setlighting',['../classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e',1,'AtomRenderer::setLighting()'],['../classBondRenderer.html#aba6fc9682c900cfe97d95207f3d7111a',1,'BondRenderer::setLighting()']]],
+  ['setlighting_4',['setlighting',['../classAtomRenderer.html#af6d1e04ef0303a85edc6e15bf437e383',1,'AtomRenderer::setLighting()'],['../classBondRenderer.html#a2bbdf03b1597c3aeb40d623cdbba2e64',1,'BondRenderer::setLighting()']]],
   ['setparent_5',['setParent',['../classTrixel.html#a1cda3184b37e05935f11f710aeb04f8f',1,'Trixel']]],
   ['setprojection_6',['setprojection',['../classAtomRenderer.html#a70e6436ca66a4c466950426078cba195',1,'AtomRenderer::setProjection()'],['../classBondRenderer.html#a6025f2eabc7070fcc06ef2c74e91fd9a',1,'BondRenderer::setProjection()']]],
   ['setvertices_7',['setVertices',['../classTriangle.html#ae6f99d0721a8d914f8ae7023bb5e14c2',1,'Triangle']]],

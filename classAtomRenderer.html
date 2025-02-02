@@ -114,9 +114,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70e6436ca66a4c466950426078cba195" id="r_a70e6436ca66a4c466950426078cba195"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a70e6436ca66a4c466950426078cba195">setProjection</a> (glm::mat4 <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">p</a>)</td></tr>
 <tr class="memdesc:a70e6436ca66a4c466950426078cba195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Projection matrix.  <br /></td></tr>
 <tr class="separator:a70e6436ca66a4c466950426078cba195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23111424a17581c30d00778ab3d8ce3e" id="r_a23111424a17581c30d00778ab3d8ce3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a23111424a17581c30d00778ab3d8ce3e">setLighting</a> (glm::vec3 position, glm::vec3 colour, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">ambient</a>)</td></tr>
-<tr class="memdesc:a23111424a17581c30d00778ab3d8ce3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the lighting of the scene.  <br /></td></tr>
-<tr class="separator:a23111424a17581c30d00778ab3d8ce3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d1e04ef0303a85edc6e15bf437e383" id="r_af6d1e04ef0303a85edc6e15bf437e383"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#af6d1e04ef0303a85edc6e15bf437e383">setLighting</a> (glm::vec3 position, glm::vec3 colour={1.0f, 1.0f, 1.0f}, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">ambient</a>=0.1<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">f</a>)</td></tr>
+<tr class="memdesc:af6d1e04ef0303a85edc6e15bf437e383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the lighting of the scene.  <br /></td></tr>
+<tr class="separator:af6d1e04ef0303a85edc6e15bf437e383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f6213e2d48fe5f015c84909b3fcae8b" id="r_a8f6213e2d48fe5f015c84909b3fcae8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a8f6213e2d48fe5f015c84909b3fcae8b">updateCamera</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="classCamera.html">Camera</a> &amp;<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">camera</a>)</td></tr>
+<tr class="memdesc:a8f6213e2d48fe5f015c84909b3fcae8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update shaders from a <a class="el" href="classCamera.html" title="A 3D projective camera centered on a focus moving on a sphere.">Camera</a>.  <br /></td></tr>
+<tr class="separator:a8f6213e2d48fe5f015c84909b3fcae8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Render atoms as sphere meshes. </p>
@@ -373,8 +376,8 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
 
 </div>
 </div>
-<a id="a23111424a17581c30d00778ab3d8ce3e" name="a23111424a17581c30d00778ab3d8ce3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23111424a17581c30d00778ab3d8ce3e">&#9670;&#160;</a></span>setLighting()</h2>
+<a id="af6d1e04ef0303a85edc6e15bf437e383" name="af6d1e04ef0303a85edc6e15bf437e383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d1e04ef0303a85edc6e15bf437e383">&#9670;&#160;</a></span>setLighting()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,13 +395,13 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>colour</em>, </td>
+          <td class="paramname"><em>colour</em> = <code>{1.0f,&#160;1.0f,&#160;1.0f}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">float</a>&#160;</td>
-          <td class="paramname"><em>ambient</em>&#160;</td>
+          <td class="paramname"><em>ambient</em> = <code>0.1<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">f</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -568,6 +571,40 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
   <table class="params">
     <tr><td class="paramname">atoms</td><td>the new <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> data to upload. </td></tr>
     <tr><td class="paramname">levelsOfDetail</td><td>overried level of detail per atom. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8f6213e2d48fe5f015c84909b3fcae8b" name="a8f6213e2d48fe5f015c84909b3fcae8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6213e2d48fe5f015c84909b3fcae8b">&#9670;&#160;</a></span>updateCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> AtomRenderer::updateCamera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="classCamera.html">Camera</a> &amp;&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update shaders from a <a class="el" href="classCamera.html" title="A 3D projective camera centered on a focus moving on a sphere.">Camera</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camera</td><td>the camera to update from. </td></tr>
   </table>
   </dd>
 </dl>
