@@ -333,6 +333,7 @@ struct CommandLine
             getArgument<float>(bondCutoff, commandLine, c, count);
             getArgument<float>(bondSize, commandLine, c, count);
             getArgument<bool>(hideAtoms, commandLine, c, count);
+            getArgument<float>(deemphasisAlpha, commandLine, c, count);
         }
     }
 
@@ -344,6 +345,7 @@ struct CommandLine
     Argument<float> bondCutoff = {"bondCutOff","Angstrom cutoff to create a bond.", 0.0f, false};
     Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f, false};
     Argument<bool> hideAtoms = {"hideAtoms", "Whether to hide atoms (toggle-able at runtime).", false, false};
+    Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -412,6 +414,8 @@ struct CommandLine
           << bondSize.help()
           << "\n"
           << hideAtoms.help()
+          << "\n"
+          << deemphasisAlpha.help()
           << "\n";
         std::cout << h.str();
         std::exit(EXIT_SUCCESS);

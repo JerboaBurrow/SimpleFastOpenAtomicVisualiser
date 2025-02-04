@@ -77,6 +77,17 @@ int main(int argv, char ** argc)
 
     if (!display.isOpen()) { return 0; }
 
+    std::set<Element> elements = uniqueElements(structure->atoms);
+    std::multimap<Element, uint64_t> elementMap = elementIndices(structure->atoms);
+    std::map<int, Element> emphasisControls;
+    std::vector<float> alphaOverrides(structure->atoms.size(), 1.0f);
+    for (uint8_t i = 0; i < std::min(size_t(6), elements.size()); i++)
+    {
+        Element e = *std::next(elements.begin(), i);
+        emphasisControls[GLFW_KEY_1+i] = e;
+        std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
+    }
+
     center(structure->atoms);
 
     std::vector<Bond> bonds;
@@ -120,7 +131,15 @@ int main(int argv, char ** argc)
         }
 
         cameraControls(display, camera);
-        elementsNeedUpdate = atomControls(display, structure->atoms);
+        elementsNeedUpdate = atomControls
+        (
+            display,
+            structure->atoms,
+            emphasisControls,
+            elementMap,
+            alphaOverrides,
+            options.deemphasisAlpha.value
+        );
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
@@ -161,6 +180,7 @@ int main(int argv, char ** argc)
             {
                 bonds = determineBonds(structure->atoms, options.bondCutoff.value);
             }
+            setAlpha(structure->atoms, alphaOverrides);
             elementsNeedUpdate = true;
         }
 
