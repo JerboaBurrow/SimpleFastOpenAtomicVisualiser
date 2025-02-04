@@ -81,6 +81,9 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="element_8h_source.html">element.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="colour_8h_source.html">colour.h</a>&gt;</code><br />
@@ -89,26 +92,31 @@ Include dependency graph for atom.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="atom_8h__incl.png" border="0" usemap="#ainclude_2atom_8h" alt=""/></div>
 <map name="ainclude_2atom_8h" id="ainclude_2atom_8h">
-<area shape="rect" title=" " alt="" coords="98,5,217,31"/>
+<area shape="rect" title=" " alt="" coords="310,5,429,31"/>
 <area shape="rect" title=" " alt="" coords="5,225,72,251"/>
-<area shape="poly" title=" " alt="" coords="149,33,113,80,76,152,50,213,45,211,71,149,108,77,145,29"/>
-<area shape="rect" title=" " alt="" coords="103,225,183,251"/>
-<area shape="poly" title=" " alt="" coords="153,32,127,83,114,117,104,153,102,165,104,177,113,196,125,213,121,216,108,199,99,178,97,165,99,151,109,115,122,81,148,30"/>
-<area shape="rect" title=" " alt="" coords="359,152,463,177"/>
-<area shape="poly" title=" " alt="" coords="187,28,235,49,288,76,341,110,386,141,383,146,338,114,285,81,232,54,185,33"/>
-<area shape="rect" href="element_8h.html" title=" " alt="" coords="113,152,201,177"/>
-<area shape="poly" title=" " alt="" coords="160,31,160,138,155,138,155,31"/>
-<area shape="rect" href="colour_8h.html" title=" " alt="" coords="202,79,275,104"/>
-<area shape="poly" title=" " alt="" coords="172,29,217,68,213,72,169,33"/>
-<area shape="poly" title=" " alt="" coords="140,180,71,220,69,216,137,175"/>
-<area shape="poly" title=" " alt="" coords="158,178,150,212,145,211,152,177"/>
-<area shape="rect" title=" " alt="" coords="209,225,260,251"/>
-<area shape="poly" title=" " alt="" coords="172,175,214,214,210,218,168,179"/>
-<area shape="poly" title=" " alt="" coords="267,102,371,144,369,149,265,106"/>
-<area shape="poly" title=" " alt="" coords="227,106,183,145,179,141,224,102"/>
-<area shape="poly" title=" " alt="" coords="241,105,238,212,233,212,236,104"/>
-<area shape="rect" title=" " alt="" coords="276,152,335,177"/>
-<area shape="poly" title=" " alt="" coords="252,103,287,140,283,144,248,106"/>
+<area shape="poly" title=" " alt="" coords="310,26,271,33,229,43,186,59,147,81,114,111,87,147,51,214,46,211,82,144,110,107,144,77,184,54,227,38,270,27,309,21"/>
+<area shape="rect" title=" " alt="" coords="104,225,184,251"/>
+<area shape="poly" title=" " alt="" coords="310,32,258,47,201,71,148,106,126,128,108,153,104,168,106,183,124,213,120,216,101,185,98,168,103,151,122,125,145,102,198,67,256,42,309,27"/>
+<area shape="rect" title=" " alt="" coords="541,79,584,104"/>
+<area shape="poly" title=" " alt="" coords="401,28,529,75,528,80,399,33"/>
+<area shape="rect" title=" " alt="" coords="609,79,671,104"/>
+<area shape="poly" title=" " alt="" coords="413,28,596,76,594,81,412,33"/>
+<area shape="rect" title=" " alt="" coords="300,225,351,251"/>
+<area shape="poly" title=" " alt="" coords="390,29,426,55,465,91,480,112,489,134,490,157,481,179,457,203,427,220,395,230,365,236,364,231,393,225,425,215,454,199,476,176,485,156,483,135,475,115,461,95,423,59,387,33"/>
+<area shape="rect" title=" " alt="" coords="363,152,467,177"/>
+<area shape="poly" title=" " alt="" coords="376,30,409,138,404,140,370,32"/>
+<area shape="rect" href="element_8h.html" title=" " alt="" coords="117,152,205,177"/>
+<area shape="poly" title=" " alt="" coords="352,33,278,81,189,146,186,141,274,76,349,29"/>
+<area shape="rect" href="colour_8h.html" title=" " alt="" coords="289,79,362,104"/>
+<area shape="poly" title=" " alt="" coords="364,32,342,68,337,66,360,30"/>
+<area shape="poly" title=" " alt="" coords="143,180,72,221,69,216,140,175"/>
+<area shape="poly" title=" " alt="" coords="161,178,153,213,147,212,156,177"/>
+<area shape="poly" title=" " alt="" coords="189,175,288,218,286,223,187,180"/>
+<area shape="poly" title=" " alt="" coords="328,104,328,212,323,212,323,104"/>
+<area shape="poly" title=" " alt="" coords="341,102,391,141,388,145,338,106"/>
+<area shape="poly" title=" " alt="" coords="300,106,202,149,199,144,298,102"/>
+<area shape="rect" title=" " alt="" coords="229,152,288,177"/>
+<area shape="poly" title=" " alt="" coords="316,106,281,144,277,140,312,103"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -171,6 +179,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a8f22f6f993dd09e5340698195c7f02b2" id="r_a8f22f6f993dd09e5340698195c7f02b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="triangle_8h.html#a73355acf560befc44a0924d1c0489c4d">glm::vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms)</td></tr>
 <tr class="memdesc:a8f22f6f993dd09e5340698195c7f02b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the extent of some Atoms.  <br /></td></tr>
 <tr class="separator:a8f22f6f993dd09e5340698195c7f02b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e3435c022ce3d9ee212eb755b54c52" id="r_a73e3435c022ce3d9ee212eb755b54c52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::set</a>&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atom_8h.html#a73e3435c022ce3d9ee212eb755b54c52">uniqueElements</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms)</td></tr>
+<tr class="memdesc:a73e3435c022ce3d9ee212eb755b54c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the unique elements in a list of <a class="el" href="classAtom.html" title="An atom structure.">Atom</a>.  <br /></td></tr>
+<tr class="separator:a73e3435c022ce3d9ee212eb755b54c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62614649f6063f8ed5860081254bdb31" id="r_a62614649f6063f8ed5860081254bdb31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::multimap</a>&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint64_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atom_8h.html#a62614649f6063f8ed5860081254bdb31">elementIndices</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms)</td></tr>
+<tr class="memdesc:a62614649f6063f8ed5860081254bdb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain indices of each element.  <br /></td></tr>
+<tr class="separator:a62614649f6063f8ed5860081254bdb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a1d49c29717dc8a0cae1cc0a072deb53e" name="a1d49c29717dc8a0cae1cc0a072deb53e"></a>
@@ -196,6 +210,33 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a62614649f6063f8ed5860081254bdb31" name="a62614649f6063f8ed5860081254bdb31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62614649f6063f8ed5860081254bdb31">&#9670;&#160;</a></span>elementIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::multimap</a>&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">uint64_t</a> &gt; elementIndices </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>atoms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtain indices of each element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atoms</td><td>the atoms to index. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::multimap&lt;Element, uint64_t&gt; the indices of each element type. </dd></dl>
 
 </div>
 </div>
@@ -316,6 +357,33 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73e3435c022ce3d9ee212eb755b54c52" name="a73e3435c022ce3d9ee212eb755b54c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e3435c022ce3d9ee212eb755b54c52">&#9670;&#160;</a></span>uniqueElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::set</a>&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a> &gt; uniqueElements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>atoms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determine the unique elements in a list of <a class="el" href="classAtom.html" title="An atom structure.">Atom</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atoms</td><td>the atoms to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::set&lt;Element&gt; the set of elements. </dd></dl>
 
 </div>
 </div>

@@ -20,7 +20,7 @@ var searchData=
   ['at_17',['At',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5adc5f499e83aef4f6811faa4081631740',1,'element.h']]],
   ['atom_18',['atom',['../classAtom.html#abfa16892d6453ab0ee681bed2d30d9fa',1,'Atom::Atom(glm::vec3 position=glm::vec3(0), float scale=1.0f, glm::vec4 colour=glm::vec4(1.0, 0.5, 0.5, 1.0), glm::vec3 velocity=glm::vec3(0), glm::vec3 force=glm::vec3(0))'],['../classAtom.html#adbc33fb72463b82b924465bd7057c4bb',1,'Atom::Atom(Element symbol, glm::vec3 position=glm::vec3(0), float scale=1.0f, glm::vec4 colour=glm::vec4(1.0, 0.5, 0.5, 1.0), glm::vec3 velocity=glm::vec3(0), glm::vec3 force=glm::vec3(0))'],['../classAtom.html',1,'Atom']]],
   ['atom_2eh_19',['atom.h',['../atom_8h.html',1,'']]],
-  ['atomcontrols_20',['atomControls',['../main_8h.html#a5c2d89982d6ed92f1b01b29dc1f705e3',1,'main.h']]],
+  ['atomcontrols_20',['atomControls',['../main_8h.html#a57d875f716a27f2802253e281f332c64',1,'main.h']]],
   ['atomcount_21',['atomCount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure']]],
   ['atomindexa_22',['atomIndexA',['../structBond.html#aa3146480e061c281e58cca612a0df5cf',1,'Bond']]],
   ['atomindexb_23',['atomIndexB',['../structBond.html#ab3d7af24e95906072ab05423925394e2',1,'Bond']]],

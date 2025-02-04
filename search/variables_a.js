@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mesh_0',['mesh',['../structCommandLine.html#a201e77b89d7592339f0ede4b7d98045e',1,'CommandLine']]],
-  ['meshes_1',['meshes',['../structCommandLine.html#a81d42d93dc06408c5054298367145b67',1,'CommandLine']]],
-  ['msaa_2',['msaa',['../structCommandLine.html#ab0bc234d90346c661e51a2af23a0e326',1,'CommandLine']]]
+  ['levelofdetail_0',['levelOfDetail',['../structCommandLine.html#aaff51a529d65a2c03d522a27896a29b0',1,'CommandLine']]],
+  ['linesinfile_1',['linesInFile',['../classStructure.html#ad91ab77a459e176a273e3eebc94dde13',1,'Structure']]],
+  ['linesperframe_2',['linesPerFrame',['../classStructure.html#aaaaa93d09c1fc2fc8c1926f8493375de',1,'Structure']]]
 ];
