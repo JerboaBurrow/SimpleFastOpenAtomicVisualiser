@@ -32,7 +32,7 @@ var searchData=
   ['stringsymboltocolour_29',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
   ['stringsymboltoelement_30',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
   ['stringsymboltoelementradius_31',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['structure_32',['structure',['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure::Structure()'],['../structCommandLine.html#ab4c0706e8ddff80dd222af99844d453f',1,'CommandLine::structure'],['../classStructure.html',1,'Structure']]],
+  ['structure_32',['structure',['../structCommandLine.html#ab4c0706e8ddff80dd222af99844d453f',1,'CommandLine::structure'],['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure::Structure()'],['../classStructure.html',1,'Structure']]],
   ['structure_2eh_33',['structure.h',['../structure_8h.html',1,'']]],
   ['subdividetrixel_34',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
   ['subfullbuffer_35',['subFullBuffer',['../glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'glUtils.h']]],
