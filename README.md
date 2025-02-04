@@ -43,24 +43,25 @@ If the structure file is a trajectory you may scan through its frames moving for
 
 At runtime the following key-controls can be used:
 
-| Key | Action  |
-| :----- | :---- |
-| H      | Toggle atom drawing.    |
-| W      | Zoom towards the origin. |
-| S      | Zoom away from the origin. |
-| Q      | Incline the view. |
-| E      | Decline the view. |
-| A      | Rotate the view. |
-| D      | Rotate the view. |
-| LEFT   | Translate the atoms in -x |
-| RIGHT  | Translate the atoms in +x |
-| UP     | Translate the atoms in +z |
-| DOWN   | Translate the atoms in -z |
-| .      | Translate the atoms in -y |
-| /      | Translate the atoms in +y |
-| SPACE  | Reset to the default view and atom positions |
-| F      | Move forward in time  |
-| B      | Move backward in time |
+| Key | Action  | Note |
+| :----- | :---- | :---- |
+| H      | Toggle atom drawing.    | |
+| W      | Zoom towards the origin. | |
+| S      | Zoom away from the origin. | |
+| Q      | Incline the view. | |
+| E      | Decline the view. | |
+| A      | Rotate the view. | |
+| D      | Rotate the view. | |
+| LEFT   | Translate the atoms in -x | |
+| RIGHT  | Translate the atoms in +x | |
+| UP     | Translate the atoms in +z | |
+| DOWN   | Translate the atoms in -z | |
+| .      | Translate the atoms in -y | |
+| /      | Translate the atoms in +y | |
+| SPACE  | Reset to the default view and atom positions | At (0,0,0), azimuth Pi/2 and inclination Pi. |
+| F      | Move forward in time  | |
+| B      | Move backward in time | |
+| 1 to 9 | Toggle element emphasis | Elements assigned at startup. |
 
 To enable MSAA at 16x
 
