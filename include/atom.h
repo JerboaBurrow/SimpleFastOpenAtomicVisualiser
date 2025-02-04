@@ -3,6 +3,9 @@
 
 #include <cstdint>
 #include <iostream>
+#include <set>
+#include <vector>
+#include <map>
 
 #include <glm/glm.hpp>
 
@@ -149,4 +152,35 @@ glm::vec3 extent(const std::vector<Atom> & atoms)
     return max-min;
 }
 
+/**
+ * @brief Determine the unique elements in a list of Atom.
+ *
+ * @param atoms the atoms to check.
+ * @return std::set<Element> the set of elements.
+ */
+std::set<Element> uniqueElements(const std::vector<Atom> & atoms)
+{
+    std::set<Element> e;
+    for (const auto & atom : atoms)
+    {
+        e.insert(atom.symbol);
+    }
+    return e;
+}
+
+/**
+ * @brief Obtain indices of each element.
+ *
+ * @param atoms the atoms to index.
+ * @return std::multimap<Element, uint64_t> the indices of each element type.
+ */
+std::multimap<Element, uint64_t> elementIndices(const std::vector<Atom> & atoms)
+{
+    std::multimap<Element, uint64_t> m;
+    for (uint64_t i = 0; i < atoms.size(); i++)
+    {
+        m.insert(std::pair(atoms[i].symbol, i));
+    }
+    return m;
+}
 #endif /* ATOM_H */
