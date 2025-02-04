@@ -317,6 +317,7 @@ struct CommandLine
         {
             checkHelp(commandLine[c]);
         }
+        welcome();
         if (!getArgument<std::filesystem::path>(structure, commandLine, structure.position, count))
         {
             std::cout << "A structure path must be given as argument 1\n";
@@ -370,6 +371,18 @@ struct CommandLine
     ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /
    |\_________\|__|    \|_______|\|__|\|__|\|__|/
    \|_________| SimpleFastOpenAtomicVisualiser)";
+
+    void welcome() const
+    {
+        std::stringstream w;
+        w << banner
+          << "\n\n"
+          << "Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
+          << "License: MIT, Jerboa 2025.\n"
+          << VERSION
+          << "\n -h for help.";
+          std::cout << w.str();
+    }
 
     /**
      * @brief Print the help message and std::exit(EXIT_SUCCESS);.
