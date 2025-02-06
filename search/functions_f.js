@@ -15,11 +15,12 @@ var searchData=
   ['skipframes_12',['skipFrames',['../classStructure.html#a2e42925d7bb3942826cdab27331cdcc3',1,'Structure']]],
   ['skipline_13',['skipLine',['../classStructure.html#ac4026a5402733a607a3a235c43db2efa',1,'Structure']]],
   ['spherical2cartesian_14',['spherical2cartesian',['../util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a',1,'util.h']]],
-  ['startswith_15',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
-  ['stringsymboltocolour_16',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
-  ['stringsymboltoelement_17',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
-  ['stringsymboltoelementradius_18',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['structure_19',['Structure',['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure']]],
-  ['subdividetrixel_20',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
-  ['subfullbuffer_21',['subFullBuffer',['../glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'glUtils.h']]]
+  ['split_15',['split',['../util_8h.html#a100ab4db5d111243877cb1b5e2b32f71',1,'util.h']]],
+  ['startswith_16',['startsWith',['../commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d',1,'commandLine.h']]],
+  ['stringsymboltocolour_17',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
+  ['stringsymboltoelement_18',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
+  ['stringsymboltoelementradius_19',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
+  ['structure_20',['Structure',['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure']]],
+  ['subdividetrixel_21',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],
+  ['subfullbuffer_22',['subFullBuffer',['../glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519',1,'glUtils.h']]]
 ];

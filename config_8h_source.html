@@ -142,183 +142,175 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
 </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classCONFIG.html#a3ef9100706ab5cefee6322b795b56293">   87</a></span>    glm::vec3 <a class="code hl_function" href="classCONFIG.html#a3ef9100706ab5cefee6322b795b56293">getCellA</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> cellA; }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classCONFIG.html#a92621b2a352076fec1a80433e10aa65b">   88</a></span>    glm::vec3 <a class="code hl_function" href="classCONFIG.html#a92621b2a352076fec1a80433e10aa65b">getCellB</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> cellB; }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classCONFIG.html#a7621032c94947017fa7aeea04ba98126">   89</a></span>    glm::vec3 <a class="code hl_function" href="classCONFIG.html#a7621032c94947017fa7aeea04ba98126">getCellC</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> cellC; }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">bool</span> HISTORY = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    uint64_t metaDataLines;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    uint64_t linesPerAtom;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">unsigned</span> levcfg;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">unsigned</span> imcon;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    glm::vec3 cellA;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    glm::vec3 cellB;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    glm::vec3 cellC;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span> initialise()</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        std::string line;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        std::stringstream data(line);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_variable" href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">timeStep</a> = 0;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        data &gt;&gt; levcfg &gt;&gt; imcon &gt;&gt; <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span> (data.fail())</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        {</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            std::stringstream message;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            message &lt;&lt; <a class="code hl_variable" href="classStructure.html#ab2db3755e3397468a23a922513db5826">path</a>.c_str()</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    &lt;&lt; <span class="stringliteral">&quot; does not have an atom count.\n&quot;</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                    &lt;&lt; <span class="stringliteral">&quot;Please add the atom count after imcon.\n&quot;</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">throw</span> std::runtime_error</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            (</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                message.str()</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            );</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="comment">// Could be a HISTORY or REVCON file.</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            data = std::stringstream(line);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            data &gt;&gt; levcfg &gt;&gt; imcon &gt;&gt; <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a> &gt;&gt; <a class="code hl_variable" href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">frames</a>;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="keywordflow">if</span> (extractHistoryStepMetaData())</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                HISTORY = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">if</span> (HISTORY){ getCell(); }</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            getCell();</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">if</span> (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">else</span> { metaDataLines = 2; }</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        linesPerAtom = 2+(levcfg &gt; 0 ? 1 : 0)+(levcfg &gt; 1 ? 1 : 0);</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <a class="code hl_variable" href="classStructure.html#aaaaa93d09c1fc2fc8c1926f8493375de">linesPerFrame</a> = <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>*linesPerAtom+4;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        beginning();</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <a class="code hl_variable" href="classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3">framePositions</a>[0] = <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.tellg();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <a class="code hl_variable" href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">frames</a> = 1;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>.resize(<a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>);</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordtype">void</span> beginning()</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">for</span> (uint64_t l = 0; l &lt; metaDataLines; l++)</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        }</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">void</span> getAtoms()</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        std::string line;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        std::stringstream ss;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span> (HISTORY)</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            getCell();</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        }</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">for</span> (uint64_t a = 0; a &lt; <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>.size(); a++)</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        {</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            std::string symbol;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            uint64_t index;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <a class="code hl_class" href="classAtom.html">Atom</a> atom;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            ss = std::stringstream(line);</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            ss &gt;&gt; symbol &gt;&gt; index;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            ss = std::stringstream(line);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.x</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.y</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.z;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">if</span> (levcfg &gt; 0)</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                ss = std::stringstream(line);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.x</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.y</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.z;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            }</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keywordflow">if</span> (levcfg &gt; 1)</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            {</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                ss = std::stringstream(line);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.x</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.y</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.z;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">bool</span> HISTORY = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    uint64_t metaDataLines;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    uint64_t linesPerAtom;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">unsigned</span> levcfg;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">unsigned</span> imcon;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> initialise()</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        std::string line;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        std::stringstream data(line);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_variable" href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">timeStep</a> = 0;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        data &gt;&gt; levcfg &gt;&gt; imcon &gt;&gt; <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (data.fail())</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            std::stringstream message;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            message &lt;&lt; <a class="code hl_variable" href="classStructure.html#ab2db3755e3397468a23a922513db5826">path</a>.c_str()</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                    &lt;&lt; <span class="stringliteral">&quot; does not have an atom count.\n&quot;</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    &lt;&lt; <span class="stringliteral">&quot;Please add the atom count after imcon.\n&quot;</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">throw</span> std::runtime_error</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            (</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                message.str()</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            );</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="comment">// Could be a HISTORY or REVCON file.</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            data = std::stringstream(line);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            data &gt;&gt; levcfg &gt;&gt; imcon &gt;&gt; <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a> &gt;&gt; <a class="code hl_variable" href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">frames</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">if</span> (extractHistoryStepMetaData())</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                HISTORY = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">if</span> (HISTORY){ getCell(); }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            getCell();</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">if</span> (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">else</span> { metaDataLines = 2; }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        linesPerAtom = 2+(levcfg &gt; 0 ? 1 : 0)+(levcfg &gt; 1 ? 1 : 0);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <a class="code hl_variable" href="classStructure.html#aaaaa93d09c1fc2fc8c1926f8493375de">linesPerFrame</a> = <a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>*linesPerAtom+4;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        beginning();</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <a class="code hl_variable" href="classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3">framePositions</a>[0] = <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.tellg();</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <a class="code hl_variable" href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">frames</a> = 1;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>.resize(<a class="code hl_variable" href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">natoms</a>);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordtype">void</span> beginning()</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>.seekg(std::ios::beg);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">for</span> (uint64_t l = 0; l &lt; metaDataLines; l++)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordtype">void</span> getAtoms()</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        std::string line;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        std::stringstream ss;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (HISTORY)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <a class="code hl_function" href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">skipLine</a>(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            getCell();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">for</span> (uint64_t a = 0; a &lt; <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>.size(); a++)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            std::string symbol;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            uint64_t index;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <a class="code hl_class" href="classAtom.html">Atom</a> atom;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            ss = std::stringstream(line);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            ss &gt;&gt; symbol &gt;&gt; index;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            ss = std::stringstream(line);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.x</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.y</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a6203936c817773d74620f4644d8551fc">position</a>.z;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordflow">if</span> (levcfg &gt; 0)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                ss = std::stringstream(line);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.x</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.y</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">velocity</a>.z;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordflow">if</span> (levcfg &gt; 1)</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                ss = std::stringstream(line);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                ss  &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.x</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.y</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                    &gt;&gt; atom.<a class="code hl_variable" href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">force</a>.z;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(ss, line, <span class="stringliteral">&quot;CONFIG reading atom &quot;</span>+std::to_string(a));</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a> = <a class="code hl_function" href="element_8h.html#ad7125c4976075b1536a012a3841ffc9a">stringSymbolToElement</a>(symbol);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            atom.<a class="code hl_variable" href="classAtom.html#a77b8f41d48dfe92b02c109dc2075a355">scale</a> = <a class="code hl_variable" href="element_8h.html#afbc1c19c089491aa816dab4ea6972f50">ELEMENT_RADIUS</a>.at(atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a>);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            atom.<a class="code hl_variable" href="classAtom.html#af507bf7c80bb0f2c963af2e104b10250">colour</a> = <a class="code hl_variable" href="colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917">CPK_COLOURS</a>.at(atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a>);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>[a] = atom;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <a class="code hl_variable" href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">atomsRead</a> = a+1;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        }</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a> = <a class="code hl_function" href="element_8h.html#ad7125c4976075b1536a012a3841ffc9a">stringSymbolToElement</a>(symbol);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            atom.<a class="code hl_variable" href="classAtom.html#a77b8f41d48dfe92b02c109dc2075a355">scale</a> = <a class="code hl_variable" href="element_8h.html#afbc1c19c089491aa816dab4ea6972f50">ELEMENT_RADIUS</a>.at(atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a>);</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            atom.<a class="code hl_variable" href="classAtom.html#af507bf7c80bb0f2c963af2e104b10250">colour</a> = <a class="code hl_variable" href="colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917">CPK_COLOURS</a>.at(atom.<a class="code hl_variable" href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">symbol</a>);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <a class="code hl_variable" href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">atoms</a>[a] = atom;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <a class="code hl_variable" href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">atomsRead</a> = a+1;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        }</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    }</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordtype">void</span> getFrame()</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    {</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <a class="code hl_variable" href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">atomsRead</a> = 0;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classStructure.html#a230a09fb05c7e56efbdad3547842f94c">blockingReads</a>) { getAtoms(); <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        std::thread io = std::thread</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        (</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            &amp;CONFIG::getAtoms,</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            <span class="keyword">this</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        );</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        io.detach();</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordtype">void</span> getCell()</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        std::string line;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        std::stringstream data;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        data = std::stringstream(line);</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        data &gt;&gt; cellA.x &gt;&gt; cellA.y &gt;&gt; cellA.z;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        data = std::stringstream(line);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        data &gt;&gt; cellB.x &gt;&gt; cellB.y &gt;&gt; cellB.z;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        data = std::stringstream(line);</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        data &gt;&gt; cellC.x &gt;&gt; cellC.y &gt;&gt; cellC.z;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    }</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordtype">bool</span> extractHistoryStepMetaData()</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    {</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        std::string line;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        std::stringstream data;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="keywordflow">if</span> (line.rfind(<span class="stringliteral">&quot;timestep&quot;</span>, 0) == 0)</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        {</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            data = std::stringstream(line.substr(9));</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            data &gt;&gt; <a class="code hl_variable" href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">timeStep</a>;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        }</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    }</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>};</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordtype">void</span> getFrame()</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <a class="code hl_variable" href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">atomsRead</a> = 0;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classStructure.html#a230a09fb05c7e56efbdad3547842f94c">blockingReads</a>) { getAtoms(); <span class="keywordflow">return</span>; }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        std::thread io = std::thread</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        (</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            &amp;CONFIG::getAtoms,</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            <span class="keyword">this</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        );</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        io.detach();</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordtype">void</span> getCell()</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        std::string line;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        std::stringstream data;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        data = std::stringstream(line);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        data &gt;&gt; <a class="code hl_variable" href="classStructure.html#a10578da31b487945a07dc2d05fc358ef">cellA</a>.x &gt;&gt; <a class="code hl_variable" href="classStructure.html#a10578da31b487945a07dc2d05fc358ef">cellA</a>.y &gt;&gt; <a class="code hl_variable" href="classStructure.html#a10578da31b487945a07dc2d05fc358ef">cellA</a>.z;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        data = std::stringstream(line);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        data &gt;&gt; <a class="code hl_variable" href="classStructure.html#a1be0c8a103f7a362b2079fa278f426dd">cellB</a>.x &gt;&gt; <a class="code hl_variable" href="classStructure.html#a1be0c8a103f7a362b2079fa278f426dd">cellB</a>.y &gt;&gt; <a class="code hl_variable" href="classStructure.html#a1be0c8a103f7a362b2079fa278f426dd">cellB</a>.z;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        data = std::stringstream(line);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        data &gt;&gt; <a class="code hl_variable" href="classStructure.html#ac844682df40a941034b8724b289e9983">cellC</a>.x &gt;&gt; <a class="code hl_variable" href="classStructure.html#ac844682df40a941034b8724b289e9983">cellC</a>.y &gt;&gt; <a class="code hl_variable" href="classStructure.html#ac844682df40a941034b8724b289e9983">cellC</a>.z;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <a class="code hl_function" href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">checkRead</a>(data, line, <span class="stringliteral">&quot;getCell&quot;</span>);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">bool</span> extractHistoryStepMetaData()</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        std::string line;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        std::stringstream data;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        std::getline(<a class="code hl_variable" href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">filestream</a>, line);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">if</span> (line.rfind(<span class="stringliteral">&quot;timestep&quot;</span>, 0) == 0)</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            data = std::stringstream(line.substr(9));</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            data &gt;&gt; <a class="code hl_variable" href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">timeStep</a>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>};</div>
 </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#endif </span><span class="comment">/* CONFIG_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#endif </span><span class="comment">/* CONFIG_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclassAtom_html"><div class="ttname"><a href="classAtom.html">Atom</a></div><div class="ttdoc">An atom structure.</div><div class="ttdef"><b>Definition</b> atom.h:20</div></div>
 <div class="ttc" id="aclassAtom_html_a2df49a164534ec9b5290e6b478ac137f"><div class="ttname"><a href="classAtom.html#a2df49a164534ec9b5290e6b478ac137f">Atom::force</a></div><div class="ttdeci">glm::vec3 force</div><div class="ttdef"><b>Definition</b> atom.h:82</div></div>
 <div class="ttc" id="aclassAtom_html_a4d1d9ec677b2e0fcc23fbf7ae585e1e1"><div class="ttname"><a href="classAtom.html#a4d1d9ec677b2e0fcc23fbf7ae585e1e1">Atom::symbol</a></div><div class="ttdeci">Element symbol</div><div class="ttdef"><b>Definition</b> atom.h:77</div></div>
@@ -327,24 +319,24 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclassAtom_html_abdd01cd7027fea4b54226593ccc0de18"><div class="ttname"><a href="classAtom.html#abdd01cd7027fea4b54226593ccc0de18">Atom::velocity</a></div><div class="ttdeci">glm::vec3 velocity</div><div class="ttdef"><b>Definition</b> atom.h:81</div></div>
 <div class="ttc" id="aclassAtom_html_af507bf7c80bb0f2c963af2e104b10250"><div class="ttname"><a href="classAtom.html#af507bf7c80bb0f2c963af2e104b10250">Atom::colour</a></div><div class="ttdeci">glm::vec4 colour</div><div class="ttdef"><b>Definition</b> atom.h:80</div></div>
 <div class="ttc" id="aclassCONFIG_html"><div class="ttname"><a href="classCONFIG.html">CONFIG</a></div><div class="ttdoc">Read CONFIG files.</div><div class="ttdef"><b>Definition</b> config.h:70</div></div>
-<div class="ttc" id="aclassCONFIG_html_a3ef9100706ab5cefee6322b795b56293"><div class="ttname"><a href="classCONFIG.html#a3ef9100706ab5cefee6322b795b56293">CONFIG::getCellA</a></div><div class="ttdeci">glm::vec3 getCellA() const</div><div class="ttdef"><b>Definition</b> config.h:87</div></div>
-<div class="ttc" id="aclassCONFIG_html_a7621032c94947017fa7aeea04ba98126"><div class="ttname"><a href="classCONFIG.html#a7621032c94947017fa7aeea04ba98126">CONFIG::getCellC</a></div><div class="ttdeci">glm::vec3 getCellC() const</div><div class="ttdef"><b>Definition</b> config.h:89</div></div>
-<div class="ttc" id="aclassCONFIG_html_a92621b2a352076fec1a80433e10aa65b"><div class="ttname"><a href="classCONFIG.html#a92621b2a352076fec1a80433e10aa65b">CONFIG::getCellB</a></div><div class="ttdeci">glm::vec3 getCellB() const</div><div class="ttdef"><b>Definition</b> config.h:88</div></div>
 <div class="ttc" id="aclassCONFIG_html_ab9b483b37eb5e99727c56b106544f28d"><div class="ttname"><a href="classCONFIG.html#ab9b483b37eb5e99727c56b106544f28d">CONFIG::CONFIG</a></div><div class="ttdeci">CONFIG(std::filesystem::path path, bool blocking=false)</div><div class="ttdoc">Construct a new CONFIG object to read from path.</div><div class="ttdef"><b>Definition</b> config.h:79</div></div>
 <div class="ttc" id="aclassStructure_html"><div class="ttname"><a href="classStructure.html">Structure</a></div><div class="ttdoc">Specification for the structure file interface.</div><div class="ttdef"><b>Definition</b> structure.h:26</div></div>
-<div class="ttc" id="aclassStructure_html_a0634a98b83dea4f6b73ec4599de29eeb"><div class="ttname"><a href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">Structure::atomsRead</a></div><div class="ttdeci">uint64_t atomsRead</div><div class="ttdef"><b>Definition</b> structure.h:157</div></div>
-<div class="ttc" id="aclassStructure_html_a230a09fb05c7e56efbdad3547842f94c"><div class="ttname"><a href="classStructure.html#a230a09fb05c7e56efbdad3547842f94c">Structure::blockingReads</a></div><div class="ttdeci">bool blockingReads</div><div class="ttdef"><b>Definition</b> structure.h:149</div></div>
-<div class="ttc" id="aclassStructure_html_a62adaf338f53264d616cf6f0d7c69938"><div class="ttname"><a href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">Structure::frames</a></div><div class="ttdeci">uint64_t frames</div><div class="ttdef"><b>Definition</b> structure.h:152</div></div>
-<div class="ttc" id="aclassStructure_html_a719de7ae18af60a2d7086203b323b7ab"><div class="ttname"><a href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">Structure::atoms</a></div><div class="ttdeci">std::vector&lt; Atom &gt; atoms</div><div class="ttdoc">The Atoms read in the current frame.</div><div class="ttdef"><b>Definition</b> structure.h:144</div></div>
-<div class="ttc" id="aclassStructure_html_a85de71b702d67e71caf2ac3a5f79c1e1"><div class="ttname"><a href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">Structure::timeStep</a></div><div class="ttdeci">uint64_t timeStep</div><div class="ttdef"><b>Definition</b> structure.h:154</div></div>
-<div class="ttc" id="aclassStructure_html_a964be4c4f87ca88e8f5e1c62c4cc6fa3"><div class="ttname"><a href="classStructure.html#a964be4c4f87ca88e8f5e1c62c4cc6fa3">Structure::scanPositions</a></div><div class="ttdeci">void scanPositions()</div><div class="ttdef"><b>Definition</b> structure.h:200</div></div>
-<div class="ttc" id="aclassStructure_html_aa3e257d03b4976e69bfb32a966e68eb9"><div class="ttname"><a href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">Structure::filestream</a></div><div class="ttdeci">std::ifstream filestream</div><div class="ttdef"><b>Definition</b> structure.h:150</div></div>
-<div class="ttc" id="aclassStructure_html_aaaaa93d09c1fc2fc8c1926f8493375de"><div class="ttname"><a href="classStructure.html#aaaaa93d09c1fc2fc8c1926f8493375de">Structure::linesPerFrame</a></div><div class="ttdeci">uint64_t linesPerFrame</div><div class="ttdef"><b>Definition</b> structure.h:153</div></div>
-<div class="ttc" id="aclassStructure_html_ab2db3755e3397468a23a922513db5826"><div class="ttname"><a href="classStructure.html#ab2db3755e3397468a23a922513db5826">Structure::path</a></div><div class="ttdeci">std::filesystem::path path</div><div class="ttdef"><b>Definition</b> structure.h:148</div></div>
-<div class="ttc" id="aclassStructure_html_abc2a6bb1a015c5393ee8762bf56532d3"><div class="ttname"><a href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">Structure::natoms</a></div><div class="ttdeci">uint64_t natoms</div><div class="ttdef"><b>Definition</b> structure.h:151</div></div>
-<div class="ttc" id="aclassStructure_html_ac4026a5402733a607a3a235c43db2efa"><div class="ttname"><a href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">Structure::skipLine</a></div><div class="ttdeci">void skipLine(std::ifstream &amp;in)</div><div class="ttdef"><b>Definition</b> structure.h:189</div></div>
-<div class="ttc" id="aclassStructure_html_ad1b53b4c4b923c895c1628be2a12bf1a"><div class="ttname"><a href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">Structure::checkRead</a></div><div class="ttdeci">void checkRead(std::stringstream &amp;ss, std::string lastInput, std::string context)</div><div class="ttdef"><b>Definition</b> structure.h:250</div></div>
-<div class="ttc" id="aclassStructure_html_af97ceb667dc68e33b1ae017be81e3dc3"><div class="ttname"><a href="classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3">Structure::framePositions</a></div><div class="ttdeci">std::map&lt; uint64_t, uint64_t &gt; framePositions</div><div class="ttdef"><b>Definition</b> structure.h:161</div></div>
+<div class="ttc" id="aclassStructure_html_a0634a98b83dea4f6b73ec4599de29eeb"><div class="ttname"><a href="classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb">Structure::atomsRead</a></div><div class="ttdeci">uint64_t atomsRead</div><div class="ttdef"><b>Definition</b> structure.h:181</div></div>
+<div class="ttc" id="aclassStructure_html_a10578da31b487945a07dc2d05fc358ef"><div class="ttname"><a href="classStructure.html#a10578da31b487945a07dc2d05fc358ef">Structure::cellA</a></div><div class="ttdeci">glm::vec3 cellA</div><div class="ttdef"><b>Definition</b> structure.h:183</div></div>
+<div class="ttc" id="aclassStructure_html_a1be0c8a103f7a362b2079fa278f426dd"><div class="ttname"><a href="classStructure.html#a1be0c8a103f7a362b2079fa278f426dd">Structure::cellB</a></div><div class="ttdeci">glm::vec3 cellB</div><div class="ttdef"><b>Definition</b> structure.h:184</div></div>
+<div class="ttc" id="aclassStructure_html_a230a09fb05c7e56efbdad3547842f94c"><div class="ttname"><a href="classStructure.html#a230a09fb05c7e56efbdad3547842f94c">Structure::blockingReads</a></div><div class="ttdeci">bool blockingReads</div><div class="ttdef"><b>Definition</b> structure.h:173</div></div>
+<div class="ttc" id="aclassStructure_html_a62adaf338f53264d616cf6f0d7c69938"><div class="ttname"><a href="classStructure.html#a62adaf338f53264d616cf6f0d7c69938">Structure::frames</a></div><div class="ttdeci">uint64_t frames</div><div class="ttdef"><b>Definition</b> structure.h:176</div></div>
+<div class="ttc" id="aclassStructure_html_a719de7ae18af60a2d7086203b323b7ab"><div class="ttname"><a href="classStructure.html#a719de7ae18af60a2d7086203b323b7ab">Structure::atoms</a></div><div class="ttdeci">std::vector&lt; Atom &gt; atoms</div><div class="ttdoc">The Atoms read in the current frame.</div><div class="ttdef"><b>Definition</b> structure.h:147</div></div>
+<div class="ttc" id="aclassStructure_html_a85de71b702d67e71caf2ac3a5f79c1e1"><div class="ttname"><a href="classStructure.html#a85de71b702d67e71caf2ac3a5f79c1e1">Structure::timeStep</a></div><div class="ttdeci">uint64_t timeStep</div><div class="ttdef"><b>Definition</b> structure.h:178</div></div>
+<div class="ttc" id="aclassStructure_html_a964be4c4f87ca88e8f5e1c62c4cc6fa3"><div class="ttname"><a href="classStructure.html#a964be4c4f87ca88e8f5e1c62c4cc6fa3">Structure::scanPositions</a></div><div class="ttdeci">void scanPositions()</div><div class="ttdef"><b>Definition</b> structure.h:229</div></div>
+<div class="ttc" id="aclassStructure_html_aa3e257d03b4976e69bfb32a966e68eb9"><div class="ttname"><a href="classStructure.html#aa3e257d03b4976e69bfb32a966e68eb9">Structure::filestream</a></div><div class="ttdeci">std::ifstream filestream</div><div class="ttdef"><b>Definition</b> structure.h:174</div></div>
+<div class="ttc" id="aclassStructure_html_aaaaa93d09c1fc2fc8c1926f8493375de"><div class="ttname"><a href="classStructure.html#aaaaa93d09c1fc2fc8c1926f8493375de">Structure::linesPerFrame</a></div><div class="ttdeci">uint64_t linesPerFrame</div><div class="ttdef"><b>Definition</b> structure.h:177</div></div>
+<div class="ttc" id="aclassStructure_html_ab2db3755e3397468a23a922513db5826"><div class="ttname"><a href="classStructure.html#ab2db3755e3397468a23a922513db5826">Structure::path</a></div><div class="ttdeci">std::filesystem::path path</div><div class="ttdef"><b>Definition</b> structure.h:172</div></div>
+<div class="ttc" id="aclassStructure_html_abc2a6bb1a015c5393ee8762bf56532d3"><div class="ttname"><a href="classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3">Structure::natoms</a></div><div class="ttdeci">uint64_t natoms</div><div class="ttdef"><b>Definition</b> structure.h:175</div></div>
+<div class="ttc" id="aclassStructure_html_ac4026a5402733a607a3a235c43db2efa"><div class="ttname"><a href="classStructure.html#ac4026a5402733a607a3a235c43db2efa">Structure::skipLine</a></div><div class="ttdeci">void skipLine(std::ifstream &amp;in)</div><div class="ttdef"><b>Definition</b> structure.h:218</div></div>
+<div class="ttc" id="aclassStructure_html_ac844682df40a941034b8724b289e9983"><div class="ttname"><a href="classStructure.html#ac844682df40a941034b8724b289e9983">Structure::cellC</a></div><div class="ttdeci">glm::vec3 cellC</div><div class="ttdef"><b>Definition</b> structure.h:185</div></div>
+<div class="ttc" id="aclassStructure_html_ad1b53b4c4b923c895c1628be2a12bf1a"><div class="ttname"><a href="classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a">Structure::checkRead</a></div><div class="ttdeci">void checkRead(std::stringstream &amp;ss, std::string lastInput, std::string context)</div><div class="ttdef"><b>Definition</b> structure.h:279</div></div>
+<div class="ttc" id="aclassStructure_html_af97ceb667dc68e33b1ae017be81e3dc3"><div class="ttname"><a href="classStructure.html#af97ceb667dc68e33b1ae017be81e3dc3">Structure::framePositions</a></div><div class="ttdeci">std::map&lt; uint64_t, uint64_t &gt; framePositions</div><div class="ttdef"><b>Definition</b> structure.h:189</div></div>
 <div class="ttc" id="acolour_8h_html_a2cf483741023eb51f5cd3ba774fb5917"><div class="ttname"><a href="colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917">CPK_COLOURS</a></div><div class="ttdeci">const std::map&lt; Element, glm::vec4 &gt; CPK_COLOURS</div><div class="ttdoc">Corey–Pauling–Koltun colourings.</div><div class="ttdef"><b>Definition</b> colour.h:14</div></div>
 <div class="ttc" id="aconfig_8h_html_a88db9bd0031c338e4960a0e31a61b0e0"><div class="ttname"><a href="config_8h.html#a88db9bd0031c338e4960a0e31a61b0e0">ostensiblyCONFIGLike</a></div><div class="ttdeci">bool ostensiblyCONFIGLike(std::filesystem::path path)</div><div class="ttdoc">Check if a path is CONFIG'y.</div><div class="ttdef"><b>Definition</b> config.h:24</div></div>
 <div class="ttc" id="aelement_8h_html_ad7125c4976075b1536a012a3841ffc9a"><div class="ttname"><a href="element_8h.html#ad7125c4976075b1536a012a3841ffc9a">stringSymbolToElement</a></div><div class="ttdeci">Element stringSymbolToElement(std::string &amp;s)</div><div class="ttdoc">Map a string symbol to an Element.</div><div class="ttdef"><b>Definition</b> element.h:454</div></div>

@@ -84,91 +84,45 @@ $(function() {
 <code>#include &lt;limits.h&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;regex&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="xyz_8h_source.html">xyz.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="config_8h_source.html">config.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="colour_8h_source.html">colour.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for util.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__incl.png" border="0" usemap="#ainclude_2util_8h" alt=""/></div>
 <map name="ainclude_2util_8h" id="ainclude_2util_8h">
-<area shape="rect" title=" " alt="" coords="326,5,433,31"/>
+<area shape="rect" title=" " alt="" coords="274,5,381,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,68,104"/>
-<area shape="poly" title=" " alt="" coords="327,32,88,81,82,83,81,77,87,76,325,27"/>
-<area shape="rect" title=" " alt="" coords="1159,372,1218,397"/>
-<area shape="poly" title=" " alt="" coords="433,18,691,28,864,37,1043,51,1212,70,1354,94,1410,108,1452,124,1480,142,1487,152,1490,163,1490,239,1488,260,1482,279,1461,310,1430,334,1392,353,1350,366,1307,376,1232,384,1231,379,1306,370,1348,361,1390,348,1427,330,1457,306,1477,276,1483,259,1485,239,1485,164,1483,155,1476,146,1450,129,1408,113,1353,99,1212,75,1043,56,864,43,691,33,433,23"/>
-<area shape="rect" title=" " alt="" coords="144,79,215,104"/>
-<area shape="poly" title=" " alt="" coords="348,33,226,76,224,71,346,28"/>
-<area shape="rect" title=" " alt="" coords="450,225,541,251"/>
-<area shape="poly" title=" " alt="" coords="401,29,427,49,452,77,470,111,482,148,495,211,490,212,477,149,465,113,448,80,424,53,397,33"/>
-<area shape="rect" title=" " alt="" coords="341,225,426,251"/>
-<area shape="poly" title=" " alt="" coords="396,29,416,50,432,78,435,91,433,105,422,129,410,153,392,213,387,211,405,151,417,127,427,103,430,91,428,80,412,53,392,33"/>
-<area shape="rect" title=" " alt="" coords="341,79,418,104"/>
-<area shape="poly" title=" " alt="" coords="382,31,382,65,377,65,377,31"/>
-<area shape="rect" title=" " alt="" coords="384,299,447,324"/>
-<area shape="poly" title=" " alt="" coords="347,33,313,52,298,64,287,80,285,91,287,104,291,182,299,213,319,249,343,273,373,291,370,295,340,278,315,252,294,215,286,182,282,104,280,91,282,78,295,61,310,47,344,28"/>
-<area shape="rect" title=" " alt="" coords="667,372,771,397"/>
-<area shape="poly" title=" " alt="" coords="326,28,215,48,165,63,133,81,118,99,111,117,109,163,109,239,113,258,125,275,144,291,170,305,238,329,321,348,411,361,501,370,653,379,653,384,501,375,410,366,320,353,237,334,168,310,141,296,121,279,108,260,103,240,103,163,105,116,113,96,130,77,163,58,214,43,325,23"/>
-<area shape="rect" href="xyz_8h.html" title=" " alt="" coords="769,79,827,104"/>
-<area shape="poly" title=" " alt="" coords="433,23,575,43,757,76,756,81,574,49,432,28"/>
-<area shape="rect" href="colour_8h.html" title=" " alt="" coords="757,299,831,324"/>
-<area shape="poly" title=" " alt="" coords="367,33,347,53,331,80,313,129,302,170,302,190,306,209,315,228,330,249,351,259,389,269,504,285,744,305,743,310,503,291,388,274,349,264,327,253,311,231,301,211,297,190,297,170,308,127,326,78,343,50,363,29"/>
-<area shape="rect" href="config_8h.html" title=" " alt="" coords="672,79,745,104"/>
-<area shape="poly" title=" " alt="" coords="433,28,659,77,658,82,432,33"/>
-<area shape="poly" title=" " alt="" coords="827,90,940,92,1097,100,1178,107,1252,117,1315,131,1361,150,1391,170,1413,193,1419,206,1422,220,1420,236,1414,252,1397,276,1376,298,1328,333,1277,358,1232,375,1230,369,1275,353,1325,328,1373,294,1393,273,1409,249,1415,234,1417,221,1414,208,1408,196,1387,174,1358,154,1313,137,1251,123,1177,112,1096,105,940,97,827,95"/>
-<area shape="poly" title=" " alt="" coords="770,104,710,125,640,154,578,188,525,220,523,216,575,183,638,150,708,120,768,99"/>
-<area shape="poly" title=" " alt="" coords="770,103,591,155,499,189,422,222,420,217,497,184,589,149,768,98"/>
-<area shape="poly" title=" " alt="" coords="783,107,688,172,623,214,554,253,459,296,457,291,551,248,620,209,685,168,780,102"/>
-<area shape="rect" title=" " alt="" coords="1227,225,1300,251"/>
-<area shape="poly" title=" " alt="" coords="827,90,918,93,1038,101,1154,119,1200,133,1233,150,1245,163,1254,179,1263,211,1258,213,1249,181,1241,166,1230,154,1198,138,1153,124,1038,107,918,98,827,96"/>
-<area shape="rect" title=" " alt="" coords="1325,225,1399,251"/>
-<area shape="poly" title=" " alt="" coords="827,89,937,89,1088,95,1165,102,1235,113,1293,129,1334,150,1346,163,1355,179,1363,211,1358,212,1350,181,1342,166,1331,154,1291,134,1234,118,1164,107,1087,100,937,94,827,95"/>
-<area shape="rect" href="structure_8h.html" title=" " alt="" coords="752,152,844,177"/>
-<area shape="poly" title=" " alt="" coords="801,104,801,138,795,138,795,104"/>
-<area shape="poly" title=" " alt="" coords="845,167,992,186,1064,202,1092,212,1113,223,1132,246,1151,283,1182,358,1177,360,1146,285,1127,249,1110,227,1090,217,1062,207,991,191,844,172"/>
-<area shape="poly" title=" " alt="" coords="752,179,555,225,554,220,751,174"/>
-<area shape="poly" title=" " alt="" coords="752,176,440,228,439,223,751,170"/>
-<area shape="poly" title=" " alt="" coords="845,170,1213,226,1212,232,844,176"/>
-<area shape="poly" title=" " alt="" coords="844,167,1043,186,1175,202,1311,223,1311,228,1174,207,1043,191,844,172"/>
-<area shape="rect" title=" " alt="" coords="615,225,671,251"/>
-<area shape="poly" title=" " alt="" coords="774,180,682,222,680,217,772,175"/>
-<area shape="rect" title=" " alt="" coords="921,225,1008,251"/>
-<area shape="poly" title=" " alt="" coords="826,175,926,217,924,222,824,180"/>
-<area shape="rect" title=" " alt="" coords="696,225,897,251"/>
-<area shape="poly" title=" " alt="" coords="800,178,800,212,794,212,795,178"/>
-<area shape="rect" href="atom_8h.html" title=" " alt="" coords="1032,225,1100,251"/>
-<area shape="poly" title=" " alt="" coords="842,175,1019,222,1018,227,840,180"/>
-<area shape="poly" title=" " alt="" coords="1032,251,1020,253,859,276,701,293,461,310,461,305,700,288,859,271,1019,248,1031,246"/>
-<area shape="poly" title=" " alt="" coords="1032,250,1020,253,977,259,938,260,871,256,841,257,810,263,779,276,746,301,736,313,729,327,723,358,717,357,724,326,732,310,743,297,777,272,809,257,840,251,871,251,938,255,976,254,1019,248,1031,245"/>
-<area shape="rect" title=" " alt="" coords="1046,445,1113,471"/>
-<area shape="poly" title=" " alt="" coords="1069,251,1080,431,1075,431,1064,251"/>
-<area shape="rect" title=" " alt="" coords="934,445,1014,471"/>
-<area shape="poly" title=" " alt="" coords="1065,252,1042,315,1008,398,990,435,985,432,1004,396,1037,313,1060,250"/>
-<area shape="rect" title=" " alt="" coords="957,299,999,324"/>
-<area shape="poly" title=" " alt="" coords="1054,253,1005,292,1001,288,1050,249"/>
-<area shape="rect" title=" " alt="" coords="843,445,894,471"/>
-<area shape="poly" title=" " alt="" coords="1033,250,983,269,957,283,935,301,910,331,893,367,881,402,875,433,869,431,876,401,888,365,906,328,931,297,954,279,981,264,1031,245"/>
-<area shape="rect" href="element_8h.html" title=" " alt="" coords="906,372,994,397"/>
-<area shape="poly" title=" " alt="" coords="1035,253,982,276,960,288,947,300,941,314,940,329,944,359,939,359,934,329,936,312,942,297,957,284,980,271,1033,248"/>
-<area shape="poly" title=" " alt="" coords="1032,251,845,300,843,294,1031,246"/>
-<area shape="poly" title=" " alt="" coords="972,395,1047,436,1045,441,970,400"/>
-<area shape="poly" title=" " alt="" coords="956,397,968,431,963,433,951,399"/>
-<area shape="poly" title=" " alt="" coords="939,399,894,438,890,434,935,395"/>
-<area shape="poly" title=" " alt="" coords="831,317,1146,373,1145,378,830,322"/>
-<area shape="poly" title=" " alt="" coords="784,326,743,364,740,361,780,322"/>
-<area shape="poly" title=" " alt="" coords="802,323,859,432,854,434,798,326"/>
-<area shape="poly" title=" " alt="" coords="820,322,913,364,911,369,818,326"/>
-<area shape="poly" title=" " alt="" coords="746,100,968,161,1079,196,1118,211,1140,223,1164,254,1179,291,1187,327,1191,358,1185,358,1182,328,1174,292,1159,257,1136,227,1115,216,1077,201,967,166,745,105"/>
-<area shape="poly" title=" " alt="" coords="681,106,637,127,590,154,550,186,517,217,514,213,547,182,587,150,635,122,679,102"/>
-<area shape="poly" title=" " alt="" coords="672,95,622,97,561,106,497,124,466,137,438,154,412,182,395,214,390,211,408,179,435,150,464,133,495,119,560,101,621,92,672,89"/>
-<area shape="poly" title=" " alt="" coords="672,96,618,100,551,110,478,127,408,154,372,173,341,194,331,206,326,218,325,233,331,249,350,273,375,290,372,295,347,277,326,252,320,234,320,217,327,203,338,190,369,169,406,150,477,122,550,104,618,95,672,91"/>
-<area shape="poly" title=" " alt="" coords="746,99,757,101,822,109,878,111,975,106,1021,106,1069,111,1122,125,1182,150,1203,163,1221,179,1250,212,1246,215,1218,182,1200,167,1179,154,1120,130,1068,117,1021,111,975,112,878,116,821,115,756,107,745,105"/>
-<area shape="poly" title=" " alt="" coords="746,99,757,101,827,111,886,114,989,114,1038,115,1090,120,1149,131,1216,149,1251,163,1284,180,1338,215,1335,220,1281,185,1248,168,1214,155,1147,136,1089,125,1038,121,989,120,886,120,826,116,756,107,745,105"/>
-<area shape="poly" title=" " alt="" coords="725,102,774,141,771,145,721,106"/>
-<area shape="poly" title=" " alt="" coords="706,106,657,214,652,212,701,103"/>
+<area shape="poly" title=" " alt="" coords="281,33,82,82,81,77,280,28"/>
+<area shape="rect" title=" " alt="" coords="50,152,109,177"/>
+<area shape="poly" title=" " alt="" coords="284,33,228,52,170,81,131,111,100,143,96,140,127,107,167,76,226,47,282,28"/>
+<area shape="rect" title=" " alt="" coords="292,79,363,104"/>
+<area shape="poly" title=" " alt="" coords="330,31,330,65,325,65,325,31"/>
+<area shape="rect" title=" " alt="" coords="387,79,478,104"/>
+<area shape="poly" title=" " alt="" coords="346,28,406,69,403,73,343,33"/>
+<area shape="rect" title=" " alt="" coords="502,79,587,104"/>
+<area shape="poly" title=" " alt="" coords="363,28,497,72,496,77,361,33"/>
+<area shape="rect" title=" " alt="" coords="612,79,675,104"/>
+<area shape="poly" title=" " alt="" coords="382,28,599,76,598,81,381,33"/>
+<area shape="rect" title=" " alt="" coords="699,79,758,104"/>
+<area shape="poly" title=" " alt="" coords="381,24,516,44,686,76,685,81,515,49,380,29"/>
+<area shape="rect" title=" " alt="" coords="133,152,237,177"/>
+<area shape="poly" title=" " alt="" coords="275,29,224,46,202,61,184,80,178,94,176,109,179,139,174,139,171,108,173,92,180,77,199,57,222,41,273,24"/>
+<area shape="rect" href="colour_8h.html" title=" " alt="" coords="195,79,268,104"/>
+<area shape="poly" title=" " alt="" coords="313,33,260,72,257,68,310,29"/>
+<area shape="poly" title=" " alt="" coords="208,106,117,149,115,144,206,102"/>
+<area shape="poly" title=" " alt="" coords="226,106,202,142,198,139,221,103"/>
+<area shape="rect" title=" " alt="" coords="246,225,297,251"/>
+<area shape="poly" title=" " alt="" coords="237,103,251,151,267,211,262,213,246,153,232,105"/>
+<area shape="rect" href="element_8h.html" title=" " alt="" coords="315,152,403,177"/>
+<area shape="poly" title=" " alt="" coords="253,102,327,143,325,147,251,106"/>
+<area shape="poly" title=" " alt="" coords="347,179,298,219,295,214,344,175"/>
+<area shape="rect" title=" " alt="" coords="425,225,491,251"/>
+<area shape="poly" title=" " alt="" coords="377,175,432,215,429,219,374,180"/>
+<area shape="rect" title=" " alt="" coords="321,225,401,251"/>
+<area shape="poly" title=" " alt="" coords="362,178,363,212,358,212,357,178"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -176,17 +130,23 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="util_8h__dep__incl.png" border="0" usemap="#ainclude_2util_8hdep" alt=""/></div>
 <map name="ainclude_2util_8hdep" id="ainclude_2util_8hdep">
-<area shape="rect" title=" " alt="" coords="165,5,271,31"/>
+<area shape="rect" title=" " alt="" coords="218,5,325,31"/>
 <area shape="rect" href="camera_8h.html" title=" " alt="" coords="99,79,233,104"/>
-<area shape="poly" title=" " alt="" coords="204,43,177,80,172,77,199,40"/>
-<area shape="rect" href="main_8h.html" title=" " alt="" coords="161,225,280,251"/>
-<area shape="poly" title=" " alt="" coords="234,42,247,78,251,121,246,163,228,226,223,224,240,162,245,121,242,79,229,44"/>
+<area shape="poly" title=" " alt="" coords="244,41,185,81,182,76,241,36"/>
+<area shape="rect" href="main_8h.html" title=" " alt="" coords="212,225,331,251"/>
+<area shape="poly" title=" " alt="" coords="274,45,274,225,269,225,269,45"/>
+<area shape="rect" href="xyz_8h.html" title=" " alt="" coords="309,79,417,104"/>
+<area shape="poly" title=" " alt="" coords="298,37,350,76,347,81,295,41"/>
 <area shape="rect" href="atomRenderer_8h.html" title=" " alt="" coords="5,152,183,177"/>
 <area shape="poly" title=" " alt="" coords="146,116,108,154,104,150,142,112"/>
-<area shape="poly" title=" " alt="" coords="181,115,196,151,220,224,215,226,192,153,176,118"/>
-<area shape="poly" title=" " alt="" coords="128,182,201,223,199,227,125,186"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="168,299,273,324"/>
-<area shape="poly" title=" " alt="" coords="223,264,223,299,218,299,218,264"/>
+<area shape="poly" title=" " alt="" coords="185,114,265,224,261,227,181,117"/>
+<area shape="poly" title=" " alt="" coords="136,180,243,223,241,228,134,185"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="219,299,324,324"/>
+<area shape="poly" title=" " alt="" coords="274,264,274,299,269,299,269,264"/>
+<area shape="poly" title=" " alt="" coords="351,117,281,227,276,224,346,114"/>
+<area shape="rect" href="structureUtils_8h.html" title=" " alt="" coords="359,152,533,177"/>
+<area shape="poly" title=" " alt="" coords="389,111,434,150,431,154,385,115"/>
+<area shape="poly" title=" " alt="" coords="406,185,301,228,299,223,404,180"/>
 </map>
 </div>
 </div>
@@ -203,13 +163,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a993c1a4171c23f9731e0b97ee43c2cc7" id="r_a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a993c1a4171c23f9731e0b97ee43c2cc7">fixedLengthNumber</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">double</a> x, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">unsigned</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">length</a>)</td></tr>
 <tr class="memdesc:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a double to a fixes length std::string.  <br /></td></tr>
 <tr class="separator:a993c1a4171c23f9731e0b97ee43c2cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98056f3b92d685557db0706a57a477fb" id="r_a98056f3b92d685557db0706a57a477fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a98056f3b92d685557db0706a57a477fb">readStructureFile</a> (std::filesystem::path path, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::unique_ptr</a>&lt; <a class="el" href="classStructure.html">Structure</a> &gt; &amp;structure, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a>=<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a>)</td></tr>
-<tr class="memdesc:a98056f3b92d685557db0706a57a477fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a structure file from the path.  <br /></td></tr>
-<tr class="separator:a98056f3b92d685557db0706a57a477fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a100ab4db5d111243877cb1b5e2b32f71" id="r_a100ab4db5d111243877cb1b5e2b32f71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a100ab4db5d111243877cb1b5e2b32f71">split</a> (<a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">str</a>, <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::regex</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">delim</a>)</td></tr>
+<tr class="memdesc:a100ab4db5d111243877cb1b5e2b32f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split a std::string by a std::regex token.  <br /></td></tr>
+<tr class="separator:a100ab4db5d111243877cb1b5e2b32f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ac1d8633b8d92bf58856ee534f88b11fe" id="r_ac1d8633b8d92bf58856ee534f88b11fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">const</a> <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#ac1d8633b8d92bf58856ee534f88b11fe">sfoavAtoms</a></td></tr>
+<tr class="memdesc:ac1d8633b8d92bf58856ee534f88b11fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of atoms spelling SFOAV to display during loading.  <br /></td></tr>
 <tr class="separator:ac1d8633b8d92bf58856ee534f88b11fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -281,53 +242,6 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
 
 </div>
 </div>
-<a id="a98056f3b92d685557db0706a57a477fb" name="a98056f3b92d685557db0706a57a477fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98056f3b92d685557db0706a57a477fb">&#9670;&#160;</a></span>readStructureFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">void</a> readStructureFile </td>
-          <td>(</td>
-          <td class="paramtype">std::filesystem::path&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::unique_ptr</a>&lt; <a class="el" href="classStructure.html">Structure</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>structure</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">bool</a>&#160;</td>
-          <td class="paramname"><em>blocking</em> = <code><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">false</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Read a structure file from the path. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Will attemp to automatically detect CONFIG-like of [EXT]<a class="el" href="classXYZ.html" title="Read XYZ and EXTXYZ files.">XYZ</a> files. </dd>
-<dd>
-Will try both on failure. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>the structure file's path. </td></tr>
-    <tr><td class="paramname">structure</td><td>the structure unique pointer. </td></tr>
-    <tr><td class="paramname">blocking</td><td>whether reads are blocking or detached. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="abf79d5d2b1fa4f488ac4660f2d33d90a" name="abf79d5d2b1fa4f488ac4660f2d33d90a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf79d5d2b1fa4f488ac4660f2d33d90a">&#9670;&#160;</a></span>spherical2cartesian()</h2>
 
@@ -358,6 +272,44 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
 
 </div>
 </div>
+<a id="a100ab4db5d111243877cb1b5e2b32f71" name="a100ab4db5d111243877cb1b5e2b32f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a100ab4db5d111243877cb1b5e2b32f71">&#9670;&#160;</a></span>split()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::vector</a>&lt; <a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a> &gt; split </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::string</a>&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">std::regex</a>&#160;</td>
+          <td class="paramname"><em>delim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Split a std::string by a std::regex token. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>the std::string to split. </td></tr>
+    <tr><td class="paramname">delim</td><td>the std::regex delimiter. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::string&gt; the substrings split on delim. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="ac1d8633b8d92bf58856ee534f88b11fe" name="ac1d8633b8d92bf58856ee534f88b11fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1d8633b8d92bf58856ee534f88b11fe">&#9670;&#160;</a></span>sfoavAtoms</h2>
@@ -370,6 +322,8 @@ The spherical coordinates are length, polar angle (resp. +y), and azimuthal angl
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>A set of atoms spelling SFOAV to display during loading. </p>
 
 </div>
 </div>
