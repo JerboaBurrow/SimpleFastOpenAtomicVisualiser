@@ -6,13 +6,11 @@
 #include <limits.h>
 #include <filesystem>
 #include <algorithm>
-#include <memory>
 #include <vector>
+#include <regex>
 
 #include <glm/glm.hpp>
 
-#include <xyz.h>
-#include <config.h>
 #include <colour.h>
 
 /**
@@ -96,56 +94,24 @@ std::string fixedLengthNumber(double x, unsigned length)
     return dtrunc;
 }
 
-/**
- * @brief Read a structure file from the path.
- *
- * @remark Will attemp to automatically detect CONFIG-like of [EXT]XYZ files.
- * @remark Will try both on failure.
- * @param path the structure file's path.
- * @param structure the structure unique pointer.
- * @param blocking whether reads are blocking or detached.
- */
-void readStructureFile
-(
-    std::filesystem::path path,
-    std::unique_ptr<Structure> & structure,
-    bool blocking = false
-)
+std::vector<std::string> split(std::string str, std::regex delim)
 {
-    if (!ostensiblyXYZLike(path))
+    std::vector<std::string> s;
+    auto matches = std::sregex_iterator(str.begin(), str.end(), delim);
+    if (std::distance(matches, std::sregex_iterator()) == 0) { return {str}; }
+    auto key = matches->position();
+    if (key > 0)
     {
-        if (!ostensiblyCONFIGLike(path))
-        {
-            std::cout << path << " does not appear to refer to an [EXT]XYZ or CONFIG-like\n";
-        }
-        try
-        {
-            structure = std::make_unique<CONFIG>(path, blocking);
-        }
-        catch (std::runtime_error & e)
-        {
-            std::cout << "Could not parse "
-                      << path
-                      << " as a CONFIG-like:\n"
-                      << e.what() << "\n Trying [EXT]XYZ\n";
-            structure = std::make_unique<XYZ>(path, blocking);
-        }
+        s.push_back(str.substr(0, key-1));
     }
-    else
+    while (matches != std::sregex_iterator())
     {
-        try
-        {
-            structure = std::make_unique<XYZ>(path, blocking);
-        }
-        catch (std::runtime_error & e)
-        {
-            std::cout << "Could not parse "
-                      << path
-                      << " as an [EXT]XYZ:\n"
-                      << e.what() << "\n Trying CONFIG-like\n";
-            structure = std::make_unique<CONFIG>(path, blocking);
-        }
+        key = matches->position();
+        matches++;
+        auto next = matches->position();
+        s.push_back(str.substr(key, next-1-key));
     }
+    return s;
 }
 
 const std::vector<Atom> sfoavAtoms =

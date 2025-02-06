@@ -9,6 +9,7 @@
 #include <algorithm>
 
 #include <structure.h>
+#include <util.h>
 
 /**
  * @brief Check if a path is XYZ'y
@@ -65,6 +66,8 @@ public:
 
 private:
 
+    std::map<std::string, std::string> metaData;
+
     void initialise()
     {
         beginning();
@@ -73,11 +76,34 @@ private:
         std::stringstream count(line);
         count >> natoms;
         checkRead(count, line, "XYZ readAtomCount");
+        parseMetaData();
+        getCell();
         beginning();
         framePositions[0] = filestream.tellg();
         frames = 1;
         linesPerFrame = natoms+2;
         atoms.resize(natoms);
+    }
+
+    void parseMetaData()
+    {
+        beginning();
+        skipLine(filestream);
+        std::string line;
+        std::getline(filestream, line);
+        std::vector<std::string> comment = split(line, std::regex("\\w*="));
+        if (comment.size() > 0)
+        {
+            for (auto s : comment)
+            {
+                auto pos = s.find("=");
+                metaData.insert(std::pair(s.substr(0, pos), s.substr(pos+1)));
+            }
+        }
+        else
+        {
+            metaData["comment"] = line;
+        }
     }
 
     void getAtoms()
@@ -115,6 +141,24 @@ private:
             this
         );
         io.detach();
+    }
+
+    void getCell()
+    {
+        if (metaData.find("Lattice") != metaData.end())
+        {
+            auto values = split(metaData["Lattice"], std::regex(" "));
+            for (auto & v : values)
+            {
+                v = std::regex_replace(v, std::regex("[^0-9\\.]"), "");
+            }
+            if (values.size() == 9)
+            {
+                cellA = glm::vec3(std::stof(values[0]), std::stof(values[1]), std::stof(values[2]));
+                cellB = glm::vec3(std::stof(values[3]), std::stof(values[4]), std::stof(values[5]));
+                cellC = glm::vec3(std::stof(values[6]), std::stof(values[7]), std::stof(values[8]));
+            }
+        }
     }
 };
 

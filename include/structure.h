@@ -36,7 +36,10 @@ public:
       timeStep(0),
       currentFrame(0),
       linesInFile(0),
-      atomsRead(0)
+      atomsRead(0),
+      cellA(0),
+      cellB(0),
+      cellC(0)
     {}
 
     /**
@@ -156,10 +159,13 @@ protected:
     uint64_t linesInFile;
     uint64_t atomsRead;
 
+    glm::vec3 cellA;
+    glm::vec3 cellB;
+    glm::vec3 cellC;
+
     bool cacheComplete = false;
 
     std::map<uint64_t, uint64_t> framePositions;
-
 
     virtual void beginning()
     {
@@ -167,6 +173,8 @@ protected:
     }
 
     virtual void getFrame() = 0;
+
+    virtual void getCell() = 0;
 
     void skipFrame()
     {

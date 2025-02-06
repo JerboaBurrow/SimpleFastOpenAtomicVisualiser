@@ -1,6 +1,6 @@
 #include <config.h>
 #include <xyz.h>
-#include <util.h>
+#include <structureUtils.h>
 
 #include <memory>
 

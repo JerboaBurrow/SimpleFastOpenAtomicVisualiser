@@ -96,10 +96,6 @@ private:
     unsigned levcfg;
     unsigned imcon;
 
-    glm::vec3 cellA;
-    glm::vec3 cellB;
-    glm::vec3 cellC;
-
     void initialise()
     {
         filestream.seekg(std::ios::beg);
