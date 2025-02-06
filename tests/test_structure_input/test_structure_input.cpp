@@ -1,6 +1,6 @@
 #include <config.h>
 #include <xyz.h>
-#include <util.h>
+#include <structureUtils.h>
 
 #include <memory>
 
@@ -24,6 +24,18 @@ SCENARIO("XYZ reading")
             THEN("xyz has 36 atoms")
             {
                 REQUIRE(xyz.atomCount() == 36);
+            }
+            THEN("xyz has cell vector A [0.0, 0.0, 0.0]")
+            {
+                checkVec3(xyz.getCellA(), glm::vec3(0.0));
+            }
+            THEN("xyz has cell vector B [0.0, 0.0, 0.0]")
+            {
+                checkVec3(xyz.getCellB(), glm::vec3(0.0));
+            }
+            THEN("xyz has cell vector C [0.0, 0.0, 0.0]")
+            {
+                checkVec3(xyz.getCellC(), glm::vec3(0.0));
             }
             WHEN("A frame is obtained")
             {
@@ -58,6 +70,18 @@ SCENARIO("XYZ reading")
             THEN("xyz has 576 atoms")
             {
                 REQUIRE(xyz.atomCount() == 576);
+            }
+            THEN("xyz has cell vector A [17.721128524035894, 0.0, 0.0]")
+            {
+                checkVec3(xyz.getCellA(), glm::vec3(17.721128524035894, 0.0, 0.0));
+            }
+            THEN("xyz has cell vector B [0.0, 16.310235143010342, 0.0]")
+            {
+                checkVec3(xyz.getCellB(), glm::vec3(0.0, 16.310235143010342, 0.0));
+            }
+            THEN("xyz has cell vector C [0.0, 0.0, 15.338962815815137]")
+            {
+                checkVec3(xyz.getCellC(), glm::vec3(0.0, 0.0, 15.338962815815137));
             }
             WHEN("A frame is obtained")
             {

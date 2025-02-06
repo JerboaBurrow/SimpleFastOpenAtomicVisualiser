@@ -36,7 +36,10 @@ public:
       timeStep(0),
       currentFrame(0),
       linesInFile(0),
-      atomsRead(0)
+      atomsRead(0),
+      cellA(0),
+      cellB(0),
+      cellC(0)
     {}
 
     /**
@@ -143,6 +146,27 @@ public:
      */
     std::vector<Atom> atoms;
 
+    /**
+     * @brief Get the a cell vector.
+     *
+     * @return glm::vec3 cell vector a.
+     */
+    glm::vec3 getCellA() const { return cellA; }
+
+    /**
+     * @brief Get the b cell vector.
+     *
+     * @return glm::vec3 cell vector b.
+     */
+    glm::vec3 getCellB() const { return cellB; }
+
+    /**
+     * @brief Get the c cell vector.
+     *
+     * @return glm::vec3 cell vector c.
+     */
+    glm::vec3 getCellC() const { return cellC; }
+
 protected:
 
     std::filesystem::path path;
@@ -156,10 +180,13 @@ protected:
     uint64_t linesInFile;
     uint64_t atomsRead;
 
+    glm::vec3 cellA;
+    glm::vec3 cellB;
+    glm::vec3 cellC;
+
     bool cacheComplete = false;
 
     std::map<uint64_t, uint64_t> framePositions;
-
 
     virtual void beginning()
     {
@@ -167,6 +194,8 @@ protected:
     }
 
     virtual void getFrame() = 0;
+
+    virtual void getCell() = 0;
 
     void skipFrame()
     {

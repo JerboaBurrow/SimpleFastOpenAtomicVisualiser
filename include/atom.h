@@ -183,4 +183,5 @@ std::multimap<Element, uint64_t> elementIndices(const std::vector<Atom> & atoms)
     }
     return m;
 }
+
 #endif /* ATOM_H */

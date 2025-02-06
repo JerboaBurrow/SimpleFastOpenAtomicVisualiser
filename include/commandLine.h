@@ -382,7 +382,7 @@ struct CommandLine
           << "Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
           << "License: MIT, Jerboa 2025.\n"
           << VERSION
-          << "\n -h for help.";
+          << "\n -h for help.\n";
           std::cout << w.str();
     }
 

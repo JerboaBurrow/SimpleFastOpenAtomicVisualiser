@@ -84,10 +84,6 @@ public:
         scanPositions();
     }
 
-    glm::vec3 getCellA() const { return cellA; }
-    glm::vec3 getCellB() const { return cellB; }
-    glm::vec3 getCellC() const { return cellC; }
-
 private:
 
     bool HISTORY = false;
@@ -95,10 +91,6 @@ private:
     uint64_t linesPerAtom;
     unsigned levcfg;
     unsigned imcon;
-
-    glm::vec3 cellA;
-    glm::vec3 cellB;
-    glm::vec3 cellC;
 
     void initialise()
     {

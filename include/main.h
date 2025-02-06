@@ -19,6 +19,7 @@
 #include <bondRenderer.h>
 #include <util.h>
 #include <glUtils.h>
+#include <structureUtils.h>
 #include <commandLine.h>
 #include <xyz.h>
 #include <config.h>
