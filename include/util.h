@@ -94,6 +94,13 @@ std::string fixedLengthNumber(double x, unsigned length)
     return dtrunc;
 }
 
+/**
+ * @brief Split a std::string by a std::regex token.
+ *
+ * @param str the std::string to split.
+ * @param delim the std::regex delimiter.
+ * @return std::vector<std::string> the substrings split on delim.
+ */
 std::vector<std::string> split(std::string str, std::regex delim)
 {
     std::vector<std::string> s;
@@ -114,6 +121,10 @@ std::vector<std::string> split(std::string str, std::regex delim)
     return s;
 }
 
+/**
+ * @brief A set of atoms spelling SFOAV to display during loading.
+ *
+ */
 const std::vector<Atom> sfoavAtoms =
 {
     {Element::S, {-11.3966, -2.10345, 0.0}, 0.5f*ELEMENT_RADIUS.at(Element::S), CPK_COLOURS.at(Element::S)},

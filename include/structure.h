@@ -146,6 +146,27 @@ public:
      */
     std::vector<Atom> atoms;
 
+    /**
+     * @brief Get the a cell vector.
+     *
+     * @return glm::vec3 cell vector a.
+     */
+    glm::vec3 getCellA() const { return cellA; }
+
+    /**
+     * @brief Get the b cell vector.
+     *
+     * @return glm::vec3 cell vector b.
+     */
+    glm::vec3 getCellB() const { return cellB; }
+
+    /**
+     * @brief Get the c cell vector.
+     *
+     * @return glm::vec3 cell vector c.
+     */
+    glm::vec3 getCellC() const { return cellC; }
+
 protected:
 
     std::filesystem::path path;

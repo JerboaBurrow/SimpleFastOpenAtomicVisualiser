@@ -84,10 +84,6 @@ public:
         scanPositions();
     }
 
-    glm::vec3 getCellA() const { return cellA; }
-    glm::vec3 getCellB() const { return cellB; }
-    glm::vec3 getCellC() const { return cellC; }
-
 private:
 
     bool HISTORY = false;
