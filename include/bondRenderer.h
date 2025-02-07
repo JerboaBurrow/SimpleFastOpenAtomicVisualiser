@@ -57,6 +57,22 @@ public:
     }
 
     /**
+     * @brief Set the clip correction.
+     *
+     * @remark The clip correction is a fudge factor for
+     * the ray tracing. It is the size of the square picture plane
+     * through which rays are traced. Due to projective geometry
+     * a value of 1.0f leaves part of a sphere/cylinder off plane.
+     * Larger values may be needed for thinner/longer cylinders.
+     * @param correction overdraw amount.
+     */
+    void setClipCorrection(float correction)
+    {
+        shader->use();
+        shader->setUniform<float>("clipCorrection", correction);
+    }
+
+    /**
      * @brief Set the view matrix.
      *
      * @param v the view matrix.

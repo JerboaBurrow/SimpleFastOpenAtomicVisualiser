@@ -40,6 +40,47 @@ public:
     }
 
     /**
+     * @brief Construct a new Camera at a given position.
+     *
+     * @param positionSpherical the camera's position in spherical coordinates.
+     * @param resX the screen resolution width.
+     * @param resY the screen resolution in height.
+     */
+    Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY)
+    : resX(resX), resY(resY), positionSpherical(positionSpherical)
+    {
+        reset();
+    }
+
+    /**
+     * @brief Set the default view.
+     */
+    void reset()
+    {
+        focus = {0.0, 0.0, 0.0};
+        up = 1.0;
+
+        projection = glm::perspective
+        (
+            glm::radians(45.0f), float(resX)/float(resY),
+            0.1f,
+            1000.0f
+        );
+        invProjection = glm::inverse(projection);
+
+        view = glm::lookAt
+        (
+            spherical2cartesian(positionSpherical),
+            focus,
+            glm::vec3(0.0, up, 0.0)
+        );
+        invView = glm::inverse(view);
+
+        pv = projection*view;
+        invPv = glm::inverse(pv);
+    }
+
+    /**
      * @brief Set the default view.
      * @remark reset() sets the camera to its default position. Far enough
      * to see all the atoms, focussing on {0,0,0} and up point +tve y.
@@ -54,22 +95,7 @@ public:
             M_PI*0.5f,
             M_PI
         );
-        focus = {0.0, 0.0, 0.0};
-        up = 1.0;
-
-        projection = glm::perspective
-        (
-            glm::radians(45.0f), float(resX)/float(resY),
-            0.1f,
-            1000.0f
-        );
-
-        view = glm::lookAt
-        (
-            spherical2cartesian(positionSpherical),
-            focus,
-            glm::vec3(0.0, up, 0.0)
-        );
+        reset();
     }
 
     /**
@@ -112,11 +138,43 @@ public:
     }
 
     /**
+     * @brief Set the camera's position.
+     *
+     * @remark Updates the view.
+     * @param positionSpherical the position in spherical coordinates.
+     */
+    void setPosition(glm::vec3 positionSpherical)
+    {
+        this->positionSpherical = positionSpherical;
+        setView();
+    }
+
+    /**
      * @brief Return the cartesian position vector.
      *
+     * @param spherical if true return the position in spherical coordinates.
+     *  Otherwise cartesian.
      * @return glm::vec3 the cartesian position of the camera.
      */
-    glm::vec3 position() const { return spherical2cartesian(positionSpherical); }
+    glm::vec3 position(bool spherical = false) const
+    {
+        return spherical ? positionSpherical : spherical2cartesian(positionSpherical);
+    }
+
+    /**
+     * @brief Set the up direction.
+     *
+     * @remark Updates the view.
+     * @param up the up direction.
+     */
+    void setUp(float up) { this->up = up < 0 ? -1.0 : 1.0; setView(); }
+
+    /**
+     * @brief Get the up direction.
+     *
+     * @return float
+     */
+    float getUp() const { return up; }
 
     /**
      * @brief Get the Projection matrix.
@@ -126,11 +184,43 @@ public:
     glm::mat4 getProjection() const { return projection; }
 
     /**
+     * @brief Get the inverse Projection matrix.
+     *
+     * @return glm::mat4 the current inverse projection.
+     */
+    glm::mat4 getInverseProjection() const { return invProjection; }
+
+    /**
      * @brief Get the View matrix.
      *
      * @return glm::mat4 the current view matrix.
      */
     glm::mat4 getView() const { return view; }
+
+    /**
+     * @brief Get the inverse View matrix.
+     *
+     * @return glm::mat4 the current inverse view matrix.
+     */
+    glm::mat4 getInverseView() const { return invView; }
+
+    /**
+     * @brief Get the Projection*View matrix.
+     *
+     * @return glm::mat4 the current Projection*View matrix.
+     */
+    glm::mat4 getPV() const { return pv; }
+
+    /**
+     * @brief Get the inverse Projection*View matrix.
+     *
+     * @return glm::mat4 the current inverse Projection*View matrix.
+     */
+    glm::mat4 getInversePV() const { return invPv; }
+
+
+    uint16_t getResX() const { return resX; }
+    uint16_t getResY() const { return resY; }
 
 private:
 
@@ -142,7 +232,11 @@ private:
     float up;
 
     glm::mat4 projection;
+    glm::mat4 invProjection;
     glm::mat4 view;
+    glm::mat4 invView;
+    glm::mat4 pv;
+    glm::mat4 invPv;
 
     void setView()
     {
@@ -152,6 +246,9 @@ private:
             focus,
             glm::vec3(0.0, up, 0.0)
         );
+        invView = glm::inverse(view);
+        pv = projection*view;
+        invPv = glm::inverse(pv);
     }
 
 };

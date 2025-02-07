@@ -115,6 +115,8 @@ int main(int argv, char ** argc)
 
     bondRenderer.setBondScale(options.bondSize.value);
 
+    Axes axes(camera);
+
     elementsNeedUpdate = true;
 
     while (display.isOpen())
@@ -170,6 +172,11 @@ int main(int argv, char ** argc)
             }
         }
 
+        if (display.keyHasEvent(GLFW_KEY_X, jGL::EventType::PRESS))
+        {
+            options.showAxes.value = !options.showAxes.value;
+        }
+
         if (readInProgress && structure->frameReadComplete())
         {
             // Previous threaded read is done.
@@ -222,6 +229,12 @@ int main(int argv, char ** argc)
             0.5f,
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
         );
+
+        if (options.showAxes.value)
+        {
+            axes.updateCamera(camera);
+            axes.draw();
+        }
 
         jGLInstance->endFrame();
         display.loop();
