@@ -14,8 +14,15 @@ var searchData=
   ['getchildren_11',['getChildren',['../classTrixel.html#a487541e6595431e068baa15e5b169ca7',1,'Trixel']]],
   ['getframe_12',['getFrame',['../classStructure.html#a297b652c8b581773d8198d1de929740e',1,'Structure']]],
   ['getid_13',['getID',['../classTrixel.html#ac481846319f04048518bc62b8e980f26',1,'Trixel']]],
-  ['getlevelofdetail_14',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
-  ['getprojection_15',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
-  ['getvertices_16',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
-  ['getview_17',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]]
+  ['getinverseprojection_14',['getInverseProjection',['../classCamera.html#a988146b60811d7ed1f0ede9121291328',1,'Camera']]],
+  ['getinversepv_15',['getInversePV',['../classCamera.html#a68819b248761ec8de1919ca3a512caee',1,'Camera']]],
+  ['getinverseview_16',['getInverseView',['../classCamera.html#a25664922d842c3f36a5be99bea0bda0d',1,'Camera']]],
+  ['getlevelofdetail_17',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
+  ['getprojection_18',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
+  ['getpv_19',['getPV',['../classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced',1,'Camera']]],
+  ['getresx_20',['getResX',['../classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8',1,'Camera']]],
+  ['getresy_21',['getResY',['../classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7',1,'Camera']]],
+  ['getup_22',['getUp',['../classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9',1,'Camera']]],
+  ['getvertices_23',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
+  ['getview_24',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]]
 ];

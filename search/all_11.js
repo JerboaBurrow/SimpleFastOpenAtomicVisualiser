@@ -6,7 +6,7 @@ var searchData=
   ['readframe_3',['readFrame',['../classStructure.html#aae31cb43e666bc1c02919491747b9121',1,'Structure']]],
   ['readstructurefile_4',['readStructureFile',['../structureUtils_8h.html#a98056f3b92d685557db0706a57a477fb',1,'structureUtils.h']]],
   ['required_5',['required',['../structArgument.html#aba731a2e49710b50dca2074724c7fc27',1,'Argument']]],
-  ['reset_6',['reset',['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera']]],
+  ['reset_6',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
   ['resx_7',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
   ['resy_8',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]],
   ['rh_9',['Rh',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6148fe1f88038beee78fbaf681419d60',1,'element.h']]],
