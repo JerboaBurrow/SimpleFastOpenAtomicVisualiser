@@ -17,6 +17,7 @@
 #include <atom.h>
 #include <atomRenderer.h>
 #include <bondRenderer.h>
+#include <axes.h>
 #include <util.h>
 #include <glUtils.h>
 #include <structureUtils.h>

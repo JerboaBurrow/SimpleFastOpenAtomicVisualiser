@@ -1,7 +1,6 @@
 #ifndef ATOMRENDERER_H
 #define ATOMRENDERER_H
 
-#include <iostream>
 #include <memory>
 #include <vector>
 #include <map>

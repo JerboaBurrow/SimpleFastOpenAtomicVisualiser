@@ -115,6 +115,8 @@ int main(int argv, char ** argc)
 
     bondRenderer.setBondScale(options.bondSize.value);
 
+    Axes axes(camera);
+
     elementsNeedUpdate = true;
 
     while (display.isOpen())
@@ -222,6 +224,9 @@ int main(int argv, char ** argc)
             0.5f,
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
         );
+
+        axes.updateCamera(camera);
+        axes.draw();
 
         jGLInstance->endFrame();
         display.loop();

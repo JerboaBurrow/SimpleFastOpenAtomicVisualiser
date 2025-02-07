@@ -1,6 +1,8 @@
 #ifndef GLUTILS_H
 #define GLUTILS_H
 
+#include <glm/glm.hpp>
+
 #include <jGL/OpenGL/gl.h>
 
 /**
