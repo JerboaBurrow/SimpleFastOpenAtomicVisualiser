@@ -172,6 +172,11 @@ int main(int argv, char ** argc)
             }
         }
 
+        if (display.keyHasEvent(GLFW_KEY_X, jGL::EventType::PRESS))
+        {
+            options.showAxes.value = !options.showAxes.value;
+        }
+
         if (readInProgress && structure->frameReadComplete())
         {
             // Previous threaded read is done.
@@ -225,8 +230,11 @@ int main(int argv, char ** argc)
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
         );
 
-        axes.updateCamera(camera);
-        axes.draw();
+        if (options.showAxes.value)
+        {
+            axes.updateCamera(camera);
+            axes.draw();
+        }
 
         jGLInstance->endFrame();
         display.loop();
