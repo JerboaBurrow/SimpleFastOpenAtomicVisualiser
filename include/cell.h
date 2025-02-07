@@ -8,11 +8,23 @@
 
 #include <glUtils.h>
 
+/**
+ * @brief Draw the simulation cell (a box).
+ *
+ * @remarl draws the edges of the simulation cell box.
+ */
 class Cell
 {
 
 public:
 
+    /**
+     * @brief Construct a new Cell from cell vectors.
+     *
+     * @param a first axis of box.
+     * @param b second axis of box.
+     * @param c third axis of box.
+     */
     Cell(glm::vec3 a, glm::vec3 b, glm::vec3 c)
     : a(a), b(b), c(c)
     {
@@ -58,12 +70,24 @@ public:
         glDeleteVertexArrays(1, &vao);
     }
 
+    /**
+     * @brief Set the Projection*View matrix.
+     *
+     * @param pv the PV matrix.
+     */
     void setProjectionView(glm::mat4 pv)
     {
         shader->use();
         shader->setUniform<glm::mat4>("proj", pv);
     }
 
+    /**
+     * @brief Set the cell vectors.
+     *
+     * @param a first axis of box.
+     * @param b second axis of box.
+     * @param c third axis of box.
+     */
     void setVectors(glm::vec3 a, glm::vec3 b, glm::vec3 c)
     {
         this->a = a; this->b = b; this->c = c;
@@ -80,6 +104,10 @@ public:
         glBindVertexArray(0);
     }
 
+    /**
+     * @brief Draw the cell box by its edges.
+     *
+     */
     void draw()
     {
         glEnable(GL_BLEND);
