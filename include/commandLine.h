@@ -334,6 +334,7 @@ struct CommandLine
             getArgument<float>(bondSize, commandLine, c, count);
             getArgument<bool>(hideAtoms, commandLine, c, count);
             getArgument<bool>(showAxes, commandLine, c, count);
+            getArgument<bool>(showCell, commandLine, c, count);
             getArgument<float>(deemphasisAlpha, commandLine, c, count);
         }
     }
@@ -347,6 +348,7 @@ struct CommandLine
     Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f, false};
     Argument<bool> hideAtoms = {"hideAtoms", "Whether to hide atoms (toggle-able at runtime).", false, false};
     Argument<bool> showAxes = {"showAxes", "Whether to show the coordinate axes (toggle-able at runtime).", false, false};
+    Argument<bool> showCell = {"showCell", "Whether to show the simulation cell (toggle-able at runtime).", false, false};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
 
     /**
@@ -418,6 +420,8 @@ struct CommandLine
           << hideAtoms.help()
           << "\n"
           << showAxes.help()
+          << "\n"
+          << showCell.help()
           << "\n"
           << deemphasisAlpha.help()
           << "\n";
