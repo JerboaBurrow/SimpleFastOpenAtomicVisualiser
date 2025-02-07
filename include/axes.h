@@ -5,6 +5,10 @@
 
 #include <bondRenderer.h>
 
+/**
+ * @brief Render the coordinate axes.
+ * @remark Renders a fixed view of the coordinate axes's orientation.
+ */
 class Axes
 {
 
