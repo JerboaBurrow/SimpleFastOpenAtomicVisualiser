@@ -199,6 +199,7 @@ int main(int argv, char ** argc)
                 bonds = determineBonds(structure->atoms, options.bondCutoff.value);
             }
             setAlpha(structure->atoms, alphaOverrides);
+            cell.setVectors(structure->getCellA(), structure->getCellB(), structure->getCellC());
             elementsNeedUpdate = true;
         }
 
