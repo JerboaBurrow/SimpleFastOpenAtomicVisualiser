@@ -116,6 +116,12 @@ int main(int argv, char ** argc)
     bondRenderer.setBondScale(options.bondSize.value);
 
     Axes axes(camera);
+    Cell cell
+    (
+        structure->getCellA(),
+        structure->getCellB(),
+        structure->getCellC()
+    );
 
     elementsNeedUpdate = true;
 
@@ -177,6 +183,11 @@ int main(int argv, char ** argc)
             options.showAxes.value = !options.showAxes.value;
         }
 
+        if (display.keyHasEvent(GLFW_KEY_C, jGL::EventType::PRESS))
+        {
+            options.showCell.value = !options.showCell.value;
+        }
+
         if (readInProgress && structure->frameReadComplete())
         {
             // Previous threaded read is done.
@@ -234,6 +245,12 @@ int main(int argv, char ** argc)
         {
             axes.updateCamera(camera);
             axes.draw();
+        }
+
+        if (options.showCell.value)
+        {
+            cell.setProjectionView(camera.getPV());
+            cell.draw();
         }
 
         jGLInstance->endFrame();

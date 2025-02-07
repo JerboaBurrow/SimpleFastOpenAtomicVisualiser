@@ -63,6 +63,7 @@ At runtime the following key-controls can be used:
 | B      | Move backward in time | |
 | 1 to 9 | Toggle element emphasis | Elements assigned at startup. |
 | X      | Toggle coordinate axes | |
+| C      | Toggle simulation cell | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
