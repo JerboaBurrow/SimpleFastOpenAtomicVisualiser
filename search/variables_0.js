@@ -6,5 +6,6 @@ var searchData=
   ['atomindexa_3',['atomIndexA',['../structBond.html#aa3146480e061c281e58cca612a0df5cf',1,'Bond']]],
   ['atomindexb_4',['atomIndexB',['../structBond.html#ab3d7af24e95906072ab05423925394e2',1,'Bond']]],
   ['atoms_5',['atoms',['../classStructure.html#a719de7ae18af60a2d7086203b323b7ab',1,'Structure']]],
-  ['atomsread_6',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]]
+  ['atomsize_6',['atomSize',['../structCommandLine.html#a2eb01d3da725b9a8bc01b3aa42f85c92',1,'CommandLine']]],
+  ['atomsread_7',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]]
 ];

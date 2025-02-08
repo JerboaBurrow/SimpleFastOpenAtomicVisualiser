@@ -27,8 +27,9 @@ var searchData=
   ['atomrenderer_24',['atomrenderer',['../classAtomRenderer.html',1,'AtomRenderer'],['../classAtomRenderer.html#ab9934f70e962740dc614b47e96d7d364',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, std::vector&lt; Trixel&lt; float &gt; &gt; mesh, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0))'],['../classAtomRenderer.html#aa76ad11c26c5e57f0a383a05c7e5921a',1,'AtomRenderer::AtomRenderer(const std::vector&lt; Atom &gt; &amp;atoms, uint8_t levelOfDetail=0, glm::vec3 cameraPosition=glm::vec3(0), BASE_MESH mesh=BASE_MESH::ANY)']]],
   ['atomrenderer_2eh_25',['atomRenderer.h',['../atomRenderer_8h.html',1,'']]],
   ['atoms_26',['atoms',['../classStructure.html#a719de7ae18af60a2d7086203b323b7ab',1,'Structure']]],
-  ['atomsread_27',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]],
-  ['au_28',['Au',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a515322af1eb924f2a4cee609d1f39bfa',1,'element.h']]],
-  ['axes_29',['axes',['../classAxes.html#af7cf27b215938a08ed5bb11e59a48cc3',1,'Axes::Axes()'],['../classAxes.html',1,'Axes']]],
-  ['axes_2eh_30',['axes.h',['../axes_8h.html',1,'']]]
+  ['atomsize_27',['atomSize',['../structCommandLine.html#a2eb01d3da725b9a8bc01b3aa42f85c92',1,'CommandLine']]],
+  ['atomsread_28',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]],
+  ['au_29',['Au',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a515322af1eb924f2a4cee609d1f39bfa',1,'element.h']]],
+  ['axes_30',['axes',['../classAxes.html',1,'Axes'],['../classAxes.html#af7cf27b215938a08ed5bb11e59a48cc3',1,'Axes::Axes()']]],
+  ['axes_2eh_31',['axes.h',['../axes_8h.html',1,'']]]
 ];
