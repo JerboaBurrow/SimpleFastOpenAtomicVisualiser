@@ -50,6 +50,11 @@ int main(int argv, char ** argc)
     readStructureFile(options.structure.value, structure);
     glm::vec3 com = glm::vec3(0);
 
+    if (!options.colourmap.value.empty())
+    {
+        structure->colourMap = coloursFromFile(options.colourmap.value);
+    }
+
     structure->readFrame(0);
 
     Camera loadingCamera {sfoavAtoms, resX, resY};

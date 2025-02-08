@@ -184,4 +184,17 @@ std::multimap<Element, uint64_t> elementIndices(const std::vector<Atom> & atoms)
     return m;
 }
 
+/**
+ * @brief Apply a colouring to the Atoms.
+ *
+ * @param atoms the Atoms to colour.
+ * @param colours the colour map to apply.
+ */
+void applyColourMap(std::vector<Atom> & atoms, std::map<Element, glm::vec4> & colours)
+{
+    for (Atom & atom : atoms)
+    {
+        atom.colour = colours[atom.symbol];
+    }
+}
 #endif /* ATOM_H */

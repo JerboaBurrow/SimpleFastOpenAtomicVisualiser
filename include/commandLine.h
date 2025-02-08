@@ -336,6 +336,7 @@ struct CommandLine
             getArgument<bool>(showAxes, commandLine, c, count);
             getArgument<bool>(showCell, commandLine, c, count);
             getArgument<float>(deemphasisAlpha, commandLine, c, count);
+            getArgument<std::filesystem::path>(colourmap, commandLine, c, count);
         }
     }
 
@@ -350,6 +351,7 @@ struct CommandLine
     Argument<bool> showAxes = {"showAxes", "Whether to show the coordinate axes (toggle-able at runtime).", false, false};
     Argument<bool> showCell = {"showCell", "Whether to show the simulation cell (toggle-able at runtime).", false, false};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
+    Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -404,6 +406,8 @@ struct CommandLine
           << VERSION
           << "\nUsage:\n"
           << structure.help()
+          << "\n"
+          << colourmap.help()
           << "\n"
           << msaa.help()
           << "\n"
