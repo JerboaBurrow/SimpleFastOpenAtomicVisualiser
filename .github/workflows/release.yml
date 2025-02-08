@@ -144,7 +144,8 @@ jobs:
       run: |
           wget https://sdk.lunarg.com/sdk/download/latest/mac/vulkan-sdk.zip -O vulkan-sdk.zip
           unzip vulkan-sdk.zip
-          sudo ./InstallVulkan.app/Contents/macOS/InstallVulkan --root ~/vulkan --accept-licenses --default-answer --confirm-command install
+          binary=`ls InstallVulkan-1.4.304.1.app/Contents/MacOS/`
+          sudo ./InstallVulkan.app/Contents/macOS/${binary} --root ~/vulkan --accept-licenses --default-answer --confirm-command install
           ls ~/vulkan
           cd ~/vulkan/
           python install_vulkan.py
