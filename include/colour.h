@@ -169,7 +169,7 @@ std::map<Element, glm::vec4> coloursFromFile(std::filesystem::path path)
         {
             ss = std::stringstream(line);
             ss >> name >> r >> g >> b >> a;
-            element = stringSymbolToElement(element);
+            element = stringSymbolToElement(name);
             if (!ss.fail() && element != Element::Unknown)
             {
                 colours[element] = glm::vec4(r, g, b, a);
