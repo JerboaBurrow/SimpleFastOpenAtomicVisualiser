@@ -67,6 +67,7 @@ int main(int argv, char ** argc)
         loadingCamera.position(),
         options.mesh.value
     );
+    loadingAtoms.setAtomScale(options.atomSize.value);
 
     while (display.isOpen() && !structure->frameReadComplete())
     {
@@ -110,6 +111,7 @@ int main(int argv, char ** argc)
         camera.position(),
         options.mesh.value
     );
+    atomRenderer.setAtomScale(options.atomSize.value);
 
     BondRenderer bondRenderer
     (

@@ -116,6 +116,7 @@ public:
         cameraDistances.resize(atoms.size());
 
         updateAtoms(atoms);
+        setAtomScale(1.0f);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
     }
@@ -167,6 +168,7 @@ public:
         cameraDistances.resize(atoms.size());
 
         updateAtoms(atoms);
+        setAtomScale(1.0f);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
 
@@ -341,6 +343,19 @@ public:
         setProjection(camera.getProjection());
     }
 
+    /**
+     * @brief Set the global atom scaling factor.
+     *
+     * @param s the new scaling factor.
+     */
+    void setAtomScale(float s)
+    {
+        meshShader->use();
+        meshShader->setUniform<float>("scaling", s);
+        imposterShader->use();
+        imposterShader->setUniform<float>("scaling", s);
+    }
+
 private:
 
     std::unique_ptr<jGL::GL::glShader> meshShader, imposterShader;
@@ -366,13 +381,14 @@ private:
         "layout(location=2) in vec4 a_positionsAndScales;\n"
         "layout(location=3) in vec4 a_colours;\n"
         "uniform mat4 proj;\n"
+        "uniform float scaling;\n"
         "out vec4 o_colour;\n"
         "out vec3 o_normal;\n"
         "out vec3 fragPos;\n"
         ""
         "void main()\n"
         "{\n"
-        "    fragPos = vec3(a_vertices*a_positionsAndScales.w+a_positionsAndScales.xyz);\n"
+        "    fragPos = vec3(a_vertices*a_positionsAndScales.w*scaling+a_positionsAndScales.xyz);\n"
         "    gl_Position = proj*vec4(fragPos.xyz, 1.0);\n"
         "    o_colour = a_colours;\n"
         "    o_normal = a_normals;\n"
@@ -405,6 +421,7 @@ private:
         "uniform mat4 view;\n"
         "uniform mat4 proj;\n"
         "uniform float clipCorrection;\n"
+        "uniform float scaling;\n"
         "out vec4 atomPosScale;\n"
         "out vec3 atomViewPos;\n"
         "out vec4 o_colour;\n"
@@ -412,8 +429,9 @@ private:
         "{\n"
         "    billboard = a_vertices * clipCorrection;\n"
         "    atomViewPos = (view * vec4(a_positionsAndScales.xyz, 1.0)).xyz;"
-        "    gl_Position = proj * (vec4(atomViewPos, 1.0)+vec4(a_positionsAndScales.w * a_vertices * clipCorrection, 0.0, 1.0));"
+        "    gl_Position = proj * (vec4(atomViewPos, 1.0)+vec4(scaling*a_positionsAndScales.w * a_vertices * clipCorrection, 0.0, 1.0));"
         "    atomPosScale = a_positionsAndScales;\n"
+        "    atomPosScale.w *= scaling;\n"
         "    o_colour = a_colours;\n"
         "}";
 

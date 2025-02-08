@@ -337,6 +337,7 @@ struct CommandLine
             getArgument<bool>(showCell, commandLine, c, count);
             getArgument<float>(deemphasisAlpha, commandLine, c, count);
             getArgument<std::filesystem::path>(colourmap, commandLine, c, count);
+            getArgument<float>(atomSize, commandLine, c, count);
         }
     }
 
@@ -352,6 +353,7 @@ struct CommandLine
     Argument<bool> showCell = {"showCell", "Whether to show the simulation cell (toggle-able at runtime).", false, false};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
+    Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -420,6 +422,8 @@ struct CommandLine
           << bondCutoff.help()
           << "\n"
           << bondSize.help()
+          << "\n"
+          << atomSize.help()
           << "\n"
           << hideAtoms.help()
           << "\n"
