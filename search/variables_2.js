@@ -6,8 +6,9 @@ var searchData=
   ['cellb_3',['cellB',['../classStructure.html#a1be0c8a103f7a362b2079fa278f426dd',1,'Structure']]],
   ['cellc_4',['cellC',['../classStructure.html#ac844682df40a941034b8724b289e9983',1,'Structure']]],
   ['colour_5',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
-  ['cpk_5fcolours_6',['CPK_COLOURS',['../colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917',1,'colour.h']]],
-  ['cube_7',['CUBE',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'meshes.h']]],
-  ['cube_5fvertices_8',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]],
-  ['currentframe_9',['currentFrame',['../classStructure.html#a5f153e92029bce7f8d30a702cdc7d862',1,'Structure']]]
+  ['colourmap_6',['colourmap',['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap'],['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap']]],
+  ['cpk_5fcolours_7',['CPK_COLOURS',['../colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917',1,'colour.h']]],
+  ['cube_8',['CUBE',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'meshes.h']]],
+  ['cube_5fvertices_9',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]],
+  ['currentframe_10',['currentFrame',['../classStructure.html#a5f153e92029bce7f8d30a702cdc7d862',1,'Structure']]]
 ];
