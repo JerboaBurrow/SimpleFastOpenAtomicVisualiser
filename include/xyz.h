@@ -125,7 +125,7 @@ private:
             checkRead(ss, line, "XYZ reading atom "+std::to_string(a));
             atom.symbol = stringSymbolToElement(symbol);
             atom.scale = ELEMENT_RADIUS.at(atom.symbol);
-            atom.colour = CPK_COLOURS.at(atom.symbol);
+            atom.colour = colourMap.at(atom.symbol);
             atoms[a] = atom;
             atomsRead = a+1;
         }

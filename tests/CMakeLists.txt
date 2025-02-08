@@ -42,3 +42,5 @@ file(COPY "test_structure_input/HISTORY" DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "test_structure_input/psilocybin.xyz" DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "test_structure_input/REVCON" DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "test_structure_input/ethanol.REVCON" DESTINATION "${CMAKE_BINARY_DIR}")
+
+file(COPY "test_elements/CPK" DESTINATION "${CMAKE_BINARY_DIR}")

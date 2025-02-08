@@ -3,6 +3,10 @@
 
 #include <map>
 #include <string>
+#include <filesystem>
+#include <sstream>
+#include <fstream>
+
 #include <glm/glm.hpp>
 
 #include <element.h>
@@ -139,6 +143,46 @@ glm::vec4 elementToColour(Element & e)
 glm::vec4 stringSymbolToColour(std::string & s)
 {
     return CPK_COLOURS.at(stringSymbolToElement(s));
+}
+
+/**
+ * @brief Read an Element colour map from a file.
+ *
+ * @remark The file should be formatted with lines a the element name string and 4 floats.
+ * @remark Any unspecified colourings will default to CPK.
+ * @remark CPK colours are returned on errors.
+ * @param path the file path.
+ * @return std::map<Element, glm::vec4> the Element colourings.
+ */
+std::map<Element, glm::vec4> coloursFromFile(std::filesystem::path path)
+{
+    if (std::filesystem::exists(path))
+    {
+        std::map<Element, glm::vec4> colours(CPK_COLOURS);
+        std::ifstream in(path);
+        std::string line;
+        std::stringstream ss;
+        std::string name;
+        Element element;
+        float r, g, b, a;
+        while (std::getline(in, line))
+        {
+            ss = std::stringstream(line);
+            ss >> name >> r >> g >> b >> a;
+            element = stringSymbolToElement(name);
+            if (!ss.fail() && element != Element::Unknown)
+            {
+                colours[element] = glm::vec4(r, g, b, a);
+            }
+        }
+
+        return colours;
+    }
+    else
+    {
+        std::cout << "Could not find colourmap file " << path << " defaulting to CPK\n";
+        return CPK_COLOURS;
+    }
 }
 
 #endif /* COLOUR_H */

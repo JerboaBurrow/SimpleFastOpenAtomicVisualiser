@@ -167,6 +167,8 @@ public:
      */
     glm::vec3 getCellC() const { return cellC; }
 
+    std::map<Element, glm::vec4> colourMap = CPK_COLOURS;
+
 protected:
 
     std::filesystem::path path;
@@ -187,6 +189,8 @@ protected:
     bool cacheComplete = false;
 
     std::map<uint64_t, uint64_t> framePositions;
+
+
 
     virtual void beginning()
     {
