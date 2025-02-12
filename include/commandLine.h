@@ -387,7 +387,7 @@ struct CommandLine
         std::stringstream w;
         w << banner
           << "\n\n"
-          << "Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
+          << "Repository: https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
           << "License: MIT, Jerboa 2025.\n"
           << VERSION
           << "\n -h for help.\n";
