@@ -34,14 +34,12 @@ int main(int argv, char ** argc)
 
     std::vector<Atom> atoms;
     std::vector<Atom> impostorAtoms;
-    std::map<uint64_t, uint8_t> lods;
     int col = 0;
     int row = 0;
     for (int i = 0; i < count; i++)
     {
         atoms.push_back({{d*row, d*col, 0.0}, 1.0f});
         impostorAtoms.push_back({{d*row, d*col, 0.0}, 1.0f});
-        lods.insert({i,i});
         row++;
         if (i % cols == 0) { col++; row = 0; }
     }
@@ -70,7 +68,7 @@ int main(int argv, char ** argc)
         glm::vec3(0.0, 1.0, 0.0)
     );
 
-    AtomRenderer renderer(atoms, 0, spherical2cartesian(cameraPositionSpherical));
+    AtomRenderer renderer(atoms, 8, spherical2cartesian(cameraPositionSpherical));
     AtomRenderer impostorRenderer(impostorAtoms, 0, spherical2cartesian(cameraPositionSpherical));
     renderer.setView(view);
     renderer.setProjection(projection);
@@ -167,7 +165,7 @@ int main(int argv, char ** argc)
             0.1f
         );
 
-        renderer.updateAtoms(atoms, lods);
+        renderer.updateAtoms(atoms);
         renderer.draw(false);
 
         impostorRenderer.setView(view);
