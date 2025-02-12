@@ -97,19 +97,12 @@ public:
             }
         }
 
-        for (uint8_t i = 0; i < meshes.size(); i++)
-        {
-            buffers.push_back
-            (
-                std::move(
-                    std::make_unique<AtomBuffer>
-                    (
-                        meshes[i],
-                        atoms.size()
-                    )
-                )
-            );
-        }
+        buffer = std::make_unique<AtomBuffer>
+        (
+            meshes,
+            atoms.size(),
+            levelOfDetail
+        );
 
         setLevelOfDetail(levelOfDetail);
         this->cameraPosition = cameraPosition;
@@ -119,59 +112,6 @@ public:
         setAtomScale(1.0f);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
-    }
-
-    /**
-     * @brief Construct a new AtomRenderer from a triangulation.
-     *
-     * @param atoms the atoms to draw.
-     * @param mesh the triangulation to use.
-     * @param levelOfDetail the level of detail.
-     * @param cameraPosition the cartesian position of the camera.
-     */
-    AtomRenderer
-    (
-        const std::vector<Atom> & atoms,
-        std::vector<Trixel<float>> mesh,
-        uint8_t levelOfDetail = 0,
-        glm::vec3 cameraPosition = glm::vec3(0)
-    )
-    {
-        meshShader = std::make_unique<jGL::GL::glShader>(meshVertexShader, meshFragmentShader);
-        imposterShader = std::make_unique<jGL::GL::glShader>(imposterVertexShader, imposterFragmentShader);
-        imposterShader->use();
-        imposterShader->setUniform<float>("clipCorrection", 1.5f);
-        for (uint8_t i = 0; i < 7; i++)
-        {
-            HierarchicalTriangularMesh<float> htm(mesh);
-            htm.build(i);
-            meshes.insert({i, {htm.vertices(), htm.vertexNormals()}});
-            triangleCounts.push_back(htm.triangles());
-        }
-
-        for (uint8_t i = 0; i < meshes.size(); i++)
-        {
-            buffers.push_back
-            (
-                std::move(
-                    std::make_unique<AtomBuffer>
-                    (
-                        meshes[i],
-                        atoms.size()
-                    )
-                )
-            );
-        }
-
-        setLevelOfDetail(levelOfDetail);
-        this->cameraPosition = cameraPosition;
-        cameraDistances.resize(atoms.size());
-
-        updateAtoms(atoms);
-        setAtomScale(1.0f);
-
-        jGL::GL::glError("AtomRenderer::AtomRenderer");
-
     }
 
     /**
@@ -180,17 +120,16 @@ public:
      * @param imposters draw with impostor spheres inplace of meshes.
      * @return uint32_t the number of triangles.
      */
-    uint32_t triangles(bool impostor = false) const
+    uint32_t triangles(bool impostor = true) const
     {
         uint64_t triangles = 0;
         if (impostor)
         {
-            for (auto & buf : buffers) { triangles += buf->atomCount()*2; }
+            triangles += buffer->atomCount()*2;
         }
         else
         {
-            uint8_t m = 0;
-            for (auto & buf : buffers) { triangles += buf->atomCount()*triangleCounts[m]; m++; }
+            triangles += buffer->atomCount()*triangleCounts[levelOfDetail];
         }
         return triangles;
     }
@@ -221,52 +160,12 @@ public:
      *
      * @remark will upload data to the GPU.
      * @param atoms the new Atom data to upload.
-     * @param levelsOfDetail overried level of detail per atom.
      */
-    void updateAtoms(const std::vector<Atom> & atoms, std::map<uint64_t, uint8_t> levelsOfDetail = {})
+    void updateAtoms(const std::vector<Atom> & atoms)
     {
-        uint64_t i = 0;
-        uint64_t furthest = 0;
-        float maxDistance = 0.0f;
-        float minDistance = 1e9;
-
-        for (const Atom & atom : atoms)
-        {
-            // scalar projection of atom position onto camera vector
-            cameraDistances[i] = glm::dot(atom.position-cameraPosition, glm::normalize(-cameraPosition));
-            if (cameraDistances[i] > maxDistance) { furthest = i; }
-            maxDistance = std::max(maxDistance, cameraDistances[i]);
-            minDistance = std::min(minDistance, cameraDistances[i]);
-            i++;
-        }
-
-        for (auto & buf : buffers) { buf->flip(); }
-
-        float rcrit = 0.5f*(maxDistance-minDistance);
-        for (uint64_t i = 0; i < atoms.size(); i++)
-        {
-            auto lod = levelsOfDetail.find(i);
-            if (lod == levelsOfDetail.end())
-            {
-                float r = glm::length(atoms[furthest].position-atoms[i].position);
-                if (r < rcrit)
-                {
-                    buffers[0]->insert(atoms[i]);
-                }
-                else
-                {
-                    buffers[levelOfDetail]->insert(atoms[i]);
-                }
-            }
-            else
-            {
-                uint8_t l = lod->second;
-                if (l > meshes.size()-1) { l = meshes.size()-1; }
-                buffers[l]->insert(atoms[i]);
-            }
-        }
-
-        for (auto & buf : buffers) { buf->updateVertexArray(); }
+        buffer->flip();
+        buffer->insert(atoms);
+        buffer->updateVertexArray();
     }
 
     /**
@@ -274,7 +173,7 @@ public:
      *
      *  @param imposters draw with impostor spheres inplace of meshes.
      */
-    void draw(bool imposters = false)
+    void draw(bool imposters = true)
     {
         if (imposters)
         {
@@ -284,7 +183,7 @@ public:
         {
             meshShader->use();
         }
-        for (auto & buf : buffers) { buf->draw(imposters); }
+        buffer->draw(imposters);
         jGL::GL::glError("AtomRenderer::draw");
     }
 
@@ -495,18 +394,22 @@ private:
          */
         AtomBuffer
         (
-            const SphereMesh & mesh,
-            uint32_t atoms
+            std::map<uint8_t, SphereMesh> meshes,
+            uint32_t atoms,
+            uint8_t levelOfDetail
         )
-        : mesh(mesh), size(atoms)
+        : meshes(meshes), size(atoms), levelOfDetail(std::min(meshes.size()-1, size_t(levelOfDetail)))
         {
             glGenVertexArrays(1, &vao_mesh);
             glGenVertexArrays(1, &vao_imposter);
             glGenBuffers(1, &a_quad);
-            glGenBuffers(1, &a_vertices);
-            glGenBuffers(1, &a_normals);
             glGenBuffers(1, &a_colours);
             glGenBuffers(1, &a_positionsAndScales);
+
+            a_meshVertices = std::vector<GLuint>(meshes.size(), 0);
+            a_meshNormals = std::vector<GLuint>(meshes.size(), 0);
+            glGenBuffers(a_meshVertices.size(), a_meshVertices.data());
+            glGenBuffers(a_meshNormals.size(), a_meshNormals.data());
 
             positionsAndScales.resize(size*4);
             colours.resize(size*4);
@@ -515,9 +418,9 @@ private:
 
                 createBuffer
                 (
-                    a_vertices,
-                    mesh.vertices.data(),
-                    mesh.vertices.size(),
+                    a_meshVertices[this->levelOfDetail],
+                    meshes[this->levelOfDetail].vertices.data(),
+                    meshes[this->levelOfDetail].vertices.size(),
                     GL_STATIC_DRAW,
                     0,
                     3,
@@ -526,9 +429,9 @@ private:
 
                 createBuffer
                 (
-                    a_normals,
-                    mesh.normals.data(),
-                    mesh.normals.size(),
+                    a_meshNormals[this->levelOfDetail],
+                    meshes[this->levelOfDetail].normals.data(),
+                    meshes[this->levelOfDetail].normals.size(),
                     GL_STATIC_DRAW,
                     1,
                     3,
@@ -593,8 +496,8 @@ private:
 
         ~AtomBuffer()
         {
-            glDeleteBuffers(1, &a_vertices);
-            glDeleteBuffers(1, &a_normals);
+            glDeleteBuffers(a_meshVertices.size(), a_meshVertices.data());
+            glDeleteBuffers(a_meshNormals.size(), a_meshNormals.data());
             glDeleteBuffers(1, &a_colours);
             glDeleteBuffers(1, &a_positionsAndScales);
             glDeleteBuffers(1, &a_quad);
@@ -665,10 +568,44 @@ private:
             {
                 glBindVertexArray(vao_mesh);
 
-                    glDrawArraysInstanced(GL_TRIANGLES, 0, mesh.vertices.size(), count);
+                    glDrawArraysInstanced(GL_TRIANGLES, 0, meshes[levelOfDetail].vertices.size(), count);
 
                 glBindVertexArray(0);
             }
+        }
+
+        /**
+         * @brief Set the level of detail, selecting the mesh to draw.
+         *
+         * @param levelOfDetail the new level of detail.
+         */
+        void setLevelOfDetail(uint8_t levelOfDetail)
+        {
+
+            this->levelOfDetail = std::min(size_t(levelOfDetail), meshes.size()-1);
+            glBindVertexArray(vao_mesh);
+                createBuffer
+                (
+                    a_meshVertices[this->levelOfDetail],
+                    meshes[this->levelOfDetail].vertices.data(),
+                    meshes[this->levelOfDetail].vertices.size(),
+                    GL_STATIC_DRAW,
+                    0,
+                    3,
+                    0
+                );
+
+                createBuffer
+                (
+                    a_meshNormals[this->levelOfDetail],
+                    meshes[this->levelOfDetail].normals.data(),
+                    meshes[this->levelOfDetail].normals.size(),
+                    GL_STATIC_DRAW,
+                    1,
+                    3,
+                    0
+                );
+            glBindVertexArray(0);
         }
 
         /**
@@ -676,7 +613,7 @@ private:
          *
          * @param imposters draw with impostor spheres inplace of meshes.
          */
-        void draw(bool imposters = false) { draw(atoms, imposters); }
+        void draw(bool imposters = true) { draw(atoms, imposters); }
 
         /**
          * @brief Insert a batch of Atoms.
@@ -705,9 +642,11 @@ private:
 
     private:
 
-        const SphereMesh & mesh;
+        std::map<uint8_t, SphereMesh> meshes;
         uint32_t size;
-        GLuint vao_mesh, vao_imposter, a_vertices, a_quad, a_normals, a_positionsAndScales, a_colours;
+        uint8_t levelOfDetail;
+        GLuint vao_mesh, vao_imposter, a_quad, a_positionsAndScales, a_colours;
+        std::vector<GLuint> a_meshVertices, a_meshNormals;
         std::vector<float> positionsAndScales;
         std::vector<float> colours;
 
@@ -723,7 +662,7 @@ private:
         };
     };
 
-    std::vector<std::unique_ptr<AtomBuffer>> buffers;
+    std::unique_ptr<AtomBuffer> buffer;
 };
 
 #endif /* ATOMRENDERER_H */
