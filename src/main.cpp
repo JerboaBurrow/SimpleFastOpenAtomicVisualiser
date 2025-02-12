@@ -10,7 +10,7 @@ int main(int argv, char ** argc)
     #ifdef MACOS
     conf.COCOA_RETINA = true;
     #endif
-    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastAtomicVisualiser", conf);
+    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastOpenAtomicVisualiser", conf);
     display.setFrameLimit(60);
     std::vector<std::byte> vicon(icon.begin(), icon.end());
     display.setIcon({vicon});
