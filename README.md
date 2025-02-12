@@ -86,6 +86,10 @@ For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 
 
 ## Features (in development)
 
+- [x] Atom (bill-boarded) imposter spheres.
+- [ ] Bonds.
+  - [ ] Bond tube meshes.
+  - [x] Impostor bonds.
 - [x] Atom ball meshes (of various triangle counts/LOD)
   - [x] Tetrasphere (4, 16, 64, ...).
   - [ ] Hexosphere (6, ...).
@@ -94,21 +98,8 @@ For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 
   - [ ] Dodecasphere (36).
   - [ ] TTP sphere (14, 56, 224, ...).
   - [x] VDW scaled atom balls.
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f2533df3-28fc-4b32-8954-1735ceb001b0"/>
-  <br>A motley collection of sphere meshes for LOD scaling.
-</p>
-
-- [ ] LOD
-  - [x] Overrideable LOD per atom.
-  - [ ] Automatic LOD scaling.
-  - [ ] Configurable maximum level of detail (LOD).
-- [x] Atom (bill-boarded) imposter spheres.
-- [ ] Bonds.
-  - [ ] Bond tube meshes.
-  - [x] Impostor bonds.
 - [ ] Colouring
-  - [ ] User supplied editable colour sets.
+  - [x] User supplied editable colour sets.
   - [ ] Standard colour sets.
     - [x] CPK.
   - [ ] Velocity colouring.
@@ -121,8 +112,12 @@ For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 
   - [ ] Render to ```png```.
   - [ ] Render to ```gif```.
   - [ ] Headless context (e.g. for commandline HPC use).
+- [ ] LOD
+  - [ ] Overrideable LOD per atom.
+  - [ ] Automatic LOD scaling.
+  - [ ] Configurable maximum level of detail (LOD).
 - [ ] Desktop app (linux, windows, and macOS).
-- [ ] Android app.
+- [ ] Android app??.
 
 ---
 
