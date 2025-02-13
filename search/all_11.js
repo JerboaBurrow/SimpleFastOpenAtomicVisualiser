@@ -7,10 +7,9 @@ var searchData=
   ['readstructurefile_4',['readStructureFile',['../structureUtils_8h.html#a98056f3b92d685557db0706a57a477fb',1,'structureUtils.h']]],
   ['required_5',['required',['../structArgument.html#aba731a2e49710b50dca2074724c7fc27',1,'Argument']]],
   ['reset_6',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
-  ['resx_7',['resX',['../main_8h.html#a5e8e5da525c1f3a4722baf79c907173f',1,'main.h']]],
-  ['resy_8',['resY',['../main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9',1,'main.h']]],
-  ['rh_9',['Rh',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6148fe1f88038beee78fbaf681419d60',1,'element.h']]],
-  ['rn_10',['Rn',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ab102860774a4a4dd7a3737076df55605',1,'element.h']]],
-  ['rotate_11',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
-  ['ru_12',['Ru',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aabe295e74fbc82f9450d6537bcfebbed',1,'element.h']]]
+  ['resolution_7',['resolution',['../structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a',1,'CommandLine']]],
+  ['rh_8',['Rh',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6148fe1f88038beee78fbaf681419d60',1,'element.h']]],
+  ['rn_9',['Rn',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ab102860774a4a4dd7a3737076df55605',1,'element.h']]],
+  ['rotate_10',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
+  ['ru_11',['Ru',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aabe295e74fbc82f9450d6537bcfebbed',1,'element.h']]]
 ];

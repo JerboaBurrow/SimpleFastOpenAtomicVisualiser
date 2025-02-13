@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classCamera.html#a104196e052c28be88d97126de9c10191">   36</a></span>    <a class="code hl_function" href="classCamera.html#a104196e052c28be88d97126de9c10191">Camera</a>(<span class="keyword">const</span> std::vector&lt;Atom&gt; &amp; atoms, uint16_t resX, uint16_t resY)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    : <a class="code hl_variable" href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a>(<a class="code hl_variable" href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a>), <a class="code hl_variable" href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a>(<a class="code hl_variable" href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    : resX(resX), resY(resY)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>(atoms);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
@@ -107,7 +107,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classCamera.html#aa8e44fa40c01e257a536e3979751aeb8">   49</a></span>    <a class="code hl_function" href="classCamera.html#aa8e44fa40c01e257a536e3979751aeb8">Camera</a>(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    : <a class="code hl_variable" href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a>(<a class="code hl_variable" href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a>), <a class="code hl_variable" href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a>(<a class="code hl_variable" href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a>), positionSpherical(positionSpherical)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    : resX(resX), resY(resY), positionSpherical(positionSpherical)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>();</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
@@ -272,8 +272,6 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclassCamera_html_acd532d32330a56e5381fb8cd1e6d78a8"><div class="ttname"><a href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">Camera::getResX</a></div><div class="ttdeci">uint16_t getResX() const</div><div class="ttdef"><b>Definition</b> camera.h:222</div></div>
 <div class="ttc" id="aclassCamera_html_ad705ea31149c6bf0fd16bc5e150562a0"><div class="ttname"><a href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">Camera::incline</a></div><div class="ttdeci">void incline(float increment)</div><div class="ttdoc">Incline about the y OpenGL axis.</div><div class="ttdef"><b>Definition</b> camera.h:113</div></div>
 <div class="ttc" id="aclassCamera_html_aea42c6daae6f3cd5c6dc12ef05daaced"><div class="ttname"><a href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">Camera::getPV</a></div><div class="ttdeci">glm::mat4 getPV() const</div><div class="ttdoc">Get the Projection*View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:212</div></div>
-<div class="ttc" id="amain_8h_html_a5712d9bb0647ca69e086a4825a60bbd9"><div class="ttname"><a href="main_8h.html#a5712d9bb0647ca69e086a4825a60bbd9">resY</a></div><div class="ttdeci">const unsigned int resY</div><div class="ttdef"><b>Definition</b> main.h:31</div></div>
-<div class="ttc" id="amain_8h_html_a5e8e5da525c1f3a4722baf79c907173f"><div class="ttname"><a href="main_8h.html#a5e8e5da525c1f3a4722baf79c907173f">resX</a></div><div class="ttdeci">const unsigned int resX</div><div class="ttdef"><b>Definition</b> main.h:30</div></div>
 <div class="ttc" id="autil_8h_html"><div class="ttname"><a href="util_8h.html">util.h</a></div></div>
 <div class="ttc" id="autil_8h_html_abf79d5d2b1fa4f488ac4660f2d33d90a"><div class="ttname"><a href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a></div><div class="ttdeci">glm::vec3 spherical2cartesian(glm::vec3 rthetaphi)</div><div class="ttdoc">convert spherical coordinates to cartesian coordinates.</div><div class="ttdef"><b>Definition</b> util.h:60</div></div>
 </div><!-- fragment --></div><!-- contents -->

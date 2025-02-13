@@ -94,7 +94,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>(</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    std::filesystem::path path,</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    std::unique_ptr&lt;Structure&gt; &amp; structure,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a> = <span class="keyword">false</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">bool</span> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">blocking</a> = <span class="keyword">false</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>)</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="xyz_8h.html#a1eb95e34791a590137cd83d82a071449">ostensiblyXYZLike</a>(path))</div>
@@ -105,39 +105,39 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">try</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            structure = std::make_unique&lt;CONFIG&gt;(path, <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            structure = std::make_unique&lt;CONFIG&gt;(path, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">blocking</a>);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">catch</span> (std::runtime_error &amp; <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">e</a>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">catch</span> (std::runtime_error &amp; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">e</a>)</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;Could not parse &quot;</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                      &lt;&lt; path</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                      &lt;&lt; <span class="stringliteral">&quot; as a CONFIG-like:\n&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                      &lt;&lt; <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">e</a>.what() &lt;&lt; <span class="stringliteral">&quot;\n Trying [EXT]XYZ\n&quot;</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            structure = std::make_unique&lt;XYZ&gt;(path, <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                      &lt;&lt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">e</a>.what() &lt;&lt; <span class="stringliteral">&quot;\n Trying [EXT]XYZ\n&quot;</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            structure = std::make_unique&lt;XYZ&gt;(path, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">blocking</a>);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">try</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            structure = std::make_unique&lt;XYZ&gt;(path, <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            structure = std::make_unique&lt;XYZ&gt;(path, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">blocking</a>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">catch</span> (std::runtime_error &amp; <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">e</a>)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">catch</span> (std::runtime_error &amp; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">e</a>)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;Could not parse &quot;</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                      &lt;&lt; path</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                      &lt;&lt; <span class="stringliteral">&quot; as an [EXT]XYZ:\n&quot;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                      &lt;&lt; <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">e</a>.what() &lt;&lt; <span class="stringliteral">&quot;\n Trying CONFIG-like\n&quot;</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            structure = std::make_unique&lt;CONFIG&gt;(path, <a class="code hl_variable" href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">blocking</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                      &lt;&lt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">e</a>.what() &lt;&lt; <span class="stringliteral">&quot;\n Trying CONFIG-like\n&quot;</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            structure = std::make_unique&lt;CONFIG&gt;(path, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">blocking</a>);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
 </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif </span><span class="comment">/* STRUCTUREUTILS_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="acommandLine_8h_html_af9517d9d8d6198886f93a8e0520c9801"><div class="ttname"><a href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">vec</a></div><div class="ttdeci">glm::vec&lt; L, float, glm::qualifier::highp &gt; vec</div><div class="ttdef"><b>Definition</b> commandLine.h:305</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div></div>
 <div class="ttc" id="aconfig_8h_html_a88db9bd0031c338e4960a0e31a61b0e0"><div class="ttname"><a href="config_8h.html#a88db9bd0031c338e4960a0e31a61b0e0">ostensiblyCONFIGLike</a></div><div class="ttdeci">bool ostensiblyCONFIGLike(std::filesystem::path path)</div><div class="ttdoc">Check if a path is CONFIG'y.</div><div class="ttdef"><b>Definition</b> config.h:24</div></div>
-<div class="ttc" id="ameshes_8h_html_a6dadeb7fed70e77f6d92ebcfeb87a8ba"><div class="ttname"><a href="meshes_8h.html#a6dadeb7fed70e77f6d92ebcfeb87a8ba">OCTAHEDRON</a></div><div class="ttdeci">const std::vector&lt; Trixel&lt; T &gt; &gt; OCTAHEDRON</div><div class="ttdoc">A centred Octahedron's triangulation.</div><div class="ttdef"><b>Definition</b> meshes.h:171</div></div>
 <div class="ttc" id="astructureUtils_8h_html_a98056f3b92d685557db0706a57a477fb"><div class="ttname"><a href="structureUtils_8h.html#a98056f3b92d685557db0706a57a477fb">readStructureFile</a></div><div class="ttdeci">void readStructureFile(std::filesystem::path path, std::unique_ptr&lt; Structure &gt; &amp;structure, bool blocking=false)</div><div class="ttdoc">Read a structure file from the path.</div><div class="ttdef"><b>Definition</b> structureUtils.h:19</div></div>
 <div class="ttc" id="axyz_8h_html"><div class="ttname"><a href="xyz_8h.html">xyz.h</a></div></div>
 <div class="ttc" id="axyz_8h_html_a1eb95e34791a590137cd83d82a071449"><div class="ttname"><a href="xyz_8h.html#a1eb95e34791a590137cd83d82a071449">ostensiblyXYZLike</a></div><div class="ttdeci">bool ostensiblyXYZLike(std::filesystem::path path)</div><div class="ttdoc">Check if a path is XYZ'y.</div><div class="ttdef"><b>Definition</b> xyz.h:21</div></div>

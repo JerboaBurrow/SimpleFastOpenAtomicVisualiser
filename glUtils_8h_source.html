@@ -89,81 +89,82 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;jGL/OpenGL/gl.h&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">subFullBuffer</a>(GLuint &amp; buffer, <span class="keywordtype">float</span> * data, GLuint size)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">subFullBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> &amp; buffer, <span class="keywordtype">float</span> * <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a>, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> size)</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    glBindBuffer(GL_ARRAY_BUFFER, buffer);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        glBufferSubData</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, buffer);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBufferSubData</a></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        (</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            GL_ARRAY_BUFFER,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>,</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            0,</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>)*size,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            data</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        );</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    glBindBuffer(GL_ARRAY_BUFFER, 0);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, 0);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
 </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="glUtils_8h.html#a80efbe036b07598e951c2a6c222e2c96">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="glUtils_8h.html#a80efbe036b07598e951c2a6c222e2c96">enableBuffer</a></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>(</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    GLuint &amp; buffer,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    GLuint attribute,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    GLuint size,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    GLuint divisor</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> &amp; buffer,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> size,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">divisor</a></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>)</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    glBindBuffer(GL_ARRAY_BUFFER, buffer);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        glEnableVertexAttribArray(attribute);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        glVertexAttribPointer</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, buffer);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glEnableVertexAttribArray</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glVertexAttribPointer</a></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        (</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            attribute,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>,</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            size,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            GL_FLOAT,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_FLOAT</a>,</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            size*<span class="keyword">sizeof</span>(<span class="keywordtype">float</span>),</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            0</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        );</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        glVertexAttribDivisor(attribute, divisor);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    glBindBuffer(GL_ARRAY_BUFFER, 0);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glVertexAttribDivisor</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">divisor</a>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, 0);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="glUtils_8h.html#aa3971f7f37836082291c26e06b02de92">   70</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="glUtils_8h.html#aa3971f7f37836082291c26e06b02de92">createBuffer</a></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>(</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    GLuint &amp; buffer,</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> * data,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    GLuint dataSize,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> drawType,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    GLuint attribute,</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    GLuint size,</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    GLuint divisor</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> &amp; buffer,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> * <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">dataSize</a>,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">drawType</a>,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> size,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GLuint</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">divisor</a></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>)</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    glBindBuffer(GL_ARRAY_BUFFER, buffer);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        glEnableVertexAttribArray(attribute);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        glBufferData</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, buffer);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glEnableVertexAttribArray</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBufferData</a></div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        (</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            GL_ARRAY_BUFFER,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>)*dataSize,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            data,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            drawType</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>)*<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">dataSize</a>,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a>,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">drawType</a></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        );</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        glVertexAttribPointer</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glVertexAttribPointer</a></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        (</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            attribute,</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>,</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            size,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            GL_FLOAT,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_FLOAT</a>,</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            size*<span class="keyword">sizeof</span>(<span class="keywordtype">float</span>),</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            0</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        );</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        glVertexAttribDivisor(attribute, divisor);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    glBindBuffer(GL_ARRAY_BUFFER, 0);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glVertexAttribDivisor</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">attribute</a>, <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">divisor</a>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glBindBuffer</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_ARRAY_BUFFER</a>, 0);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
 </div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif </span><span class="comment">/* GLUTILS_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="acommandLine_8h_html_af9517d9d8d6198886f93a8e0520c9801"><div class="ttname"><a href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">vec</a></div><div class="ttdeci">glm::vec&lt; L, float, glm::qualifier::highp &gt; vec</div><div class="ttdef"><b>Definition</b> commandLine.h:305</div></div>
 <div class="ttc" id="aglUtils_8h_html_a28bf4ceab8dc8d02c66dfe5f975af519"><div class="ttname"><a href="glUtils_8h.html#a28bf4ceab8dc8d02c66dfe5f975af519">subFullBuffer</a></div><div class="ttdeci">void subFullBuffer(GLuint &amp;buffer, float *data, GLuint size)</div><div class="ttdoc">Substitute a GL_ARRAY_BUFFER fully.</div><div class="ttdef"><b>Definition</b> glUtils.h:15</div></div>
 <div class="ttc" id="aglUtils_8h_html_a80efbe036b07598e951c2a6c222e2c96"><div class="ttname"><a href="glUtils_8h.html#a80efbe036b07598e951c2a6c222e2c96">enableBuffer</a></div><div class="ttdeci">void enableBuffer(GLuint &amp;buffer, GLuint attribute, GLuint size, GLuint divisor)</div><div class="ttdoc">Enable a GL_ARRAY_BUFFER.</div><div class="ttdef"><b>Definition</b> glUtils.h:37</div></div>
 <div class="ttc" id="aglUtils_8h_html_aa3971f7f37836082291c26e06b02de92"><div class="ttname"><a href="glUtils_8h.html#aa3971f7f37836082291c26e06b02de92">createBuffer</a></div><div class="ttdeci">void createBuffer(GLuint &amp;buffer, const float *data, GLuint dataSize, int drawType, GLuint attribute, GLuint size, GLuint divisor)</div><div class="ttdoc">Create a GL_ARRAY_BUFFER from data.</div><div class="ttdef"><b>Definition</b> glUtils.h:71</div></div>

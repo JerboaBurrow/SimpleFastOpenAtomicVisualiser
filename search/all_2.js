@@ -25,7 +25,7 @@ var searchData=
   ['co_22',['Co',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6bc2d2565ee5fbde75273949f2d2df0a',1,'element.h']]],
   ['colour_23',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
   ['colour_2eh_24',['colour.h',['../colour_8h.html',1,'']]],
-  ['colourmap_25',['colourmap',['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap'],['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap']]],
+  ['colourmap_25',['colourmap',['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap'],['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap']]],
   ['coloursfromfile_26',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
   ['commandline_27',['commandline',['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine::CommandLine()'],['../structCommandLine.html',1,'CommandLine']]],
   ['commandline_2eh_28',['commandLine.h',['../commandLine_8h.html',1,'']]],
