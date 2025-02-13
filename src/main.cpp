@@ -180,6 +180,7 @@ int main(int argv, char ** argc)
                 readInProgress = true;
             }
         }
+
         if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
         {
             if (!readInProgress)
@@ -189,6 +190,16 @@ int main(int argv, char ** argc)
                 if (f > 2) { f -= 2; }
                 else { f = structure->frameCount()-2+f;}
                 structure->readFrame(f);
+                readInProgress = true;
+            }
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_R, jGL::EventType::PRESS))
+        {
+            if (!readInProgress)
+            {
+                com = getCenter(structure->atoms);
+                structure->readFrame(0);
                 readInProgress = true;
             }
         }
