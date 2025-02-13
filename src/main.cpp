@@ -81,7 +81,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY, options.debug.value);
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY, options.hideInfoText.value);
     }
 
     if (!display.isOpen()) { return 0; }
@@ -150,7 +150,7 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_I, jGL::EventType::PRESS))
         {
-            options.debug.value = !options.debug.value;
+            options.hideInfoText.value = !options.hideInfoText.value;
         }
 
         cameraControls(display, camera);
@@ -238,28 +238,27 @@ int main(int argv, char ** argc)
         if (frame > 0) { frame -= 1; }
         else { frame = structure->frameCount()-1; }
 
-        auto cx = fixedLengthNumber(camera.position().x, 6);
-        auto cy = fixedLengthNumber(camera.position().y, 6);
-        auto cz = fixedLengthNumber(camera.position().z, 6);
-
-        debugText << "Frame: " << frame+1 << "/" << structure->frameCount()
-                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
-                  << "\nCamera: " << cx << ", " << cy << ", " << cz;
-
-        if (options.debug.value)
+        if (!options.hideInfoText.value)
         {
-            debugText << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
+            auto cx = fixedLengthNumber(camera.position().x, 6);
+            auto cy = fixedLengthNumber(camera.position().y, 6);
+            auto cz = fixedLengthNumber(camera.position().z, 6);
+
+            debugText << "Frame: " << frame+1 << "/" << structure->frameCount()
+                      << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
+                      << "\nCamera: " << cx << ", " << cy << ", " << cz
+                      << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
                       << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                       << ")\n"
                       << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
-        }
 
-        jGLInstance->text(
-            debugText.str(),
-            glm::vec2(64.0f, resY-64.0f),
-            0.5f,
-            glm::vec4(0.0f,0.0f,0.0f,1.0f)
-        );
+            jGLInstance->text(
+                debugText.str(),
+                glm::vec2(64.0f, resY-64.0f),
+                0.5f,
+                glm::vec4(0.0f,0.0f,0.0f,1.0f)
+            );
+        }
 
         if (options.showAxes.value)
         {

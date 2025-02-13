@@ -386,7 +386,7 @@ struct CommandLine
             getArgument<std::filesystem::path>(colourmap, commandLine, c, count);
             getArgument<float>(atomSize, commandLine, c, count);
             getArgument<vec<2>>(resolution, commandLine, c, count);
-            getArgument<bool>(debug, commandLine, c, count);
+            getArgument<bool>(hideInfoText, commandLine, c, count);
         }
     }
 
@@ -404,7 +404,7 @@ struct CommandLine
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
     Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}, false};
-    Argument<bool> debug = {"debug", "Show extra debug information and statistics.", false, false};
+    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text.", false, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -484,7 +484,7 @@ struct CommandLine
           << "\n"
           << argumentHelp(deemphasisAlpha)
           << "\n"
-          << argumentHelp(debug)
+          << argumentHelp(hideInfoText)
           << "\n";
         std::cout << h.str();
         std::exit(EXIT_SUCCESS);

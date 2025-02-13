@@ -167,7 +167,7 @@ void loadingScreenFrame
     std::string progressMessage,
     const unsigned int resX,
     const unsigned int resY,
-    bool debug = false
+    bool hideInfo = false
 )
 {
     double deltas[60];
@@ -186,20 +186,15 @@ void loadingScreenFrame
 
     std::stringstream debugText;
 
-    debugText << progressMessage;
-    if (debug)
+    if (!hideInfo)
     {
-        debugText << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
-                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                  << ")\n";
+        jGLInstance->text(
+            progressMessage,
+            glm::vec2(64.0f, resY-64.0f),
+            0.5f,
+            glm::vec4(0.0f,0.0f,0.0f,1.0f)
+        );
     }
-
-    jGLInstance->text(
-        debugText.str(),
-        glm::vec2(64.0f, resY-64.0f),
-        0.5f,
-        glm::vec4(0.0f,0.0f,0.0f,1.0f)
-    );
 
     jGLInstance->endFrame();
     display.loop();
