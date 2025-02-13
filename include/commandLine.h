@@ -404,7 +404,7 @@ struct CommandLine
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
     Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}, false};
-    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text.", false, false};
+    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false, false};
 
     /**
      * @brief Determine if help should be printed.
