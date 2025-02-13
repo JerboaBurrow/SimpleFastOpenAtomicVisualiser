@@ -81,7 +81,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY);
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY, options.debug.value);
     }
 
     if (!display.isOpen()) { return 0; }
@@ -146,6 +146,11 @@ int main(int argv, char ** argc)
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
         {
             options.hideAtoms.value = !options.hideAtoms.value;
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_I, jGL::EventType::PRESS))
+        {
+            options.debug.value = !options.debug.value;
         }
 
         cameraControls(display, camera);
@@ -237,13 +242,17 @@ int main(int argv, char ** argc)
         auto cy = fixedLengthNumber(camera.position().y, 6);
         auto cz = fixedLengthNumber(camera.position().z, 6);
 
-        debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
-                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                  << ")\n"
-                  << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
-                  << "Frame: " << frame+1 << "/" << structure->frameCount()
+        debugText << "Frame: " << frame+1 << "/" << structure->frameCount()
                   << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                   << "\nCamera: " << cx << ", " << cy << ", " << cz;
+
+        if (options.debug.value)
+        {
+            debugText << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
+                      << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
+                      << ")\n"
+                      << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
+        }
 
         jGLInstance->text(
             debugText.str(),

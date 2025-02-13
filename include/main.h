@@ -166,7 +166,8 @@ void loadingScreenFrame
     AtomRenderer & loadingAtoms,
     std::string progressMessage,
     const unsigned int resX,
-    const unsigned int resY
+    const unsigned int resY,
+    bool debug = false
 )
 {
     double deltas[60];
@@ -185,10 +186,13 @@ void loadingScreenFrame
 
     std::stringstream debugText;
 
-    debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
-                << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                << ")\n"
-                << progressMessage;
+    debugText << progressMessage;
+    if (debug)
+    {
+        debugText << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
+                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
+                  << ")\n";
+    }
 
     jGLInstance->text(
         debugText.str(),
