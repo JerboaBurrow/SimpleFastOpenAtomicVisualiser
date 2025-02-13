@@ -3,6 +3,9 @@ int main(int argv, char ** argc)
 {
     CommandLine options(argv, argc);
 
+    const uint16_t resX = options.resolution.value.x;
+    const uint16_t resY = options.resolution.value.y;
+
     jGL::DesktopDisplay::Config conf;
 
     conf.VULKAN = false;
@@ -17,7 +20,7 @@ int main(int argv, char ** argc)
 
     glewInit();
 
-    jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX,resY)));
+    jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX, resY)));
 
     jGL::OrthoCam jglCamera(resX, resY, glm::vec2(0.0,0.0));
     jglCamera.setPosition(0.0f, 0.0f);
@@ -78,7 +81,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str());
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY, options.hideInfoText.value);
     }
 
     if (!display.isOpen()) { return 0; }
@@ -145,6 +148,11 @@ int main(int argv, char ** argc)
             options.hideAtoms.value = !options.hideAtoms.value;
         }
 
+        if (display.keyHasEvent(GLFW_KEY_I, jGL::EventType::PRESS))
+        {
+            options.hideInfoText.value = !options.hideInfoText.value;
+        }
+
         cameraControls(display, camera);
         elementsNeedUpdate = atomControls
         (
@@ -172,6 +180,7 @@ int main(int argv, char ** argc)
                 readInProgress = true;
             }
         }
+
         if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
         {
             if (!readInProgress)
@@ -181,6 +190,16 @@ int main(int argv, char ** argc)
                 if (f > 2) { f -= 2; }
                 else { f = structure->frameCount()-2+f;}
                 structure->readFrame(f);
+                readInProgress = true;
+            }
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_R, jGL::EventType::PRESS))
+        {
+            if (!readInProgress)
+            {
+                com = getCenter(structure->atoms);
+                structure->readFrame(0);
                 readInProgress = true;
             }
         }
@@ -230,24 +249,27 @@ int main(int argv, char ** argc)
         if (frame > 0) { frame -= 1; }
         else { frame = structure->frameCount()-1; }
 
-        auto cx = fixedLengthNumber(camera.position().x, 6);
-        auto cy = fixedLengthNumber(camera.position().y, 6);
-        auto cz = fixedLengthNumber(camera.position().z, 6);
+        if (!options.hideInfoText.value)
+        {
+            auto cx = fixedLengthNumber(camera.position().x, 6);
+            auto cy = fixedLengthNumber(camera.position().y, 6);
+            auto cz = fixedLengthNumber(camera.position().z, 6);
 
-        debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
-                  << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                  << ")\n"
-                  << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n"
-                  << "Frame: " << frame+1 << "/" << structure->frameCount()
-                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
-                  << "\nCamera: " << cx << ", " << cy << ", " << cz;
+            debugText << "Frame: " << frame+1 << "/" << structure->frameCount()
+                      << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
+                      << "\nCamera: " << cx << ", " << cy << ", " << cz
+                      << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
+                      << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
+                      << ")\n"
+                      << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
 
-        jGLInstance->text(
-            debugText.str(),
-            glm::vec2(64.0f, resY-64.0f),
-            0.5f,
-            glm::vec4(0.0f,0.0f,0.0f,1.0f)
-        );
+            jGLInstance->text(
+                debugText.str(),
+                glm::vec2(64.0f, resY-64.0f),
+                0.5f,
+                glm::vec4(0.0f,0.0f,0.0f,1.0f)
+            );
+        }
 
         if (options.showAxes.value)
         {

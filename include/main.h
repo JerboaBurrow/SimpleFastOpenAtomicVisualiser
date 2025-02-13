@@ -27,9 +27,6 @@
 #include <camera.h>
 #include <cell.h>
 
-const unsigned int resX = 512;
-const unsigned int resY = resX;
-
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;
 const float dphi = (2.0*3.14)*0.05;
@@ -167,7 +164,10 @@ void loadingScreenFrame
     jGL::DesktopDisplay & display,
     Camera & camera,
     AtomRenderer & loadingAtoms,
-    std::string progressMessage
+    std::string progressMessage,
+    const unsigned int resX,
+    const unsigned int resY,
+    bool hideInfo = false
 )
 {
     double deltas[60];
@@ -186,17 +186,15 @@ void loadingScreenFrame
 
     std::stringstream debugText;
 
-    debugText << "Delta: " << fixedLengthNumber(delta,6) << " ms"
-                << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                << ")\n"
-                << progressMessage;
-
-    jGLInstance->text(
-        debugText.str(),
-        glm::vec2(64.0f, resY-64.0f),
-        0.5f,
-        glm::vec4(0.0f,0.0f,0.0f,1.0f)
-    );
+    if (!hideInfo)
+    {
+        jGLInstance->text(
+            progressMessage,
+            glm::vec2(64.0f, resY-64.0f),
+            0.5f,
+            glm::vec4(0.0f,0.0f,0.0f,1.0f)
+        );
+    }
 
     jGLInstance->endFrame();
     display.loop();

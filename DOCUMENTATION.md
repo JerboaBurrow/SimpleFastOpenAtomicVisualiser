@@ -65,6 +65,8 @@ At runtime the following key-controls can be used:
 | 1 to 9 | Toggle element emphasis | Elements assigned at startup. |
 | X      | Toggle coordinate axes | |
 | C      | Toggle simulation cell | |
+| I      | Toggle information text | |
+| R      | Reset to the first trajectory frame | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
