@@ -3,6 +3,9 @@ int main(int argv, char ** argc)
 {
     CommandLine options(argv, argc);
 
+    const uint16_t resX = options.resolution.value.x;
+    const uint16_t resY = options.resolution.value.y;
+
     jGL::DesktopDisplay::Config conf;
 
     conf.VULKAN = false;
@@ -17,7 +20,7 @@ int main(int argv, char ** argc)
 
     glewInit();
 
-    jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX,resY)));
+    jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX, resY)));
 
     jGL::OrthoCam jglCamera(resX, resY, glm::vec2(0.0,0.0));
     jglCamera.setPosition(0.0f, 0.0f);
@@ -78,7 +81,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str());
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY);
     }
 
     if (!display.isOpen()) { return 0; }

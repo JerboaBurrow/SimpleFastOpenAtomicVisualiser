@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 
 #include <hierarchicalTriangularMesh.h>
 
@@ -64,42 +65,45 @@ struct Argument
       required(required),
       position(position)
     {}
-
-    /**
-     * @brief Return a formatted help message.
-     *
-     * @return std::string the help message including name, description, default value and requirement.
-     */
-    std::string help() const
-    {
-        std::stringstream h;
-        if (position > 0)
-        {
-            h << "Positional argument " << int(position);
-        }
-        else
-        {
-            h << " -" << name;
-        }
-        h  << "\n  " << description;
-        if (required)
-        {
-            h << "\n   Default: none."
-              << "\n   Required: "
-              << (required ? "true" : "false")
-              << ".";
-        }
-        else
-        {
-            h << "\n   Default: "
-              << defaultValue
-              << "\n   Required: "
-              << (required ? "true" : "false")
-              << ".";
-        }
-        return h.str();
-    }
 };
+
+/**
+ * @brief Return a formatted help message for a Argument.
+ *
+ * @tparam T the argument's type.
+ * @param arg the Argument to return help on.
+ * @return std::string the help message including name, description, default value and requirement.
+ */
+template <class T>
+std::string argumentHelp(const Argument<T> & arg)
+{
+    std::stringstream h;
+    if (arg.position > 0)
+    {
+        h << "Positional argument " << int(arg.position);
+    }
+    else
+    {
+        h << " -" << arg.name;
+    }
+    h  << "\n  " << arg.description;
+    if (arg.required)
+    {
+        h << "\n   Default: none."
+            << "\n   Required: "
+            << (arg.required ? "true" : "false")
+            << ".";
+    }
+    else
+    {
+        h << "\n   Default: "
+            << arg.defaultValue
+            << "\n   Required: "
+            << (arg.required ? "true" : "false")
+            << ".";
+    }
+    return h.str();
+}
 
 /**
  * @brief Extract the value of an argument.
@@ -297,6 +301,49 @@ bool getArgument<bool>
     return false;
 }
 
+template <uint8_t L>
+using vec = glm::vec<L, float, glm::qualifier::highp>;
+
+/**
+ * @brief Extract a float vector of size 2 argument.
+ *
+ * @tparam glm::vec<L, float, glm::qualifier::highp>
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ * @return true the argument was read."
+ * @return false the argument was not read."
+ */
+template <>
+bool getArgument<vec<2>>
+(
+    Argument<vec<2>> & arg,
+    char ** commandLine,
+    const uint8_t c,
+    const uint8_t count
+)
+{
+    std::stringstream data;
+    if (c == arg.position)
+    {
+        data << std::string(commandLine[c]);
+    }
+    if (c < count-1  && startsWith(commandLine[c], arg.name))
+    {
+        data << std::string(commandLine[c+1]);
+    }
+    else
+    {
+        return false;
+    }
+    data >> arg.value.x;
+    if (data.eof()) { throw std::runtime_error(arg.name+" requires 2 values like \"512 512\""); }
+    data >> arg.value.y;
+    return true;
+}
+
 /**
  * @brief Extract command line arguments.
  * @remark Values of arguments are check at construction.
@@ -338,6 +385,7 @@ struct CommandLine
             getArgument<float>(deemphasisAlpha, commandLine, c, count);
             getArgument<std::filesystem::path>(colourmap, commandLine, c, count);
             getArgument<float>(atomSize, commandLine, c, count);
+            getArgument<vec<2>>(resolution, commandLine, c, count);
         }
     }
 
@@ -354,6 +402,7 @@ struct CommandLine
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
     Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
+    Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -407,31 +456,31 @@ struct CommandLine
           << "License: MIT, Jerboa 2025.\n"
           << VERSION
           << "\nUsage:\n"
-          << structure.help()
+          << argumentHelp(structure)
           << "\n"
-          << colourmap.help()
+          << argumentHelp(colourmap)
           << "\n"
-          << msaa.help()
+          << argumentHelp(msaa)
           << "\n"
-          << mesh.help()
+          << argumentHelp(mesh)
           << "\n"
-          << meshes.help()
+          << argumentHelp(meshes)
           << "\n"
-          << levelOfDetail.help()
+          << argumentHelp(levelOfDetail)
           << "\n"
-          << bondCutoff.help()
+          << argumentHelp(bondCutoff)
           << "\n"
-          << bondSize.help()
+          << argumentHelp(bondSize)
           << "\n"
-          << atomSize.help()
+          << argumentHelp(atomSize)
           << "\n"
-          << hideAtoms.help()
+          << argumentHelp(hideAtoms)
           << "\n"
-          << showAxes.help()
+          << argumentHelp(showAxes)
           << "\n"
-          << showCell.help()
+          << argumentHelp(showCell)
           << "\n"
-          << deemphasisAlpha.help()
+          << argumentHelp(deemphasisAlpha)
           << "\n";
         std::cout << h.str();
         std::exit(EXIT_SUCCESS);
