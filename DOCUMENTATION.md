@@ -37,7 +37,7 @@ This will bring up the view centring the atoms in ```struct.xyz``` in the first 
 > [!note]
 > Reading of structure files is done in a background thread. For large structure files you may be presented with a loading screen. An intel i7-4790K and Kingston A400 SATA SSD is capable of around 1,000,000 (positions only) atoms per second read.
 
-If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively.
+If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively. Or auto-playing/pausing with P.
 
 > [!note]
 > When reading HISTORY files or XYZ/EXTXYZ with multiple frames, SFOAV will cache the filepositions (not data) of each frame in the background. For large trajectory files this may take some time, but you will always be able to play up to the most recently cached frame.
@@ -67,6 +67,7 @@ At runtime the following key-controls can be used:
 | C      | Toggle simulation cell | |
 | I      | Toggle information text | |
 | R      | Reset to the first trajectory frame | |
+| P      | Pause/Play a trajectory | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
@@ -74,6 +75,9 @@ To enable MSAA at 16x
 ```shell
 sfoav struct.xyz -msaa 16
 ```
+
+> [!warning]
+> Bond discovery is currently poorly optimised, this will be slow.
 
 To draw bonds between atoms 1.5 Angstroms apart
 
