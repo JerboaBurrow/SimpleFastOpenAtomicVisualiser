@@ -362,7 +362,7 @@ struct CommandLine
         if (count == 1) { help(); return; }
         for (uint8_t c = 1; c < count; c++)
         {
-            checkHelp(commandLine[c]);
+            checkSpecial(commandLine[c]);
         }
         welcome();
         if (!getArgument<std::filesystem::path>(structure, commandLine, structure.position, count))
@@ -409,31 +409,25 @@ struct CommandLine
     Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
 
     /**
-     * @brief Determine if help should be printed.
+     * @brief Determine if help or licenses should be printed.
      *
      * @param arg the argument to check.
-     * @remark Calls std::exit(EXIT_SUCCESS);
+     * @remark Calls std::exit(EXIT_SUCCESS) after displaying information.
      */
-    void checkHelp(std::string arg)
+    void checkSpecial(std::string arg)
     {
-        if (arg == "-h" || arg == "-v" || arg == "-help" || arg == "-version")
+        if (arg == "-h" || arg == "-help")
         {
             help();
+            std::exit(EXIT_SUCCESS);
+        }
+        if (arg == "-l" || arg == "-v" || arg == "-license" || arg == "-version")
+        {
+            welcome();
+            licenses();
+            std::exit(EXIT_SUCCESS);
         }
     }
-
-    /**
-     * @brief The text banner.
-     *
-     */
-    const char * banner = R"( ________  ________ ________  ________  ___      ___
-|\   ____\|\  _____\\   __  \|\   __  \|\  \    /  /|
-\ \  \___|\ \  \__/\ \  \|\  \ \  \|\  \ \  \  /  / /
- \ \_____  \ \   __\\ \  \\\  \ \   __  \ \  \/  / /
-  \|____|\  \ \  \_| \ \  \\\  \ \  \ \  \ \    / /
-    ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /
-   |\_________\|__|    \|_______|\|__|\|__|\|__|/
-   \|_________| SimpleFastOpenAtomicVisualiser)";
 
     void welcome() const
     {
@@ -443,7 +437,7 @@ struct CommandLine
           << "Repository: https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser\n"
           << "License: MIT, Jerboa 2025.\n"
           << VERSION
-          << "\n -h for help.\n";
+          << "\n -h and -help for help, -l/-v and -license/-version.\n";
           std::cout << w.str();
     }
 
@@ -491,9 +485,87 @@ struct CommandLine
           << argumentHelp(hideInfoText)
           << "\n";
         std::cout << h.str();
-        std::exit(EXIT_SUCCESS);
     }
 
+    void licenses()
+    {
+        std::cout << ossLicenses << "\n";
+    }
+
+    /**
+     * @brief The text banner.
+     *
+     */
+    const char * banner = R"( ________  ________ ________  ________  ___      ___
+|\   ____\|\  _____\\   __  \|\   __  \|\  \    /  /|
+\ \  \___|\ \  \__/\ \  \|\  \ \  \|\  \ \  \  /  / /
+ \ \_____  \ \   __\\ \  \\\  \ \   __  \ \  \/  / /
+  \|____|\  \ \  \_| \ \  \\\  \ \  \ \  \ \    / /
+    ____\_\  \ \__\   \ \_______\ \__\ \__\ \__/ /
+   |\_________\|__|    \|_______|\|__|\|__|\|__|/
+   \|_________| SimpleFastOpenAtomicVisualiser)";
+
+    /**
+     * @brief The OSS licenses.
+     *
+     */
+    const char * ossLicenses = R"(
+SimpleFastOpenAomitcVisuliser would not be possible
+without the following Open Source Software
+
+FreeType
+  The FreeType Project License
+  Copyright 1996-2002, 2006 by David Turner, Robert Wilhelm, and Werner Lemberg.
+
+GLEW
+  Copyright (C) 2002-2007, Milan Ikits <milan ikits[]ieee org>
+  Copyright (C) 2002-2007, Marcelo E. Magallon <mmagallo[]debian org>
+  Copyright (C) 2002, Lev Povalahev.
+
+Mesa 3-D graphics library
+  MIT
+  Copyright (C) 1999-2007  Brian Paul
+  Copyright (c) 2007 The Khronos Group Inc.
+
+Vulkan SDK
+  Full list https://vulkan.lunarg.com/software/license/vulkan-1.4.304.1-linux-license-summary.txt
+  Copyright 2016-2025 LunarG Inc.
+
+GLFW
+  zlib/libpng license
+  Copyright © 2002-2006 Marcus Geelnard
+  Copyright © 2006-2019 Camilla Löwy.
+
+OpenDyslexic
+  SIL Open Font License, Version 1.1
+  Copyright (c) 2019-07-29, Abbie Gonzalez
+  (https://abbiecod.es|support@abbiecod.es),
+  with Reserved Font Name OpenDyslexic.
+  Copyright (c) 12/2012 - 2019
+
+Impostor sphere OpenGL code is based on previous work
+  MIT
+  Copyright (C) 2010-2012 by Jason L. McKesson.
+
+STDUUID
+  MIT
+  Copyright (c) 2017 Marius Bancila.
+
+GLM
+  MIT, but no bunnies were harmed either.
+  Copyright (c) 2005 - G-Truc Creation.
+  GLM has been modified to add std::ostream utilities for glm::vec.
+
+jGL, jLog, jThread
+  MIT
+  Copyright Jerboa 2023, 2024, 2024.
+
+STNIMAGE
+  Public domain
+  by Sean Barrett (nothings).
+
+With thanks, Jerboa.
+)";
 };
 
 #endif /* COMMANDLINE_H */
