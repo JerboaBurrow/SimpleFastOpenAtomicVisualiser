@@ -387,6 +387,7 @@ struct CommandLine
             getArgument<float>(atomSize, commandLine, c, count);
             getArgument<vec<2>>(resolution, commandLine, c, count);
             getArgument<bool>(hideInfoText, commandLine, c, count);
+            getArgument<bool>(play, commandLine, c, count);
         }
     }
 
@@ -405,6 +406,7 @@ struct CommandLine
     Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}, false};
     Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false, false};
+    Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
 
     /**
      * @brief Determine if help should be printed.
@@ -459,6 +461,8 @@ struct CommandLine
           << VERSION
           << "\nUsage:\n"
           << argumentHelp(structure)
+          << "\n"
+          << argumentHelp(play)
           << "\n"
           << argumentHelp(colourmap)
           << "\n"
