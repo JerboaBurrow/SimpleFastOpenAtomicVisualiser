@@ -114,9 +114,8 @@ For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 
   - [ ] Render to ```mp4```.
   - [ ] Headless context (e.g. for commandline HPC use).
 - [x] Atom (bill-boarded) imposter spheres.
-- [ ] Bonds.
-  - [ ] Bond tube meshes.
-  - [x] Impostor bonds.
+- [x] Impostor bonds.
+- [ ] Bond tube meshes.
 - [x] Atom ball meshes (of various triangle counts/LOD)
   - [x] Tetrasphere (4, 16, 64, ...).
   - [ ] Hexosphere (6, ...).
