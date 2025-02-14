@@ -101,7 +101,7 @@ Quickstart</h1>
 <blockquote class="doxtable">
 <p>&zwj;[!note] Reading of structure files is done in a background thread. For large structure files you may be presented with a loading screen. An intel i7-4790K and Kingston A400 SATA SSD is capable of around 1,000,000 (positions only) atoms per second read. </p>
 </blockquote>
-<p>If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively.</p>
+<p>If the structure file is a trajectory you may scan through its frames moving forward of backward in time using F and B respectively. Or auto-playing/pausing with P.</p>
 <blockquote class="doxtable">
 <p>&zwj;[!note] When reading HISTORY files or XYZ/EXTXYZ with multiple frames, SFOAV will cache the filepositions (not data) of each frame in the background. For large trajectory files this may take some time, but you will always be able to play up to the most recently cached frame. </p>
 </blockquote>
@@ -152,11 +152,16 @@ Quickstart</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">Reset to the first trajectory frame   </td><td class="markdownTableBodyLeft"></td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">P   </td><td class="markdownTableBodyLeft">Pause/Play a trajectory   </td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">ESC   </td><td class="markdownTableBodyLeft">Quit   </td><td class="markdownTableBodyLeft"></td></tr>
 </table>
 <p>To enable MSAA at 16x</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -msaa 16</div>
-</div><!-- fragment --><p>To draw bonds between atoms 1.5 Angstroms apart</p>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;[!warning] <a class="el" href="structBond.html" title="A Bond structure.">Bond</a> discovery is currently poorly optimised, this will be slow. </p>
+</blockquote>
+<p>To draw bonds between atoms 1.5 Angstroms apart</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
 Performance</h2>
