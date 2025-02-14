@@ -214,6 +214,11 @@ int main(int argv, char ** argc)
             options.showCell.value = !options.showCell.value;
         }
 
+        if (display.keyHasEvent(GLFW_KEY_P, jGL::EventType::PRESS))
+        {
+            options.play.value = !options.play.value;
+        }
+
         if (readInProgress && structure->frameReadComplete())
         {
             // Previous threaded read is done.
@@ -281,6 +286,13 @@ int main(int argv, char ** argc)
         {
             cell.setProjectionView(camera.getPV());
             cell.draw();
+        }
+
+        if (!readInProgress && options.play.value)
+        {
+            com = getCenter(structure->atoms);
+            structure->readFrame(structure->framePosition());
+            readInProgress = true;
         }
 
         jGLInstance->endFrame();
