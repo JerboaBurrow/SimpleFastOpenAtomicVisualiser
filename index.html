@@ -194,8 +194,18 @@ Meshes</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">ANY   </td><td class="markdownTableBodyLeft">6   </td><td class="markdownTableBodyLeft">Uses all mesh types controlled by LOD   </td></tr>
 </table>
-<p>The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count. </p>
-</div></div><!-- PageDoc -->
+<p>The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Colouring</h2>
+<p>It is possible to set the colour map taking Elements into RGBA values. This can be done by specifying a partial list in a file and supplying the CLI argument <code>-colourmap YOUR_FILE_PATH</code>. An example file is</p>
+<div class="fragment"><div class="line">Ar 1.0 0.0 0.0 1.0</div>
+<div class="line">F  0.0 0.0 0.0 1.0</div>
+<div class="line">Cl 0.1 0.9 0.1 1.0</div>
+</div><!-- fragment --><p>It is also possible to set the colour of individual atoms by their index in the structure file and suppling the CLI argument <code>-atomColours YOUR_FILE_PATH</code>. These will override any other colour specifications for that atom. An example file is</p>
+<div class="fragment"><div class="line">0 1.0 0.0 0.0 1.0</div>
+<div class="line">3758 0.0 1.0 0.0 1.0</div>
+<div class="line">92 0.0 0.0 1.0 1.0</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

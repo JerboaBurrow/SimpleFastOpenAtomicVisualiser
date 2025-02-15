@@ -5,5 +5,6 @@ var searchData=
   ['banner_2',['banner',['../structCommandLine.html#a9fd1839b5e38c2bac39bad60b63e82ba',1,'CommandLine']]],
   ['blockingreads_3',['blockingReads',['../classStructure.html#a230a09fb05c7e56efbdad3547842f94c',1,'Structure']]],
   ['bondcutoff_4',['bondCutoff',['../structCommandLine.html#aaa5569e9ffd95c2e677c95896c306467',1,'CommandLine']]],
-  ['bondsize_5',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]]
+  ['bondfocus_5',['bondFocus',['../structCommandLine.html#a399d02451b7bfb46a5c29b938e5cd220',1,'CommandLine']]],
+  ['bondsize_6',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]]
 ];

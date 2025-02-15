@@ -228,9 +228,24 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
 </div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">#endif </span><span class="comment">/* ATOM_H */</span><span class="preprocessor"></span></div>
+<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="atom_8h.html#a53f882dc290bdd9ff140a6033ec162f2">  193</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="atom_8h.html#a53f882dc290bdd9ff140a6033ec162f2">applyColours</a></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>(</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    std::vector&lt;Atom&gt; &amp; atoms,</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">const</span> std::map&lt;uint64_t, glm::vec4&gt; &amp; colours</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>{</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp; ic : colours)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        atoms[ic.first].colour = ic.second;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    }</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
+</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">#endif </span><span class="comment">/* ATOM_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aatom_8h_html_a1d49c29717dc8a0cae1cc0a072deb53e"><div class="ttname"><a href="atom_8h.html#a1d49c29717dc8a0cae1cc0a072deb53e">center</a></div><div class="ttdeci">void center(std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Subtract the centre of mass of some Atoms.</div><div class="ttdef"><b>Definition</b> atom.h:121</div></div>
 <div class="ttc" id="aatom_8h_html_a2966ceafb83e1e96f930ae502d706199"><div class="ttname"><a href="atom_8h.html#a2966ceafb83e1e96f930ae502d706199">getCenter</a></div><div class="ttdeci">glm::vec3 getCenter(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Calculate the centre of mass.</div><div class="ttdef"><b>Definition</b> atom.h:106</div></div>
+<div class="ttc" id="aatom_8h_html_a53f882dc290bdd9ff140a6033ec162f2"><div class="ttname"><a href="atom_8h.html#a53f882dc290bdd9ff140a6033ec162f2">applyColours</a></div><div class="ttdeci">void applyColours(std::vector&lt; Atom &gt; &amp;atoms, const std::map&lt; uint64_t, glm::vec4 &gt; &amp;colours)</div><div class="ttdoc">Apply colours by index.</div><div class="ttdef"><b>Definition</b> atom.h:194</div></div>
 <div class="ttc" id="aatom_8h_html_a62614649f6063f8ed5860081254bdb31"><div class="ttname"><a href="atom_8h.html#a62614649f6063f8ed5860081254bdb31">elementIndices</a></div><div class="ttdeci">std::multimap&lt; Element, uint64_t &gt; elementIndices(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Obtain indices of each element.</div><div class="ttdef"><b>Definition</b> atom.h:177</div></div>
 <div class="ttc" id="aatom_8h_html_a73e3435c022ce3d9ee212eb755b54c52"><div class="ttname"><a href="atom_8h.html#a73e3435c022ce3d9ee212eb755b54c52">uniqueElements</a></div><div class="ttdeci">std::set&lt; Element &gt; uniqueElements(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Determine the unique elements in a list of Atom.</div><div class="ttdef"><b>Definition</b> atom.h:161</div></div>
 <div class="ttc" id="aatom_8h_html_a8f22f6f993dd09e5340698195c7f02b2"><div class="ttname"><a href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a></div><div class="ttdeci">glm::vec3 extent(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Calculate the extent of some Atoms.</div><div class="ttdef"><b>Definition</b> atom.h:140</div></div>

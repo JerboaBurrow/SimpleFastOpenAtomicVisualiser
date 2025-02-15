@@ -171,6 +171,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a63568d2c83fbba08ab3284a883bbe3d5" id="r_a63568d2c83fbba08ab3284a883bbe3d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::map</a>&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glm::vec4</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5">coloursFromFile</a> (std::filesystem::path path)</td></tr>
 <tr class="memdesc:a63568d2c83fbba08ab3284a883bbe3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Element colour map from a file.  <br /></td></tr>
 <tr class="separator:a63568d2c83fbba08ab3284a883bbe3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a761e4379a6151ad25fd373d9d8a9c521" id="r_a761e4379a6151ad25fd373d9d8a9c521"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::map</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glm::vec4</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="colour_8h.html#a761e4379a6151ad25fd373d9d8a9c521">atomColoursFromFile</a> (std::filesystem::path path)</td></tr>
+<tr class="memdesc:a761e4379a6151ad25fd373d9d8a9c521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an atom index colour map from a file.  <br /></td></tr>
+<tr class="separator:a761e4379a6151ad25fd373d9d8a9c521"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -179,6 +182,38 @@ Variables</h2></td></tr>
 <tr class="separator:a2cf483741023eb51f5cd3ba774fb5917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a761e4379a6151ad25fd373d9d8a9c521" name="a761e4379a6151ad25fd373d9d8a9c521"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a761e4379a6151ad25fd373d9d8a9c521">&#9670;&#160;</a></span>atomColoursFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::map</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glm::vec4</a> &gt; atomColoursFromFile </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read an atom index colour map from a file. </p>
+<dl class="section remark"><dt>Remarks</dt><dd>The file should be formatted with lines as the atom index and 4 floats. </dd>
+<dd>
+Not all atoms need be specified. </dd>
+<dd>
+These colours will override any others. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the file path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::map&lt;uint64_t, glm::vec4&gt; the atom colourings. </dd></dl>
+
+</div>
+</div>
 <a id="a63568d2c83fbba08ab3284a883bbe3d5" name="a63568d2c83fbba08ab3284a883bbe3d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a63568d2c83fbba08ab3284a883bbe3d5">&#9670;&#160;</a></span>coloursFromFile()</h2>
 
@@ -196,7 +231,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read an Element colour map from a file. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>The file should be formatted with lines a the element name string and 4 floats. </dd>
+<dl class="section remark"><dt>Remarks</dt><dd>The file should be formatted with lines as the element name string and 4 floats. </dd>
 <dd>
 Any unspecified colourings will default to CPK. </dd>
 <dd>
