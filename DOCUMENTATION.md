@@ -119,3 +119,21 @@ The available meshes are.
 | ANY | 6 | Uses all mesh types controlled by LOD|
 
 The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.
+
+## Colouring
+
+It is possible to set the colour map taking Elements into RGBA values. This can be done by specifying a partial list in a file and supplying the CLI argument ```-colourmap YOUR_FILE_PATH```. An example file is
+
+```
+Ar 1.0 0.0 0.0 1.0
+F  0.0 0.0 0.0 1.0
+Cl 0.1 0.9 0.1 1.0
+```
+
+It is also possible to set the colour of individual atoms by their index in the structure file and suppling the CLI argument ```-atomColours YOUR_FILE_PATH```. These will override any other colour specifications for that atom. An example file is
+
+```
+0 1.0 0.0 0.0 1.0
+3758 0.0 1.0 0.0 1.0
+92 0.0 0.0 1.0 1.0
+```
