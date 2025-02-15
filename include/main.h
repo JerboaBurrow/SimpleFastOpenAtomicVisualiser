@@ -35,6 +35,8 @@ const float emphasisedAlpha = 1.0f;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
 
+std::map<uint64_t, glm::vec4> atomColourOverrides;
+
 /**
  * @brief Controls for the camera
  *

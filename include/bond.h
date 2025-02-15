@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+#include <constants.h>
+
 /**
  * @brief A Bond structure.
  *
@@ -32,21 +34,29 @@ struct Bond
 /**
  * @brief Obtain bonds based on a fixed distance cutOff.
  *
+ * @param forAtoms the atoms to find bonds for.
  * @param atoms the Atoms to bond.
  * @param cutOff the distance cutoff below which Atoms are bonded.
  * @return std::vector<Bond> the resulting Bonds.
  * @remark Currently a naive direct distance evaluation.
  */
-std::vector<Bond> determineBonds(std::vector<Atom> & atoms, float cutOff)
+std::vector<Bond> determineBonds
+(
+    std::vector<uint64_t> forAtoms,
+    std::vector<Atom> & atoms,
+    float cutOff
+)
 {
-    if (cutOff <= 0.0f) { return {}; }
+    if (cutOff <= 0.0f || forAtoms.size() == 0) { return {}; }
+
     std::vector<Bond> bonds;
     bonds.reserve(atoms.size());
-    for (uint64_t i = 0; i < atoms.size(); i++)
+
+    for (uint64_t i : forAtoms)
     {
-        for (uint64_t j = i+1; j < atoms.size(); j++)
+        for (uint64_t j = 0; j < atoms.size(); j++)
         {
-            if (glm::length(atoms[j].position-atoms[i].position) <= cutOff)
+            if (j != i && glm::length(atoms[j].position-atoms[i].position) <= cutOff)
             {
                 bonds.push_back({i, j});
             }

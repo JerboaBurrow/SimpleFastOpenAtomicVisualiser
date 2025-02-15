@@ -148,7 +148,7 @@ glm::vec4 stringSymbolToColour(std::string & s)
 /**
  * @brief Read an Element colour map from a file.
  *
- * @remark The file should be formatted with lines a the element name string and 4 floats.
+ * @remark The file should be formatted with lines as the element name string and 4 floats.
  * @remark Any unspecified colourings will default to CPK.
  * @remark CPK colours are returned on errors.
  * @param path the file path.
@@ -183,6 +183,39 @@ std::map<Element, glm::vec4> coloursFromFile(std::filesystem::path path)
         std::cout << "Could not find colourmap file " << path << " defaulting to CPK\n";
         return CPK_COLOURS;
     }
+}
+
+/**
+ * @brief Read an atom index colour map from a file.
+ *
+ * @remark The file should be formatted with lines as the atom index and 4 floats.
+ * @remark Not all atoms need be specified.
+ * @remark These colours will override any others.
+ * @param path the file path.
+ * @return std::map<uint64_t, glm::vec4> the atom colourings.
+ */
+std::map<uint64_t, glm::vec4> atomColoursFromFile(std::filesystem::path path)
+{
+    std::map<uint64_t, glm::vec4> colours;
+    if (std::filesystem::exists(path))
+    {
+        std::ifstream in(path);
+        std::string line;
+        std::stringstream ss;
+        std::string name;
+        uint64_t atom;
+        float r, g, b, a;
+        while (std::getline(in, line))
+        {
+            ss = std::stringstream(line);
+            ss >> atom >> r >> g >> b >> a;
+            if (!ss.fail())
+            {
+                colours[atom] = glm::vec4(r, g, b, a);
+            }
+        }
+    }
+    return colours;
 }
 
 #endif /* COLOUR_H */

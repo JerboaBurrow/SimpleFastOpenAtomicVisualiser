@@ -58,6 +58,11 @@ int main(int argv, char ** argc)
         structure->colourMap = coloursFromFile(options.colourmap.value);
     }
 
+    if (!options.atomColours.value.empty())
+    {
+        atomColourOverrides = atomColoursFromFile(options.atomColours.value);
+    }
+
     structure->readFrame(0);
 
     Camera loadingCamera {sfoavAtoms, resX, resY};
@@ -96,13 +101,26 @@ int main(int argv, char ** argc)
         emphasisControls[GLFW_KEY_1+i] = e;
         std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
     }
+    applyColours(structure->atoms, atomColourOverrides);
 
     center(structure->atoms);
 
     std::vector<Bond> bonds;
+    std::vector<uint64_t> bondsFor;
+
+    if (options.bondFocus.value < structure->atoms.size())
+    {
+        bondsFor = {options.bondFocus.value};
+    }
+    else
+    {
+        bondsFor.resize(structure->atoms.size());
+        std::iota(bondsFor.begin(), bondsFor.end(), 0);
+    }
+
     if (options.bondCutoff.value > 0.0)
     {
-        bonds = determineBonds(structure->atoms, options.bondCutoff.value);
+        bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
     }
 
     Camera camera {structure->atoms, resX, resY};
@@ -227,9 +245,10 @@ int main(int argv, char ** argc)
             translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
-                bonds = determineBonds(structure->atoms, options.bondCutoff.value);
+                bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
             }
             setAlpha(structure->atoms, alphaOverrides);
+            applyColours(structure->atoms, atomColourOverrides);
             cell.setVectors(structure->getCellA(), structure->getCellB(), structure->getCellC());
             elementsNeedUpdate = true;
         }
