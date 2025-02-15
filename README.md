@@ -144,7 +144,6 @@ To keep it simple the following features won't be implemented.
 
 - Structures and environments.
 - System editing (atom positions, types, bonds).
-- Script extensions.
 - Simulation.
 - Every structure format under the sun.
 
