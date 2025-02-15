@@ -167,6 +167,10 @@ public:
      */
     glm::vec3 getCellC() const { return cellC; }
 
+    /**
+     * @brief Colour map from Element to colour.
+     *
+     */
     std::map<Element, glm::vec4> colourMap = CPK_COLOURS;
 
 protected:

@@ -4,13 +4,14 @@
 #include <map>
 #include <string>
 #include <cstdint>
-#include <memory.h>
+#include <memory>
 #include <filesystem>
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
 
 #include <hierarchicalTriangularMesh.h>
+#include <constants.h>
 
 /**
  * @brief true if a string starts with -[prefix].
@@ -155,6 +156,40 @@ bool getArgument<uint8_t>
     if (c < count-1  && startsWith(commandLine[c], arg.name))
     {
         arg.value = std::stoi(commandLine[c+1]);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief Extract a uint64_t argument.
+ *
+ * @tparam uint64_t
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ * @return true the argument was read."
+ * @return false the argument was not read."
+ */
+template <>
+bool getArgument<uint64_t>
+(
+    Argument<uint64_t> & arg,
+    char ** commandLine,
+    const uint8_t c,
+    const uint8_t count
+)
+{
+    if (c == arg.position)
+    {
+        arg.value = std::stoull(commandLine[c]);
+        return true;
+    }
+    if (c < count-1  && startsWith(commandLine[c], arg.name))
+    {
+        arg.value = std::stoull(commandLine[c+1]);
         return true;
     }
     return false;
@@ -384,10 +419,12 @@ struct CommandLine
             getArgument<bool>(showCell, commandLine, c, count);
             getArgument<float>(deemphasisAlpha, commandLine, c, count);
             getArgument<std::filesystem::path>(colourmap, commandLine, c, count);
+            getArgument<std::filesystem::path>(atomColours, commandLine, c, count);
             getArgument<float>(atomSize, commandLine, c, count);
             getArgument<vec<2>>(resolution, commandLine, c, count);
             getArgument<bool>(hideInfoText, commandLine, c, count);
             getArgument<bool>(play, commandLine, c, count);
+            getArgument<uint64_t>(bondFocus, commandLine, c, count);
         }
     }
 
@@ -403,10 +440,12 @@ struct CommandLine
     Argument<bool> showCell = {"showCell", "Whether to show the simulation cell (toggle-able at runtime).", false, false};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f, false};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}, false};
+    Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", {}, false};
     Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f, false};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}, false};
     Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false, false};
     Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
+    Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -460,6 +499,8 @@ struct CommandLine
           << "\n"
           << argumentHelp(colourmap)
           << "\n"
+          << argumentHelp(atomColours)
+          << "\n"
           << argumentHelp(msaa)
           << "\n"
           << argumentHelp(mesh)
@@ -467,6 +508,8 @@ struct CommandLine
           << argumentHelp(meshes)
           << "\n"
           << argumentHelp(levelOfDetail)
+          << "\n"
+          << argumentHelp(bondFocus)
           << "\n"
           << argumentHelp(bondCutoff)
           << "\n"
