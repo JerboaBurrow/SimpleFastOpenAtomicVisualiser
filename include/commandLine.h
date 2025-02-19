@@ -526,6 +526,8 @@ struct CommandLine
           << argumentHelp(deemphasisAlpha)
           << "\n"
           << argumentHelp(hideInfoText)
+          << "\n"
+          << argumentHelp(resolution)
           << "\n";
         std::cout << h.str();
     }

@@ -103,8 +103,6 @@ int main(int argv, char ** argc)
     }
     applyColours(structure->atoms, atomColourOverrides);
 
-    center(structure->atoms);
-
     std::vector<Bond> bonds;
     std::vector<uint64_t> bondsFor;
 
@@ -241,8 +239,6 @@ int main(int argv, char ** argc)
         {
             // Previous threaded read is done.
             readInProgress = false;
-            center(structure->atoms);
-            translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
                 bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
