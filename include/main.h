@@ -213,6 +213,19 @@ void loadingScreenFrame
 }
 
 /**
+ * @brief Move back one frame.
+ *
+ * @param structure the Structure file.
+ */
+void backward(std::unique_ptr<Structure> & structure)
+{
+    uint64_t f = structure->framePosition();
+    if (f > 2) { f -= 2; }
+    else { f = structure->frameCount()-2+f;}
+    structure->readFrame(f);
+}
+
+/**
  * @brief String name for a GLFW_KEY index.
  *
  */
