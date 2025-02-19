@@ -21,14 +21,17 @@ public:
      * @param bonds the current Bonds between atoms.
      * @param atoms the Atoms with bonds Bonds.
      * @param maxBonds a hint to the maximum number of Bonds.
+     * @param bondPad number of bonds to increase maximum by on overflow.
+     * Default to 1024.
      */
     BondRenderer
     (
         const std::vector<Bond> & bonds,
         const std::vector<Atom> & atoms,
-        uint64_t maxBonds
+        uint64_t maxBonds,
+        uint64_t bondPad = 1024
     )
-    : bonds(0), maxBonds(maxBonds)
+    : bonds(0), maxBonds(maxBonds+bondPad), bondPad(bondPad)
     {
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
@@ -48,12 +51,7 @@ public:
 
     ~BondRenderer()
     {
-        glDeleteVertexArrays(1, &vao);
-        glDeleteBuffers(1, &a_vertices);
-        glDeleteBuffers(1, &b_vertices);
-        glDeleteBuffers(1, &a_colours);
-        glDeleteBuffers(1, &b_colours);
-        glDeleteBuffers(1, &a_quad);
+        deallocate();
     }
 
     /**
@@ -135,9 +133,9 @@ public:
     /**
      * @brief The number of triangles drawn.
      *
-     * @return uint32_t the number of triangles.
+     * @return uint64_t the number of triangles.
      */
-    uint32_t triangles() const
+    uint64_t triangles() const
     {
         return bonds*2;
     }
@@ -145,6 +143,8 @@ public:
     /**
      * @brief Update the bonds rendered on the GPU.
      *
+     * @remark If the number of bonds exceeds the storage space
+     * a reallocation will occur (with padding).
      * @param bonds the new bonds.
      * @param atoms the new atoms.
      */
@@ -154,6 +154,17 @@ public:
         const std::vector<Atom> & atoms
     )
     {
+        if (bonds.size() > maxBonds)
+        {
+            std::cout << "Reallocating bonds:\n"
+                      <<   "  New bonds size:        " << bonds.size()
+                      << "\n  Storage:               " << maxBonds
+                      << "\n  New storage:           " << bonds.size()+bondPad
+                      << "\n";
+            deallocate();
+            maxBonds = bonds.size()+bondPad;
+            init();
+        }
         flip();
         for (const Bond & bond : bonds)
         {
@@ -167,7 +178,7 @@ public:
      *
      * @param count override number of bonds.
      */
-    void draw(uint32_t count)
+    void draw(uint64_t count)
     {
         count = std::min(count, bonds);
         if (count == 0) { return; }
@@ -198,8 +209,9 @@ public:
 
 private:
 
-    uint32_t bonds;
-    uint32_t maxBonds;
+    uint64_t bonds;
+    uint64_t maxBonds;
+    uint64_t bondPad;
     std::unique_ptr<jGL::GL::glShader> shader;
     glm::vec3 cameraPosition;
 
@@ -211,7 +223,7 @@ private:
 
     glm::mat4 view, projection;
 
-    uint32_t index = 0;
+    uint64_t index = 0;
 
     const std::array<float, 8> quad =
     {
@@ -362,6 +374,16 @@ private:
         "       colour = vec4((ambientLight + diff)*lightColour.rgb * col.rgb, col.a);\n"
         "    }\n"
         "}";
+
+    void deallocate()
+    {
+        glDeleteVertexArrays(1, &vao);
+        glDeleteBuffers(1, &a_vertices);
+        glDeleteBuffers(1, &b_vertices);
+        glDeleteBuffers(1, &a_colours);
+        glDeleteBuffers(1, &b_colours);
+        glDeleteBuffers(1, &a_quad);
+    }
 
     void setProjectionView()
     {
