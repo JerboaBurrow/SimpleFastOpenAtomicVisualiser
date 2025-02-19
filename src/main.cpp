@@ -35,6 +35,7 @@ int main(int argv, char ** argc)
     bool readInProgress = false;
     bool elementsNeedUpdate = false;
     bool playBackward = false;
+    uint8_t lastAutoPlayIncrement = 0;
 
     if (options.msaa.value > 0)
     {
@@ -231,6 +232,19 @@ int main(int argv, char ** argc)
             options.play.value = !options.play.value;
         }
 
+        if (display.keyHasEvent(GLFW_KEY_K, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_K, jGL::EventType::HOLD))
+        {
+            options.speed.value = std::min(options.speed.value+1, 60);
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_J, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_J, jGL::EventType::HOLD))
+        {
+            if (options.speed.value > 1)
+            {
+                options.speed.value--;
+            }
+        }
+
         if (readInProgress && structure->frameReadComplete())
         {
             // Previous threaded read is done.
@@ -277,7 +291,8 @@ int main(int argv, char ** argc)
                       << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
                       << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
                       << ")\n"
-                      << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles() << "\n";
+                      << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles()
+                      << "\nSpeed " << fixedLengthNumber(int(100.0*float(options.speed.value)/float(60)), 3);
 
             jGLInstance->text(
                 debugText.str(),
@@ -301,15 +316,23 @@ int main(int argv, char ** argc)
 
         if (!readInProgress && options.play.value)
         {
-            if (playBackward)
+            uint8_t t = frameId < lastAutoPlayIncrement ?
+              uint8_t(60)-std::min(lastAutoPlayIncrement,uint8_t(60))+frameId :
+              frameId-lastAutoPlayIncrement;
+
+            if (t >= uint8_t(60)-std::min(options.speed.value, uint8_t(60)))
             {
-                backward(structure);
+                if (playBackward)
+                {
+                    backward(structure);
+                }
+                else
+                {
+                    structure->readFrame(structure->framePosition());
+                }
+                readInProgress = true;
+                lastAutoPlayIncrement = frameId;
             }
-            else
-            {
-                structure->readFrame(structure->framePosition());
-            }
-            readInProgress = true;
         }
 
         jGLInstance->endFrame();
