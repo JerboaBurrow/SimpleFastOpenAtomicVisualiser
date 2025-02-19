@@ -53,6 +53,7 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
+    glm::vec3 com = glm::vec3(0);
 
     if (!options.colourmap.value.empty())
     {
@@ -103,6 +104,7 @@ int main(int argv, char ** argc)
         std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
     }
     applyColours(structure->atoms, atomColourOverrides);
+    if (!options.noCentering.value) { center(structure->atoms); }
 
     std::vector<Bond> bonds;
     std::vector<uint64_t> bondsFor;
@@ -193,6 +195,7 @@ int main(int argv, char ** argc)
             playBackward = false;
             if (!readInProgress)
             {
+                com = getCenter(structure->atoms);
                 structure->readFrame(structure->framePosition());
                 readInProgress = true;
             }
@@ -203,6 +206,7 @@ int main(int argv, char ** argc)
             playBackward = true;
             if (!readInProgress)
             {
+                com = getCenter(structure->atoms);
                 backward(structure);
                 readInProgress = true;
             }
@@ -249,6 +253,8 @@ int main(int argv, char ** argc)
         {
             // Previous threaded read is done.
             readInProgress = false;
+            if (!options.noCentering.value) { center(structure->atoms); }
+            translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
                 bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
@@ -322,6 +328,7 @@ int main(int argv, char ** argc)
 
             if (t >= uint8_t(60)-std::min(options.speed.value, uint8_t(60)))
             {
+                com = getCenter(structure->atoms);
                 if (playBackward)
                 {
                     backward(structure);

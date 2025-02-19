@@ -448,6 +448,7 @@ struct CommandLine
     Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX, false};
     Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60, false};
+    Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -532,6 +533,8 @@ struct CommandLine
           << argumentHelp(resolution)
           << "\n"
           << argumentHelp(speed)
+          << "\n"
+          << argumentHelp(noCentering)
           << "\n";
         std::cout << h.str();
     }
