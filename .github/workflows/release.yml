@@ -168,7 +168,7 @@ jobs:
         path: macos
 
   release:
-    needs: [linux, windows, macos]
+    needs: [linux, windows, macos, build-manual]
     if: github.ref_type == 'tag'
     runs-on: ubuntu-22.04
 
