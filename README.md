@@ -41,32 +41,47 @@ If the structure file is a trajectory you may scan through its frames moving for
 > [!note]
 > When reading HISTORY files or XYZ/EXTXYZ with multiple frames, SFOAV will cache the filepositions (not data) of each frame in the background. For large trajectory files this may take some time, but you will always be able to play up to the most recently cached frame.
 
-At runtime the following key-controls can be used:
+At runtime the following camera key-controls can be used:
 
 | Key | Action  | Note |
 | :----- | :---- | :---- |
-| H      | Toggle atom drawing.    | |
 | W      | Zoom towards the origin. | |
 | S      | Zoom away from the origin. | |
 | Q      | Incline the view. | |
 | E      | Decline the view. | |
 | A      | Rotate the view. | |
 | D      | Rotate the view. | |
+| SPACE  | Reset to the default view and atom positions | At (0,0,0), azimuth Pi/2 and inclination Pi. |
+
+The following atom key-controls are available:
+
+| Key | Action  | Note |
+| :----- | :---- | :---- |
+| H      | Toggle atom drawing.    | |
 | LEFT   | Translate the atoms in -x | |
 | RIGHT  | Translate the atoms in +x | |
 | UP     | Translate the atoms in +z | |
 | DOWN   | Translate the atoms in -z | |
 | .      | Translate the atoms in -y | |
 | /      | Translate the atoms in +y | |
-| SPACE  | Reset to the default view and atom positions | At (0,0,0), azimuth Pi/2 and inclination Pi. |
-| F      | Move forward in time  | |
-| B      | Move backward in time | |
 | 1 to 9 | Toggle element emphasis | Elements assigned at startup. |
-| X      | Toggle coordinate axes | |
-| C      | Toggle simulation cell | |
-| I      | Toggle information text | |
-| R      | Reset to the first trajectory frame | |
+
+Trajectory playback may be controlled by the following key-bindings:
+| Key | Action  | Note |
+| :----- | :---- | :---- |
+| F      | Move forward in time  | Sets forwarding playing with P. |
+| B      | Move backward in time | Sets backward playing with P. |
 | P      | Pause/Play a trajectory | |
+| J      | Decrease play speed | The minimum is 1 frame per second. |
+| K      | Increase play speed | The maximum is 60 frames per second. |
+| R      | Reset to the first trajectory frame | |
+
+Miscellaneous key bindings are:
+| Key | Action  | Note |
+| :----- | :---- | :---- |
+| X      | Toggle drawing the coordinate axes | |
+| C      | Toggle drawing the simulation cell | |
+| I      | Toggle information text | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x

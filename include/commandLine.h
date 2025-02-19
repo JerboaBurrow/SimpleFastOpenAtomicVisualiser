@@ -425,6 +425,7 @@ struct CommandLine
             getArgument<bool>(hideInfoText, commandLine, c, count);
             getArgument<bool>(play, commandLine, c, count);
             getArgument<uint64_t>(bondFocus, commandLine, c, count);
+            getArgument<uint8_t>(speed, commandLine, c, count);
         }
     }
 
@@ -446,6 +447,7 @@ struct CommandLine
     Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false, false};
     Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX, false};
+    Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -528,6 +530,8 @@ struct CommandLine
           << argumentHelp(hideInfoText)
           << "\n"
           << argumentHelp(resolution)
+          << "\n"
+          << argumentHelp(speed)
           << "\n";
         std::cout << h.str();
     }
