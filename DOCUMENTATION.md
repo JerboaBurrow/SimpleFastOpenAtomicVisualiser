@@ -60,8 +60,8 @@ At runtime the following key-controls can be used:
 | .      | Translate the atoms in -y | |
 | /      | Translate the atoms in +y | |
 | SPACE  | Reset to the default view and atom positions | At (0,0,0), azimuth Pi/2 and inclination Pi. |
-| F      | Move forward in time  | |
-| B      | Move backward in time | |
+| F      | Move forward in time  | Sets forwarding playing with P. |
+| B      | Move backward in time | Sets backward playing with P. |
 | 1 to 9 | Toggle element emphasis | Elements assigned at startup. |
 | X      | Toggle coordinate axes | |
 | C      | Toggle simulation cell | |

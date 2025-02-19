@@ -34,6 +34,7 @@ int main(int argv, char ** argc)
     unsigned int rbo;
     bool readInProgress = false;
     bool elementsNeedUpdate = false;
+    bool playBackward = false;
 
     if (options.msaa.value > 0)
     {
@@ -188,6 +189,7 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
         {
+            playBackward = false;
             if (!readInProgress)
             {
                 structure->readFrame(structure->framePosition());
@@ -197,12 +199,10 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
         {
+            playBackward = true;
             if (!readInProgress)
             {
-                uint64_t f = structure->framePosition();
-                if (f > 2) { f -= 2; }
-                else { f = structure->frameCount()-2+f;}
-                structure->readFrame(f);
+                backward(structure);
                 readInProgress = true;
             }
         }
@@ -301,7 +301,14 @@ int main(int argv, char ** argc)
 
         if (!readInProgress && options.play.value)
         {
-            structure->readFrame(structure->framePosition());
+            if (playBackward)
+            {
+                backward(structure);
+            }
+            else
+            {
+                structure->readFrame(structure->framePosition());
+            }
             readInProgress = true;
         }
 
