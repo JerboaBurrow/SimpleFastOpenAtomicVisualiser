@@ -51,7 +51,6 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
-    glm::vec3 com = glm::vec3(0);
 
     if (!options.colourmap.value.empty())
     {
@@ -102,8 +101,6 @@ int main(int argv, char ** argc)
         std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
     }
     applyColours(structure->atoms, atomColourOverrides);
-
-    center(structure->atoms);
 
     std::vector<Bond> bonds;
     std::vector<uint64_t> bondsFor;
@@ -193,7 +190,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 structure->readFrame(structure->framePosition());
                 readInProgress = true;
             }
@@ -203,7 +199,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 uint64_t f = structure->framePosition();
                 if (f > 2) { f -= 2; }
                 else { f = structure->frameCount()-2+f;}
@@ -216,7 +211,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 structure->readFrame(0);
                 readInProgress = true;
             }
@@ -241,8 +235,6 @@ int main(int argv, char ** argc)
         {
             // Previous threaded read is done.
             readInProgress = false;
-            center(structure->atoms);
-            translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
                 bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
@@ -309,7 +301,6 @@ int main(int argv, char ** argc)
 
         if (!readInProgress && options.play.value)
         {
-            com = getCenter(structure->atoms);
             structure->readFrame(structure->framePosition());
             readInProgress = true;
         }
