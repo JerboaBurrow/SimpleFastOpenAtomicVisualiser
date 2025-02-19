@@ -51,7 +51,6 @@ int main(int argv, char ** argc)
 
     std::unique_ptr<Structure> structure;
     readStructureFile(options.structure.value, structure);
-    glm::vec3 com = glm::vec3(0);
 
     if (!options.colourmap.value.empty())
     {
@@ -191,7 +190,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 structure->readFrame(structure->framePosition());
                 readInProgress = true;
             }
@@ -201,7 +199,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 uint64_t f = structure->framePosition();
                 if (f > 2) { f -= 2; }
                 else { f = structure->frameCount()-2+f;}
@@ -214,7 +211,6 @@ int main(int argv, char ** argc)
         {
             if (!readInProgress)
             {
-                com = getCenter(structure->atoms);
                 structure->readFrame(0);
                 readInProgress = true;
             }
@@ -305,7 +301,6 @@ int main(int argv, char ** argc)
 
         if (!readInProgress && options.play.value)
         {
-            com = getCenter(structure->atoms);
             structure->readFrame(structure->framePosition());
             readInProgress = true;
         }
