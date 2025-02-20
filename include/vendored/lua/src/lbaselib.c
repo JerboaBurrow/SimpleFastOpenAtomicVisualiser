@@ -29,7 +29,7 @@
   const char * LUA_PRINT_ENTRY = "\033[1;34m[LUA] \033[0m\0";
   const size_t LUA_ENTRY_LENGTH = 23;
 #else
-// it is more complicated than this, LUA interprets some of 
+// it is more complicated than this, LUA interprets some of
 // the escapes differently
   const char * LUA_PRINT_ENTRY = "[LUA]  \0";
   const size_t LUA_ENTRY_LENGTH = 6;
