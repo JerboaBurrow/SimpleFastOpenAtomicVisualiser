@@ -26,6 +26,7 @@
 #include <config.h>
 #include <camera.h>
 #include <cell.h>
+#include <console.h>
 
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;

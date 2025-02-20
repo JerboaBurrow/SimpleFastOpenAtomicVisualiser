@@ -38,3 +38,4 @@ std::string randomFileName()
 
 #include <test_structure_input/test_structure_input.cpp>
 #include <test_elements/test_elements.cpp>
+#include <test_console/test_console.cpp>

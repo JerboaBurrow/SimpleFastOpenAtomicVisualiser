@@ -1,4 +1,7 @@
 #include <main.h>
+
+std::string Console::stackTrace("");
+
 int main(int argv, char ** argc)
 {
     CommandLine options(argv, argc);
