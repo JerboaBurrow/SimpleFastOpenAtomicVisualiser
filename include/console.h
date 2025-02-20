@@ -41,7 +41,6 @@ public:
         lua = luaL_newstate();
         luaL_openlibs(lua);
         luaL_requiref(lua,"sfoav",load_sfoavLib,1);
-        runString("print(\"process running\")");
     }
 
     ~Console(){ lua_close(lua); }
