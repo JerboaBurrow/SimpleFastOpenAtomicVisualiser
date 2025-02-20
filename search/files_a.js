@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['triangle_2eh_0',['triangle.h',['../triangle_8h.html',1,'']]],
-  ['trixel_2eh_1',['trixel.h',['../trixel_8h.html',1,'']]]
+  ['structure_2eh_0',['structure.h',['../structure_8h.html',1,'']]],
+  ['structureutils_2eh_1',['structureUtils.h',['../structureUtils_8h.html',1,'']]]
 ];

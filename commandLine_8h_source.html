@@ -336,22 +336,22 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint8_t</a> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">count</a></div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>)</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>{</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    std::stringstream <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a>;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    std::stringstream data;</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordflow">if</span> (c == <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.position)</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    {</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a> &lt;&lt; std::string(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">commandLine</a>[c]);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        data &lt;&lt; std::string(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">commandLine</a>[c]);</div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    }</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    <span class="keywordflow">if</span> (c &lt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">count</a>-1  &amp;&amp; <a class="code hl_function" href="commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d">startsWith</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">commandLine</a>[c], <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.name))</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    {</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a> &lt;&lt; std::string(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">commandLine</a>[c+1]);</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        data &lt;&lt; std::string(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">commandLine</a>[c+1]);</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    }</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    {</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    }</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a> &gt;&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.value.x;</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordflow">if</span> (<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a>.eof()) { <span class="keywordflow">throw</span> std::runtime_error(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.name+<span class="stringliteral">&quot; requires 2 values like \&quot;512 512\&quot;&quot;</span>); }</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">data</a> &gt;&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.value.y;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    data &gt;&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.value.x;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordflow">if</span> (data.eof()) { <span class="keywordflow">throw</span> std::runtime_error(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.name+<span class="stringliteral">&quot; requires 2 values like \&quot;512 512\&quot;&quot;</span>); }</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    data &gt;&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">arg</a>.value.y;</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>}</div>
 </div>
@@ -576,12 +576,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span><span class="stringliteral">  Public domain</span></div>
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span><span class="stringliteral">  by Sean Barrett (nothings).</span></div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><span class="stringliteral">With thanks, Jerboa.</span></div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="stringliteral">)&quot;;</span></div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="stringliteral">};</span></div>
-</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><span class="stringliteral">Lua</span></div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="stringliteral">  MIT</span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="stringliteral">  Copyright © 1994-2023 Lua.org, PUC-Rio.</span></div>
 <div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="stringliteral"></span><span class="preprocessor">#endif </span><span class="comment">/* COMMANDLINE_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="stringliteral">With thanks, Jerboa.</span></div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span><span class="stringliteral">)&quot;;</span></div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span><span class="stringliteral">};</span></div>
+</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span><span class="stringliteral"></span><span class="preprocessor">#endif </span><span class="comment">/* COMMANDLINE_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="acommandLine_8h_html_a198d4e94b3a56b3a97fc5d1e36a5e02d"><div class="ttname"><a href="commandLine_8h.html#a198d4e94b3a56b3a97fc5d1e36a5e02d">startsWith</a></div><div class="ttdeci">bool startsWith(std::string s, std::string &amp;prefix)</div><div class="ttdoc">true if a string starts with -[prefix].</div><div class="ttdef"><b>Definition</b> commandLine.h:24</div></div>
 <div class="ttc" id="acommandLine_8h_html_a2f9868edb047d936d8d0f1a51f6f486b"><div class="ttname"><a href="commandLine_8h.html#a2f9868edb047d936d8d0f1a51f6f486b">getArgument</a></div><div class="ttdeci">bool getArgument(Argument&lt; T &gt; &amp;arg, char **commandLine, const uint8_t c, const uint8_t count)</div><div class="ttdoc">Extract the value of an argument.</div></div>
 <div class="ttc" id="acommandLine_8h_html_a55874f25ca96dc49478b8932373a2e21"><div class="ttname"><a href="commandLine_8h.html#a55874f25ca96dc49478b8932373a2e21">getArgument&lt; uint8_t &gt;</a></div><div class="ttdeci">bool getArgument&lt; uint8_t &gt;(Argument&lt; uint8_t &gt; &amp;arg, char **commandLine, const uint8_t c, const uint8_t count)</div><div class="ttdoc">Extract a uint8_t argument.</div><div class="ttdef"><b>Definition</b> commandLine.h:144</div></div>

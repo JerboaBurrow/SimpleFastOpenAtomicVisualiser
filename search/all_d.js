@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_0',['N',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8d9c307cb7f3c4a32822a51922d1ceaa',1,'element.h']]],
+  ['n_0',['n',['../structLuaNumber.html#a1fe65cd043871163c7731600dcdc2c67',1,'LuaNumber::n'],['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8d9c307cb7f3c4a32822a51922d1ceaa',1,'N:&#160;element.h']]],
   ['na_1',['Na',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a91fbc1ffc46dc5e768f6b154bb548e37',1,'element.h']]],
   ['name_2',['name',['../structArgument.html#a9176a2328f9acbc6242052891d1155b2',1,'Argument']]],
   ['natoms_3',['natoms',['../classStructure.html#abc2a6bb1a015c5393ee8762bf56532d3',1,'Structure']]],
