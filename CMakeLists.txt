@@ -56,6 +56,14 @@ set(OUTPUT_NAME sfoav)
 include_directories(include/vendored)
 include_directories(include)
 
+if (NOT WINDOWS)
+    add_compile_definitions(LUA_USE_POSIX)
+endif()
+
+file(GLOB LUA_SRC "include/vendored/lua/src/*.c")
+include_directories(include/vendored/lua/src)
+add_library(Lua STATIC ${LUA_SRC})
+
 if (WINDOWS)
     set(LIB_JGL "${PROJECT_SOURCE_DIR}/lib/libjGL-windows.a")
     add_compile_definitions(WINDOWS)
@@ -101,6 +109,7 @@ target_link_libraries(${OUTPUT_NAME}
     ${Vulkan_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${CMAKE_DL_LIBS}
+    Lua
 )
 
 target_compile_definitions(${OUTPUT_NAME} PUBLIC VERSION="Version: ${PRODUCT}-${MAJOR}.${MINOR}.${PATCH}")

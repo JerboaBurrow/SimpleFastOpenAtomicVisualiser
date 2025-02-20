@@ -15,6 +15,9 @@ else()
     add_link_options(-no-pie)
 endif()
 
+if (NOT WINDOWS)
+    add_compile_definitions(LUA_USE_POSIX)
+endif()
 include_directories(${CMAKE_SOURCE_DIR}/tests)
 
 add_executable(${OUTPUT_NAME} "unit_tests.cpp")
@@ -34,7 +37,13 @@ if (NOT WINDOWS AND NOT OSX)
             DEPENDENCIES ${OUTPUT_NAME}
             EXCLUDE "include/vendored/*" "tests/*"
         )
+
+        if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+            target_link_libraries(${OUTPUT_NAME} PUBLIC Lua PRIVATE gcov)
+        endif()
     endif()
+else()
+    target_link_libraries(${OUTPUT_NAME} PUBLIC Lua)
 endif()
 
 file(COPY "test_structure_input/CONFIG" DESTINATION "${CMAKE_BINARY_DIR}")
