@@ -63,11 +63,6 @@ int main(int argv, char ** argc)
         structure->colourMap = coloursFromFile(options.colourmap.value);
     }
 
-    if (!options.atomColours.value.empty())
-    {
-        atomColourOverrides = atomColoursFromFile(options.atomColours.value);
-    }
-
     structure->readFrame(0);
 
     Camera loadingCamera {sfoavAtoms, resX, resY};
@@ -96,36 +91,16 @@ int main(int argv, char ** argc)
 
     if (!display.isOpen()) { return 0; }
 
-    std::set<Element> elements = uniqueElements(structure->atoms);
-    std::multimap<Element, uint64_t> elementMap = elementIndices(structure->atoms);
-    std::map<int, Element> emphasisControls;
-    std::vector<float> alphaOverrides(structure->atoms.size(), 1.0f);
-    for (uint8_t i = 0; i < std::min(size_t(6), elements.size()); i++)
-    {
-        Element e = *std::next(elements.begin(), i);
-        emphasisControls[GLFW_KEY_1+i] = e;
-        std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
-    }
-    applyColours(structure->atoms, atomColourOverrides);
+    VisualisationState visualisationState
+    (
+        structure->atoms,
+        options.atomColours.value,
+        options.bondFocus.value,
+        options.bondCutoff.value,
+        keyCodes
+    );
+
     if (!options.noCentering.value) { center(structure->atoms); }
-
-    std::vector<Bond> bonds;
-    std::vector<uint64_t> bondsFor;
-
-    if (options.bondFocus.value < structure->atoms.size())
-    {
-        bondsFor = {options.bondFocus.value};
-    }
-    else
-    {
-        bondsFor.resize(structure->atoms.size());
-        std::iota(bondsFor.begin(), bondsFor.end(), 0);
-    }
-
-    if (options.bondCutoff.value > 0.0)
-    {
-        bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
-    }
 
     Camera camera {structure->atoms, resX, resY};
 
@@ -140,9 +115,9 @@ int main(int argv, char ** argc)
 
     BondRenderer bondRenderer
     (
-        bonds,
+        visualisationState.bonds,
         structure->atoms,
-        bonds.size()
+        visualisationState.bonds.size()
     );
 
     bondRenderer.setBondScale(options.bondSize.value);
@@ -180,9 +155,9 @@ int main(int argv, char ** argc)
         (
             display,
             structure->atoms,
-            emphasisControls,
-            elementMap,
-            alphaOverrides,
+            visualisationState.emphasisControls,
+            visualisationState.elementMap,
+            visualisationState.atomEmphasisOverrides,
             options.deemphasisAlpha.value
         );
 
@@ -260,10 +235,10 @@ int main(int argv, char ** argc)
             translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
             {
-                bonds = determineBonds(bondsFor, structure->atoms, options.bondCutoff.value);
+                visualisationState.bonds = determineBonds(visualisationState.bondsFor, structure->atoms, options.bondCutoff.value);
             }
-            setAlpha(structure->atoms, alphaOverrides);
-            applyColours(structure->atoms, atomColourOverrides);
+            setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
+            applyColours(structure->atoms, visualisationState.atomColourOverrides);
             cell.setVectors(structure->getCellA(), structure->getCellB(), structure->getCellC());
             elementsNeedUpdate = true;
         }
@@ -277,7 +252,7 @@ int main(int argv, char ** argc)
             atomRenderer.draw(!options.meshes.value);
         }
 
-        if (elementsNeedUpdate) { bondRenderer.update(bonds, structure->atoms); }
+        if (elementsNeedUpdate) { bondRenderer.update(visualisationState.bonds, structure->atoms); }
         bondRenderer.draw();
 
         elementsNeedUpdate = false;
