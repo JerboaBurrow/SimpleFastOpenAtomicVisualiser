@@ -8,7 +8,6 @@
 #include <sstream>
 
 #include <jLog/jLog.h>
-#include <jGL/Display/desktopDisplay.h>
 
 #include <lua.h>
 #include <LuaNumber.h>
