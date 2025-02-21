@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xyz_0',['XYZ',['../classXYZ.html',1,'']]]
+  ['visualisationstate_0',['VisualisationState',['../structVisualisationState.html',1,'']]]
 ];

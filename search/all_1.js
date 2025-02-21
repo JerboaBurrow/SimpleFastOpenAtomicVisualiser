@@ -13,13 +13,15 @@ var searchData=
   ['bit_10',['bit',['../structLuaBool.html#a8104c51a35a6f0fabec81731523cb58d',1,'LuaBool']]],
   ['bk_11',['Bk',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ac64a5dae48f04e16deab001d4b9dbd80',1,'element.h']]],
   ['blockingreads_12',['blockingReads',['../classStructure.html#a230a09fb05c7e56efbdad3547842f94c',1,'Structure']]],
-  ['bond_13',['bond',['../structBond.html',1,'Bond'],['../structBond.html#a0e1531db24b2cb1832619ec3e0c9d912',1,'Bond::Bond()']]],
+  ['bond_13',['bond',['../structBond.html#a0e1531db24b2cb1832619ec3e0c9d912',1,'Bond::Bond()'],['../structBond.html',1,'Bond']]],
   ['bond_2eh_14',['bond.h',['../bond_8h.html',1,'']]],
   ['bondcutoff_15',['bondCutoff',['../structCommandLine.html#aaa5569e9ffd95c2e677c95896c306467',1,'CommandLine']]],
   ['bondfocus_16',['bondFocus',['../structCommandLine.html#a399d02451b7bfb46a5c29b938e5cd220',1,'CommandLine']]],
   ['bondrenderer_17',['bondrenderer',['../classBondRenderer.html#abd9b9f00b19e4c9f82f7e5b35f8d9363',1,'BondRenderer::BondRenderer()'],['../classBondRenderer.html',1,'BondRenderer']]],
   ['bondrenderer_2eh_18',['bondRenderer.h',['../bondRenderer_8h.html',1,'']]],
-  ['bondsize_19',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]],
-  ['br_20',['Br',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8d37869ebc7af08a31df14fe3f48bee2',1,'element.h']]],
-  ['build_21',['build',['../classHierarchicalTriangularMesh.html#a1a3cef433ecdd66eeeaa603eeb7aa617',1,'HierarchicalTriangularMesh']]]
+  ['bonds_19',['bonds',['../structVisualisationState.html#a9fcbdbe9c7fecc3c2cc3d3686c7015af',1,'VisualisationState']]],
+  ['bondsfor_20',['bondsFor',['../structVisualisationState.html#a0bb10bdcd6d02f1f412a5df54e09e6c8',1,'VisualisationState']]],
+  ['bondsize_21',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]],
+  ['br_22',['Br',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8d37869ebc7af08a31df14fe3f48bee2',1,'element.h']]],
+  ['build_23',['build',['../classHierarchicalTriangularMesh.html#a1a3cef433ecdd66eeeaa603eeb7aa617',1,'HierarchicalTriangularMesh']]]
 ];
