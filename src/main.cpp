@@ -100,6 +100,9 @@ int main(int argv, char ** argc)
         keyCodes
     );
 
+    jLog::Log log;
+    Console console(log, &visualisationState);
+
     if (!options.noCentering.value) { center(structure->atoms); }
 
     Camera camera {structure->atoms, resX, resY};
