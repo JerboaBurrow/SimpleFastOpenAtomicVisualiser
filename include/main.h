@@ -27,6 +27,7 @@
 #include <camera.h>
 #include <cell.h>
 #include <console.h>
+#include <visualisationState.h>
 
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;
@@ -35,8 +36,6 @@ const float dphi = (2.0*3.14)*0.05;
 const float emphasisedAlpha = 1.0f;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
-
-std::map<uint64_t, glm::vec4> atomColourOverrides;
 
 /**
  * @brief Controls for the camera
