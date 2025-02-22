@@ -114,13 +114,12 @@ struct VisualisationState
     int lua_setAtomColour(lua_State * lua)
     {
         int args = lua_gettop(lua);
-        if (args != 4 || args != 5)
+        if (args < 4 || args > 5)
         {
             const std::string msg = "setAtomColour expects an atom index and RGB or RGBA arguments.\n";
             lua_pushlstring(lua, msg.c_str(), msg.length());
             return lua_error(lua);
         }
-
         LuaNumber lua_index, lua_r, lua_g, lua_b, lua_a;
         uint64_t index;
         float r, g, b, a;
@@ -135,7 +134,6 @@ struct VisualisationState
             lua_pushlstring(lua, msg.c_str(), msg.length());
             return lua_error(lua);
         }
-
         lua_r.read(lua, 2);
         r = std::clamp(float(lua_r.n), 0.0f, 1.0f);
         lua_g.read(lua, 3);
@@ -147,7 +145,6 @@ struct VisualisationState
             lua_a.read(lua, 5);
             a = std::clamp(float(lua_a.n), 0.0f, 1.0f);
         }
-
         atomColourOverrides[index] = glm::vec4(r, g, b, a);
 
         return 0;

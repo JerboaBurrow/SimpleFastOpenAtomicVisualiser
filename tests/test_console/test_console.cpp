@@ -1,14 +1,17 @@
 #include <console.h>
+#include <visualisationState.h>
 
 std::string Console::stackTrace("");
 const float tol = 0.001;
+
+VisualisationState vs;
 
 SCENARIO("Lua interop")
 {
     jLog::Log l;
     GIVEN("A Lua console")
     {
-        Console console(l);
+        Console console(l, &vs);
         WHEN("The script \"number = 3.14\" is run")
         {
             console.runString("number = 3.14");
@@ -67,6 +70,34 @@ SCENARIO("Lua interop")
                 REQUIRE_THAT(a[0][0], WithinAbs(1.0, tol));
                 REQUIRE_THAT(a[0][1], WithinAbs(2.0, tol));
                 REQUIRE_THAT(a[0][2], WithinAbs(3.0, tol));
+            }
+        }
+        GIVEN("The VisualisationState has atomCount 1")
+        {
+            vs.atomCount = 1;
+            WHEN("The script \"sfoav.setAtomColour(0, 0.0, 0.0, 0.0, 0.0)\" is run")
+            {
+                console.runString("sfoav.setAtomColour(0, 0.0, 0.0, 0.0, 0.0)");
+                THEN("Then atomColourOverrides[0] is 0.0, 0.0, 0.0, 0.0")
+                {
+                    auto c = vs.atomColourOverrides[0];
+                    REQUIRE_THAT(c[0], WithinAbs(0.0, tol));
+                    REQUIRE_THAT(c[1], WithinAbs(0.0, tol));
+                    REQUIRE_THAT(c[2], WithinAbs(0.0, tol));
+                    REQUIRE_THAT(c[3], WithinAbs(0.0, tol));
+                }
+            }
+            WHEN("The script \"sfoav.setAtomColour(0, 0.0, 0.0, 0.0, 0.0)\" is run")
+            {
+                console.runString("sfoav.setAtomColour(0, 2.0, 3.0, 4.0)");
+                THEN("The atomColourOverrides[0] is 1.0, 1.0, 1.0, 1.0")
+                {
+                    auto c = vs.atomColourOverrides[0];
+                    REQUIRE_THAT(c[0], WithinAbs(1.0, tol));
+                    REQUIRE_THAT(c[1], WithinAbs(1.0, tol));
+                    REQUIRE_THAT(c[2], WithinAbs(1.0, tol));
+                    REQUIRE_THAT(c[3], WithinAbs(1.0, tol));
+                }
             }
         }
     }
