@@ -1,6 +1,14 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
 
+#include <memory>
+#include <vector>
+#include <chrono>
+#include <string>
+#include <sstream>
+
+#include <jLog/jLog.h>
+
 #include <lua.h>
 #include <LuaNumber.h>
 #include <LuaString.h>
@@ -8,11 +16,7 @@
 #include <LuaArray.h>
 #include <LuaVec.h>
 #include <LuaBool.h>
-#include <jLog/jLog.h>
-
-#include <memory>
-#include <vector>
-#include <chrono>
+#include <visualisationState.h>
 
 /**
  * @brief Store for lua global state.
@@ -21,7 +25,30 @@
  */
 struct LuaExtraSpace
 {
+    VisualisationState * visualisationState;
 };
+
+/**
+ * @brief A Lua binding in VisualisationState;
+ *
+ */
+typedef int (VisualisationState::*VisualisationStateMember)(lua_State * lua);
+
+/**
+ * @brief Dispath to a Lua binding of VisualisationState.
+ *
+ * @see LuaExtraSpace.
+ * @tparam function the Lua binding to dispatch.
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+template <VisualisationStateMember function>
+int dispatchVisualisationState(lua_State * lua)
+{
+    LuaExtraSpace * store = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    VisualisationState * ptr = store->visualisationState;
+    return ((*ptr).*function)(lua);
+}
 
 /**
  * @brief Lua console.
@@ -35,12 +62,18 @@ public:
      *
      * @param l jLog::Log outputting Lua's messages.
      */
-    Console(jLog::Log & l)
+    Console
+    (
+        jLog::Log & l,
+        VisualisationState * visualisationState
+    )
     : lastCommandOrProgram(""), lastStatus(false), log(l)
     {
         lua = luaL_newstate();
         luaL_openlibs(lua);
         luaL_requiref(lua,"sfoav",load_sfoavLib,1);
+        extraSpace.visualisationState = visualisationState;
+        *static_cast<LuaExtraSpace**>(lua_getextraspace(lua)) = &extraSpace;
     }
 
     ~Console(){ lua_close(lua); }
@@ -125,15 +158,6 @@ public:
         return status;
     }
 
-    /**
-     * @brief Set the LuaExtraSpace holding Hop classes.
-     * @param ptr LuaExtraSpace.
-     */
-    void luaStore(LuaExtraSpace * ptr)
-    {
-        *static_cast<LuaExtraSpace**>(lua_getextraspace(lua)) = ptr;
-    }
-
     template <class T>
     T getGlobal(const char * n)
     {
@@ -145,8 +169,10 @@ public:
 private:
 
     lua_State * lua;
+    LuaExtraSpace extraSpace;
 
     std::string lastCommandOrProgram;
+    std::stringstream input;
     static std::string stackTrace;
     bool lastStatus;
 
@@ -179,13 +205,11 @@ private:
         }
     }
 
-
-    // register lib
-
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[1] =
+        luaL_Reg sfoavLib[2] =
         {
+            {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {NULL, NULL}
         };
 
