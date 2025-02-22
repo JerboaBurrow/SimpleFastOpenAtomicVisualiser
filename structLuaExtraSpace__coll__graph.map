@@ -1,0 +1,5 @@
+<map id="LuaExtraSpace" name="LuaExtraSpace">
+<area shape="rect" id="Node000001" title="Store for lua global state. For the console to have access to these classes they must be set into Lua..." alt="" coords="16,93,135,119"/>
+<area shape="rect" id="Node000002" href="$structVisualisationState.html" title="Holds editable data for the visualisation state." alt="" coords="5,5,145,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,45,78,93,73,93,73,45"/>
+</map>

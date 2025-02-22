@@ -28,7 +28,7 @@ var searchData=
   ['atomcolours_25',['atomColours',['../structCommandLine.html#aee7c47676090ea6293c3f0699a07cfec',1,'CommandLine']]],
   ['atomcoloursfromfile_26',['atomColoursFromFile',['../colour_8h.html#a761e4379a6151ad25fd373d9d8a9c521',1,'colour.h']]],
   ['atomcontrols_27',['atomControls',['../main_8h.html#a57d875f716a27f2802253e281f332c64',1,'main.h']]],
-  ['atomcount_28',['atomCount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure']]],
+  ['atomcount_28',['atomcount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure::atomCount()'],['../structVisualisationState.html#aa9ed05baa6a6c3f2cb225708d27c4964',1,'VisualisationState::atomCount']]],
   ['atomemphasisoverrides_29',['atomEmphasisOverrides',['../structVisualisationState.html#a927484fe1fa5d0a5dd7a62b4187c9ce5',1,'VisualisationState']]],
   ['atomindexa_30',['atomIndexA',['../structBond.html#aa3146480e061c281e58cca612a0df5cf',1,'Bond']]],
   ['atomindexb_31',['atomIndexB',['../structBond.html#ab3d7af24e95906072ab05423925394e2',1,'Bond']]],
