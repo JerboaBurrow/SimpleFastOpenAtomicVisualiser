@@ -132,3 +132,51 @@ SCENARIO("Lua atom colour interop")
         }
     }
 }
+
+SCENARIO("Lua bond interop")
+{
+    jLog::Log l;
+    GIVEN("A Lua console (and no bonds)")
+    {
+        vs.bonds.clear();
+        Console console(l, &vs);
+        WHEN("The script \"empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
+        {
+            console.runString("empty = next(sfoav.getAtomsBonds(0))==nil");
+            THEN("empty is true")
+            {
+                auto a = console.getGlobal<LuaBool>("empty");
+                REQUIRE(a.bit);
+            }
+        }
+        WHEN("The script \"sfoav.bond(0, 4); n = sfoav.getAtomsBonds(0)[1]\" is run")
+        {
+            console.runString("sfoav.bond(0, 4); n = sfoav.getAtomsBonds(0)[1]");
+            THEN("n is 4")
+            {
+                auto a = console.getGlobal<LuaNumber>("n");
+                REQUIRE_THAT(a.n, WithinAbs(4.0, tol));
+            }
+        }
+        WHEN("The script \"sfoav.bond(0, 4); sfoav.unbond(4, 0); empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
+        {
+            console.runString("sfoav.bond(0, 4); sfoav.unbond(4, 0); empty = next(sfoav.getAtomsBonds(0))==nil");
+            THEN("empty is true")
+            {
+                auto a = console.getGlobal<LuaBool>("empty");
+                REQUIRE(a.bit);
+            }
+        }
+        WHEN("The script \"sfoav.bond(0, 4); sfoav.bond(0, 1); a = sfoav.getAtomsBonds(0)[1]; b = sfoav.getAtomsBonds(0)[2]\" is run")
+        {
+            console.runString("sfoav.bond(0, 4); sfoav.bond(0, 1); a = sfoav.getAtomsBonds(0)[1]; b = sfoav.getAtomsBonds(0)[2]");
+            THEN("a is 4 and b is 1")
+            {
+                auto a = console.getGlobal<LuaNumber>("a");
+                auto b = console.getGlobal<LuaNumber>("b");
+                REQUIRE_THAT(a.n, WithinAbs(1.0, tol));
+                REQUIRE_THAT(b.n, WithinAbs(4.0, tol));
+            }
+        }
+    }
+}

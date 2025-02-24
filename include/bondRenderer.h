@@ -29,7 +29,7 @@ public:
      */
     BondRenderer
     (
-        const std::multimap<uint64_t, uint64_t> & bonds,
+        const std::map<uint64_t, std::set<uint64_t>> & bonds,
         const std::vector<Atom> & atoms,
         uint64_t maxBonds,
         uint64_t bondPad = 1024
@@ -44,9 +44,12 @@ public:
         setBondScale(1.0f);
         init();
 
-        for (const auto & bond : bonds)
+        for (const auto & ibonds : bonds)
         {
-            insert(bond, atoms);
+            for (const auto & j : ibonds.second)
+            {
+                insert({ibonds.first, j}, atoms);
+            }
         }
 
         updateVertexArray();
@@ -153,7 +156,7 @@ public:
      */
     void update
     (
-        const std::multimap<uint64_t, uint64_t> & bonds,
+        const std::map<uint64_t, std::set<uint64_t>> & bonds,
         const std::vector<Atom> & atoms
     )
     {
@@ -169,9 +172,12 @@ public:
             init();
         }
         flip();
-        for (const auto & bond : bonds)
+        for (const auto & ibonds : bonds)
         {
-            insert(bond, atoms);
+            for (const auto & j : ibonds.second)
+            {
+                insert({ibonds.first, j}, atoms);
+            }
         }
         updateVertexArray();
     }
