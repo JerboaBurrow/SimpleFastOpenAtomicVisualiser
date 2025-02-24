@@ -55,6 +55,14 @@ inline int VisualisationState::lua_setAtomColour(lua_State * lua)
     return 0;
 }
 
+/**
+ * @brief Lua binding to get a Atom's colour by index.
+ *
+ * @remark Lua arguments are:
+ * 1. The Atom index.
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
 inline int VisualisationState::lua_getAtomColour(lua_State * lua)
 {
     int args = lua_gettop(lua);
