@@ -157,6 +157,10 @@ SCENARIO("Lua bond interop")
                 auto a = console.getGlobal<LuaNumber>("n");
                 REQUIRE_THAT(a.n, WithinAbs(4.0, tol));
             }
+            AND_THEN("4 is in bonds[0]")
+            {
+                REQUIRE(vs.bonds[0].find(4) != vs.bonds[0].cend());
+            }
         }
         WHEN("The script \"sfoav.bond(0, 4); sfoav.unbond(4, 0); empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
         {
@@ -165,6 +169,10 @@ SCENARIO("Lua bond interop")
             {
                 auto a = console.getGlobal<LuaBool>("empty");
                 REQUIRE(a.bit);
+            }
+            AND_THEN("4 is not in bonds[0]")
+            {
+                REQUIRE(vs.bonds[0].find(4) == vs.bonds[0].cend());
             }
         }
         WHEN("The script \"sfoav.bond(0, 4); sfoav.bond(0, 1); a = sfoav.getAtomsBonds(0)[1]; b = sfoav.getAtomsBonds(0)[2]\" is run")
@@ -176,6 +184,14 @@ SCENARIO("Lua bond interop")
                 auto b = console.getGlobal<LuaNumber>("b");
                 REQUIRE_THAT(a.n, WithinAbs(1.0, tol));
                 REQUIRE_THAT(b.n, WithinAbs(4.0, tol));
+            }
+            AND_THEN("4 is in bonds[0]")
+            {
+                REQUIRE(vs.bonds[0].find(4) != vs.bonds[0].cend());
+            }
+            AND_THEN("1 is in bonds[0]")
+            {
+                REQUIRE(vs.bonds[0].find(1) != vs.bonds[0].cend());
             }
         }
     }
