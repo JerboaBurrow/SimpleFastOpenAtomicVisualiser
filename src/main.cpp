@@ -252,6 +252,14 @@ int main(int argv, char ** argc)
         atomRenderer.updateCamera(camera);
         bondRenderer.updateCamera(camera);
 
+        if (!readInProgress && std::filesystem::exists(options.script.value))
+        {
+            console.runFile(options.script.value);
+            setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
+            applyColours(structure->atoms, visualisationState.atomColourOverrides);
+            elementsNeedUpdate = true;
+        }
+
         if (!options.hideAtoms.value)
         {
             if (elementsNeedUpdate) { atomRenderer.updateAtoms(structure->atoms); }
