@@ -12,10 +12,10 @@
  * @param forAtoms the atoms to find bonds for.
  * @param atoms the Atoms to bond.
  * @param cutOff the distance cutoff below which Atoms are bonded.
- * @return std::multimap<uint64_t, uint64_t> the resulting Bonds.
+ * @return std::map<uint64_t, std::set<uint64_t>> the resulting Bonds.
  * @remark Currently a naive direct distance evaluation.
  */
-std::multimap<uint64_t, uint64_t> determineBonds
+std::map<uint64_t, std::set<uint64_t>> determineBonds
 (
     std::vector<uint64_t> forAtoms,
     std::vector<Atom> & atoms,
@@ -24,7 +24,7 @@ std::multimap<uint64_t, uint64_t> determineBonds
 {
     if (cutOff <= 0.0f || forAtoms.size() == 0) { return {}; }
 
-    std::multimap<uint64_t, uint64_t> bonds;
+    std::map<uint64_t, std::set<uint64_t>> bonds;
 
     for (uint64_t i : forAtoms)
     {
@@ -32,7 +32,11 @@ std::multimap<uint64_t, uint64_t> determineBonds
         {
             if (j != i && glm::length(atoms[j].position-atoms[i].position) <= cutOff)
             {
-                bonds.insert({i, j});
+                auto s = bonds[j];
+                if (s.find(i) == s.cend())
+                {
+                    bonds[i].insert(j);
+                }
             }
         }
     }

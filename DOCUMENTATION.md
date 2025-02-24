@@ -100,6 +100,29 @@ To draw bonds between atoms 1.5 Angstroms apart
 sfoav struct.xyz -bondCutOff 1.5
 ```
 
+## Lua scripting
+
+It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as ```--script PATH.lua``` to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.
+
+> [!warning]
+> Lua indexes from 1, but all sfoav library functions index from 0.
+
+| Method | Arguments  | Returns |
+| :----- | :---- | :---- |
+| setAtomColour  | Atom index and an RGB(optional A) colour [0, 1] | |
+| getAtomColour  | Atom index | The atoms RGBA colour |
+| bond           | Atom index a, Atom index b | Bond atoms a and b |
+| unbond         | Atom index a, Atom index b | Unbond atoms a and b |
+| getAtomsBonds  | Atom index a | A table of all atom indices bonded to a|
+
+E.g. the following script will set Atom 0 to a random colour every frame.
+
+```lua
+-- Set atom 0 to a random colour.
+sfoav.setAtomColour(0, math.random(), math.random(), math.random())
+```
+
+
 ## Performance
 
 For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.

@@ -83,7 +83,7 @@ struct VisualisationState
     }
 
     std::vector<Atom> & atoms;
-    std::multimap<uint64_t, uint64_t> bonds;
+    std::map<uint64_t, std::set<uint64_t>> bonds;
     std::vector<uint64_t> bondsFor;
     std::vector<float> atomEmphasisOverrides;
     std::map<uint64_t, glm::vec4> atomColourOverrides;
@@ -117,8 +117,41 @@ struct VisualisationState
      */
     inline int lua_getAtomColour(lua_State * lua);
 
+    /**
+     * @brief Lua binding to bond 2 Atoms.
+     *
+     * @remark Lua arguments are:
+     * 1. The first Atom index.
+     * 2. The second Atom index.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_bond(lua_State * lua);
+
+    /**
+     * @brief Lua binding to unbond 2 Atoms.
+     *
+     * @remark Lua arguments are:
+     * 1. The first Atom index.
+     * 2. The second Atom index.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_unbond(lua_State * lua);
+
+    /**
+     * @brief Lua binding to get the bonds of an Atom.
+     *
+     * @remark Lua arguments are:
+     * 1. The Atom index.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getAtomsBonds(lua_State * lua);
+
 };
 
 #endif /* VISUALISATIONSTATE_H */
 
 #include <luaBindings/atomColour.h>
+#include <luaBindings/bonds.h>
