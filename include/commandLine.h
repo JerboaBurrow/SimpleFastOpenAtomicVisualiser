@@ -426,6 +426,7 @@ struct CommandLine
             getArgument<bool>(play, commandLine, c, count);
             getArgument<uint64_t>(bondFocus, commandLine, c, count);
             getArgument<uint8_t>(speed, commandLine, c, count);
+            getArgument<bool>(darkTheme, commandLine, c, count);
         }
     }
 
@@ -449,6 +450,7 @@ struct CommandLine
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX, false};
     Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60, false};
     Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false, false};
+    Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -504,8 +506,6 @@ struct CommandLine
           << "\n"
           << argumentHelp(atomColours)
           << "\n"
-          << argumentHelp(msaa)
-          << "\n"
           << argumentHelp(mesh)
           << "\n"
           << argumentHelp(meshes)
@@ -531,6 +531,10 @@ struct CommandLine
           << argumentHelp(hideInfoText)
           << "\n"
           << argumentHelp(resolution)
+          << "\n"
+          << argumentHelp(msaa)
+          << "\n"
+          << argumentHelp(darkTheme)
           << "\n"
           << argumentHelp(speed)
           << "\n"

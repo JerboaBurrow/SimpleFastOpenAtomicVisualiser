@@ -60,12 +60,12 @@ struct VisualisationState
             std::cout << "Element " << e << " emphasis bound to key " << keyCodes.at(GLFW_KEY_1+i) << "\n";
         }
 
-        applyColours(atoms, atomColourOverrides);
-
         if (!atomColours.empty())
         {
             atomColourOverrides = atomColoursFromFile(atomColours);
         }
+
+        applyColours(atoms, atomColourOverrides);
 
         if (bondFocus < atoms.size())
         {

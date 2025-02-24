@@ -38,6 +38,44 @@ const float emphasisedAlpha = 1.0f;
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
 
 /**
+ * @brief A background and text colour theme.
+ *
+ */
+struct Theme
+{
+    glm::vec4 background;
+    glm::vec4 text;
+};
+
+/**
+ * @brief A dark colour theme.
+ *
+ * @return the Theme.
+ */
+Theme darkTheme()
+{
+    return
+    {
+        glm::vec4(5.0, 5.0, 5.0, 255.0)/255.0f,
+        glm::vec4(250.0, 250.0, 250.0, 255.0)/255.0f
+    };
+}
+
+/**
+ * @brief A light colour theme.
+ *
+ * @return the Theme.
+ */
+Theme lightTheme()
+{
+    return
+    {
+        glm::vec4(250.0, 250.0, 250.0, 255.0)/255.0f,
+        glm::vec4(5.0, 5.0, 5.0, 255.0)/255.0f
+    };
+}
+
+/**
  * @brief Controls for the camera
  *
  * @param display display to obtain events from.
@@ -167,6 +205,7 @@ void loadingScreenFrame
     Camera & camera,
     AtomRenderer & loadingAtoms,
     std::string progressMessage,
+    Theme theme,
     const unsigned int resX,
     const unsigned int resY,
     bool hideInfo = false
@@ -178,7 +217,7 @@ void loadingScreenFrame
     auto tic = std::chrono::high_resolution_clock::now();
 
     jGLInstance->beginFrame();
-    jGLInstance->setClear(glm::vec4(1.0f));
+    jGLInstance->setClear(theme.background);
     jGLInstance->clear();
 
     cameraControls(display, camera);
@@ -194,7 +233,7 @@ void loadingScreenFrame
             progressMessage,
             glm::vec2(64.0f, resY-64.0f),
             0.5f,
-            glm::vec4(0.0f,0.0f,0.0f,1.0f)
+            theme.text
         );
     }
 
