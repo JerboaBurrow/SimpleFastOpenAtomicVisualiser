@@ -254,7 +254,7 @@ int main(int argv, char ** argc)
 
         if (!readInProgress && std::filesystem::exists(options.script.value))
         {
-            console.runFile(options.script.value);
+            console.runFile(options.script.value.string());
             setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
             applyColours(structure->atoms, visualisationState.atomColourOverrides);
             elementsNeedUpdate = true;
