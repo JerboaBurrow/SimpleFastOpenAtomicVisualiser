@@ -181,9 +181,32 @@ Quickstart</h1>
 <p>To draw bonds between atoms 1.5 Angstroms apart</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+Lua scripting</h2>
+<p>It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as <code>--script PATH.lua</code> to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.</p>
+<blockquote class="doxtable">
+<p>&zwj;[!warning] Lua indexes from 1, but all sfoav library functions index from 0. </p>
+</blockquote>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Method   </th><th class="markdownTableHeadLeft">Arguments   </th><th class="markdownTableHeadLeft">Returns    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">setAtomColour   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index and an <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">RGB(optional A)</a> colour [0, 1]   </td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">getAtomColour   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index   </td><td class="markdownTableBodyLeft">The atoms RGBA colour    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">bond   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a, <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index b   </td><td class="markdownTableBodyLeft">Bond atoms a and b    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">unbond   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a, <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index b   </td><td class="markdownTableBodyLeft">Unbond atoms a and b    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">getAtomsBonds   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a   </td><td class="markdownTableBodyLeft">A table of all atom indices bonded to a   </td></tr>
+</table>
+<p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
+<div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
+<div class="line">sfoav.setAtomColour(0, math.random(), math.random(), math.random())</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
 Performance</h2>
 <p>For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Meshes</h2>
 <blockquote class="doxtable">
 <p>&zwj;[!tip] Meshes are much slower than the ray-traced elements due to higher triangle counts. </p>
@@ -212,7 +235,7 @@ Meshes</h2>
 <td class="markdownTableBodyLeft">ANY   </td><td class="markdownTableBodyLeft">6   </td><td class="markdownTableBodyLeft">Uses all mesh types controlled by LOD   </td></tr>
 </table>
 <p>The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Colouring</h2>
 <p>It is possible to set the colour map taking Elements into RGBA values. This can be done by specifying a partial list in a file and supplying the CLI argument <code>-colourmap YOUR_FILE_PATH</code>. An example file is</p>
 <div class="fragment"><div class="line">Ar 1.0 0.0 0.0 1.0</div>
