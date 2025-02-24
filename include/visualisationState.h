@@ -83,7 +83,7 @@ struct VisualisationState
     }
 
     std::vector<Atom> & atoms;
-    std::vector<Bond> bonds;
+    std::multimap<uint64_t, uint64_t> bonds;
     std::vector<uint64_t> bondsFor;
     std::vector<float> atomEmphasisOverrides;
     std::map<uint64_t, glm::vec4> atomColourOverrides;

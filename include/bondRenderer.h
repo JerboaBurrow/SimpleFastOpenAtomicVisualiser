@@ -1,11 +1,14 @@
 #ifndef BONDRENDERER_H
 #define BONDRENDERER_H
 
+#include <map>
+#include <vector>
+#include <cstdint>
+
 #include <jGL/OpenGL/gl.h>
 
 #include <glUtils.h>
 #include <atom.h>
-#include <bond.h>
 
 /**
  * @brief Render Bonds as ray-traced cylinders.
@@ -26,12 +29,12 @@ public:
      */
     BondRenderer
     (
-        const std::vector<Bond> & bonds,
+        const std::multimap<uint64_t, uint64_t> & bonds,
         const std::vector<Atom> & atoms,
         uint64_t maxBonds,
         uint64_t bondPad = 1024
     )
-    : bonds(0), maxBonds(maxBonds+bondPad), bondPad(bondPad)
+    : nBonds(0), maxBonds(maxBonds+bondPad), bondPad(bondPad)
     {
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
@@ -41,7 +44,7 @@ public:
         setBondScale(1.0f);
         init();
 
-        for (const Bond & bond : bonds)
+        for (const auto & bond : bonds)
         {
             insert(bond, atoms);
         }
@@ -137,7 +140,7 @@ public:
      */
     uint64_t triangles() const
     {
-        return bonds*2;
+        return nBonds*2;
     }
 
     /**
@@ -150,7 +153,7 @@ public:
      */
     void update
     (
-        const std::vector<Bond> & bonds,
+        const std::multimap<uint64_t, uint64_t> & bonds,
         const std::vector<Atom> & atoms
     )
     {
@@ -166,7 +169,7 @@ public:
             init();
         }
         flip();
-        for (const Bond & bond : bonds)
+        for (const auto & bond : bonds)
         {
             insert(bond, atoms);
         }
@@ -180,7 +183,7 @@ public:
      */
     void draw(uint64_t count)
     {
-        count = std::min(count, bonds);
+        count = std::min(count, nBonds);
         if (count == 0) { return; }
 
         shader->use();
@@ -204,12 +207,12 @@ public:
      * @brief Draw all the bonds.
      *
      */
-    void draw() { draw(bonds); }
+    void draw() { draw(nBonds); }
 
 
 private:
 
-    uint64_t bonds;
+    uint64_t nBonds;
     uint64_t maxBonds;
     uint64_t bondPad;
     std::unique_ptr<jGL::GL::glShader> shader;
@@ -468,7 +471,7 @@ private:
      * @brief Set the buffer position to the start.
      *
      */
-    void flip() { index = 0; bonds = 0; }
+    void flip() { index = 0; nBonds = 0; }
 
     /**
      * @brief Insert (update) a Bonds data.
@@ -478,12 +481,12 @@ private:
      */
     void insert
     (
-        const Bond & bond,
+        const std::pair<uint64_t, uint64_t> & bond,
         const std::vector<Atom> & atoms
     )
     {
-        const Atom & a = atoms[bond.atomIndexA];
-        const Atom & b = atoms[bond.atomIndexB];
+        const Atom & a = atoms[bond.first];
+        const Atom & b = atoms[bond.second];
 
         positionsAAndScale[index] = a.position.x;
         positionsAAndScale[index+1] = a.position.y;
@@ -506,7 +509,7 @@ private:
         coloursB[index+3] = b.colour.a;
 
         index += 4;
-        bonds++;
+        nBonds++;
     }
 
     /**
