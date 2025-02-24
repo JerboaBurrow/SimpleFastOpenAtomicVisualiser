@@ -68,7 +68,7 @@ private:
         {Element::Unknown, {0,0,1}, 1.0f, {0.0f,0.0,1.0,1.0}}
     };
 
-    const std::vector<Bond> axes {{0, 1}, {0, 2}, {0, 3}};
+    const std::multimap<uint64_t, uint64_t> axes {{0, 1}, {0, 2}, {0, 3}};
 
     std::unique_ptr<BondRenderer> renderer;
 };
