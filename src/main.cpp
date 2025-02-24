@@ -237,6 +237,7 @@ int main(int argv, char ** argc)
         {
             // Previous threaded read is done.
             readInProgress = false;
+            visualisationState.atoms = structure->atoms;
             if (!options.noCentering.value) { center(structure->atoms); }
             translate(structure->atoms, com);
             if (options.bondCutoff.value > 0.0)
