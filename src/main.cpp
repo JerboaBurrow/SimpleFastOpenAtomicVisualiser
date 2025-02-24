@@ -9,6 +9,8 @@ int main(int argv, char ** argc)
     const uint16_t resX = options.resolution.value.x;
     const uint16_t resY = options.resolution.value.y;
 
+    Theme theme = options.darkTheme.value ? darkTheme() : lightTheme();
+
     jGL::DesktopDisplay::Config conf;
 
     conf.VULKAN = false;
@@ -86,7 +88,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), resX, resY, options.hideInfoText.value);
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), theme, resX, resY, options.hideInfoText.value);
     }
 
     if (!display.isOpen()) { return 0; }
@@ -134,13 +136,14 @@ int main(int argv, char ** argc)
     );
 
     elementsNeedUpdate = true;
+    jGLInstance->setClear(theme.background);
 
     while (display.isOpen())
     {
         auto tic = std::chrono::high_resolution_clock::now();
 
         jGLInstance->beginFrame();
-        jGLInstance->setClear(glm::vec4(1.0f));
+
         jGLInstance->clear();
 
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
@@ -285,7 +288,7 @@ int main(int argv, char ** argc)
                 debugText.str(),
                 glm::vec2(64.0f, resY-64.0f),
                 0.5f,
-                glm::vec4(0.0f,0.0f,0.0f,1.0f)
+                theme.text
             );
         }
 
