@@ -74,26 +74,28 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">bond.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;<a class="el" href="constants_8h_source.html">constants.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for bond.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="bond_8h__incl.png" border="0" usemap="#ainclude_2bond_8h" alt=""/></div>
 <map name="ainclude_2bond_8h" id="ainclude_2bond_8h">
-<area shape="rect" title=" " alt="" coords="23,5,140,31"/>
+<area shape="rect" title=" " alt="" coords="5,5,123,31"/>
 <area shape="rect" title=" " alt="" coords="5,152,72,177"/>
-<area shape="poly" title=" " alt="" coords="80,32,49,139,43,138,75,30"/>
-<area shape="rect" href="constants_8h.html" title=" " alt="" coords="77,79,174,104"/>
-<area shape="poly" title=" " alt="" coords="91,30,113,66,109,68,86,32"/>
-<area shape="poly" title=" " alt="" coords="113,106,65,145,62,141,110,102"/>
-<area shape="rect" title=" " alt="" coords="96,152,155,177"/>
-<area shape="poly" title=" " alt="" coords="128,104,128,138,123,138,123,104"/>
+<area shape="poly" title=" " alt="" coords="56,33,41,54,29,79,27,110,32,138,27,139,22,110,24,78,36,51,52,30"/>
+<area shape="rect" title=" " alt="" coords="39,79,89,104"/>
+<area shape="poly" title=" " alt="" coords="67,31,67,65,61,65,61,31"/>
+<area shape="rect" href="constants_8h.html" title=" " alt="" coords="114,79,211,104"/>
+<area shape="poly" title=" " alt="" coords="81,29,137,68,134,73,78,33"/>
+<area shape="poly" title=" " alt="" coords="144,106,72,147,69,143,141,102"/>
+<area shape="rect" title=" " alt="" coords="133,152,192,177"/>
+<area shape="poly" title=" " alt="" coords="165,104,165,138,160,138,160,104"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -101,51 +103,39 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="bond_8h__dep__incl.png" border="0" usemap="#ainclude_2bond_8hdep" alt=""/></div>
 <map name="ainclude_2bond_8hdep" id="ainclude_2bond_8hdep">
-<area shape="rect" title=" " alt="" coords="176,5,293,31"/>
-<area shape="rect" href="bondRenderer_8h.html" title=" " alt="" coords="41,79,215,104"/>
-<area shape="poly" title=" " alt="" coords="208,40,147,81,144,76,205,36"/>
-<area shape="rect" href="visualisationState_8h.html" title=" " alt="" coords="240,79,443,104"/>
-<area shape="poly" title=" " alt="" coords="264,36,325,76,322,81,262,40"/>
-<area shape="rect" href="axes_8h.html" title=" " alt="" coords="5,159,120,185"/>
-<area shape="poly" title=" " alt="" coords="112,116,74,161,70,157,107,113"/>
-<area shape="rect" href="main_8h.html" title=" " alt="" coords="123,240,242,265"/>
-<area shape="poly" title=" " alt="" coords="139,116,181,239,176,240,134,118"/>
-<area shape="poly" title=" " alt="" coords="94,190,166,238,163,242,91,195"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="130,313,235,339"/>
-<area shape="poly" title=" " alt="" coords="185,279,185,313,180,313,180,279"/>
-<area shape="poly" title=" " alt="" coords="298,112,265,130,235,154,218,175,205,199,189,241,184,239,200,197,214,172,231,150,262,125,296,107"/>
-<area shape="rect" href="console_8h.html" title=" " alt="" coords="246,159,381,185"/>
-<area shape="poly" title=" " alt="" coords="335,118,320,160,315,158,330,116"/>
-<area shape="rect" href="atomColour_8h.html" title=" " alt="" coords="405,152,555,192"/>
-<area shape="poly" title=" " alt="" coords="368,109,440,150,437,154,365,114"/>
-<area shape="poly" title=" " alt="" coords="284,194,203,242,201,237,281,190"/>
-<area shape="poly" title=" " alt="" coords="441,147,367,107,370,102,444,143"/>
+<area shape="rect" title=" " alt="" coords="175,5,293,31"/>
+<area shape="rect" href="visualisationState_8h.html" title=" " alt="" coords="133,79,335,104"/>
+<area shape="poly" title=" " alt="" coords="237,44,237,79,231,79,231,44"/>
+<area shape="rect" href="console_8h.html" title=" " alt="" coords="5,159,140,185"/>
+<area shape="poly" title=" " alt="" coords="200,112,97,162,95,157,197,107"/>
+<area shape="rect" href="main_8h.html" title=" " alt="" coords="65,240,184,265"/>
+<area shape="poly" title=" " alt="" coords="221,117,135,241,131,238,216,114"/>
+<area shape="rect" href="atomColour_8h.html" title=" " alt="" coords="215,152,365,192"/>
+<area shape="poly" title=" " alt="" coords="245,114,271,150,267,153,240,118"/>
+<area shape="poly" title=" " alt="" coords="90,195,119,238,115,241,86,198"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="72,313,177,339"/>
+<area shape="poly" title=" " alt="" coords="127,279,127,313,122,313,122,279"/>
+<area shape="poly" title=" " alt="" coords="275,142,247,106,251,103,279,139"/>
 </map>
 </div>
 </div>
 <p><a href="bond_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBond.html">Bond</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="structBond.html" title="A Bond structure.">Bond</a> structure.  <a href="structBond.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af9eeb9c753c0390c314c1022c261a9da" id="r_af9eeb9c753c0390c314c1022c261a9da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="structBond.html">Bond</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bond_8h.html#af9eeb9c753c0390c314c1022c261a9da">determineBonds</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">forAtoms</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">cutOff</a>)</td></tr>
-<tr class="memdesc:af9eeb9c753c0390c314c1022c261a9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain bonds based on a fixed distance cutOff.  <br /></td></tr>
-<tr class="separator:af9eeb9c753c0390c314c1022c261a9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3439dcf6d1fb7872361f76b9f143fc49" id="r_a3439dcf6d1fb7872361f76b9f143fc49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::multimap</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bond_8h.html#a3439dcf6d1fb7872361f76b9f143fc49">determineBonds</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">forAtoms</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;atoms, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">cutOff</a>)</td></tr>
+<tr class="memdesc:a3439dcf6d1fb7872361f76b9f143fc49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain bonds based on a fixed distance cutOff.  <br /></td></tr>
+<tr class="separator:a3439dcf6d1fb7872361f76b9f143fc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af9eeb9c753c0390c314c1022c261a9da" name="af9eeb9c753c0390c314c1022c261a9da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9eeb9c753c0390c314c1022c261a9da">&#9670;&#160;</a></span>determineBonds()</h2>
+<a id="a3439dcf6d1fb7872361f76b9f143fc49" name="a3439dcf6d1fb7872361f76b9f143fc49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3439dcf6d1fb7872361f76b9f143fc49">&#9670;&#160;</a></span>determineBonds()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="structBond.html">Bond</a> &gt; determineBonds </td>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::multimap</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt; determineBonds </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">std::vector</a>&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt;&#160;</td>
           <td class="paramname"><em>forAtoms</em>, </td>
@@ -179,7 +169,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;Bond&gt; the resulting Bonds. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::multimap&lt;uint64_t, uint64_t&gt; the resulting Bonds. </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>Currently a naive direct distance evaluation. </dd></dl>
 
 </div>

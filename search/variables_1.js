@@ -8,7 +8,7 @@ var searchData=
   ['blockingreads_5',['blockingReads',['../classStructure.html#a230a09fb05c7e56efbdad3547842f94c',1,'Structure']]],
   ['bondcutoff_6',['bondCutoff',['../structCommandLine.html#aaa5569e9ffd95c2e677c95896c306467',1,'CommandLine']]],
   ['bondfocus_7',['bondFocus',['../structCommandLine.html#a399d02451b7bfb46a5c29b938e5cd220',1,'CommandLine']]],
-  ['bonds_8',['bonds',['../structVisualisationState.html#a9fcbdbe9c7fecc3c2cc3d3686c7015af',1,'VisualisationState']]],
+  ['bonds_8',['bonds',['../structVisualisationState.html#a58b783b6be742fcdb373c1ae3fa4e7d2',1,'VisualisationState']]],
   ['bondsfor_9',['bondsFor',['../structVisualisationState.html#a0bb10bdcd6d02f1f412a5df54e09e6c8',1,'VisualisationState']]],
   ['bondsize_10',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]]
 ];
