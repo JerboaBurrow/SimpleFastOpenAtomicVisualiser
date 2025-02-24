@@ -427,6 +427,7 @@ struct CommandLine
             getArgument<uint64_t>(bondFocus, commandLine, c, count);
             getArgument<uint8_t>(speed, commandLine, c, count);
             getArgument<bool>(darkTheme, commandLine, c, count);
+            getArgument<std::filesystem::path>(script, commandLine, c, count);
         }
     }
 
@@ -451,6 +452,7 @@ struct CommandLine
     Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60, false};
     Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false, false};
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false, false};
+    Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -539,6 +541,8 @@ struct CommandLine
           << argumentHelp(speed)
           << "\n"
           << argumentHelp(noCentering)
+          << "\n"
+          << argumentHelp(script)
           << "\n";
         std::cout << h.str();
     }
