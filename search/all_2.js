@@ -28,7 +28,7 @@ var searchData=
   ['colour_25',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
   ['colour_2eh_26',['colour.h',['../colour_8h.html',1,'']]],
   ['colouring_27',['Colouring',['../index.html#autotoc_md5',1,'']]],
-  ['colourmap_28',['colourmap',['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap'],['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap']]],
+  ['colourmap_28',['colourmap',['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap'],['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap']]],
   ['coloursfromfile_29',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
   ['commandline_30',['commandline',['../structCommandLine.html',1,'CommandLine'],['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine::CommandLine()']]],
   ['commandline_2eh_31',['commandLine.h',['../commandLine_8h.html',1,'']]],

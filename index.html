@@ -175,10 +175,7 @@ Quickstart</h1>
 </table>
 <p>To enable MSAA at 16x</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -msaa 16</div>
-</div><!-- fragment --><blockquote class="doxtable">
-<p>&zwj;[!warning] Bond discovery is currently poorly optimised, this will be slow. </p>
-</blockquote>
-<p>To draw bonds between atoms 1.5 Angstroms apart</p>
+</div><!-- fragment --><p>To draw bonds between atoms 1.5 Angstroms apart</p>
 <div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
 Lua scripting</h2>
@@ -198,7 +195,13 @@ Lua scripting</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">unbond   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a, <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index b   </td><td class="markdownTableBodyLeft">Unbond atoms a and b    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">getAtomsBonds   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a   </td><td class="markdownTableBodyLeft">A table of all atom indices bonded to a   </td></tr>
+<td class="markdownTableBodyLeft">getAtomsBonds   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a   </td><td class="markdownTableBodyLeft">A table of all atom indices bonded to a    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">getAtom   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index a   </td><td class="markdownTableBodyLeft">The <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> structure for a    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">atomCount   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The number of atoms    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">getAtomsNeighbours   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index x, cutoff distance   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff   </td></tr>
 </table>
 <p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
 <div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
