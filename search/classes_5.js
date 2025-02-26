@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['structure_0',['Structure',['../classStructure.html',1,'']]]
+  ['neighbours_0',['Neighbours',['../classNeighbours.html',1,'']]]
 ];

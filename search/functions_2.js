@@ -9,10 +9,11 @@ var searchData=
   ['centremesh_6',['centreMesh',['../meshes_8h.html#a72f1ba88b424409f18b57adbb354b9f5',1,'meshes.h']]],
   ['checkread_7',['checkRead',['../classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a',1,'Structure']]],
   ['checkspecial_8',['checkSpecial',['../structCommandLine.html#a202f4fad170023049f58a0b656cfd937',1,'CommandLine']]],
-  ['coloursfromfile_9',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
-  ['commandline_10',['CommandLine',['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine']]],
-  ['config_11',['CONFIG',['../classCONFIG.html#ab9b483b37eb5e99727c56b106544f28d',1,'CONFIG']]],
-  ['console_12',['Console',['../classConsole.html#a548a20e348bba253192e3693fa538ed6',1,'Console']]],
-  ['countcontentlinesinfile_13',['countContentLinesInFile',['../classStructure.html#af8e853939d598f9c78da269aff304dcd',1,'Structure']]],
-  ['createbuffer_14',['createBuffer',['../glUtils_8h.html#aa3971f7f37836082291c26e06b02de92',1,'glUtils.h']]]
+  ['clear_9',['clear',['../classNeighbours.html#ad03f8fb21f33e54f14a342e1202e01b1',1,'Neighbours']]],
+  ['coloursfromfile_10',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
+  ['commandline_11',['CommandLine',['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine']]],
+  ['config_12',['CONFIG',['../classCONFIG.html#ab9b483b37eb5e99727c56b106544f28d',1,'CONFIG']]],
+  ['console_13',['Console',['../classConsole.html#a548a20e348bba253192e3693fa538ed6',1,'Console']]],
+  ['countcontentlinesinfile_14',['countContentLinesInFile',['../classStructure.html#af8e853939d598f9c78da269aff304dcd',1,'Structure']]],
+  ['createbuffer_15',['createBuffer',['../glUtils_8h.html#aa3971f7f37836082291c26e06b02de92',1,'glUtils.h']]]
 ];

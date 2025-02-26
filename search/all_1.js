@@ -24,5 +24,5 @@ var searchData=
   ['bondsfor_21',['bondsFor',['../structVisualisationState.html#a0bb10bdcd6d02f1f412a5df54e09e6c8',1,'VisualisationState']]],
   ['bondsize_22',['bondSize',['../structCommandLine.html#a60951d34dec85bea11e8640dd2c09511',1,'CommandLine']]],
   ['br_23',['Br',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a8d37869ebc7af08a31df14fe3f48bee2',1,'element.h']]],
-  ['build_24',['build',['../classHierarchicalTriangularMesh.html#a1a3cef433ecdd66eeeaa603eeb7aa617',1,'HierarchicalTriangularMesh']]]
+  ['build_24',['build',['../classNeighbours.html#aaf7a5170e94a1bc23a923b3c0f6be9da',1,'Neighbours::build()'],['../classHierarchicalTriangularMesh.html#a1a3cef433ecdd66eeeaa603eeb7aa617',1,'HierarchicalTriangularMesh::build()']]]
 ];
