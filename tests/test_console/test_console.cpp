@@ -3,7 +3,6 @@
 #include <visualisationState.h>
 
 std::string Console::stackTrace("");
-const float tol = 0.001;
 
 std::vector<Atom> testAtoms = sfoavAtoms;
 

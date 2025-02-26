@@ -133,9 +133,48 @@ void translate(std::vector<Atom> & atoms, glm::vec3 r)
 }
 
 /**
+ * @brief Calculate the minimum positions of some Atoms
+ *
+ * @param atoms the Atom list.
+ * @return glm::vec3 the minimum position.
+ */
+glm::vec3 min(const std::vector<Atom> & atoms)
+{
+    glm::vec3 min = glm::vec3(std::numeric_limits<float>::max());
+    for (const auto & atom : atoms)
+    {
+        for (uint8_t i = 0; i < 3; i++)
+        {
+            min[i] = std::min(min[i], atom.position[i]);
+        }
+    }
+    return min;
+}
+
+/**
+ * @brief Calculate the maximum positions of some Atoms
+ *
+ * @param atoms the Atom list.
+ * @return glm::vec3 the maximum position.
+ */
+glm::vec3 max(const std::vector<Atom> & atoms)
+{
+    glm::vec3 max = glm::vec3(-std::numeric_limits<float>::max());
+    for (const auto & atom : atoms)
+    {
+        for (uint8_t i = 0; i < 3; i++)
+        {
+            max[i] = std::max(max[i], atom.position[i]);
+        }
+    }
+    return max;
+}
+
+/**
  * @brief Calculate the extent of some Atoms
  *
  * @param atoms the Atom list.
+ * @return glm::vec3 the extent (max-min).
  */
 glm::vec3 extent(const std::vector<Atom> & atoms)
 {
@@ -166,6 +205,22 @@ std::set<Element> uniqueElements(const std::vector<Atom> & atoms)
         e.insert(atom.symbol);
     }
     return e;
+}
+
+/**
+ * @brief Calculate the largest Atom.
+ *
+ * @param atoms the Atom list.
+ * @return float the largest Atom.
+ */
+float largest(const std::vector<Atom> & atoms)
+{
+    float r = -std::numeric_limits<float>::max();
+    for (const auto & atom : atoms)
+    {
+        r = std::max(r, atom.scale);
+    }
+    return r;
 }
 
 /**
