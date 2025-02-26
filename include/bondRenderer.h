@@ -34,8 +34,14 @@ public:
         uint64_t maxBonds,
         uint64_t bondPad = 1024
     )
-    : nBonds(0), maxBonds(maxBonds+bondPad), bondPad(bondPad)
+    : nBonds(0), bondPadding(bondPad)
     {
+        maximumBonds = bondPadding;
+        for (const auto & ibonds : bonds)
+        {
+            maximumBonds += ibonds.second.size();
+        }
+
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
         shader->setUniform<float>("clipCorrection", 3.0f);
@@ -43,7 +49,6 @@ public:
         shader->setUniform<float>("ambientLight", 0.1f);
         setBondScale(1.0f);
         init();
-
         for (const auto & ibonds : bonds)
         {
             for (const auto & j : ibonds.second)
@@ -160,15 +165,20 @@ public:
         const std::vector<Atom> & atoms
     )
     {
-        if (bonds.size() > maxBonds)
+        uint64_t bCount = 0;
+        for (const auto & ibonds : bonds)
+        {
+            bCount += ibonds.second.size();
+        }
+        if (bCount > maximumBonds)
         {
             std::cout << "Reallocating bonds:\n"
-                      <<   "  New bonds size:        " << bonds.size()
-                      << "\n  Storage:               " << maxBonds
-                      << "\n  New storage:           " << bonds.size()+bondPad
+                      <<   "  New bonds size:        " << bCount
+                      << "\n  Storage:               " << maximumBonds
+                      << "\n  New storage:           " << bCount+bondPadding
                       << "\n";
             deallocate();
-            maxBonds = bonds.size()+bondPad;
+            maximumBonds = bCount+bondPadding;
             init();
         }
         flip();
@@ -219,8 +229,8 @@ public:
 private:
 
     uint64_t nBonds;
-    uint64_t maxBonds;
-    uint64_t bondPad;
+    uint64_t bondPadding;
+    uint64_t maximumBonds;
     std::unique_ptr<jGL::GL::glShader> shader;
     glm::vec3 cameraPosition;
 
@@ -409,10 +419,10 @@ private:
         glGenBuffers(1, &b_colours);
         glGenBuffers(1, &a_quad);
 
-        positionsAAndScale.resize(4*maxBonds);
-        positionsBAndScale.resize(4*maxBonds);
-        coloursA.resize(4*maxBonds);
-        coloursB.resize(4*maxBonds);
+        positionsAAndScale.resize(4*maximumBonds);
+        positionsBAndScale.resize(4*maximumBonds);
+        coloursA.resize(4*maximumBonds);
+        coloursB.resize(4*maximumBonds);
 
         glBindVertexArray(vao);
 

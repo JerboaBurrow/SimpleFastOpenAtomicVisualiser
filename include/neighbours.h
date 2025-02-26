@@ -24,12 +24,26 @@ public:
      *
      * @param atoms the Atoms to hash into spatial domains.
      */
-    Neighbours(const std::vector<Atom> & atoms)
+    Neighbours
+    (
+        const std::vector<Atom> & atoms,
+        float domainSideLength = -1.0
+    )
     {
-        float r = largest(atoms);
+        if (domainSideLength == -1.0)
+        {
+            float r = largest(atoms);
+            domainSize = 2.0f*glm::vec3(r, r, r);
+        }
+        else
+        {
+            domainSize = glm::vec3(domainSideLength, domainSideLength, domainSideLength);
+        }
+
         minPoint = min(atoms);
         length = max(atoms)-minPoint;
-        domainSize = 2.0f*glm::vec3(r, r, r);
+
+
         length += domainSize;
 
         nx = length.x / domainSize.x;
@@ -51,7 +65,7 @@ public:
         domainAssignments = std::vector<uint64_t>(atoms.size(), NULL_INDEX);
         for (uint64_t i = 0; i < atoms.size(); i++)
         {
-            domainAssignments[i] = std::min(hash(atoms[i].position), domains.size()-1);
+            domainAssignments[i] = std::min(hash(atoms[i].position), uint64_t(domains.size()-1));
             domains[domainAssignments[i]].push_back(i);
         }
     }
@@ -67,7 +81,7 @@ public:
         domains = std::vector<std::vector<uint64_t>>(nx*ny*nz);
         for (auto & domain : domains)
         {
-            domain.reserve(2*std::ceil(length.x*length.y*length.z*0.74048));
+            domain.reserve(2*std::ceil(domainSize.x*domainSize.y*domainSize.z*0.74048));
         }
         domainAssignments = std::vector<uint64_t>(domainAssignments.size(), NULL_INDEX);
     }
