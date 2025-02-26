@@ -9,6 +9,6 @@ end
 
 -- Emphasise all neighbours to 0 withint 16 Angstroms.
 for i = 1, #neighbours do
-    r, g, b, a = sfoav.getAtomColour(neighbours[i])
+    r, g, b, a = sfoav.getAtomColour(neighbours[i]["index"])
     sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);
 end
