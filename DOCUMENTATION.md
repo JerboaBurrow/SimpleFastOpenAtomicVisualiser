@@ -91,9 +91,6 @@ To enable MSAA at 16x
 sfoav struct.xyz -msaa 16
 ```
 
-> [!warning]
-> Bond discovery is currently poorly optimised, this will be slow.
-
 To draw bonds between atoms 1.5 Angstroms apart
 
 ```shell
@@ -114,6 +111,9 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | bond           | Atom index a, Atom index b | Bond atoms a and b |
 | unbond         | Atom index a, Atom index b | Unbond atoms a and b |
 | getAtomsBonds  | Atom index a | A table of all atom indices bonded to a|
+| getAtom        | Atom index a | The Atom structure for a |
+| atomCount      | | The number of atoms |
+| getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
 
 E.g. the following script will set Atom 0 to a random colour every frame.
 

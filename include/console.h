@@ -207,13 +207,16 @@ private:
 
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[6] =
+        luaL_Reg sfoavLib[9] =
         {
             {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {"getAtomColour", &dispatchVisualisationState<&VisualisationState::lua_getAtomColour>},
             {"bond", &dispatchVisualisationState<&VisualisationState::lua_bond>},
             {"unbond", &dispatchVisualisationState<&VisualisationState::lua_unbond>},
             {"getAtomsBonds", &dispatchVisualisationState<&VisualisationState::lua_getAtomsBonds>},
+            {"getAtom", &dispatchVisualisationState<&VisualisationState::lua_getAtom>},
+            {"atomCount", &dispatchVisualisationState<&VisualisationState::lua_atomCount>},
+            {"getAtomsNeighbours", &dispatchVisualisationState<&VisualisationState::lua_getAtomsNeighbours>},
             {NULL, NULL}
         };
 

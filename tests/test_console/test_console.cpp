@@ -15,12 +15,21 @@ VisualisationState vs
     keyCodes
 );
 
-SCENARIO("Lua atom colour interop")
+SCENARIO("Lua atom interop")
 {
     jLog::Log l;
     GIVEN("A Lua console")
     {
         Console console(l, &vs);
+        WHEN("The script \"atoms = sfoav.atomCount()\" is run")
+        {
+            console.runString("atoms = sfoav.atomCount()");
+            THEN("atoms is 58")
+            {
+                auto atoms = console.getGlobal<LuaNumber>("atoms");
+                REQUIRE(atoms.n == 58);
+            }
+        }
         WHEN("The script \"number = 3.14\" is run")
         {
             console.runString("number = 3.14");
@@ -127,6 +136,135 @@ SCENARIO("Lua atom colour interop")
             {
                 auto a = console.getGlobal<LuaNumber>("a");
                 REQUIRE_THAT(a.n, WithinAbs(1.0, tol));
+            }
+        }
+        WHEN("The script \"element = sfoav.getAtom(0)[\"element\"]\"")
+        {
+            console.runString("element = sfoav.getAtom(0)[\"element\"]");
+            THEN("element is \"S\"")
+            {
+                auto s = console.getGlobal<LuaString>("element");
+                REQUIRE(s.characters == "S");
+            }
+        }
+        WHEN("The script \"x = sfoav.getAtom(0)[\"position\"][\"x\"]\"")
+        {
+            console.runString("x = sfoav.getAtom(0)[\"position\"][\"x\"]");
+            THEN("x is -11.3966")
+            {
+                auto a = console.getGlobal<LuaNumber>("x");
+                REQUIRE_THAT(a.n, WithinAbs(-11.3966, tol));
+            }
+        }
+        WHEN("The script \"y = sfoav.getAtom(0)[\"position\"][\"y\"]\"")
+        {
+            console.runString("y = sfoav.getAtom(0)[\"position\"][\"y\"]");
+            THEN("y is -2.10345")
+            {
+                auto a = console.getGlobal<LuaNumber>("y");
+                REQUIRE_THAT(a.n, WithinAbs(-2.10345, tol));
+            }
+        }
+        WHEN("The script \"z = sfoav.getAtom(0)[\"position\"][\"z\"]\"")
+        {
+            console.runString("z = sfoav.getAtom(0)[\"position\"][\"z\"]");
+            THEN("z is 0.0")
+            {
+                auto a = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(a.n, WithinAbs(0.0, tol));
+            }
+        }
+        WHEN("The script \"radius = sfoav.getAtom(0)[\"radius\"]\"")
+        {
+            console.runString("radius = sfoav.getAtom(0)[\"radius\"]");
+            THEN("radius is 0.5f*1.89f")
+            {
+                auto a = console.getGlobal<LuaNumber>("radius");
+                REQUIRE_THAT(a.n, WithinAbs(0.5f*1.89f, tol));
+            }
+        }
+        WHEN("The script \"element = sfoav.getAtom(12)[\"element\"]\"")
+        {
+            console.runString("element = sfoav.getAtom(12)[\"element\"]");
+            THEN("element is \"F\"")
+            {
+                auto s = console.getGlobal<LuaString>("element");
+                REQUIRE(s.characters == "F");
+            }
+        }
+        WHEN("The script \"x = sfoav.getAtom(12)[\"position\"][\"x\"]\"")
+        {
+            console.runString("x = sfoav.getAtom(12)[\"position\"][\"x\"]");
+            THEN("x is -6.39655")
+            {
+                auto a = console.getGlobal<LuaNumber>("x");
+                REQUIRE_THAT(a.n, WithinAbs(-6.39655, tol));
+            }
+        }
+        WHEN("The script \"g = sfoav.getAtom(12)[\"colour\"][\"g\"]\"")
+        {
+            console.runString("g = sfoav.getAtom(12)[\"colour\"][\"g\"]");
+            THEN("g is 0.647")
+            {
+                auto a = console.getGlobal<LuaNumber>("g");
+                REQUIRE_THAT(a.n, WithinAbs(0.647, tol));
+            }
+        }
+        WHEN("The velocity of 12 is set to glm::vec3(1.0f)")
+        {
+            testAtoms[12].velocity = glm::vec3(1.0f);
+            AND_WHEN("The script \"vx = sfoav.getAtom(12)[\"velocity\"][\"x\"]\"")
+            {
+                console.runString("vx = sfoav.getAtom(12)[\"velocity\"][\"x\"]");
+                THEN("vx is 1.0")
+                {
+                    auto a = console.getGlobal<LuaNumber>("vx");
+                    REQUIRE_THAT(a.n, WithinAbs(1.0, tol));
+                }
+            }
+        }
+        WHEN("The force of 12 is set to glm::vec3(1.0f)")
+        {
+            testAtoms[12].force = glm::vec3(1.0f);
+            AND_WHEN("The script \"fx = sfoav.getAtom(12)[\"force\"][\"x\"]\"")
+            {
+                console.runString("fx = sfoav.getAtom(12)[\"force\"][\"x\"]");
+                THEN("fx is 1.0")
+                {
+                    auto a = console.getGlobal<LuaNumber>("fx");
+                    REQUIRE_THAT(a.n, WithinAbs(1.0, tol));
+                }
+            }
+        }
+        WHEN("The script \"radius = sfoav.getAtom(12)[\"radius\"]\" is run")
+        {
+            console.runString("radius = sfoav.getAtom(12)[\"radius\"]");
+            THEN("radius is 0.5f*1.46f")
+            {
+                auto a = console.getGlobal<LuaNumber>("radius");
+                REQUIRE_THAT(a.n, WithinAbs(0.5f*1.46f, tol));
+            }
+        }
+        WHEN("The script \"n = sfoav.getAtomsNeighbours(0, 3.14)[2][\"index\"]\" is run")
+        {
+            console.runString("n = sfoav.getAtomsNeighbours(0, 3.14)[2][\"index\"]");
+            Neighbours n(testAtoms);
+            const auto directNeighbours = n.neighboursDirect(testAtoms, testAtoms[0].position, 3.14f);
+            THEN("n is equal to the second neighbour's index")
+            {
+                uint64_t n = console.getGlobal<LuaNumber>("n").n;
+                REQUIRE(n == directNeighbours[1].first);
+            }
+        }
+        WHEN("The script \"d = sfoav.getAtomsNeighbours(0, 3.14)[2][\"distance\"]\" is run")
+        {
+            console.runString("d = sfoav.getAtomsNeighbours(0, 3.14)[2][\"distance\"]");
+            Neighbours n(testAtoms);
+            const auto directNeighbours = n.neighboursDirect(testAtoms, testAtoms[0].position, 3.14f);
+            THEN("d is equal to the second neighbour's distance")
+            {
+                float n = console.getGlobal<LuaNumber>("d").n;
+                REQUIRE_THAT(n, WithinAbs(directNeighbours[1].second, tol));
             }
         }
     }

@@ -149,9 +149,38 @@ struct VisualisationState
      */
     inline int lua_getAtomsBonds(lua_State * lua);
 
+    /**
+     * @brief Lua binding to get the Atom count.
+     *
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_atomCount(lua_State * lua);
+
+    /**
+     * @brief Lua binding to get the neighbours of an Atom to a cutoff.
+     *
+     * @remark Lua arguments are:
+     * 1. The Atom index.
+     * 2. The cutoff distance.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getAtomsNeighbours(lua_State * lua);
+
+    /**
+     * @brief Lua binding to get an Atom.
+     *
+     * @remark Lua arguments are:
+     * 1. The Atom index.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getAtom(lua_State * lua);
+
 };
 
 #endif /* VISUALISATIONSTATE_H */
 
-#include <luaBindings/atomColour.h>
+#include <luaBindings/atoms.h>
 #include <luaBindings/bonds.h>
