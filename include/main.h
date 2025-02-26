@@ -28,6 +28,7 @@
 #include <cell.h>
 #include <console.h>
 #include <visualisationState.h>
+#include <neighbours.h>
 
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;

@@ -5,9 +5,10 @@
 #include <map>
 
 #include <constants.h>
+#include <neighbours.h>
 
 /**
- * @brief Obtain bonds based on a fixed distance cutOff.
+ * @brief Obtain bonds based on a fixed distance cutOff using Neighbours.
  *
  * @param forAtoms the atoms to find bonds for.
  * @param atoms the Atoms to bond.
@@ -26,17 +27,17 @@ std::map<uint64_t, std::set<uint64_t>> determineBonds
 
     std::map<uint64_t, std::set<uint64_t>> bonds;
 
+    Neighbours n(atoms, 2.0f*cutOff);
+
     for (uint64_t i : forAtoms)
     {
-        for (uint64_t j = 0; j < atoms.size(); j++)
+        auto nn = n.neighbours(atoms, atoms[forAtoms[i]].position, cutOff);
+        for (uint64_t j = 1; j < nn.size(); j++)
         {
-            if (j != i && glm::length(atoms[j].position-atoms[i].position) <= cutOff)
+            auto s = bonds[nn[j].first];
+            if (s.find(i) == s.cend())
             {
-                auto s = bonds[j];
-                if (s.find(i) == s.cend())
-                {
-                    bonds[i].insert(j);
-                }
+                bonds[i].insert(nn[j].first);
             }
         }
     }

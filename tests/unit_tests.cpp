@@ -7,6 +7,8 @@
 
 using Catch::Matchers::WithinAbs;
 
+const float tol = 0.001;
+
 void checkVec3(glm::vec3 actual, glm::vec3 expected, double tol = 0.001)
 {
     REQUIRE_THAT(actual.x, WithinAbs(expected.x, tol));
@@ -39,3 +41,4 @@ std::string randomFileName()
 #include <test_structure_input/test_structure_input.cpp>
 #include <test_elements/test_elements.cpp>
 #include <test_console/test_console.cpp>
+#include <test_neighbours/test_neighbours.cpp>
