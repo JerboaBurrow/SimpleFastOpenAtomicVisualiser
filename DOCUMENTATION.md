@@ -122,10 +122,30 @@ E.g. the following script will set Atom 0 to a random colour every frame.
 sfoav.setAtomColour(0, math.random(), math.random(), math.random())
 ```
 
+Or a more complex example to render only the neighbours of atom 0 within 4 Angstroms
+
+```lua
+-- Get atom 0's neighbours up to 4 Angstroms.
+neighbours = sfoav.getAtomsNeighbours(0, 4.0)
+
+-- Fade all atoms.
+for i = 1, sfoav.atomCount() do
+    r, g, b, a = sfoav.getAtomColour(i-1)
+    sfoav.setAtomColour(i-1, r, g, b, 0.0)
+end
+
+-- Unfade all neighbours to atom 0 within 4 Angstroms.
+for i = 1, #neighbours do
+    r, g, b, a = sfoav.getAtomColour(neighbours[i]["index"])
+    sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);
+end
+```
 
 ## Performance
 
 For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.
+
+Transparency sorting is on by default, if there are transparent atoms/bonds. This is expensive for the CPU on camera movements or atom/bond changes. This can be disabled with ```-noTransparencySorting```, but will render atoms/bonds out of order.
 
 ## Meshes
 

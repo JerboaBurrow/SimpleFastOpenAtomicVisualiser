@@ -101,7 +101,8 @@ public:
         (
             meshes,
             atoms.size(),
-            levelOfDetail
+            levelOfDetail,
+            cameraPosition
         );
 
         setLevelOfDetail(levelOfDetail);
@@ -240,6 +241,7 @@ public:
         imposterShader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
         setView(camera.getView());
         setProjection(camera.getProjection());
+        buffer->updateCamera(cameraPosition);
     }
 
     /**
@@ -254,6 +256,13 @@ public:
         imposterShader->use();
         imposterShader->setUniform<float>("scaling", s);
     }
+
+    /**
+     * @brief Set whether transparency sorting is performed.
+     *
+     * @param sort If true atoms will be sorted by distance to the camera.
+     */
+    void setTransparencySorting(bool sort) { buffer->setTransparencySorting(sort); }
 
 private:
 
@@ -360,6 +369,7 @@ private:
         "}\n"
         "void main()\n"
         "{\n"
+        "    if (o_colour.a == 0.0) { discard; }\n"
         "    vec3 lightViewPos = (view*lightPos).xyz;\n"
         "    vec3 rayDirection = normalize(vec3(billboard * atomPosScale.w, 0.0) + atomViewPos);"
         "    vec3 viewNormal; vec3 viewPos;\n"
@@ -396,9 +406,13 @@ private:
         (
             std::map<uint8_t, SphereMesh> meshes,
             uint32_t atoms,
-            uint8_t levelOfDetail
+            uint8_t levelOfDetail,
+            glm::vec3 cameraPosition
         )
-        : meshes(meshes), size(atoms), levelOfDetail(std::min(meshes.size()-1, size_t(levelOfDetail)))
+        : meshes(meshes),
+          size(atoms),
+          levelOfDetail(std::min(meshes.size()-1, size_t(levelOfDetail))),
+          cameraPosition(cameraPosition)
         {
             glGenVertexArrays(1, &vao_mesh);
             glGenVertexArrays(1, &vao_imposter);
@@ -518,6 +532,7 @@ private:
          */
         void insert(const Atom & atom)
         {
+            if (atom.colour.a == 0.0) { return; }
             positionsAndScales[index] = atom.position.x;
             positionsAndScales[index+1] = atom.position.y;
             positionsAndScales[index+2] = atom.position.z;
@@ -632,6 +647,7 @@ private:
          */
         void updateVertexArray()
         {
+            depthSort();
             glBindVertexArray(vao_mesh);
 
                 subFullBuffer(a_positionsAndScales, positionsAndScales.data(), positionsAndScales.size());
@@ -640,18 +656,44 @@ private:
             glBindVertexArray(0);
         }
 
+        /**
+         * @brief Update the camera.
+         *
+         * @remark If transparencySortingEnabled a sort and upload will occur.
+         * @param position the new camera position.
+         */
+        void updateCamera(glm::vec3 position)
+        {
+            cameraPosition = position;
+            if (transparencySortingEnabled) { updateVertexArray(); };
+        }
+
+        /**
+         * @brief Set whether transparency sorting is performed.
+         *
+         * @param sort If true atoms will be sorted by distance to the camera if the is an alpha in (0, 1).
+         */
+        void setTransparencySorting(bool sort)
+        {
+            transparencySortingEnabled = sort;
+            if (transparencySortingEnabled) { updateVertexArray(); };
+        }
+
     private:
 
         std::map<uint8_t, SphereMesh> meshes;
         uint32_t size;
         uint8_t levelOfDetail;
+        glm::vec3 cameraPosition;
         GLuint vao_mesh, vao_imposter, a_quad, a_positionsAndScales, a_colours;
         std::vector<GLuint> a_meshVertices, a_meshNormals;
+
         std::vector<float> positionsAndScales;
         std::vector<float> colours;
 
         uint32_t index = 0;
         uint32_t atoms = 0;
+        bool transparencySortingEnabled = true;
 
         const std::array<float, 8> quad =
         {
@@ -660,6 +702,55 @@ private:
             1.0,-1.0,
             1.0,1.0
         };
+
+        void depthSort()
+        {
+            // CPU expensive.
+            if (!transparencySortingEnabled) { return; }
+            // NB pushing to a vector and std::sort'ing it is an order
+            // of magnitude faster than pushing to an std::map.
+            // Checked with 1,000,000 atoms (10 fps vs. 1-2).
+            std::vector<std::pair<float, uint64_t>> order;
+            order.reserve(atoms);
+            for (uint64_t i = 0; i < atoms; i++)
+            {
+                float rx = positionsAndScales[i*4]-cameraPosition.x;
+                float ry = positionsAndScales[i*4+1]-cameraPosition.y;
+                float rz = positionsAndScales[i*4+2]-cameraPosition.z;
+                float d2 = rx*rx+ry*ry+rz*rz+positionsAndScales[i*4+3]*positionsAndScales[i*4+3];
+                order.push_back({d2, i});
+            }
+            std::sort
+            (
+                order.begin(),
+                order.end(),
+                []
+                (
+                    const std::pair<float, uint64_t> & a,
+                    const std::pair<float, uint64_t> & b
+                )
+                {
+                    return a.first > b.first;
+                }
+            );
+            // Apply the re-ordering of the data.
+            index = 0;
+            std::vector<float> positionsAndScales_tmp = positionsAndScales;
+            std::vector<float> colours_tmp = colours;
+            for (auto iter = order.begin(); iter != order.end(); iter++)
+            {
+                positionsAndScales[index] = positionsAndScales_tmp[iter->second*4];
+                positionsAndScales[index+1] = positionsAndScales_tmp[iter->second*4+1];
+                positionsAndScales[index+2] = positionsAndScales_tmp[iter->second*4+2];
+                positionsAndScales[index+3] = positionsAndScales_tmp[iter->second*4+3];
+
+                colours[index] = colours_tmp[iter->second*4];
+                colours[index+1] = colours_tmp[iter->second*4+1];
+                colours[index+2] = colours_tmp[iter->second*4+2];
+                colours[index+3] = colours_tmp[iter->second*4+3];
+                index += 4;
+            }
+        }
     };
 
     std::unique_ptr<AtomBuffer> buffer;

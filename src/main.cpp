@@ -136,6 +136,19 @@ int main(int argv, char ** argc)
     );
 
     elementsNeedUpdate = true;
+
+    atomRenderer.updateCamera(camera);
+    bondRenderer.updateCamera(camera);
+    if (!options.noTransparencySorting.value)
+    {
+        setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
+    }
+    else
+    {
+        atomRenderer.setTransparencySorting(false);
+        bondRenderer.setTransparencySorting(false);
+    }
+
     jGLInstance->setClear(theme.background);
 
     while (display.isOpen())
@@ -156,7 +169,7 @@ int main(int argv, char ** argc)
             options.hideInfoText.value = !options.hideInfoText.value;
         }
 
-        cameraControls(display, camera);
+        bool cameraMoved = cameraControls(display, camera);
         elementsNeedUpdate = atomControls
         (
             display,
@@ -172,6 +185,7 @@ int main(int argv, char ** argc)
             center(structure->atoms);
             camera.reset(structure->atoms);
             elementsNeedUpdate = true;
+            cameraMoved = true;
         }
 
         if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
@@ -250,8 +264,11 @@ int main(int argv, char ** argc)
             elementsNeedUpdate = true;
         }
 
-        atomRenderer.updateCamera(camera);
-        bondRenderer.updateCamera(camera);
+        if (cameraMoved)
+        {
+            atomRenderer.updateCamera(camera);
+            bondRenderer.updateCamera(camera);
+        }
 
         if (!readInProgress && std::filesystem::exists(options.script.value))
         {
@@ -261,13 +278,24 @@ int main(int argv, char ** argc)
             elementsNeedUpdate = true;
         }
 
-        if (!options.hideAtoms.value)
+        if (elementsNeedUpdate)
         {
-            if (elementsNeedUpdate) { atomRenderer.updateAtoms(structure->atoms); }
-            atomRenderer.draw(!options.meshes.value);
+            if (!options.hideAtoms.value)
+            {
+                atomRenderer.updateAtoms(structure->atoms);
+            }
+
+            bondRenderer.update(visualisationState.bonds, structure->atoms);
+            if (!options.noTransparencySorting.value)
+            {
+                setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
+            }
         }
 
-        if (elementsNeedUpdate) { bondRenderer.update(visualisationState.bonds, structure->atoms); }
+        if (!options.hideAtoms.value)
+        {
+            atomRenderer.draw(!options.meshes.value);
+        }
         bondRenderer.draw();
 
         elementsNeedUpdate = false;

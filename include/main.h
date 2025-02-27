@@ -81,33 +81,43 @@ Theme lightTheme()
  *
  * @param display display to obtain events from.
  * @param camera the camera to update.
+ * @return true if the camera moved.
+ * @return false if the camera did not move.
  */
-void cameraControls(jGL::DesktopDisplay & display, Camera & camera)
+bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
 {
+    bool moved = false;
     if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
     {
         camera.zoom(-dr);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
     {
         camera.zoom(dr);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
     {
         camera.incline(dtheta);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
     {
         camera.incline(-dtheta);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
     {
         camera.rotate(-dphi);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
     {
         camera.rotate(dphi);
+        moved = true;
     }
+    return moved;
 }
 
 /**
@@ -263,6 +273,33 @@ void backward(std::unique_ptr<Structure> & structure)
     if (f > 2) { f -= 2; }
     else { f = structure->frameCount()-2+f;}
     structure->readFrame(f);
+}
+
+/**
+ * @brief Enable of disable transparency sorting if there are transparent elements.
+ *
+ * @param atoms the Atoms to check.
+ * @param atomRenderer the AtomRenderer to enable/disable transparency sorting on.
+ * @param bondRenderer the BondRenderer to enable/disable transparency sorting on.
+ */
+void setTransparencySorting
+(
+    const std::vector<Atom> & atoms,
+    AtomRenderer & atomRenderer,
+    BondRenderer & bondRenderer
+)
+{
+    for (const auto & atom : atoms)
+    {
+        if (atom.colour.a != 0.0 && atom.colour.a != 1.0)
+        {
+            atomRenderer.setTransparencySorting(true);
+            bondRenderer.setTransparencySorting(true);
+            return;
+        }
+    }
+    atomRenderer.setTransparencySorting(false);
+    bondRenderer.setTransparencySorting(false);
 }
 
 #endif /* MAIN_H */

@@ -99,8 +99,6 @@ std::string argumentHelp(const Argument<T> & arg)
     {
         h << "\n   Default: "
             << arg.defaultValue
-            << "\n   Required: "
-            << (arg.required ? "true" : "false")
             << ".";
     }
     return h.str();
@@ -428,6 +426,7 @@ struct CommandLine
             getArgument<uint8_t>(speed, commandLine, c, count);
             getArgument<bool>(darkTheme, commandLine, c, count);
             getArgument<std::filesystem::path>(script, commandLine, c, count);
+            getArgument<bool>(noTransparencySorting, commandLine, c, count);
         }
     }
 
@@ -453,6 +452,7 @@ struct CommandLine
     Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false, false};
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false, false};
     Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}, false};
+    Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting for faster rendering.", false, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -529,6 +529,8 @@ struct CommandLine
           << argumentHelp(showCell)
           << "\n"
           << argumentHelp(deemphasisAlpha)
+          << "\n"
+          << argumentHelp(noTransparencySorting)
           << "\n"
           << argumentHelp(hideInfoText)
           << "\n"
