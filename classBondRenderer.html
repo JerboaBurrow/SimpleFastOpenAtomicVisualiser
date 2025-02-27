@@ -103,6 +103,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a81e37733508c1fcb717c2c7594a6ac5e" id="r_a81e37733508c1fcb717c2c7594a6ac5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#a81e37733508c1fcb717c2c7594a6ac5e">updateCamera</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> <a class="el" href="classCamera.html">Camera</a> &amp;camera)</td></tr>
 <tr class="memdesc:a81e37733508c1fcb717c2c7594a6ac5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update shaders from a <a class="el" href="classCamera.html" title="A 3D projective camera centered on a focus moving on a sphere.">Camera</a>.  <br /></td></tr>
 <tr class="separator:a81e37733508c1fcb717c2c7594a6ac5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab37abeea598667d945f629e83dca3e8" id="r_aab37abeea598667d945f629e83dca3e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#aab37abeea598667d945f629e83dca3e8">setTransparencySorting</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">sort</a>)</td></tr>
+<tr class="memdesc:aab37abeea598667d945f629e83dca3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether transparency sorting is performed.  <br /></td></tr>
+<tr class="separator:aab37abeea598667d945f629e83dca3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa852e6524bd8f67de0b80f4322f49e71" id="r_aa852e6524bd8f67de0b80f4322f49e71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBondRenderer.html#aa852e6524bd8f67de0b80f4322f49e71">setBondScale</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> scale)</td></tr>
 <tr class="memdesc:aa852e6524bd8f67de0b80f4322f49e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the uniform radii of bonds.  <br /></td></tr>
 <tr class="separator:aa852e6524bd8f67de0b80f4322f49e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -423,6 +426,40 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aab37abeea598667d945f629e83dca3e8" name="aab37abeea598667d945f629e83dca3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab37abeea598667d945f629e83dca3e8">&#9670;&#160;</a></span>setTransparencySorting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a> BondRenderer::setTransparencySorting </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a>&#160;</td>
+          <td class="paramname"><em>sort</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether transparency sorting is performed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sort</td><td>If true atoms will be sorted by distance to the camera. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae19f943d9fb8edec07d6f01ef3df8623" name="ae19f943d9fb8edec07d6f01ef3df8623"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae19f943d9fb8edec07d6f01ef3df8623">&#9670;&#160;</a></span>setView()</h2>
 
@@ -562,6 +599,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section remark"><dt>Remarks</dt><dd>If transparencySortingEnabled a sort and upload will occur. </dd></dl>
 
 </div>
 </div>

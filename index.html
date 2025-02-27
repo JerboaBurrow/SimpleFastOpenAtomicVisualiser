@@ -206,9 +206,25 @@ Lua scripting</h2>
 <p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
 <div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
 <div class="line">sfoav.setAtomColour(0, math.random(), math.random(), math.random())</div>
+</div><!-- fragment --><p>Or a more complex example to render only the neighbours of atom 0 within 4 Angstroms</p>
+<div class="fragment"><div class="line">-- Get atom 0&#39;s neighbours up to 4 Angstroms.</div>
+<div class="line">neighbours = sfoav.getAtomsNeighbours(0, 4.0)</div>
+<div class="line"> </div>
+<div class="line">-- Fade all atoms.</div>
+<div class="line">for i = 1, sfoav.atomCount() do</div>
+<div class="line">    r, g, b, a = sfoav.getAtomColour(i-1)</div>
+<div class="line">    sfoav.setAtomColour(i-1, r, g, b, 0.0)</div>
+<div class="line">end</div>
+<div class="line"> </div>
+<div class="line">-- Unfade all neighbours to atom 0 within 4 Angstroms.</div>
+<div class="line">for i = 1, #neighbours do</div>
+<div class="line">    r, g, b, a = sfoav.getAtomColour(neighbours[i][&quot;index&quot;])</div>
+<div class="line">    sfoav.setAtomColour(neighbours[i][&quot;index&quot;], r, g, b, 1.0);</div>
+<div class="line">end</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
 Performance</h2>
 <p>For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.</p>
+<p>Transparency sorting is on by default, if there are transparent atoms/bonds. This is expensive for the CPU on camera movements or atom/bond changes. This can be disabled with <code>-noTransparencySorting</code>, but will render atoms/bonds out of order.</p>
 <h2><a class="anchor" id="autotoc_md4"></a>
 Meshes</h2>
 <blockquote class="doxtable">
