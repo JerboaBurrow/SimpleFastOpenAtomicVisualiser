@@ -7,8 +7,6 @@
 #include <utility>
 #include <algorithm>
 
-#include <chrono>
-
 #include <jGL/OpenGL/gl.h>
 #include <jGL/OpenGL/Shader/glShader.h>
 

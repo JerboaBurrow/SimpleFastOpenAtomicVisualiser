@@ -275,6 +275,13 @@ void backward(std::unique_ptr<Structure> & structure)
     structure->readFrame(f);
 }
 
+/**
+ * @brief Enable of disable transparency sorting if there are transparent elements.
+ *
+ * @param atoms the Atoms to check.
+ * @param atomRenderer the AtomRenderer to enable/disable transparency sorting on.
+ * @param bondRenderer the BondRenderer to enable/disable transparency sorting on.
+ */
 void setTransparencySorting
 (
     const std::vector<Atom> & atoms,
