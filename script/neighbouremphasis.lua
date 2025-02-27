@@ -1,4 +1,4 @@
--- Get atom 0's neighbours up to 16 Angstroms.
+-- Get atom 0's neighbours up to 4 Angstroms.
 neighbours = sfoav.getAtomsNeighbours(0, 4.0)
 
 -- Fade all atoms.
@@ -7,7 +7,7 @@ for i = 1, sfoav.atomCount() do
     sfoav.setAtomColour(i-1, r, g, b, 0.1)
 end
 
--- Emphasise all neighbours to 0 withint 16 Angstroms.
+-- Emphasise all neighbours to atom 0 within 4 Angstroms.
 for i = 1, #neighbours do
     r, g, b, a = sfoav.getAtomColour(neighbours[i]["index"])
     sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);

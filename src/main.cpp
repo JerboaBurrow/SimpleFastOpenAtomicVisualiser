@@ -136,9 +136,19 @@ int main(int argv, char ** argc)
     );
 
     elementsNeedUpdate = true;
+
     atomRenderer.updateCamera(camera);
-    atomRenderer.setTransparencySorting(!options.noTransparencySorting.value);
     bondRenderer.updateCamera(camera);
+    if (!options.noTransparencySorting.value)
+    {
+        setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
+    }
+    else
+    {
+        atomRenderer.setTransparencySorting(false);
+        bondRenderer.setTransparencySorting(false);
+    }
+
     jGLInstance->setClear(theme.background);
 
     while (display.isOpen())
@@ -268,13 +278,24 @@ int main(int argv, char ** argc)
             elementsNeedUpdate = true;
         }
 
-        if (!options.hideAtoms.value)
+        if (elementsNeedUpdate)
         {
-            if (elementsNeedUpdate) { atomRenderer.updateAtoms(structure->atoms); }
-            atomRenderer.draw(!options.meshes.value);
+            if (!options.hideAtoms.value)
+            {
+                atomRenderer.updateAtoms(structure->atoms);
+            }
+
+            bondRenderer.update(visualisationState.bonds, structure->atoms);
+            if (!options.noTransparencySorting.value)
+            {
+                setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
+            }
         }
 
-        if (elementsNeedUpdate) { bondRenderer.update(visualisationState.bonds, structure->atoms); }
+        if (!options.hideAtoms.value)
+        {
+            atomRenderer.draw(!options.meshes.value);
+        }
         bondRenderer.draw();
 
         elementsNeedUpdate = false;

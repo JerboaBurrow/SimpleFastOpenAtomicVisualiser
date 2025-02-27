@@ -120,6 +120,7 @@ public:
      * @brief Update shaders from a Camera.
      *
      * @param camera the camera to update from.
+     * @remark If transparencySortingEnabled a sort and upload will occur.
      */
     void updateCamera(const Camera & camera)
     {
@@ -128,6 +129,18 @@ public:
         shader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
         setView(camera.getView());
         setProjection(camera.getProjection());
+        if (transparencySortingEnabled) { updateVertexArray(); };
+    }
+
+    /**
+     * @brief Set whether transparency sorting is performed.
+     *
+     * @param sort If true atoms will be sorted by distance to the camera.
+     */
+    void setTransparencySorting(bool sort)
+    {
+        transparencySortingEnabled = sort;
+        if (transparencySortingEnabled) { updateVertexArray(); };
     }
 
     /**
@@ -137,6 +150,7 @@ public:
      */
     void setBondScale(float scale)
     {
+        this->scale = scale;
         shader->use();
         shader->setUniform<float>("bondScale", scale);
     }
@@ -233,6 +247,7 @@ private:
     uint64_t maximumBonds;
     std::unique_ptr<jGL::GL::glShader> shader;
     glm::vec3 cameraPosition;
+    float scale = 1.0f;
 
     GLuint vao, a_vertices, b_vertices, a_colours, b_colours, a_quad;
     std::vector<float> positionsAAndScale;
@@ -243,6 +258,7 @@ private:
     glm::mat4 view, projection;
 
     uint64_t index = 0;
+    bool transparencySortingEnabled = true;
 
     const std::array<float, 8> quad =
     {
@@ -503,6 +519,7 @@ private:
     {
         const Atom & a = atoms[bond.first];
         const Atom & b = atoms[bond.second];
+        if (a.colour.a == 0.0 && b.colour.a == 0.0) { return; }
 
         positionsAAndScale[index] = a.position.x;
         positionsAAndScale[index+1] = a.position.y;
@@ -534,6 +551,7 @@ private:
      */
     void updateVertexArray()
     {
+        depthSort();
         glBindVertexArray(vao);
 
             subFullBuffer(a_vertices, positionsAAndScale.data(), positionsAAndScale.size());
@@ -543,6 +561,67 @@ private:
 
         glBindVertexArray(0);
     }
+
+    void depthSort()
+    {
+        // CPU expensive.
+        if (!transparencySortingEnabled) { return; }
+        // NB pushing to a vector and std::sort'ing it is an order
+        // of magnitude faster than pushing to an std::map.
+        // Checked with 1,000,000 atoms (10 fps vs. 1-2).
+        std::vector<std::pair<float, uint64_t>> order;
+        order.reserve(nBonds);
+        for (uint64_t i = 0; i < nBonds; i++)
+        {
+
+            float rx = 0.5f*(positionsAAndScale[i*4]+positionsBAndScale[i*4])-cameraPosition.x;
+            float ry = 0.5f*(positionsAAndScale[i*4+1]+positionsBAndScale[i*4+1])-cameraPosition.y;
+            float rz = 0.5f*(positionsAAndScale[i*4+2]+positionsBAndScale[i*4+2])-cameraPosition.z;
+            float d2 = rx*rx+ry*ry+rz*rz+scale*scale;
+            order.push_back({d2, i});
+        }
+        std::sort
+        (
+            order.begin(),
+            order.end(),
+            []
+            (
+                const std::pair<float, uint64_t> & a,
+                const std::pair<float, uint64_t> & b
+            )
+            {
+                return a.first > b.first;
+            }
+        );
+        // Apply the re-ordering of the data.
+        index = 0;
+        std::vector<float> positionsAAndScale_tmp = positionsAAndScale;
+        std::vector<float> positionsBAndScale_tmp = positionsBAndScale;
+        std::vector<float> coloursA_tmp = coloursA;
+        std::vector<float> coloursB_tmp = coloursB;
+        for (auto iter = order.begin(); iter != order.end(); iter++)
+        {
+            positionsAAndScale[index] = positionsAAndScale_tmp[iter->second*4];
+            positionsAAndScale[index+1] = positionsAAndScale_tmp[iter->second*4+1];
+            positionsAAndScale[index+2] = positionsAAndScale_tmp[iter->second*4+2];
+            positionsAAndScale[index+3] = positionsAAndScale_tmp[iter->second*4+3];
+
+            coloursA[index] = coloursA_tmp[iter->second*4];
+            coloursA[index+1] = coloursA_tmp[iter->second*4+1];
+            coloursA[index+2] = coloursA_tmp[iter->second*4+2];
+            coloursA[index+3] = coloursA_tmp[iter->second*4+3];
+
+            positionsBAndScale[index] = positionsBAndScale_tmp[iter->second*4];
+            positionsBAndScale[index+1] = positionsBAndScale_tmp[iter->second*4+1];
+            positionsBAndScale[index+2] = positionsBAndScale_tmp[iter->second*4+2];
+            positionsBAndScale[index+3] = positionsBAndScale_tmp[iter->second*4+3];
+
+            coloursB[index] = coloursB_tmp[iter->second*4];
+            coloursB[index+1] = coloursB_tmp[iter->second*4+1];
+            coloursB[index+2] = coloursB_tmp[iter->second*4+2];
+            coloursB[index+3] = coloursB_tmp[iter->second*4+3];
+            index += 4;
+        }
+    }
 };
-    GLuint vao, a_vertices, b_vertices, a_colours, b_colours, a_quad;
 #endif /* BONDRENDERER_H */

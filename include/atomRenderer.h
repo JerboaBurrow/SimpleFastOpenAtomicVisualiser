@@ -259,6 +259,11 @@ public:
         imposterShader->setUniform<float>("scaling", s);
     }
 
+    /**
+     * @brief Set whether transparency sorting is performed.
+     *
+     * @param sort If true atoms will be sorted by distance to the camera.
+     */
     void setTransparencySorting(bool sort) { buffer->setTransparencySorting(sort); }
 
 private:
@@ -520,7 +525,7 @@ private:
          * @brief Set the buffer position to the start.
          *
          */
-        void flip() { index = 0; atoms = 0; requireDepthSort = false; }
+        void flip() { index = 0; atoms = 0; }
 
         /**
          * @brief Insert (update) an Atoms data.
@@ -539,7 +544,6 @@ private:
             colours[index+1] = atom.colour.g;
             colours[index+2] = atom.colour.b;
             colours[index+3] = atom.colour.a;
-            requireDepthSort = atom.colour.a != 1.0 && atom.colour.a != 0.0;
             index += 4;
             atoms++;
         }
@@ -645,8 +649,7 @@ private:
          */
         void updateVertexArray()
         {
-            // CPU expensive.
-            if (requireDepthSort) { depthSort(); };
+            depthSort();
             glBindVertexArray(vao_mesh);
 
                 subFullBuffer(a_positionsAndScales, positionsAndScales.data(), positionsAndScales.size());
@@ -655,13 +658,28 @@ private:
             glBindVertexArray(0);
         }
 
+        /**
+         * @brief Update the camera.
+         *
+         * @remark If transparencySortingEnabled a sort and upload will occur.
+         * @param position the new camera position.
+         */
         void updateCamera(glm::vec3 position)
         {
             cameraPosition = position;
-            if (requireDepthSort && transparencySortingEnabled) { updateVertexArray(); };
+            if (transparencySortingEnabled) { updateVertexArray(); };
         }
 
-        void setTransparencySorting(bool sort) { transparencySortingEnabled = sort; }
+        /**
+         * @brief Set whether transparency sorting is performed.
+         *
+         * @param sort If true atoms will be sorted by distance to the camera if the is an alpha in (0, 1).
+         */
+        void setTransparencySorting(bool sort)
+        {
+            transparencySortingEnabled = sort;
+            if (transparencySortingEnabled) { updateVertexArray(); };
+        }
 
     private:
 
@@ -677,7 +695,6 @@ private:
 
         uint32_t index = 0;
         uint32_t atoms = 0;
-        bool requireDepthSort = false;
         bool transparencySortingEnabled = true;
 
         const std::array<float, 8> quad =
@@ -690,6 +707,7 @@ private:
 
         void depthSort()
         {
+            // CPU expensive.
             if (!transparencySortingEnabled) { return; }
             // NB pushing to a vector and std::sort'ing it is an order
             // of magnitude faster than pushing to an std::map.

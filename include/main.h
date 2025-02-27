@@ -275,4 +275,24 @@ void backward(std::unique_ptr<Structure> & structure)
     structure->readFrame(f);
 }
 
+void setTransparencySorting
+(
+    const std::vector<Atom> & atoms,
+    AtomRenderer & atomRenderer,
+    BondRenderer & bondRenderer
+)
+{
+    for (const auto & atom : atoms)
+    {
+        if (atom.colour.a != 0.0 && atom.colour.a != 1.0)
+        {
+            atomRenderer.setTransparencySorting(true);
+            bondRenderer.setTransparencySorting(true);
+            return;
+        }
+    }
+    atomRenderer.setTransparencySorting(false);
+    bondRenderer.setTransparencySorting(false);
+}
+
 #endif /* MAIN_H */
