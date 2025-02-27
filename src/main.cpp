@@ -136,6 +136,9 @@ int main(int argv, char ** argc)
     );
 
     elementsNeedUpdate = true;
+    atomRenderer.updateCamera(camera);
+    atomRenderer.setTransparencySorting(!options.noTransparencySorting.value);
+    bondRenderer.updateCamera(camera);
     jGLInstance->setClear(theme.background);
 
     while (display.isOpen())
@@ -156,7 +159,7 @@ int main(int argv, char ** argc)
             options.hideInfoText.value = !options.hideInfoText.value;
         }
 
-        cameraControls(display, camera);
+        bool cameraMoved = cameraControls(display, camera);
         elementsNeedUpdate = atomControls
         (
             display,
@@ -172,6 +175,7 @@ int main(int argv, char ** argc)
             center(structure->atoms);
             camera.reset(structure->atoms);
             elementsNeedUpdate = true;
+            cameraMoved = true;
         }
 
         if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
@@ -250,8 +254,11 @@ int main(int argv, char ** argc)
             elementsNeedUpdate = true;
         }
 
-        atomRenderer.updateCamera(camera);
-        bondRenderer.updateCamera(camera);
+        if (cameraMoved)
+        {
+            atomRenderer.updateCamera(camera);
+            bondRenderer.updateCamera(camera);
+        }
 
         if (!readInProgress && std::filesystem::exists(options.script.value))
         {

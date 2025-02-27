@@ -81,33 +81,43 @@ Theme lightTheme()
  *
  * @param display display to obtain events from.
  * @param camera the camera to update.
+ * @return true if the camera moved.
+ * @return false if the camera did not move.
  */
-void cameraControls(jGL::DesktopDisplay & display, Camera & camera)
+bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
 {
+    bool moved = false;
     if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
     {
         camera.zoom(-dr);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
     {
         camera.zoom(dr);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
     {
         camera.incline(dtheta);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
     {
         camera.incline(-dtheta);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
     {
         camera.rotate(-dphi);
+        moved = true;
     }
     if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
     {
         camera.rotate(dphi);
+        moved = true;
     }
+    return moved;
 }
 
 /**
