@@ -6,5 +6,6 @@ var searchData=
   ['update_3',['update',['../classBondRenderer.html#ad3cfd0de0bc9d9833e67086d3afe876a',1,'BondRenderer']]],
   ['updateatoms_4',['updateAtoms',['../classAtomRenderer.html#a49b99f59db4bae8ed914897f1b11e367',1,'AtomRenderer']]],
   ['updatecamera_5',['updatecamera',['../classAtomRenderer.html#a8f6213e2d48fe5f015c84909b3fcae8b',1,'AtomRenderer::updateCamera()'],['../classAxes.html#a4754bf941b794bfeb3b73d9c4618bde2',1,'Axes::updateCamera()'],['../classBondRenderer.html#a81e37733508c1fcb717c2c7594a6ac5e',1,'BondRenderer::updateCamera()']]],
-  ['util_2eh_6',['util.h',['../util_8h.html',1,'']]]
+  ['util_2eh_6',['util.h',['../util_8h.html',1,'']]],
+  ['utils_2eh_7',['utils.h',['../utils_8h.html',1,'']]]
 ];

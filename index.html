@@ -185,9 +185,9 @@ Lua scripting</h2>
 </blockquote>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">Method   </th><th class="markdownTableHeadLeft">Arguments   </th><th class="markdownTableHeadLeft">Returns    </th></tr>
+<th class="markdownTableHeadLeft">Method   </th><th class="markdownTableHeadLeft">Arguments   </th><th class="markdownTableHeadLeft">Return/Effect    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">setAtomColour   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index and an <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">RGB(optional A)</a> colour [0, 1]   </td><td class="markdownTableBodyLeft"></td></tr>
+<td class="markdownTableBodyLeft">setAtomColour   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index and an RGB/RGBA colour, in [0, 1]   </td><td class="markdownTableBodyLeft"></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">getAtomColour   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index   </td><td class="markdownTableBodyLeft">The atoms RGBA colour    </td></tr>
 <tr class="markdownTableRowOdd">
@@ -201,7 +201,11 @@ Lua scripting</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">atomCount   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The number of atoms    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">getAtomsNeighbours   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index x, cutoff distance   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff   </td></tr>
+<td class="markdownTableBodyLeft">getAtomsNeighbours   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index x, cutoff distance   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">setText   </td><td class="markdownTableBodyLeft">Text string   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">getFrame   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The current frame number (from 0)   </td></tr>
 </table>
 <p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
 <div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
