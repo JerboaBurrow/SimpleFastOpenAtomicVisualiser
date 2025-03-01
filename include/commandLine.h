@@ -423,6 +423,7 @@ struct CommandLine
             getArgument<bool>(hideInfoText, commandLine, c, count);
             getArgument<bool>(play, commandLine, c, count);
             getArgument<uint64_t>(bondFocus, commandLine, c, count);
+            getArgument<uint64_t>(focus, commandLine, c, count);
             getArgument<uint8_t>(speed, commandLine, c, count);
             getArgument<bool>(darkTheme, commandLine, c, count);
             getArgument<std::filesystem::path>(script, commandLine, c, count);
@@ -448,6 +449,7 @@ struct CommandLine
     Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false, false};
     Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false, false};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX, false};
+    Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", NULL_INDEX, false};
     Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60, false};
     Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false, false};
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false, false};
@@ -515,6 +517,8 @@ struct CommandLine
           << argumentHelp(levelOfDetail)
           << "\n"
           << argumentHelp(bondFocus)
+          << "\n"
+          << argumentHelp(focus)
           << "\n"
           << argumentHelp(bondCutoff)
           << "\n"

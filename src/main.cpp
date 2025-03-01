@@ -106,6 +106,8 @@ int main(int argv, char ** argc)
     Console console(log, &visualisationState);
 
     if (!options.noCentering.value) { center(structure->atoms); }
+    if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
+    com = getCenter(structure->atoms);
 
     Camera camera {structure->atoms, resX, resY};
 
@@ -182,7 +184,8 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
         {
-            center(structure->atoms);
+            if (!options.noCentering.value) { center(structure->atoms); }
+            if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
             camera.reset(structure->atoms);
             elementsNeedUpdate = true;
             cameraMoved = true;
@@ -253,7 +256,8 @@ int main(int argv, char ** argc)
             readInProgress = false;
             visualisationState.atoms = structure->atoms;
             if (!options.noCentering.value) { center(structure->atoms); }
-            translate(structure->atoms, com);
+            if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
+            else { translate(structure->atoms, com); }
             if (options.bondCutoff.value > 0.0)
             {
                 visualisationState.bonds = determineBonds(visualisationState.bondsFor, structure->atoms, options.bondCutoff.value);

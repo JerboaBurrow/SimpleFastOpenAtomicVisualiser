@@ -239,8 +239,9 @@ public:
         meshShader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
         imposterShader->use();
         imposterShader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
-        setView(camera.getView());
-        setProjection(camera.getProjection());
+        view = camera.getView();
+        projection = camera.getProjection();
+        setProjectionView();
         buffer->updateCamera(cameraPosition);
     }
 
@@ -706,7 +707,7 @@ private:
         void depthSort()
         {
             // CPU expensive.
-            if (!transparencySortingEnabled) { return; }
+            if (!transparencySortingEnabled || atoms == 0) { return; }
             // NB pushing to a vector and std::sort'ing it is an order
             // of magnitude faster than pushing to an std::map.
             // Checked with 1,000,000 atoms (10 fps vs. 1-2).

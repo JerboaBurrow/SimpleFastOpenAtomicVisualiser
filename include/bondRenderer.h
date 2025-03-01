@@ -127,8 +127,9 @@ public:
         cameraPosition = camera.position();
         shader->use();
         shader->setUniform<glm::vec4>("lightPos", glm::vec4(cameraPosition, 1.0f));
-        setView(camera.getView());
-        setProjection(camera.getProjection());
+        view = camera.getView();
+        projection = camera.getProjection();
+        setProjectionView();
         if (transparencySortingEnabled) { updateVertexArray(); };
     }
 
@@ -246,7 +247,7 @@ private:
     uint64_t bondPadding;
     uint64_t maximumBonds;
     std::unique_ptr<jGL::GL::glShader> shader;
-    glm::vec3 cameraPosition;
+    glm::vec3 cameraPosition = glm::vec3(0.0f);
     float scale = 1.0f;
 
     GLuint vao, a_vertices, b_vertices, a_colours, b_colours, a_quad;
@@ -565,7 +566,7 @@ private:
     void depthSort()
     {
         // CPU expensive.
-        if (!transparencySortingEnabled) { return; }
+        if (!transparencySortingEnabled || nBonds == 0) { return; }
         // NB pushing to a vector and std::sort'ing it is an order
         // of magnitude faster than pushing to an std::map.
         // Checked with 1,000,000 atoms (10 fps vs. 1-2).
