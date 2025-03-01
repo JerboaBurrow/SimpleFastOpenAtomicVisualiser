@@ -80,6 +80,9 @@ struct VisualisationState
             );
         }
         atomCount = atoms.size();
+
+        text = "";
+        frame = 0;
     }
 
     std::vector<Atom> & atoms;
@@ -89,6 +92,8 @@ struct VisualisationState
     std::map<uint64_t, glm::vec4> atomColourOverrides;
     std::multimap<Element, uint64_t> elementMap;
     std::map<int, Element> emphasisControls;
+    std::string text;
+    uint64_t frame;
 
     uint64_t atomCount;
 
@@ -178,9 +183,28 @@ struct VisualisationState
      */
     inline int lua_getAtom(lua_State * lua);
 
+    /**
+     * @brief Set the on screen text.
+     *
+     * @remark Lua arguments are:
+     * 1. The text string.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_setText(lua_State * lua);
+
+    /**
+     * @brief Get the current frame number.
+     *
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getFrame(lua_State * lua);
+
 };
 
 #endif /* VISUALISATIONSTATE_H */
 
 #include <luaBindings/atoms.h>
 #include <luaBindings/bonds.h>
+#include <luaBindings/utils.h>

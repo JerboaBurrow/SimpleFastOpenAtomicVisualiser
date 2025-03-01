@@ -104,9 +104,9 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 > [!warning]
 > Lua indexes from 1, but all sfoav library functions index from 0.
 
-| Method | Arguments  | Returns |
+| Method | Arguments  | Return/Effect |
 | :----- | :---- | :---- |
-| setAtomColour  | Atom index and an RGB(optional A) colour [0, 1] | |
+| setAtomColour  | Atom index and an RGB/RGBA colour, in [0, 1] | |
 | getAtomColour  | Atom index | The atoms RGBA colour |
 | bond           | Atom index a, Atom index b | Bond atoms a and b |
 | unbond         | Atom index a, Atom index b | Unbond atoms a and b |
@@ -114,6 +114,8 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | getAtom        | Atom index a | The Atom structure for a |
 | atomCount      | | The number of atoms |
 | getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
+| setText | Text string | The neighbours of a within the cutoff |
+| getFrame | | The current frame number (from 0) |
 
 E.g. the following script will set Atom 0 to a random colour every frame.
 

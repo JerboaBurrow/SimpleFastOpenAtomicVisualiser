@@ -304,19 +304,17 @@ int main(int argv, char ** argc)
 
         elementsNeedUpdate = false;
 
-        std::stringstream debugText;
-
-        uint64_t frame = structure->framePosition();
-        if (frame > 0) { frame -= 1; }
-        else { frame = structure->frameCount()-1; }
+        visualisationState.frame = structure->framePosition();
+        if (visualisationState.frame > 0) { visualisationState.frame -= 1; }
+        else { visualisationState.frame = structure->frameCount()-1; }
 
         if (!options.hideInfoText.value)
         {
             auto cx = fixedLengthNumber(camera.position().x, 6);
             auto cy = fixedLengthNumber(camera.position().y, 6);
             auto cz = fixedLengthNumber(camera.position().z, 6);
-
-            debugText << "Frame: " << frame+1 << "/" << structure->frameCount()
+            std::stringstream debugText;
+            debugText << "Frame: " << visualisationState.frame+1 << "/" << structure->frameCount()
                       << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                       << "\nCamera: " << cx << ", " << cy << ", " << cz
                       << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
@@ -327,6 +325,15 @@ int main(int argv, char ** argc)
 
             jGLInstance->text(
                 debugText.str(),
+                glm::vec2(64.0f, resY-64.0f),
+                0.5f,
+                theme.text
+            );
+        }
+        else if (visualisationState.text != "")
+        {
+            jGLInstance->text(
+                visualisationState.text,
                 glm::vec2(64.0f, resY-64.0f),
                 0.5f,
                 theme.text
