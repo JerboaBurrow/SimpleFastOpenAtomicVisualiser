@@ -127,6 +127,22 @@ void center(std::vector<Atom> & atoms)
     }
 }
 
+/**
+ * @brief Centre on a particular Atom.
+ *
+ * @param atoms the Atom list to centre.
+ * @param index the Atom index to centre on.
+ */
+void centerOn(std::vector<Atom> & atoms, uint64_t index)
+{
+    center(atoms);
+    glm::vec3 pos = atoms[index].position;
+    for (auto & atom : atoms)
+    {
+        atom.position -= pos;
+    }
+}
+
 void translate(std::vector<Atom> & atoms, glm::vec3 r)
 {
     for (auto & atom : atoms) { atom.position += r; }

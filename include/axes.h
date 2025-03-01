@@ -15,11 +15,11 @@ class Axes
 public:
 
     Axes(const Camera & camera)
-    : camera({3.5, M_PI*0.5f, M_PI}, camera.getResX(), camera.getResY())
+    : camera({3.5, M_PI*0.5f, M_PI}, camera.getResX(), camera.getResY()),
+      renderer(axes, axesPoints, axes.size())
     {
-        renderer = std::make_unique<BondRenderer>(axes, axesPoints, axes.size());
-        renderer->setBondScale(0.33f);
-        renderer->setClipCorrection(3.0f);
+        renderer.setBondScale(0.33f);
+        renderer.setClipCorrection(3.0f);
     }
 
     /**
@@ -33,7 +33,7 @@ public:
         pos.x = this->camera.position(true).x;
         this->camera.setPosition(pos);
         this->camera.setUp(camera.getUp());
-        renderer->updateCamera(this->camera);
+        renderer.updateCamera(this->camera);
     }
 
     /**
@@ -46,7 +46,7 @@ public:
         GLint currentViewPort[4];
         glGetIntegerv(GL_VIEWPORT, currentViewPort);
         glViewport(viewport.x, viewport.y, viewport.z, viewport.w);
-        renderer->draw();
+        renderer.draw();
         glViewport
         (
             currentViewPort[0],
@@ -58,9 +58,7 @@ public:
 
 private:
 
-    Camera camera;
-
-    std::vector<Atom> axesPoints =
+    const std::vector<Atom> axesPoints =
     {
         {Element::Unknown, {0,0,0}, 1.0f, {1.0f,1.0,1.0,1.0}},
         {Element::Unknown, {1,0,0}, 1.0f, {1.0f,0.0,0.0,1.0}},
@@ -70,7 +68,9 @@ private:
 
     const std::map<uint64_t, std::set<uint64_t>> axes {{0, {1, 2, 3}}};
 
-    std::unique_ptr<BondRenderer> renderer;
+    Camera camera;
+
+    BondRenderer renderer;
 };
 
 #endif /* AXES_H */
