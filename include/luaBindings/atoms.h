@@ -113,7 +113,7 @@ inline int VisualisationState::lua_getAtomColour(lua_State * lua)
  */
 inline int VisualisationState::lua_atomCount(lua_State * lua)
 {
-    lua_pushnumber(lua, atomCount);
+    lua_pushinteger(lua, atomCount);
     return 1;
 }
 
