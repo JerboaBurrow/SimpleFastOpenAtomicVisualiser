@@ -99,6 +99,7 @@ int main(int argv, char ** argc)
         options.atomColours.value,
         options.bondFocus.value,
         options.bondCutoff.value,
+        options.sizeByMass.value,
         keyCodes
     );
 
@@ -266,6 +267,7 @@ int main(int argv, char ** argc)
             }
             setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
             applyColours(structure->atoms, visualisationState.atomColourOverrides);
+            applySizes(structure->atoms, visualisationState.atomSizes);
             cell.setVectors(structure->getCellA(), structure->getCellB(), structure->getCellC());
             elementsNeedUpdate = true;
         }
@@ -281,6 +283,7 @@ int main(int argv, char ** argc)
             console.runFile(options.script.value.string());
             setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
             applyColours(structure->atoms, visualisationState.atomColourOverrides);
+            applySizes(structure->atoms, visualisationState.atomSizes);
             elementsNeedUpdate = true;
         }
 

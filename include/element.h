@@ -445,6 +445,118 @@ const std::map<Element, float> ELEMENT_RADIUS =
 };
 
 /**
+ * @brief Scaled element masses
+ * @remark Scaled as log10(m)+(1.0-log10(mH)) for element mass m
+ * and mass of hydrogen mH both in AMU.
+ */
+const std::map<Element, float> ELEMENT_MASS =
+{
+    {Element::Unknown, 1.0},
+    {Element::H, 1.0},
+    {Element::He, 1.599},
+    {Element::Li, 1.842},
+    {Element::Be, 1.951},
+    {Element::B, 2.03},
+    {Element::C, 2.076},
+    {Element::N, 2.143},
+    {Element::O, 2.201},
+    {Element::F, 2.275},
+    {Element::Ne, 2.301},
+    {Element::Na, 2.358},
+    {Element::Mg, 2.382},
+    {Element::Al, 2.428},
+    {Element::Si, 2.445},
+    {Element::P, 2.488},
+    {Element::S, 2.503},
+    {Element::Cl, 2.546},
+    {Element::Ar, 2.598},
+    {Element::K, 2.589},
+    {Element::Ca, 2.599},
+    {Element::Sc, 2.649},
+    {Element::Ti, 2.677},
+    {Element::V, 2.704},
+    {Element::Cr, 2.713},
+    {Element::Mn, 2.736},
+    {Element::Fe, 2.743},
+    {Element::Co, 2.767},
+    {Element::Ni, 2.765},
+    {Element::Cu, 2.8},
+    {Element::Zn, 2.812},
+    {Element::Ga, 2.84},
+    {Element::Ge, 2.858},
+    {Element::As, 2.871},
+    {Element::Se, 2.894},
+    {Element::Br, 2.899},
+    {Element::Kr, 2.92},
+    {Element::Rb, 2.928},
+    {Element::Sr, 2.939},
+    {Element::Y, 2.945},
+    {Element::Zr, 2.957},
+    {Element::Nb, 2.965},
+    {Element::Mo, 2.979},
+    {Element::Tc, 2.983},
+    {Element::Ru, 3.001},
+    {Element::Rh, 3.009},
+    {Element::Pd, 3.024},
+    {Element::Ag, 3.029},
+    {Element::Cd, 3.047},
+    {Element::In, 3.057},
+    {Element::Sn, 3.071},
+    {Element::Sb, 3.082},
+    {Element::Te, 3.102},
+    {Element::I, 3.1},
+    {Element::Xe, 3.115},
+    {Element::Cs, 3.12},
+    {Element::Ba, 3.134},
+    {Element::La, 3.139},
+    {Element::Ce, 3.143},
+    {Element::Pr, 3.145},
+    {Element::Nd, 3.156},
+    {Element::Pm, 3.158},
+    {Element::Sm, 3.174},
+    {Element::Eu, 3.178},
+    {Element::Gd, 3.193},
+    {Element::Tb, 3.198},
+    {Element::Dy, 3.207},
+    {Element::Ho, 3.214},
+    {Element::Er, 3.22},
+    {Element::Tm, 3.224},
+    {Element::Yb, 3.235},
+    {Element::Lu, 3.239},
+    {Element::Hf, 3.248},
+    {Element::Ta, 3.254},
+    {Element::W, 3.261},
+    {Element::Re, 3.267},
+    {Element::Os, 3.276},
+    {Element::Ir, 3.28},
+    {Element::Pt, 3.287},
+    {Element::Au, 3.291},
+    {Element::Hg, 3.299},
+    {Element::Tl, 3.307},
+    {Element::Pb, 3.313},
+    {Element::Bi, 3.317},
+    {Element::Po, 3.317},
+    {Element::At, 3.319},
+    {Element::Rn, 3.343},
+    {Element::Fr, 3.345},
+    {Element::Ra, 3.351},
+    {Element::Ac, 3.353},
+    {Element::Th, 3.362},
+    {Element::Pa, 3.36},
+    {Element::U, 3.373},
+    {Element::Np, 3.371},
+    {Element::Pu, 3.384},
+    {Element::Am, 3.382},
+    {Element::Cm, 3.389},
+    {Element::Bk, 3.389},
+    {Element::Cf, 3.396},
+    {Element::Es, 3.398},
+    {Element::Fm, 3.407},
+    {Element::Md, 3.408},
+    {Element::No, 3.41}
+};
+
+/**
  * @brief Map a string symbol to an Element.
  *
  * @remark Defaults to Element::Unknown.
@@ -484,7 +596,7 @@ float stringSymbolToElementRadius(std::string & s)
  * @param e the Element to print.
  * @return std::ostream& the modified output stream.
  */
-std::ostream & operator <<(std::ostream & o, Element & e)
+std::ostream & operator <<(std::ostream & o, const Element & e)
 {
     return o << STRING_FROM_ELEMENT.at(e);
 }

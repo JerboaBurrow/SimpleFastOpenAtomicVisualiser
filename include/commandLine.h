@@ -428,6 +428,7 @@ struct CommandLine
             getArgument<bool>(darkTheme, commandLine, c, count);
             getArgument<std::filesystem::path>(script, commandLine, c, count);
             getArgument<bool>(noTransparencySorting, commandLine, c, count);
+            getArgument<bool>(sizeByMass, commandLine, c, count);
         }
     }
 
@@ -455,6 +456,7 @@ struct CommandLine
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false, false};
     Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}, false};
     Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting for faster rendering.", false, false};
+    Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", false, false};
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -525,6 +527,8 @@ struct CommandLine
           << argumentHelp(bondSize)
           << "\n"
           << argumentHelp(atomSize)
+          << "\n"
+          << argumentHelp(sizeByMass)
           << "\n"
           << argumentHelp(hideAtoms)
           << "\n"

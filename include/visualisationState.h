@@ -37,6 +37,7 @@ struct VisualisationState
         const std::filesystem::path & atomColours,
         uint64_t bondFocus,
         float bondCutoff,
+        bool sizeByMass,
         const std::map<int, std::string> & keyCodes
     )
     : atoms(atoms)
@@ -81,6 +82,23 @@ struct VisualisationState
         }
         atomCount = atoms.size();
 
+        atomSizes.resize(atoms.size());
+        if (!sizeByMass)
+        {
+            for (const auto & ei : elementMap)
+            {
+                atomSizes[ei.second] = ELEMENT_RADIUS.at(ei.first);
+            }
+        }
+        else
+        {
+            for (const auto & ei : elementMap)
+            {
+                atomSizes[ei.second] = ELEMENT_MASS.at(ei.first);
+            }
+        }
+        applySizes(atoms, atomSizes);
+
         text = "";
         frame = 0;
     }
@@ -90,6 +108,7 @@ struct VisualisationState
     std::vector<uint64_t> bondsFor;
     std::vector<float> atomEmphasisOverrides;
     std::map<uint64_t, glm::vec4> atomColourOverrides;
+    std::vector<float> atomSizes;
     std::multimap<Element, uint64_t> elementMap;
     std::map<int, Element> emphasisControls;
     std::string text;

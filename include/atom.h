@@ -273,4 +273,22 @@ void applyColours
     }
 }
 
+/**
+ * @brief Apply sizes by index.
+ *
+ * @param atoms the Atoms to colour.
+ * @param colours the atom sizes.
+ */
+void applySizes
+(
+    std::vector<Atom> & atoms,
+    const std::vector<float> sizes
+)
+{
+    for (uint64_t i = 0; i < sizes.size(); i++)
+    {
+        atoms[i].scale = sizes[i];
+    }
+}
+
 #endif /* ATOM_H */
