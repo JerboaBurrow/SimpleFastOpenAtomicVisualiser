@@ -123,13 +123,14 @@ inline int VisualisationState::lua_atomCount(lua_State * lua)
  * @remark Lua arguments are:
  * 1. The Atom index.
  * 2. The cutoff distance.
+ * 3. [Optional] whether to use nearest images.
  * @param lua the Lua context.
  * @return int the return code.
  */
 inline int VisualisationState::lua_getAtomsNeighbours(lua_State * lua)
 {
     int args = lua_gettop(lua);
-    if (args != 2)
+    if (args < 2)
     {
         const std::string msg = "getAtomsNeighbours expects an atom index and cutoff distance as argument.\n";
         lua_pushlstring(lua, msg.c_str(), msg.length());
@@ -140,6 +141,14 @@ inline int VisualisationState::lua_getAtomsNeighbours(lua_State * lua)
     li.read(lua, 1);
     cutoff.read(lua, 2);
 
+    bool nearestImage = true;
+    if (args == 3)
+    {
+        LuaBool b;
+        b.read(lua, 3);
+        nearestImage = b.bit;
+    }
+
     uint64_t i = li.n;
 
     if (i >= atomCount)
@@ -149,7 +158,7 @@ inline int VisualisationState::lua_getAtomsNeighbours(lua_State * lua)
         return lua_error(lua);
     }
     Neighbours neighbourList(atoms, 2.0f*cutoff.n);
-    auto n = neighbourList.neighbours(atoms, atoms[i].position, cutoff);
+    auto n = neighbourList.neighbours(atoms, atoms[i].position, cutoff, false, nearestImage);
 
     i = 1;
     lua_createtable(lua, n.size(), 0);
