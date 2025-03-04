@@ -93,6 +93,7 @@ public:
      * @param position the position to find neighbours to.
      * @param cutoff the spatial cutoff.
      * @param noDirect force use of the spatial partitioning.
+     * @param nearestImage whether to use the nearest image convention.
      * @return std::vector<std::pair<uint64_t, float>> the indices of Atom
      * neighbours to position and distances. In ascending distance order.
      *
@@ -102,46 +103,58 @@ public:
      * @remark Atoms outside of bounds are ignored.
      * @remark Unless noDirect is true. If the cutoff > the half-width of the spatial partitioning, a direct
      * evaluation is performed.
+     * @remark Distance sorting ties are solved by atom index.
      */
     std::vector<std::pair<uint64_t, float>> neighbours
     (
         const std::vector<Atom> & atoms,
         glm::vec3 position,
         float cutoff,
-        bool noDirect = false
+        bool noDirect = false,
+        bool nearestImage = true
     ) const
     {
         std::map<uint64_t, float> n;
 
-        auto wrap = [](int i, uint64_t m){ return ((i % m) + m) % m; };
+        auto wrap = [](int i, int m){ return ((i % m) + m) % m; };
 
         auto coords = domainCoords(position);
         float rc2 = cutoff*cutoff;
         float halfWidth = 0.5f*std::min(std::min(length.x, length.y), length.z);
         if (!noDirect && cutoff >= halfWidth)
         {
-            return neighboursDirect(atoms, position, cutoff);
+            return neighboursDirect(atoms, position, cutoff, nearestImage);
         }
 
+        cutoff = std::min(cutoff, std::max(std::max(length.x, length.y), length.z));
+
         // Shells to search in either direction.
-        int sx = std::min(int(cutoff/domainSize.x)+1, int(nx));
-        int sy = std::min(int(cutoff/domainSize.y)+1, int(ny));
-        int sz = std::min(int(cutoff/domainSize.z)+1, int(nz));
+        int sx = int(std::ceil(cutoff/domainSize.x))+1;
+        int sy = int(std::ceil(cutoff/domainSize.y))+1;
+        int sz = int(std::ceil(cutoff/domainSize.z))+1;
 
         for (int i = -sx; i <= sx; i++)
         {
-            uint64_t u = (wrap(i+coords.x, nx))*ny*nz;
+            uint64_t u = (wrap(i+int(coords.x), nx))*ny*nz;
             for (int j = -sy; j <= sy; j++)
             {
-                uint64_t v = (wrap(j+coords.y, ny))*nz;
+                uint64_t v = (wrap(j+int(coords.y), ny))*nz;
                 for (int k = -sz; k <= sz; k++)
                 {
-                    uint64_t w = u+v+wrap(k+coords.z, nz);
+                    uint64_t w = u+v+wrap(k+int(coords.z), nz);
                     if (w > domains.size()) { continue; }
                     for (const auto & index : domains[w])
                     {
                         if (index > atoms.size()) { break; }
                         glm::vec3 r = position-atoms[index].position;
+                        if (nearestImage)
+                        {
+                            for (uint8_t c = 0; c < 3; c++)
+                            {
+                                if (r[c] > length[c]*0.5f) { r[c] = r[c]-length[c]; }
+                                if (r[c] <= -length[c]*0.5f) { r[c] = r[c]+length[c]; }
+                            }
+                        }
                         float d2 = glm::dot(r, r);
                         if (d2 <= rc2)
                         {
@@ -160,7 +173,7 @@ public:
             (
                 const std::pair<uint64_t, float> & a,
                 const std::pair<uint64_t, float> & b
-            ) { return a.second < b.second; }
+            ) { return a.second == b.second ? a.first < b.first : a.second < b.second; }
         );
         return nd;
     }
@@ -171,16 +184,19 @@ public:
      * @param atoms the Atoms passed to Neighbours::build.
      * @param position the position to find neighbours to.
      * @param cutoff the spatial cutoff.
+     * @param nearestImage whether to use the nearest image convention.
      * @return std::vector<std::pair<uint64_t, float>> the indices of Atom
      * neighbours to position and distances. In ascending distance order.
      *
      * @remark A direct O(atoms.size()) comparision is performed.
+     * @remark Distance sorting ties are solved by atom index.
      */
     std::vector<std::pair<uint64_t, float>> neighboursDirect
     (
         const std::vector<Atom> & atoms,
         glm::vec3 position,
-        float cutoff
+        float cutoff,
+        bool nearestImage = true
     ) const
     {
         std::vector<std::pair<uint64_t, float>> directNeighbours;
@@ -188,6 +204,14 @@ public:
         for (uint64_t i = 0; i < atoms.size(); i++)
         {
             glm::vec3 r = position-atoms[i].position;
+            if (nearestImage)
+            {
+                for (uint8_t c = 0; c < 3; c++)
+                {
+                    if (r[c] > length[c]*0.5f) { r[c] = r[c]-length[c]; }
+                    if (r[c] <= -length[c]*0.5f) { r[c] = r[c]+length[c]; }
+                }
+            }
             float d2 = glm::dot(r, r);
             if (d2 <= rc2)
             {
@@ -202,7 +226,7 @@ public:
             (
                 const std::pair<uint64_t, float> & a,
                 const std::pair<uint64_t, float> & b
-            ) { return a.second < b.second; }
+            ) { return a.second == b.second ? a.first < b.first : a.second < b.second; }
         );
         return directNeighbours;
     }
