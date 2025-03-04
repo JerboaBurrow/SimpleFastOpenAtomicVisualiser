@@ -84,9 +84,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac92ca484ccf59130321b7378f5289814" id="r_ac92ca484ccf59130321b7378f5289814"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#ac92ca484ccf59130321b7378f5289814">VisualisationState</a> (std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;<a class="el" href="structVisualisationState.html#a70d85cc3f5ce9d79c2c7adcc4c44b186">atoms</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::filesystem::path &amp;atomColours, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> bondFocus, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> bondCutoff, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::map&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>, std::string &gt; &amp;<a class="el" href="util_8h.html#a09ad702a7327edc7854a596952532186">keyCodes</a>)</td></tr>
-<tr class="memdesc:ac92ca484ccf59130321b7378f5289814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="structVisualisationState.html" title="Holds editable data for the visualisation state.">VisualisationState</a> from a some Atoms.  <br /></td></tr>
-<tr class="separator:ac92ca484ccf59130321b7378f5289814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae15418668b5556e4d2297f978ab99734" id="r_ae15418668b5556e4d2297f978ab99734"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#ae15418668b5556e4d2297f978ab99734">VisualisationState</a> (std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;<a class="el" href="structVisualisationState.html#a70d85cc3f5ce9d79c2c7adcc4c44b186">atoms</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::filesystem::path &amp;atomColours, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> bondFocus, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> bondCutoff, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> sizeByMass, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::map&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>, std::string &gt; &amp;<a class="el" href="util_8h.html#a09ad702a7327edc7854a596952532186">keyCodes</a>)</td></tr>
+<tr class="memdesc:ae15418668b5556e4d2297f978ab99734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="structVisualisationState.html" title="Holds editable data for the visualisation state.">VisualisationState</a> from a some Atoms.  <br /></td></tr>
+<tr class="separator:ae15418668b5556e4d2297f978ab99734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8557fe3f6f4847106f9e6ac2b0622f70" id="r_a8557fe3f6f4847106f9e6ac2b0622f70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a8557fe3f6f4847106f9e6ac2b0622f70">lua_setAtomColour</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> *lua)</td></tr>
 <tr class="memdesc:a8557fe3f6f4847106f9e6ac2b0622f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lua binding to set an <a class="el" href="classAtom.html" title="An atom structure.">Atom</a>'s colour by index.  <br /></td></tr>
 <tr class="separator:a8557fe3f6f4847106f9e6ac2b0622f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +130,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a927484fe1fa5d0a5dd7a62b4187c9ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a405fbb6a02959bebe4c7b090bf249e4d" id="r_a405fbb6a02959bebe4c7b090bf249e4d"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>, glm::vec4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a405fbb6a02959bebe4c7b090bf249e4d">atomColourOverrides</a></td></tr>
 <tr class="separator:a405fbb6a02959bebe4c7b090bf249e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3739a6b1fe64d886392ccb754879b680" id="r_a3739a6b1fe64d886392ccb754879b680"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a3739a6b1fe64d886392ccb754879b680">atomSizes</a></td></tr>
+<tr class="separator:a3739a6b1fe64d886392ccb754879b680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c1f141f3626ecf0ba657c9f263256e4" id="r_a4c1f141f3626ecf0ba657c9f263256e4"><td class="memItemLeft" align="right" valign="top">std::multimap&lt; <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a4c1f141f3626ecf0ba657c9f263256e4">elementMap</a></td></tr>
 <tr class="separator:a4c1f141f3626ecf0ba657c9f263256e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e4ea41e72b740ce3d95eb3bb610a615" id="r_a5e4ea41e72b740ce3d95eb3bb610a615"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>, <a class="el" href="element_8h.html#a3ccc4cde4b2b307021677e636e447be5">Element</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a5e4ea41e72b740ce3d95eb3bb610a615">emphasisControls</a></td></tr>
@@ -144,8 +146,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds editable data for the visualisation state. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac92ca484ccf59130321b7378f5289814" name="ac92ca484ccf59130321b7378f5289814"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac92ca484ccf59130321b7378f5289814">&#9670;&#160;</a></span>VisualisationState()</h2>
+<a id="ae15418668b5556e4d2297f978ab99734" name="ae15418668b5556e4d2297f978ab99734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15418668b5556e4d2297f978ab99734">&#9670;&#160;</a></span>VisualisationState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,6 +178,12 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a>&#160;</td>
           <td class="paramname"><em>bondCutoff</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a>&#160;</td>
+          <td class="paramname"><em>sizeByMass</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -653,6 +661,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="classAtom.html">Atom</a>&gt;&amp; VisualisationState::atoms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3739a6b1fe64d886392ccb754879b680" name="a3739a6b1fe64d886392ccb754879b680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3739a6b1fe64d886392ccb754879b680">&#9670;&#160;</a></span>atomSizes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a>&gt; VisualisationState::atomSizes</td>
         </tr>
       </table>
 </div><div class="memdoc">

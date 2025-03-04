@@ -7,7 +7,7 @@ var searchData=
   ['velocity_4',['velocity',['../classAtom.html#abdd01cd7027fea4b54226593ccc0de18',1,'Atom']]],
   ['vertexnormals_5',['vertexNormals',['../classHierarchicalTriangularMesh.html#ab0796aabb55336dbc47b0a0a88eed51d',1,'HierarchicalTriangularMesh']]],
   ['vertices_6',['vertices',['../classHierarchicalTriangularMesh.html#a269d31ff9e7a194452803a78634310ff',1,'HierarchicalTriangularMesh']]],
-  ['visualisationstate_7',['visualisationstate',['../structVisualisationState.html',1,'VisualisationState'],['../structVisualisationState.html#ac92ca484ccf59130321b7378f5289814',1,'VisualisationState::VisualisationState()'],['../structLuaExtraSpace.html#ac9e97f75b8cb472be45dcdf93d71e751',1,'LuaExtraSpace::visualisationState']]],
+  ['visualisationstate_7',['visualisationstate',['../structVisualisationState.html',1,'VisualisationState'],['../structVisualisationState.html#ae15418668b5556e4d2297f978ab99734',1,'VisualisationState::VisualisationState()'],['../structLuaExtraSpace.html#ac9e97f75b8cb472be45dcdf93d71e751',1,'LuaExtraSpace::visualisationState']]],
   ['visualisationstate_2eh_8',['visualisationState.h',['../visualisationState_8h.html',1,'']]],
   ['visualisationstatemember_9',['VisualisationStateMember',['../console_8h.html#a0a465743b3a1bfc75daae84ec580a911',1,'console.h']]]
 ];
