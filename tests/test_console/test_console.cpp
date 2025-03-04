@@ -12,6 +12,7 @@ VisualisationState vs
     {},
     NULL_INDEX,
     1.0,
+    false,
     keyCodes
 );
 
@@ -177,10 +178,10 @@ SCENARIO("Lua atom interop")
         WHEN("The script \"radius = sfoav.getAtom(0)[\"radius\"]\"")
         {
             console.runString("radius = sfoav.getAtom(0)[\"radius\"]");
-            THEN("radius is 0.5f*1.89f")
+            THEN("radius is 1.89f")
             {
                 auto a = console.getGlobal<LuaNumber>("radius");
-                REQUIRE_THAT(a.n, WithinAbs(0.5f*1.89f, tol));
+                REQUIRE_THAT(a.n, WithinAbs(1.89f, tol));
             }
         }
         WHEN("The script \"element = sfoav.getAtom(12)[\"element\"]\"")
@@ -239,10 +240,10 @@ SCENARIO("Lua atom interop")
         WHEN("The script \"radius = sfoav.getAtom(12)[\"radius\"]\" is run")
         {
             console.runString("radius = sfoav.getAtom(12)[\"radius\"]");
-            THEN("radius is 0.5f*1.46f")
+            THEN("radius is 1.46f")
             {
                 auto a = console.getGlobal<LuaNumber>("radius");
-                REQUIRE_THAT(a.n, WithinAbs(0.5f*1.46f, tol));
+                REQUIRE_THAT(a.n, WithinAbs(1.46f, tol));
             }
         }
         WHEN("The script \"n = sfoav.getAtomsNeighbours(0, 3.14)[2][\"index\"]\" is run")
