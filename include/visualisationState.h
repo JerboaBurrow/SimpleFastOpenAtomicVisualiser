@@ -168,6 +168,7 @@ struct VisualisationState
      * @remark Lua arguments are:
      * 1. The Atom index.
      * 2. The cutoff distance.
+     * 3. [Optional] whether to use nearest images.
      * @param lua the Lua context.
      * @return int the return code.
      */

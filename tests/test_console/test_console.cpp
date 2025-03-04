@@ -267,6 +267,17 @@ SCENARIO("Lua atom interop")
                 REQUIRE_THAT(n, WithinAbs(directNeighbours[1].second, tol));
             }
         }
+        WHEN("The script \"d = sfoav.getAtomsNeighbours(0, 3.14, false)[2][\"distance\"]\" is run")
+        {
+            console.runString("d = sfoav.getAtomsNeighbours(0, 3.14, false)[2][\"distance\"]");
+            Neighbours n(testAtoms);
+            const auto directNeighbours = n.neighboursDirect(testAtoms, testAtoms[0].position, 3.14f, false);
+            THEN("d is equal to the second neighbour's distance")
+            {
+                float n = console.getGlobal<LuaNumber>("d").n;
+                REQUIRE_THAT(n, WithinAbs(directNeighbours[1].second, tol));
+            }
+        }
     }
 }
 
