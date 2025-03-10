@@ -154,6 +154,24 @@ int main(int argv, char ** argc)
 
     jGLInstance->setClear(theme.background);
 
+    #ifdef WITH_FFMPEG
+    record = std::make_unique<FFmpegRecord>
+    (
+        "out.mp4",
+        options.resolution.value,
+        60
+    );
+    #else
+    record = std::make_unique<JompegRecord>
+    (
+        "out.mp4",
+        options.resolution.value,
+        60
+    );
+    #endif
+
+    record->open();
+
     while (display.isOpen())
     {
         auto tic = std::chrono::high_resolution_clock::now();
@@ -379,6 +397,25 @@ int main(int argv, char ** argc)
         }
 
         jGLInstance->endFrame();
+
+        std::vector<uint8_t> pixels(resX*resY*4, 0);
+        glReadPixels
+        (
+            0,
+            0,
+            resX,
+            resY,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            pixels.data()
+        );
+        record->queueFrame(pixels);
+
+        if (record->queueSize() >= 32)
+        {
+            record->writeFrames();
+        }
+
         display.loop();
 
         delta = 0.0;
