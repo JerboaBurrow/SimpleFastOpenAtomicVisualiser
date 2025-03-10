@@ -173,8 +173,7 @@ int main(int argv, char ** argc)
         }
 
         bool cameraMoved = cameraControls(display, camera);
-        camera.rotate(dphi/30.0);
-        cameraMoved = true;
+
         elementsNeedUpdate = atomControls
         (
             display,
