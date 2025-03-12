@@ -5,9 +5,9 @@
 
 namespace jGL
 {
-    
+
     enum class EventType {NONE, PRESS, RELEASE, HOLD};
-    
+
     EventType glfwCodeToEvent(int action);
 
     struct Event

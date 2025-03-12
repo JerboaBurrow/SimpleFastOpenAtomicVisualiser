@@ -13,11 +13,8 @@ The code is accelerated using OpenGL for 3D rendering and builds for Linux, Wind
 ## What it is
 
 - **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI.
-
 - **Fast**: rendering as fast as e.g. VMD or other 3d-viewers, with many efficiency options for level of detail.
-- **Open**: MIT licensed and open source, enabling
-commercial use, adaptation, extension etc. Including the (permissive) upstream licenses in ```LICENSES.md```.
-
+- **Open**: GPL licensed and open source, enabling commercial use, adaptation, extension etc.
 - **Atomic visualisation**: render, colourable, atoms and bonds in 3D space loaded from standard AMSs configuration and trajectory data files.
 
 # Quickstart

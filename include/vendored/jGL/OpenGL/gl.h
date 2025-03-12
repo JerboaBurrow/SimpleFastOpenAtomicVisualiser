@@ -40,14 +40,28 @@ https://developer.android.com/ndk/guides/stable_apis
 namespace jGL::GL
 {
 
-    class GLRuntimeException;
+    class GLRuntimeException: public std::exception
+    {
+
+    public:
+
+        GLRuntimeException(std::string msg)
+        : msg(msg)
+        {}
+
+    private:
+
+        virtual const char * what() const throw()
+        {
+            return msg.c_str();
+        }
+
+        std::string msg;
+
+    };
     // print buffer status errors
     GLuint glBufferStatus(const std::string msg = "");
     // print gl error codes
     GLuint glError(const std::string msg = "");
-
-    // compile a gl shader given a program and source code as const char *
-    void compileShader(GLuint & shaderProgram, const char * vert, const char * frag);
-
 }
 #endif

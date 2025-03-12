@@ -43,8 +43,23 @@ const float dphi = (2.0*3.14)*0.05;
 
 const float emphasisedAlpha = 1.0f;
 
+bool closing = false;
+
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
 std::unique_ptr<Record> record;
+
+void keyEventCallback
+(
+    GLFWwindow * window,
+    int key,
+    int scancode,
+    int action,
+    int mods
+)
+{
+    closing = true;
+    jGL::parseAction(window, key, action);
+}
 
 /**
  * @brief A background and text colour theme.

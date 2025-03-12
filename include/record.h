@@ -28,6 +28,8 @@ public:
         fps(fps)
         {}
 
+    ~Record(){}
+
     /**
      * @brief Open the video file.
      *

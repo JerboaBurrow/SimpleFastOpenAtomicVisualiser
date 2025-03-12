@@ -18,7 +18,16 @@ int main(int argv, char ** argc)
     #ifdef MACOS
     conf.COCOA_RETINA = true;
     #endif
-    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastOpenAtomicVisualiser", conf);
+    jGL::DesktopDisplay display
+    (
+        glm::ivec2(resX, resY),
+        "SimpleFastOpenAtomicVisualiser",
+        keyEventCallback,
+        jGL::defaultMouseButtonCallback,
+        jGL::defaultScrollCallback,
+        conf
+    );
+
     display.setFrameLimit(60);
     std::vector<std::byte> vicon(icon.begin(), icon.end());
     display.setIcon({vicon});
@@ -179,6 +188,11 @@ int main(int argv, char ** argc)
         jGLInstance->beginFrame();
 
         jGLInstance->clear();
+
+        if (display.keyHasEvent(GLFW_KEY_ESCAPE, jGL::EventType::PRESS))
+        {
+            display.close();
+        }
 
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
         {

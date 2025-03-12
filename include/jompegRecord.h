@@ -15,7 +15,7 @@
  * @remark Generally lower quality than FFmpeg but not additional
  * runtime dependencies are required.
  */
-class JompegRecord
+class JompegRecord : public Record
 {
 public:
 
@@ -36,10 +36,6 @@ public:
     :
       Record(file, resolution, fps)
     {
-        std::string ext = file.extension().string();
-        std::string stem = file.stem().string();
-        filename = (stem+ext).c_str();
-
         bool fpsOk = false;
         for (const auto & option : {24, 25, 30, 50, 60})
         {
@@ -55,14 +51,16 @@ public:
             uint8_t closest = 0;
             for (const auto & option : {24, 25, 30, 50, 60})
             {
-                if (std::abs(int(option)-int(fps)) < std::abs(int(closest)-int(fps)));
+                if (std::abs(int(option)-int(fps)) < std::abs(int(closest)-int(fps)))
                 {
                     closest = option;
                 }
             }
-            std::cout << "jo_mpeg recording only supports 24, 25, 30, 50, and 60 fps.\nSelected "+closest+" fps.\n";
+            std::cout << "jo_mpeg recording only supports 24, 25, 30, 50, and 60 fps.\nSelected "+std::to_string(closest)+" fps.\n";
         }
     }
+
+    ~JompegRecord(){};
 
     /**
      * @brief Open the video file.
@@ -70,10 +68,10 @@ public:
      * @param info has no effect.
      * @remark including header writing etc.
      */
-    open(bool info = false)
+    void open(bool info = false)
     {
         if (fileOpen) { return; }
-        fp = fopen(filename, "wb");
+        fp = fopen(file.c_str(), "wb");
         fileOpen = true;
     }
 
@@ -91,10 +89,9 @@ public:
 
 private:
 
-    const char * filename;
     FILE * fp = nullptr;
 
-    write(const uint8_t * frame)
+    void write(const uint8_t * frame)
     {
         jo_write_mpeg(fp, frame, resolution.x, resolution.y, fps);
     }

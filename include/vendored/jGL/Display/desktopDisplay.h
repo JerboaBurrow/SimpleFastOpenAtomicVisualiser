@@ -35,6 +35,28 @@ namespace jGL
         int mods
     );
 
+    void defaultMouseButtonCallback
+    (
+        GLFWwindow * window,
+        int button,
+        int action,
+        int mods
+    );
+
+    void defaultScrollCallback
+    (
+        GLFWwindow * window,
+        double x,
+        double y
+    );
+
+    void parseAction
+    (
+        GLFWwindow * window,
+        int code,
+        int action
+    );
+
     class DesktopDisplay : public Display
     {
     public:
@@ -42,27 +64,27 @@ namespace jGL
         struct Config
         {
             Config()
-            : VULKAN(false), 
-              COCOA_RETINA(false), 
+            : VULKAN(false),
+              COCOA_RETINA(false),
               CLIP_TO_MONITOR(true),
               CLIP_TO_WORK_AREA(true)
             {}
-            
+
             Config
             (
-                bool vulkan, 
-                bool cocoa, 
-                bool clipMonitor, 
+                bool vulkan,
+                bool cocoa,
+                bool clipMonitor,
                 bool clipWorkArea
             )
-            : VULKAN(vulkan), 
+            : VULKAN(vulkan),
               COCOA_RETINA(cocoa),
               CLIP_TO_MONITOR(clipMonitor),
               CLIP_TO_WORK_AREA(clipWorkArea)
             {}
 
             Config (const Config & c)
-            : VULKAN(c.VULKAN), 
+            : VULKAN(c.VULKAN),
               COCOA_RETINA(c.COCOA_RETINA),
               CLIP_TO_MONITOR(c.CLIP_TO_MONITOR),
               CLIP_TO_WORK_AREA(c.CLIP_TO_WORK_AREA)
@@ -111,13 +133,13 @@ namespace jGL
 
         bool isOpen(){ if (glfwWindow != NULL) { return !glfwWindow ? false : true; } return false; }
         bool closing(){ return glfwWindowShouldClose(glfwWindow); }
-        
-        void open(){ 
+
+        void open(){
             #ifdef WINDOWS
                 timeBeginPeriod(1);
             #endif
             if (glfwWindow == NULL)
-            { 
+            {
                 // required for MacOS
                 //   https://www.glfw.org/faq.html#41__how_do_i_create_an_opengl_30_context
                 glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -164,11 +186,11 @@ namespace jGL
                         resolution.x = wwidth;
                     }
                 }
-                
-                glfwWindow = glfwCreateWindow(getResX(), getResY(),title,NULL,NULL); 
-                glfwSwapInterval(1); 
+
+                glfwWindow = glfwCreateWindow(getResX(), getResY(),title,NULL,NULL);
+                glfwSwapInterval(1);
                 setWindowPosition(pos);
-            } 
+            }
         }
 
         void close(){ if (glfwWindow != NULL) { glfwDestroyWindow(glfwWindow); glfwWindow = NULL; } }
@@ -196,16 +218,16 @@ namespace jGL
 
         int getKeyLastState(int key) { return glfwGetKey(glfwWindow, key); }
 
-        void loop() 
-        { 
+        void loop()
+        {
             data.clear();
             handleEvents();
             if (glfwWindowShouldClose(glfwWindow)){ close(); }
             throttle();
-            swap(); 
+            swap();
         }
 
-        std::vector<Event> getEvents(int code) 
+        std::vector<Event> getEvents(int code)
         {
             if (data.events.find(code) == data.events.cend())
             {
@@ -217,7 +239,7 @@ namespace jGL
             }
         }
 
-        bool keyHasEvent(int key, EventType action) 
+        bool keyHasEvent(int key, EventType action)
         {
             if (data.events.find(key) == data.events.cend())
             {
@@ -226,11 +248,30 @@ namespace jGL
             else
             {
                 auto ts = getEventTypes(key);
-                return std::find(ts.cbegin(), ts.cend(), action) != ts.cend(); 
+                return std::find(ts.cbegin(), ts.cend(), action) != ts.cend();
             }
         }
 
-        std::vector<EventType> getEventTypes(int code) 
+        bool keyHasAnyEvents(int key, std::vector<EventType> actions)
+        {
+            if (data.events.find(key) == data.events.cend())
+            {
+                return false;
+            }
+            else
+            {
+                auto ts = getEventTypes(key);
+                for (const auto & action : actions)
+                {
+                    if (std::find(ts.cbegin(), ts.cend(), action) != ts.cend())
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        std::vector<EventType> getEventTypes(int code)
         {
             std::vector<EventType> e;
             if (data.events.find(code) == data.events.cend())
@@ -259,7 +300,7 @@ namespace jGL
             }
         }
 
-        struct WindowData 
+        struct WindowData
         {
             std::map<int, std::vector<Event>> events;
             double scrollX = 0.0;
@@ -285,11 +326,11 @@ namespace jGL
                 unsigned char * chData = reinterpret_cast<unsigned char*>(icon.data());
                 image.pixels = stbi_load_from_memory
                 (
-                    chData, 
-                    icon.size(), 
-                    &image.width, 
-                    &image.height, 
-                    0, 
+                    chData,
+                    icon.size(),
+                    &image.width,
+                    &image.height,
+                    0,
                     4
                 );
                 logo.push_back(image);
@@ -298,7 +339,7 @@ namespace jGL
             glfwSetWindowIcon(glfwWindow,logo.size(),logo.data());
         }
 
-        glm::ivec2 frameBufferSize() const 
+        glm::ivec2 frameBufferSize() const
         {
             glm::ivec2 s;
             if (glfwWindow != NULL)
@@ -308,7 +349,7 @@ namespace jGL
             return s;
         }
 
-        glm::ivec2 windowSize() const 
+        glm::ivec2 windowSize() const
         {
             glm::ivec2 s;
             if (glfwWindow != NULL)
@@ -328,7 +369,7 @@ namespace jGL
             return s;
         }
 
-        glm::ivec4 windowFrameSize() const 
+        glm::ivec4 windowFrameSize() const
         {
             glm::ivec4 s;
             if (glfwWindow != NULL)
@@ -338,7 +379,7 @@ namespace jGL
             return s;
         }
 
-        glm::ivec2 windowPosition() const 
+        glm::ivec2 windowPosition() const
         {
             glm::ivec2 s;
             if (glfwWindow != NULL)
@@ -348,7 +389,7 @@ namespace jGL
             return s;
         }
 
-        void setWindowPosition(glm::ivec2 s) 
+        void setWindowPosition(glm::ivec2 s)
         {
             if (glfwWindow != NULL)
             {
