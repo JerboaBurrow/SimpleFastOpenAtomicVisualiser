@@ -580,7 +580,7 @@ struct CommandLine
      *
      */
     const char * ossLicenses = R"(
-SimpleFastOpenAomitcVisuliser would not be possible
+SimpleFastOpenAtomicVisuliser would not be possible
 without the following Open Source Software
 
 FreeType
