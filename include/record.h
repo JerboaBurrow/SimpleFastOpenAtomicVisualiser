@@ -48,10 +48,25 @@ public:
         if (fileOpen) { inBuffer.push_back(pixels); }
     }
 
+    /**
+     * @brief Number of frames yet to be sent for writing.
+     *
+     * @return uint8_t the count.
+     */
     uint8_t queueSize() { return inBuffer.size(); }
 
+    /**
+     * @brief Number of frame left to be written in total.
+     *
+     * @return uint64_t total count.
+     */
     uint64_t framesLeft() { return inBuffer.size() + outBuffer.size(); }
 
+    /**
+     * @brief Send the frames in the buffer for writing.
+     * @remark Runs in a background thread, sets a flag to
+     * stop additional threads spawning.
+     */
     void writeFrames()
     {
         if (writing || inBuffer.size() == 0) { return; }
@@ -75,10 +90,28 @@ public:
      */
     virtual void close() = 0;
 
+    /**
+     * @brief If the video is being written to in the background.
+     *
+     * @return true writing is happening.
+     * @return false no writing is happening.
+     */
     bool isWriting() const { return writing; }
 
+    /**
+     * @brief If the file is open.
+     *
+     * @return true the video file is open.
+     * @return false the video file is not open.
+     */
     bool isOpen() const { return fileOpen; }
 
+    /**
+     * @brief Check if finalised.
+     *
+     * @return true all writing is finished, the file is closed.
+     * @return false either writing is happening or queued.
+     */
     bool finalise()
     {
         if (!isWriting())

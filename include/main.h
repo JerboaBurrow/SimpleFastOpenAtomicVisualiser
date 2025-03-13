@@ -51,6 +51,16 @@ bool recordClosing = false;
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
 std::unique_ptr<Record> record = nullptr;
 
+/**
+ * @brief Override jGL default event callback.
+ * @remark So window closing can account for video writing.
+ *
+ * @param window the active GLFWwindow.
+ * @param key the key code.
+ * @param scancode the key's scancode.
+ * @param action the action performed.
+ * @param mods mods.
+ */
 void keyEventCallback
 (
     GLFWwindow * window,
@@ -67,6 +77,11 @@ void keyEventCallback
     jGL::parseAction(window, key, action);
 }
 
+/**
+ * @brief Current timestamp.
+ * @remark In the format Thu-Mar-13-08-15-09-2025.
+ * @return std::string the timestamp string.
+ */
 std::string timeStamp()
 {
     std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -77,6 +92,13 @@ std::string timeStamp()
     return ts;
 }
 
+/**
+ * @brief Obtain the pixels for the current frame and submit for recording.
+ *
+ * @param record the Record.
+ * @param resX the x resolution.
+ * @param resY the y resolution.
+ */
 void recordFrame
 (
     std::unique_ptr<Record> & record,
