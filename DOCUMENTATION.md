@@ -100,7 +100,7 @@ sfoav struct.xyz -bondCutOff 1.5
 
 ## Lua scripting
 
-It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as ```--script PATH.lua``` to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.
+It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as ```-script PATH.lua``` to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.
 
 > [!warning]
 > Lua indexes from 1, but all sfoav library functions index from 0.
@@ -115,7 +115,7 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | getAtom        | Atom index a | The Atom structure for a |
 | atomCount      | | The number of atoms |
 | getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
-| setText | Text string | The neighbours of a within the cutoff |
+| setText | Text string | Set the text display |
 | getFrame | | The current frame number (from 0) |
 | toggleRecord | | Start or stop video recording |
 | play | | Play the trajectory |

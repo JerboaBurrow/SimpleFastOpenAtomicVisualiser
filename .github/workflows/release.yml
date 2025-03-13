@@ -99,9 +99,6 @@ jobs:
 
     - name: jo_mpeg video test
       run: |
-        export DISPLAY=:99
-        sudo Xvfb :99 -screen 0 512x512x24 &
-        sleep 5
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && kill $PID
@@ -110,9 +107,6 @@ jobs:
 
     - name: ffmpeg video test
       run: |
-        export DISPLAY=:99
-        sudo Xvfb :99 -screen 0 512x512x24 &
-        sleep 5
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav-ffmpeg tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && kill $PID
