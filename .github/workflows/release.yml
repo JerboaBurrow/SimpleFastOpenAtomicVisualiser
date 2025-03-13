@@ -46,8 +46,8 @@ jobs:
     - name: linux-linux
       run: |
         ./build.sh -t -r -e --ffmpeg
-        cp build/sfoav/sfoav linux-x86_64/sfoav-ffmpeg-linux-x86_64
         mkdir linux-x86_64
+        cp build/sfoav/sfoav linux-x86_64/sfoav-ffmpeg-linux-x86_64
         ./build.sh -t -r -e
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
         cp LICENSE* linux-x86_64/
