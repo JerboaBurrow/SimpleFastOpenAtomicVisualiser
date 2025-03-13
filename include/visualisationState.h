@@ -15,6 +15,16 @@
 #include <atom.h>
 #include <element.h>
 #include <LuaNumber.h>
+#include <util.h>
+#include <commandLine.h>
+
+#include <record.h>
+
+#ifdef WITH_FFMPEG
+    #include <ffmpegRecord.h>
+#else
+    #include <jompegRecord.h>
+#endif
 
 /**
  * @brief Holds editable data for the visualisation state.
@@ -115,6 +125,54 @@ struct VisualisationState
     uint64_t frame;
 
     uint64_t atomCount;
+
+    std::unique_ptr<Record> record = nullptr;
+
+    bool recording = false;
+    bool recordClosing = false;
+
+    void toggleRecord(const CommandLine & options)
+    {
+        if (!recording)
+        {
+            std::string name = timeStamp()+std::string(".mp4");
+            #ifdef WITH_FFMPEG
+            record = std::make_unique<FFmpegRecord>
+            (
+                name,
+                options.resolution.value,
+                60,
+                options.preset.value,
+                options.crf.value,
+                options.H265.value
+            );
+            std::cout << "FFmpeg ";
+            #else
+            record = std::make_unique<JompegRecord>
+            (
+                name,
+                options.resolution.value,
+                60
+            );
+            std::cout << "jo_mpeg ";
+            #endif
+            std::cout << "recording to " + name + "\n";
+            record->open();
+            recording = true;
+        }
+        else if (recording)
+        {
+            if (record->finalise())
+            {
+                record.reset();
+                recording = false;
+            }
+            else
+            {
+                recordClosing = true;
+            }
+        }
+    }
 
     /**
      * @brief Lua binding to set an Atom's colour by index.

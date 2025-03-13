@@ -17,6 +17,7 @@
 #include <LuaVec.h>
 #include <LuaBool.h>
 #include <visualisationState.h>
+#include <commandLine.h>
 
 /**
  * @brief Store for lua global state.
@@ -26,6 +27,7 @@
 struct LuaExtraSpace
 {
     VisualisationState * visualisationState;
+    CommandLine * options;
 };
 
 /**
@@ -51,6 +53,45 @@ int dispatchVisualisationState(lua_State * lua)
 }
 
 /**
+ * @brief Toggle video recording.
+ *
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+int lua_toggleRecord(lua_State * lua)
+{
+    LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    extraSpace->visualisationState->toggleRecord(*extraSpace->options);
+    return 0;
+}
+
+/**
+ * @brief Start playing frames.
+ *
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+int lua_play(lua_State * lua)
+{
+    LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    extraSpace->options->play.value = true;
+    return 0;
+}
+
+/**
+ * @brief Stop playing frames.
+ *
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+int lua_pause(lua_State * lua)
+{
+    LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    extraSpace->options->play.value = false;
+    return 0;
+}
+
+/**
  * @brief Lua console.
  */
 class Console
@@ -65,7 +106,8 @@ public:
     Console
     (
         jLog::Log & l,
-        VisualisationState * visualisationState
+        VisualisationState * visualisationState,
+        CommandLine * options
     )
     : lastCommandOrProgram(""), lastStatus(false), log(l)
     {
@@ -73,6 +115,7 @@ public:
         luaL_openlibs(lua);
         luaL_requiref(lua,"sfoav",load_sfoavLib,1);
         extraSpace.visualisationState = visualisationState;
+        extraSpace.options = options;
         *static_cast<LuaExtraSpace**>(lua_getextraspace(lua)) = &extraSpace;
     }
 
@@ -207,7 +250,7 @@ private:
 
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[11] =
+        luaL_Reg sfoavLib[14] =
         {
             {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {"getAtomColour", &dispatchVisualisationState<&VisualisationState::lua_getAtomColour>},
@@ -219,6 +262,9 @@ private:
             {"getAtomsNeighbours", &dispatchVisualisationState<&VisualisationState::lua_getAtomsNeighbours>},
             {"setText", &dispatchVisualisationState<&VisualisationState::lua_setText>},
             {"getFrame", &dispatchVisualisationState<&VisualisationState::lua_getFrame>},
+            {"toggleRecord", &lua_toggleRecord},
+            {"play", &lua_play},
+            {"pause", &lua_pause},
             {NULL, NULL}
         };
 

@@ -46,6 +46,8 @@ else()
     target_link_libraries(${OUTPUT_NAME} PUBLIC Lua)
 endif()
 
+target_compile_definitions(${OUTPUT_NAME} PUBLIC VERSION="Version: ${PRODUCT}-${MAJOR}.${MINOR}.${PATCH}")
+
 file(COPY "test_structure_input/CONFIG" DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "test_structure_input/HISTORY" DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "test_structure_input/psilocybin.xyz" DESTINATION "${CMAKE_BINARY_DIR}")

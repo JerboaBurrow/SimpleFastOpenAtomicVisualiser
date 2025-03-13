@@ -30,13 +30,6 @@
 #include <console.h>
 #include <visualisationState.h>
 #include <neighbours.h>
-#include <record.h>
-
-#ifdef WITH_FFMPEG
-    #include <ffmpegRecord.h>
-#else
-    #include <jompegRecord.h>
-#endif
 
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;
@@ -45,11 +38,8 @@ const float dphi = (2.0*3.14)*0.05;
 const float emphasisedAlpha = 1.0f;
 
 bool closing = false;
-bool recording = false;
-bool recordClosing = false;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
-std::unique_ptr<Record> record = nullptr;
 
 /**
  * @brief Override jGL default event callback.
@@ -75,21 +65,6 @@ void keyEventCallback
         closing = true;
     }
     jGL::parseAction(window, key, action);
-}
-
-/**
- * @brief Current timestamp.
- * @remark In the format Thu-Mar-13-08-15-09-2025.
- * @return std::string the timestamp string.
- */
-std::string timeStamp()
-{
-    std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::string ts = std::ctime(&end_time);
-    std::replace(ts.begin(), ts.end(), ' ', '-');
-    std::replace(ts.begin(), ts.end(), ':', '-');
-    ts.erase(ts.end()-1);
-    return ts;
 }
 
 /**

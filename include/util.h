@@ -124,6 +124,21 @@ std::vector<std::string> split(std::string str, std::regex delim)
 }
 
 /**
+ * @brief Current timestamp.
+ * @remark In the format Thu-Mar-13-08-15-09-2025.
+ * @return std::string the timestamp string.
+ */
+std::string timeStamp()
+{
+    std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string ts = std::ctime(&end_time);
+    std::replace(ts.begin(), ts.end(), ' ', '-');
+    std::replace(ts.begin(), ts.end(), ':', '-');
+    ts.erase(ts.end()-1);
+    return ts;
+}
+
+/**
  * @brief A set of atoms spelling SFOAV to display during loading.
  *
  */

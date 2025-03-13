@@ -113,7 +113,7 @@ int main(int argv, char ** argc)
     );
 
     jLog::Log log;
-    Console console(log, &visualisationState);
+    Console console(log, &visualisationState, &options);
 
     if (!options.noCentering.value) { center(structure->atoms); }
     if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
@@ -173,9 +173,9 @@ int main(int argv, char ** argc)
 
         if (closing)
         {
-            if (record != nullptr)
+            if (visualisationState.record != nullptr)
             {
-                if (record->finalise())
+                if (visualisationState.record->finalise())
                 {
                     display.close();
                     break;
@@ -190,52 +190,14 @@ int main(int argv, char ** argc)
 
         if (display.keyHasEvent(GLFW_KEY_V, jGL::EventType::PRESS))
         {
-            if (!recording)
-            {
-                std::string name = timeStamp()+std::string(".mp4");
-                #ifdef WITH_FFMPEG
-                record = std::make_unique<FFmpegRecord>
-                (
-                    name,
-                    options.resolution.value,
-                    60,
-                    options.preset.value,
-                    options.crf.value,
-                    options.H265.value
-                );
-                std::cout << "FFmpeg ";
-                #else
-                record = std::make_unique<JompegRecord>
-                (
-                    name,
-                    options.resolution.value,
-                    60
-                );
-                std::cout << "jo_mpeg ";
-                #endif
-                std::cout << "recording to " + name + "\n";
-                record->open();
-                recording = true;
-            }
-            else if (recording)
-            {
-                if (record->finalise())
-                {
-                    record.reset();
-                    recording = false;
-                }
-                else
-                {
-                    recordClosing = true;
-                }
-            }
+            visualisationState.toggleRecord(options);
         }
 
-        if (recordClosing && record->finalise())
+        if (visualisationState.recordClosing && visualisationState.record->finalise())
         {
-            record.reset();
-            recording = false;
-            recordClosing = false;
+            visualisationState.record.reset();
+            visualisationState.recording = false;
+            visualisationState.recordClosing = false;
         }
 
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
@@ -420,10 +382,10 @@ int main(int argv, char ** argc)
             );
         }
 
-        if ((closing || recordClosing) && record != nullptr && record->isOpen())
+        if ((closing || visualisationState.recordClosing) && visualisationState.record != nullptr && visualisationState.record->isOpen())
         {
             jGLInstance->text(
-                "Writing video frames: " + std::to_string(record->framesLeft()),
+                "Writing video frames: " + std::to_string(visualisationState.record->framesLeft()),
                 glm::vec2(64.0f, 64.0f),
                 0.5f,
                 theme.text
@@ -466,9 +428,9 @@ int main(int argv, char ** argc)
 
         jGLInstance->endFrame();
 
-        if (!(closing || recordClosing) && record != nullptr && record->isOpen())
+        if (!(closing || visualisationState.recordClosing) && visualisationState.record != nullptr && visualisationState.record->isOpen())
         {
-            recordFrame(record, resX, resY);
+            recordFrame(visualisationState.record, resX, resY);
         }
 
         display.loop();

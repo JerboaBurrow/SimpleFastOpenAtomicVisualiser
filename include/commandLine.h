@@ -419,6 +419,8 @@ bool getArgument<vec<2>>
 struct CommandLine
 {
 
+    CommandLine() = default;
+
     /**
      * @brief Extract values from argv.
      *
