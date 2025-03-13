@@ -208,6 +208,7 @@ jobs:
           mkdir $release
           mv sfoav*-$release* $release/
           cp LICENSE* $release/
+          cp README.md $release/
           cp SimpleFastOpenAtomicVisualiser.pdf $release
           zip -r $release.zip $release/*
           done
