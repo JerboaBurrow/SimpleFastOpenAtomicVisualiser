@@ -50,9 +50,12 @@ public:
 
     uint8_t queueSize() { return inBuffer.size(); }
 
+    uint64_t framesLeft() { return inBuffer.size() + outBuffer.size(); }
+
     void writeFrames()
     {
         if (writing || inBuffer.size() == 0) { return; }
+        writing = true;
         outBuffer = inBuffer;
         inBuffer.clear();
         std::thread io = std::thread
@@ -76,6 +79,23 @@ public:
 
     bool isOpen() const { return fileOpen; }
 
+    bool finalise()
+    {
+        if (!isWriting())
+        {
+            if (queueSize() > 0)
+            {
+                writeFrames();
+            }
+            else
+            {
+                close();
+                return true;
+            }
+        }
+        return false;
+    }
+
 protected:
 
     std::filesystem::path file;
@@ -90,7 +110,6 @@ protected:
 
     void writeBuffer()
     {
-        writing = true;
         for (const auto & frame : outBuffer)
         {
             write(frame.data());

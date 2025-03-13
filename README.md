@@ -79,6 +79,7 @@ Miscellaneous key bindings are:
 | X      | Toggle drawing the coordinate axes | |
 | C      | Toggle drawing the simulation cell | |
 | I      | Toggle information text | |
+| V      | Start or finish a video recording | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
@@ -137,11 +138,21 @@ for i = 1, #neighbours do
 end
 ```
 
+## Video
+
+On macOS and Windows one release exists using jo_mpeg to write mp4 files.
+
+On Linux two releases exist, the standalone ```sfoav``` which uses jo_mpeg for video writing, and the FFmpeg enabled version ```sfoav-ffmpeg``` which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.
+
 ## Performance
 
 For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.
 
 Transparency sorting is on by default, if there are transparent atoms/bonds. This is expensive for the CPU on camera movements or atom/bond changes. This can be disabled with ```-noTransparencySorting```, but will render atoms/bonds out of order.
+
+## MIT version
+
+An MIT version prior to the inclusion of FFmpeg and the GPL v2 license can be found here https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/releases/tag/v0-0.0.7
 
 ---
 

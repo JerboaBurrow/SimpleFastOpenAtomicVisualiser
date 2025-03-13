@@ -163,24 +163,6 @@ int main(int argv, char ** argc)
 
     jGLInstance->setClear(theme.background);
 
-    #ifdef WITH_FFMPEG
-    record = std::make_unique<FFmpegRecord>
-    (
-        "out.mp4",
-        options.resolution.value,
-        60
-    );
-    #else
-    record = std::make_unique<JompegRecord>
-    (
-        "out.mp4",
-        options.resolution.value,
-        60
-    );
-    #endif
-
-    record->open();
-
     while (display.isOpen())
     {
         auto tic = std::chrono::high_resolution_clock::now();
@@ -189,9 +171,68 @@ int main(int argv, char ** argc)
 
         jGLInstance->clear();
 
-        if (display.keyHasEvent(GLFW_KEY_ESCAPE, jGL::EventType::PRESS))
+        if (closing)
         {
-            display.close();
+            if (record != nullptr)
+            {
+                if (record->finalise())
+                {
+                    display.close();
+                    break;
+                }
+            }
+            else
+            {
+                display.close();
+                break;
+            }
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_V, jGL::EventType::PRESS))
+        {
+            if (!recording)
+            {
+                std::string name = timeStamp()+std::string(".mp4");
+                #ifdef WITH_FFMPEG
+                record = std::make_unique<FFmpegRecord>
+                (
+                    name,
+                    options.resolution.value,
+                    60
+                );
+                std::cout << "FFmpeg ";
+                #else
+                record = std::make_unique<JompegRecord>
+                (
+                    name,
+                    options.resolution.value,
+                    60
+                );
+                std::cout << "jo_mpeg ";
+                #endif
+                std::cout << " recording to " + name + "\n";
+                record->open();
+                recording = true;
+            }
+            else if (recording)
+            {
+                if (record->finalise())
+                {
+                    record.reset();
+                    recording = false;
+                }
+                else
+                {
+                    recordClosing = true;
+                }
+            }
+        }
+
+        if (recordClosing && record->finalise())
+        {
+            record.reset();
+            recording = false;
+            recordClosing = false;
         }
 
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
@@ -216,7 +257,7 @@ int main(int argv, char ** argc)
             options.deemphasisAlpha.value
         );
 
-        if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             if (!options.noCentering.value) { center(structure->atoms); }
             if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
@@ -225,7 +266,7 @@ int main(int argv, char ** argc)
             cameraMoved = true;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_F, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             playBackward = false;
             if (!readInProgress)
@@ -236,7 +277,7 @@ int main(int argv, char ** argc)
             }
         }
 
-        if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_B, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             playBackward = true;
             if (!readInProgress)
@@ -271,12 +312,12 @@ int main(int argv, char ** argc)
             options.play.value = !options.play.value;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_K, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_K, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_K, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             options.speed.value = std::min(options.speed.value+1, 60);
         }
 
-        if (display.keyHasEvent(GLFW_KEY_J, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_J, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_J, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             if (options.speed.value > 1)
             {
@@ -376,6 +417,16 @@ int main(int argv, char ** argc)
             );
         }
 
+        if ((closing || recordClosing) && record != nullptr && record->isOpen())
+        {
+            jGLInstance->text(
+                "Writing video frames: " + std::to_string(record->framesLeft()),
+                glm::vec2(64.0f, 64.0f),
+                0.5f,
+                theme.text
+            );
+        }
+
         if (options.showAxes.value)
         {
             axes.updateCamera(camera);
@@ -412,22 +463,9 @@ int main(int argv, char ** argc)
 
         jGLInstance->endFrame();
 
-        std::vector<uint8_t> pixels(resX*resY*4, 0);
-        glReadPixels
-        (
-            0,
-            0,
-            resX,
-            resY,
-            GL_RGBA,
-            GL_UNSIGNED_BYTE,
-            pixels.data()
-        );
-        record->queueFrame(pixels);
-
-        if (record->queueSize() >= 32)
+        if (!(closing || recordClosing) && record != nullptr && record->isOpen())
         {
-            record->writeFrames();
+            recordFrame(record, resX, resY);
         }
 
         display.loop();

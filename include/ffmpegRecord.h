@@ -50,14 +50,14 @@ public:
     :
       Record(file, resolution, fps)
     {
-        outputFormat = av_guess_format(nullptr, file.c_str(), nullptr);
+        outputFormat = av_guess_format(nullptr, file.extension().string().c_str(), nullptr);
         if (!outputFormat)
         {
             throw std::runtime_error("Failed to create FFmpeg output format");
         }
         outputFormat->video_codec = AV_CODEC_ID_H265;
 
-        if (avformat_alloc_output_context2(&outputContext, outputFormat, nullptr, file.c_str()))
+        if (avformat_alloc_output_context2(&outputContext, outputFormat, nullptr, file.string().c_str()))
         {
             throw std::runtime_error("Failed to create FFmpeg output context");
         }
@@ -132,9 +132,10 @@ public:
 
         if (!(outputFormat->flags & AVFMT_NOFILE))
         {
-            if ((avio_open(&outputContext->pb, file.c_str(), AVIO_FLAG_WRITE)) < 0)
+            auto code = avio_open(&outputContext->pb, file.string().c_str(), AVIO_FLAG_WRITE);
+            if ((code) < 0)
             {
-                throw std::runtime_error("Failed to video open file");
+                throw std::runtime_error("Failed to open video file");
             }
         }
 
@@ -143,7 +144,7 @@ public:
             throw std::runtime_error("Failed to write video header");
         }
 
-        if (info) { av_dump_format(outputContext, 0, file.c_str(), 1); }
+        if (info) { av_dump_format(outputContext, 0, file.string().c_str(), 1); }
         fileOpen = true;
     }
 

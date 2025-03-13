@@ -83,6 +83,7 @@ Miscellaneous key bindings are:
 | X      | Toggle drawing the coordinate axes | |
 | C      | Toggle drawing the simulation cell | |
 | I      | Toggle information text | |
+| V      | Start or finish a video recording | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
@@ -142,6 +143,12 @@ for i = 1, #neighbours do
     sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);
 end
 ```
+
+## Video
+
+On macOS and Windows one release exists using jo_mpeg to write mp4 files.
+
+On Linux two releases exist, the standalone ```sfoav``` which uses jo_mpeg for video writing, and the FFmpeg enabled version ```sfoav-ffmpeg``` which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.
 
 ## Performance
 

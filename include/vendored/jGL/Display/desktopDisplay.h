@@ -269,6 +269,7 @@ namespace jGL
                     }
                 }
             }
+            return false;
         }
 
         std::vector<EventType> getEventTypes(int code)

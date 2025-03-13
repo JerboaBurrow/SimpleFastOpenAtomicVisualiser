@@ -488,9 +488,9 @@ struct CommandLine
     {
         std::stringstream w;
         w << banner
-          << "\n\n"
+          << "\n"
           << VERSION
-          << "\n -h and -help for help, -l/-v and -license/-version.\n";
+          << "\n -h and -help for help, -l/-v and -license/-version.\n\n";
           std::cout << w.str();
     }
 
@@ -502,7 +502,7 @@ struct CommandLine
     {
         std::stringstream h;
         h << banner
-          << "\n\n"
+          << "\n"
           << VERSION
           << "\nUsage:\n"
           << argumentHelp(structure)
@@ -587,7 +587,7 @@ for details pass the argument `-gpl'.  This is free software,
 and you are welcome to redistribute it under certain conditions;
 pass the argument `-gpl' for details.
 
-Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser")";
+Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser)";
 
     /**
      * @brief The OSS licenses.
@@ -644,7 +644,7 @@ jGL, jLog, jThread
   MIT
   Copyright Jerboa 2023, 2024, 2024.
 
-STNIMAGE
+STBIMAGE
   Public domain
   by Sean Barrett (nothings).
 

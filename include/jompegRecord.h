@@ -71,7 +71,7 @@ public:
     void open(bool info = false)
     {
         if (fileOpen) { return; }
-        fp = fopen(file.c_str(), "wb");
+        fp = fopen(file.string().c_str(), "wb");
         fileOpen = true;
     }
 

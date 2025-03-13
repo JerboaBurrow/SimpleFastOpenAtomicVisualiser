@@ -4,6 +4,7 @@
 #include <sstream>
 #include <chrono>
 #include <exception>
+#include <algorithm>
 
 #include <jGL/jGL.h>
 #include <jGL/OpenGL/openGLInstance.h>
@@ -44,9 +45,11 @@ const float dphi = (2.0*3.14)*0.05;
 const float emphasisedAlpha = 1.0f;
 
 bool closing = false;
+bool recording = false;
+bool recordClosing = false;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
-std::unique_ptr<Record> record;
+std::unique_ptr<Record> record = nullptr;
 
 void keyEventCallback
 (
@@ -57,8 +60,60 @@ void keyEventCallback
     int mods
 )
 {
-    closing = true;
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        closing = true;
+    }
     jGL::parseAction(window, key, action);
+}
+
+std::string timeStamp()
+{
+    std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string ts = std::ctime(&end_time);
+    std::replace(ts.begin(), ts.end(), ' ', '-');
+    std::replace(ts.begin(), ts.end(), ':', '-');
+    ts.erase(ts.end()-1);
+    return ts;
+}
+
+void recordFrame
+(
+    std::unique_ptr<Record> & record,
+    uint32_t resX,
+    uint32_t resY
+)
+{
+    std::vector<uint8_t> pixelsRaw(resX*resY*4, 0);
+    std::vector<uint8_t> pixels(resX*resY*4, 0);
+    glReadPixels
+    (
+        0,
+        0,
+        resX,
+        resY,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pixelsRaw.data()
+    );
+
+    for (uint64_t i = 0; i < resX; i++)
+    {
+        for (uint64_t j = 0; j < resY; j++)
+        {
+            for (uint8_t k = 0; k < 4; k++)
+            {
+                pixels[i*resY*4+j*4+k] = pixelsRaw[(resX-i-1)*resY*4+j*4+k];
+            }
+        }
+    }
+
+    record->queueFrame(pixels);
+
+    if (record->queueSize() >= 32)
+    {
+        record->writeFrames();
+    }
 }
 
 /**
@@ -110,32 +165,32 @@ Theme lightTheme()
 bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
 {
     bool moved = false;
-    if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_W, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(-dr);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_S, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(dr);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_Q, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(dtheta);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_E, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(-dtheta);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_A, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(-dphi);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_D, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(dphi);
         moved = true;
