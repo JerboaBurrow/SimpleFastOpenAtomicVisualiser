@@ -113,6 +113,9 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
 | setText | Text string | The neighbours of a within the cutoff |
 | getFrame | | The current frame number (from 0) |
+| toggleRecord | | Start or stop video recording |
+| play | | Play the trajectory |
+| pause | | Pause playing the trajectory |
 
 ```lua
 -- Set atom 0 to a random colour.
