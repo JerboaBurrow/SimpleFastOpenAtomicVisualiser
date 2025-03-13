@@ -48,10 +48,10 @@ jobs:
         ./build.sh -r -e --ffmpeg
         mkdir linux-x86_64
         cp build/sfoav/sfoav linux-x86_64/sfoav-ffmpeg-linux-x86_64
-        mv build/sfoav sfoav-ffmpeg
+        mv build/sfoav/sfoav sfoav-ffmpeg
         ./build.sh -t -r -e
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
-        mv build/sfoav sfoav
+        mv build/sfoav/sfoav sfoav
         cp LICENSE* linux-x86_64/
 
     - name: unit tests with coverage
@@ -99,7 +99,7 @@ jobs:
 
     - name: jo_mpeg video test
       run: |
-        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav tests/test_structure_input/HISTORY -script tests/video.lua &
+        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav/ tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && kill $PID
         mkdir jo_mpeg
