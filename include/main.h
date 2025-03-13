@@ -106,7 +106,6 @@ void recordFrame
     uint32_t resY
 )
 {
-    std::vector<uint8_t> pixelsRaw(resX*resY*4, 0);
     std::vector<uint8_t> pixels(resX*resY*4, 0);
     glReadPixels
     (
@@ -116,20 +115,18 @@ void recordFrame
         resY,
         GL_RGBA,
         GL_UNSIGNED_BYTE,
-        pixelsRaw.data()
+        pixels.data()
     );
 
-    for (uint64_t i = 0; i < resX; i++)
+    for(int j = 0; j < int(resY/2); j++)
     {
-        for (uint64_t j = 0; j < resY; j++)
-        {
-            for (uint8_t k = 0; k < 4; k++)
-            {
-                pixels[i*resY*4+j*4+k] = pixelsRaw[(resX-i-1)*resY*4+j*4+k];
-            }
-        }
+        std::swap_ranges
+        (
+            pixels.begin()+4*resX*j,
+            pixels.begin()+4*resX*(j+1),
+            pixels.begin()+4*resX*(resY-j-1)
+        );
     }
-
     record->queueFrame(pixels);
 
     if (record->queueSize() >= 32)
