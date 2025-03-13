@@ -99,7 +99,7 @@ jobs:
 
     - name: jo_mpeg video test
       run: |
-        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav/ tests/test_structure_input/HISTORY -script tests/video.lua &
+        MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && kill $PID
         mkdir jo_mpeg
