@@ -45,13 +45,13 @@ jobs:
         python3 -m pip install gcovr
     - name: linux-linux
       run: |
-        ./build.sh -t -r -e --ffmpeg
+        ./build.sh -r -e --ffmpeg
         mkdir linux-x86_64
         cp build/sfoav/sfoav linux-x86_64/sfoav-ffmpeg-linux-x86_64
-        mv build/sfoav sfoav
+        mv build/sfoav sfoav-ffmpeg
         ./build.sh -t -r -e
         cp build/sfoav/sfoav linux-x86_64/sfoav-linux-x86_64
-        mv build/sfoav sfoav-ffmpeg
+        mv build/sfoav sfoav
         cp LICENSE* linux-x86_64/
 
     - name: unit tests with coverage
