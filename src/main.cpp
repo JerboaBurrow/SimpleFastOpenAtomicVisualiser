@@ -198,7 +198,10 @@ int main(int argv, char ** argc)
                 (
                     name,
                     options.resolution.value,
-                    60
+                    60,
+                    options.preset.value,
+                    options.crf.value,
+                    options.H265.value
                 );
                 std::cout << "FFmpeg ";
                 #else
@@ -210,7 +213,7 @@ int main(int argv, char ** argc)
                 );
                 std::cout << "jo_mpeg ";
                 #endif
-                std::cout << " recording to " + name + "\n";
+                std::cout << "recording to " + name + "\n";
                 record->open();
                 recording = true;
             }

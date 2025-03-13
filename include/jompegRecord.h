@@ -65,10 +65,9 @@ public:
     /**
      * @brief Open the video file.
      *
-     * @param info has no effect.
      * @remark including header writing etc.
      */
-    void open(bool info = false)
+    void open()
     {
         if (fileOpen) { return; }
         fp = fopen(file.string().c_str(), "wb");

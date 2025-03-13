@@ -33,10 +33,9 @@ public:
     /**
      * @brief Open the video file.
      *
-     * @param info print extra information.
      * @remark including header writing etc.
      */
-    virtual void open(bool info = false) = 0;
+    virtual void open() = 0;
 
     /**
      * @brief Enqueue a frame to be written.

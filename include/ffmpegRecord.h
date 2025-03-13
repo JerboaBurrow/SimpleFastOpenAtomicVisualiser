@@ -45,7 +45,10 @@ public:
     (
         std::filesystem::path file,
         glm::ivec2 resolution,
-        uint8_t fps
+        uint8_t fps,
+        std::string preset = "slow",
+        uint8_t crf = 0,
+        bool H265 = false
     )
     :
       Record(file, resolution, fps)
@@ -55,7 +58,11 @@ public:
         {
             throw std::runtime_error("Failed to create FFmpeg output format");
         }
-        outputFormat->video_codec = AV_CODEC_ID_H265;
+        outputFormat->video_codec = AV_CODEC_ID_H264;
+        if (H265)
+        {
+            outputFormat->video_codec = AV_CODEC_ID_H265;
+        }
 
         if (avformat_alloc_output_context2(&outputContext, outputFormat, nullptr, file.string().c_str()))
         {
@@ -88,11 +95,13 @@ public:
         stream->codecpar->bit_rate = bitrate;
         avcodec_parameters_to_context(context, stream->codecpar);
         context->time_base = (AVRational){ 1, fps };
-        context->max_b_frames = 2;
+        context->max_b_frames = 0;
         context->gop_size = 12;
         context->framerate = (AVRational){ fps, 1 };
 
-        av_opt_set(context, "preset", "medium", 0);
+        av_opt_set(context->priv_data, "preset", preset.c_str(), 0);
+        av_opt_set_int(context->priv_data, "crf", crf, 0);
+        std::cout << "Using: CRF " << std::to_string(crf) << ", preset:" << preset << "\n";
         avcodec_parameters_from_context(stream->codecpar, context);
     }
 
@@ -119,10 +128,9 @@ public:
     /**
      * @brief Open the video file.
      *
-     * @param info print extra information.
      * @remark including header writing etc.
      */
-    void open(bool info = false)
+    void open()
     {
         if (fileOpen) { return; }
         if ((avcodec_open2(context, codec, NULL)) < 0)
@@ -144,7 +152,7 @@ public:
             throw std::runtime_error("Failed to write video header");
         }
 
-        if (info) { av_dump_format(outputContext, 0, file.string().c_str(), 1); }
+        av_dump_format(outputContext, 0, file.string().c_str(), 1);
         fileOpen = true;
     }
 

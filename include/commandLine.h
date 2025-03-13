@@ -271,6 +271,41 @@ bool getArgument<std::filesystem::path>
 }
 
 /**
+ * @brief Extract a std::string argument.
+ *
+ * @tparam std::string
+ * @param arg the Argument.
+ * @param commandLine argv command line.
+ * @param c the entry to check.
+ * @param count the size of commandLine.
+ * @remark If arg.name is not at commandLine[c] nothing happens.
+ * @remark If commandLine[c] does not exist as a path a std::runtime_error is thrown.
+ * @return true the argument was read."
+ * @return false the argument was not read."
+ */
+template <>
+bool getArgument<std::string>
+(
+    Argument<std::string> & arg,
+    char ** commandLine,
+    const uint8_t c,
+    const uint8_t count
+)
+{
+    if (c == arg.position)
+    {
+        arg.value = std::string(commandLine[c]);
+        return true;
+    }
+    if (c < count-1  && startsWith(commandLine[c], arg.name))
+    {
+        arg.value = std::string(commandLine[c+1]);
+        return true;
+    }
+    return false;
+}
+
+/**
  * @brief Extract a BASE_MESH argument.
  *
  * @tparam BASE_MESH
@@ -429,7 +464,29 @@ struct CommandLine
             getArgument<std::filesystem::path>(script, commandLine, c, count);
             getArgument<bool>(noTransparencySorting, commandLine, c, count);
             getArgument<bool>(sizeByMass, commandLine, c, count);
+            #ifdef WITH_FFMPEG
+            getArgument<bool>(H265, commandLine, c, count);
+            getArgument<uint8_t>(crf, commandLine, c, count);
+            getArgument<std::string>(preset, commandLine, c, count);
+            #endif
         }
+
+        #ifdef WITH_FFMPEG
+        if (crf.value > 51) { std::cout << "FFmpeg crf must be in [0, 51]"; std::exit(EXIT_FAILURE); }
+        bool presetOk = false;
+        for (const auto & p : presets)
+        {
+            if (p == preset.value) { presetOk = true; break; }
+        }
+        if (!presetOk)
+        {
+            std::cout << "FFmpeg preset " << preset.value
+                      << " is not possible\n"
+                      << "Possible values are:\n"
+                      << "  ultrafast, superfast, veryfast\n  faster, fast, medium\n  slow, slower, veryslow\n";
+            std::exit(EXIT_FAILURE);
+        }
+        #endif
     }
 
     Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0, false};
@@ -457,6 +514,13 @@ struct CommandLine
     Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}, false};
     Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting for faster rendering.", false, false};
     Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", false, false};
+
+    #ifdef WITH_FFMPEG
+    Argument<bool> H265 = {"H265", "Use H265 instead of H264.", false, false};
+    Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 0, false};
+    Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "slow", false};
+    const std::array<std::string, 9> presets = {"ultrafast", "superfast", "veryfast", "faster", "fast", "medium", "slow", "slower", "veryslow"};
+    #endif
 
     /**
      * @brief Determine if help or licenses should be printed.
