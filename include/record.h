@@ -28,7 +28,7 @@ public:
         fps(fps)
         {}
 
-    ~Record(){}
+    virtual ~Record(){}
 
     /**
      * @brief Open the video file.

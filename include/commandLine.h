@@ -467,28 +467,13 @@ struct CommandLine
             getArgument<bool>(noTransparencySorting, commandLine, c, count);
             getArgument<bool>(sizeByMass, commandLine, c, count);
             #ifdef WITH_FFMPEG
-            getArgument<bool>(H265, commandLine, c, count);
+            getArgument<uint8_t>(cq, commandLine, c, count);
+            getArgument<uint8_t>(qp, commandLine, c, count);
             getArgument<uint8_t>(crf, commandLine, c, count);
             getArgument<std::string>(preset, commandLine, c, count);
+            getArgument<std::string>(codec, commandLine, c, count);
             #endif
         }
-
-        #ifdef WITH_FFMPEG
-        if (crf.value > 51) { std::cout << "FFmpeg crf must be in [0, 51]"; std::exit(EXIT_FAILURE); }
-        bool presetOk = false;
-        for (const auto & p : presets)
-        {
-            if (p == preset.value) { presetOk = true; break; }
-        }
-        if (!presetOk)
-        {
-            std::cout << "FFmpeg preset " << preset.value
-                      << " is not possible\n"
-                      << "Possible values are:\n"
-                      << "  ultrafast, superfast, veryfast\n  faster, fast, medium\n  slow, slower, veryslow\n";
-            std::exit(EXIT_FAILURE);
-        }
-        #endif
     }
 
     Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0, false};
@@ -518,10 +503,11 @@ struct CommandLine
     Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", false, false};
 
     #ifdef WITH_FFMPEG
-    Argument<bool> H265 = {"H265", "Use H265 instead of H264.", false, false};
+    Argument<std::string> codec = {"codec", "FFmpeg codec name (see ffmpeg -codecs).", "libx264", false};
     Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 0, false};
+    Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", 0, false};
+    Argument<uint8_t> cq = {"cq", "Set the FFmpeg cp (0-51).", 0, false};
     Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "slow", false};
-    const std::array<std::string, 9> presets = {"ultrafast", "superfast", "veryfast", "faster", "fast", "medium", "slow", "slower", "veryslow"};
     #endif
 
     /**
@@ -620,6 +606,18 @@ struct CommandLine
           << argumentHelp(noCentering)
           << "\n"
           << argumentHelp(script)
+          #ifdef WITH_FFMPEG
+          << "\n"
+          << argumentHelp(codec)
+          << "\n"
+          << argumentHelp(crf)
+          << "\n"
+          << argumentHelp(qp)
+          << "\n"
+          << argumentHelp(cq)
+          << "\n"
+          << argumentHelp(preset)
+          #endif
           << "\n";
         std::cout << h.str();
     }

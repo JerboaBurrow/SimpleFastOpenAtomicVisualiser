@@ -68,49 +68,6 @@ void keyEventCallback
 }
 
 /**
- * @brief Obtain the pixels for the current frame and submit for recording.
- *
- * @param record the Record.
- * @param resX the x resolution.
- * @param resY the y resolution.
- */
-void recordFrame
-(
-    std::unique_ptr<Record> & record,
-    uint32_t resX,
-    uint32_t resY
-)
-{
-    std::vector<uint8_t> pixels(resX*resY*4, 0);
-    glReadPixels
-    (
-        0,
-        0,
-        resX,
-        resY,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pixels.data()
-    );
-
-    for(int j = 0; j < int(resY/2); j++)
-    {
-        std::swap_ranges
-        (
-            pixels.begin()+4*resX*j,
-            pixels.begin()+4*resX*(j+1),
-            pixels.begin()+4*resX*(resY-j-1)
-        );
-    }
-    record->queueFrame(pixels);
-
-    if (record->queueSize() >= 32)
-    {
-        record->writeFrames();
-    }
-}
-
-/**
  * @brief A background and text colour theme.
  *
  */

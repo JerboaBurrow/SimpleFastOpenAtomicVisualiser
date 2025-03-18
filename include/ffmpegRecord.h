@@ -48,7 +48,9 @@ public:
         uint8_t fps,
         std::string preset = "slow",
         uint8_t crf = 0,
-        bool H265 = false
+        uint8_t cq = 0,
+        uint8_t qp = 0,
+        std::string codecName = "libx264"
     )
     :
       Record(file, resolution, fps)
@@ -58,21 +60,18 @@ public:
         {
             throw std::runtime_error("Failed to create FFmpeg output format");
         }
-        outputFormat->video_codec = AV_CODEC_ID_H264;
-        if (H265)
+
+        codec = avcodec_find_encoder_by_name(codecName.c_str());
+        if (!codec)
         {
-            outputFormat->video_codec = AV_CODEC_ID_H265;
+            throw std::runtime_error("Failed to create FFmpeg codec");
         }
+
+        outputFormat->video_codec = codec->id;
 
         if (avformat_alloc_output_context2(&outputContext, outputFormat, nullptr, file.string().c_str()))
         {
             throw std::runtime_error("Failed to create FFmpeg output context");
-        }
-
-        codec = avcodec_find_encoder(outputFormat->video_codec);
-        if (!codec)
-        {
-            throw std::runtime_error("Failed to create FFmpeg codec");
         }
 
         AVStream * stream = avformat_new_stream(outputContext, codec);
@@ -96,12 +95,14 @@ public:
         avcodec_parameters_to_context(context, stream->codecpar);
         context->time_base = (AVRational){ 1, fps };
         context->max_b_frames = 0;
-        context->gop_size = 12;
+        context->gop_size = 1;
         context->framerate = (AVRational){ fps, 1 };
+        context->pix_fmt = AV_PIX_FMT_YUV420P;
 
         av_opt_set(context->priv_data, "preset", preset.c_str(), 0);
+        av_opt_set_int(context->priv_data, "cq", cq, 0);
+        av_opt_set_int(context->priv_data, "qp", qp, 0);
         av_opt_set_int(context->priv_data, "crf", crf, 0);
-        std::cout << "Using: CRF " << std::to_string(crf) << ", preset:" << preset << "\n";
         avcodec_parameters_from_context(stream->codecpar, context);
     }
 

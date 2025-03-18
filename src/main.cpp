@@ -344,8 +344,6 @@ int main(int argv, char ** argc)
         }
         bondRenderer.draw();
 
-        elementsNeedUpdate = false;
-
         visualisationState.frame = structure->framePosition();
         if (visualisationState.frame > 0) { visualisationState.frame -= 1; }
         else { visualisationState.frame = structure->frameCount()-1; }
@@ -404,7 +402,7 @@ int main(int argv, char ** argc)
             cell.draw();
         }
 
-        if (!readInProgress && options.play.value)
+        if (!closing && !readInProgress && options.play.value && !visualisationState.recordWaiting())
         {
             uint8_t t = frameId < lastAutoPlayIncrement ?
               uint8_t(60)-std::min(lastAutoPlayIncrement,uint8_t(60))+frameId :
@@ -428,9 +426,9 @@ int main(int argv, char ** argc)
 
         jGLInstance->endFrame();
 
-        if (!(closing || visualisationState.recordClosing) && visualisationState.record != nullptr && visualisationState.record->isOpen())
+        if (!closing && elementsNeedUpdate)
         {
-            recordFrame(visualisationState.record, resX, resY);
+            visualisationState.recordFrame(resX, resY);
         }
 
         display.loop();
