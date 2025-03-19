@@ -96,12 +96,13 @@ jobs:
         sleep 10
         xwd -root -silent | convert xwd:- png:screenshot-meshes.png
         sleep 5 && kill -9 $PID
+        ps
 
     - name: jo_mpeg video test
       run: |
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
-        sleep 10 && kill -9 $PID
+        sleep 10 && ps && kill -9 $PID
         mkdir jo_mpeg
         mv *.mp4 jo_mpeg/jo_mpeg.mp4
 
