@@ -96,21 +96,28 @@ jobs:
         sleep 10
         xwd -root -silent | convert xwd:- png:screenshot-meshes.png
         sleep 5 && kill -9 $PID
-        ps
+        pkill Xvfb
 
     - name: jo_mpeg video test
       run: |
+        export DISPLAY=:99
+        sudo Xvfb :99 -screen 0 512x512x24 &
+        sleep 5
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && ps && kill -9 $PID
+        pkill Xvfb
         mkdir jo_mpeg
         mv *.mp4 jo_mpeg/jo_mpeg.mp4
 
     - name: ffmpeg video test
       run: |
+        export DISPLAY=:99
+        sudo Xvfb :99 -screen 0 512x512x24 &
         MESA_GL_VERSION_OVERRIDE=3.3 ./sfoav-ffmpeg tests/test_structure_input/HISTORY -script tests/video.lua &
         export PID=$!
         sleep 10 && kill -9 $PID
+        pkill Xvfb
         mkdir ffmpeg
         mv *.mp4 ffmpeg/ffmpeg.mp4
 
