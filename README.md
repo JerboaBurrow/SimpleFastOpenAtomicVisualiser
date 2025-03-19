@@ -111,11 +111,18 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | getAtom        | Atom index a | The Atom structure for a |
 | atomCount      | | The number of atoms |
 | getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
-| setText | Text string | The neighbours of a within the cutoff |
+| setText | Text string | Set the text display |
 | getFrame | | The current frame number (from 0) |
-| toggleRecord | | Start or stop video recording |
+| startRecording | | Start video recording if not already recording |
+| stopRecording | | Stop video recording if already recording |
 | play | | Play the trajectory |
 | pause | | Pause playing the trajectory |
+| cameraPosition | Bool for spherical coordinates | Get the camera's position |
+| setCameraPosition | r, theta, phi spherical coordinates | Set the camera's position |
+| rotateCamera | dphi, the azimuthal increment | Rotate the camera |
+| zoomCamera | dr, move the camera to or from the focus | Zoom the camera |
+| inclineCamera | dtheta, the inclination increment | Incline the camera |
+| exit | | Exit sfoav |
 
 ```lua
 -- Set atom 0 to a random colour.
@@ -138,6 +145,30 @@ end
 for i = 1, #neighbours do
     r, g, b, a = sfoav.getAtomColour(neighbours[i]["index"])
     sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);
+end
+```
+
+Another example for automated video rendering
+
+```lua
+if (record == nil) then
+    -- Will only run once.
+    record = true
+    sfoav.inclineCamera(3.14*0.25)
+    -- Begins recording.
+    sfoav.startRecording()
+    -- Begins trajectory playing.
+    sfoav.play()
+end
+
+if (record and sfoav.getFrame() == 200) then
+    -- At frame 200 finish recording and exit when done.
+    sfoav.stopRecording()
+    sfoav.pause()
+    -- Exit will occur after frames are written.
+    sfoav.exit()
+    -- Ensure no duplicate calls.
+    record = false
 end
 ```
 

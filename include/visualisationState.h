@@ -357,6 +357,6 @@ private:
 
 #endif /* VISUALISATIONSTATE_H */
 
-#include <luaBindings/atoms.h>
-#include <luaBindings/bonds.h>
-#include <luaBindings/utils.h>
+#include <luaBindings/visualisationState/atoms.h>
+#include <luaBindings/visualisationState/bonds.h>
+#include <luaBindings/visualisationState/utils.h>

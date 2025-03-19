@@ -4,10 +4,14 @@
 #include <vector>
 #include <cstdint>
 
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include <lua.h>
 
 #include <atom.h>
 #include <util.h>
+#include <LuaNumber.h>
+#include <LuaBool.h>
 
 /**
  * @brief A 3D projective camera centered on a focus moving on a sphere.
@@ -222,6 +226,58 @@ public:
     uint16_t getResX() const { return resX; }
     uint16_t getResY() const { return resY; }
 
+    /**
+     * @brief Get the Camera position.
+     *
+     * @remark Lua arguments are:
+     * 1. Whether to return in spherical coordinates.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_cameraPosition(lua_State * lua);
+
+    /**
+     * @brief Set Camera position.
+     *
+     * @remark Lua arguments are:
+     * 1. r
+     * 2. theta
+     * 3. phi
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_setCameraPosition(lua_State * lua);
+
+    /**
+     * @brief Rotate the Camera.
+     *
+     * @remark Lua arguments are:
+     * 1. The azimuthal increment.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_rotateCamera(lua_State * lua);
+
+    /**
+     * @brief Zoom the Camera.
+     *
+     * @remark Lua arguments are:
+     * 1. The zoom increment.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_zoomCamera(lua_State * lua);
+
+    /**
+     * @brief Incline the camera.
+     *
+     * @remark Lua arguments are:
+     * 1. The polar increment.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_inclineCamera(lua_State * lua);
+
 private:
 
     uint16_t resX;
@@ -252,5 +308,7 @@ private:
     }
 
 };
+
+#include <luaBindings/camera.h>
 
 #endif /* CAMERA_H */

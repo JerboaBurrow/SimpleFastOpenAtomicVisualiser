@@ -37,6 +37,7 @@ target_link_libraries(${OUTPUT_NAME}
     ${Vulkan_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${CMAKE_DL_LIBS}
+    Lua
 )
 
 if(NOT WINDOWS)
