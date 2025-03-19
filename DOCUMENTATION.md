@@ -13,7 +13,7 @@
 
 SimpleFastOpenAtomicVisualiser (SFOAV) is intented to enable fast visualisation of atomic and molecular structure files and trajectories.
 
-It is GPL licensed C++ project hosted here [https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/](https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser). The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.
+It is a GPL licensed C++ project hosted here [https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/](https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser). The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.
 
 You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/](https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/).
 
@@ -152,6 +152,14 @@ end
 On macOS and Windows one release exists using jo_mpeg to write mp4 files.
 
 On Linux two releases exist, the standalone ```sfoav``` which uses jo_mpeg for video writing, and the FFmpeg enabled version ```sfoav-ffmpeg``` which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.
+
+Videos are written out with the filename as the current timestamp.
+
+Video frames are recorded at 60 fps whenever the camera or atoms are updated e.g. a new trajectory frame, new colours, camera moved etc.
+
+Frames are written in the background which will impact visualisation frame rate.
+
+For FFmpeg the ```-codec``` option accepts strings as seen via ```ffmpeg -codecs``` e.g. ```-codec nvenc_h264 -qp 21 -preset lossless``` for Nvidia's H264 encoder. Quality may be controlled by ```-preset```, as well as (depending on the codec) the ```-cp```, ```-crf```, and ```-qp``` arguments where 0 is best and 51 is worst. Other FFmpeg options are ```-bitrate``` and ```-maxBFrames``` and ```-gopSize```.
 
 ## Performance
 

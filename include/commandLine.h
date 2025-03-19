@@ -105,6 +105,41 @@ std::string argumentHelp(const Argument<T> & arg)
 }
 
 /**
+ * @brief Return a formatted help message for a Argument.
+ *
+ * @param arg the Argument to return help on.
+ * @return std::string the help message including name, description, default value and requirement.
+ */
+template <>
+std::string argumentHelp<uint8_t>(const Argument<uint8_t> & arg)
+{
+    std::stringstream h;
+    if (arg.position > 0)
+    {
+        h << "Positional argument " << int(arg.position);
+    }
+    else
+    {
+        h << " -" << arg.name;
+    }
+    h  << "\n  " << arg.description;
+    if (arg.required)
+    {
+        h << "\n   Default: none."
+            << "\n   Required: "
+            << (arg.required ? "true" : "false")
+            << ".";
+    }
+    else
+    {
+        h << "\n   Default: "
+            << int(arg.defaultValue)
+            << ".";
+    }
+    return h.str();
+}
+
+/**
  * @brief Extract the value of an argument.
  *
  * @tparam T the argument's type.
@@ -470,6 +505,9 @@ struct CommandLine
             getArgument<uint8_t>(cq, commandLine, c, count);
             getArgument<uint8_t>(qp, commandLine, c, count);
             getArgument<uint8_t>(crf, commandLine, c, count);
+            getArgument<uint64_t>(bitrate, commandLine, c, count);
+            getArgument<uint64_t>(maxBFrames, commandLine, c, count);
+            getArgument<uint64_t>(gopSize, commandLine, c, count);
             getArgument<std::string>(preset, commandLine, c, count);
             getArgument<std::string>(codec, commandLine, c, count);
             #endif
@@ -507,6 +545,9 @@ struct CommandLine
     Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 0, false};
     Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", 0, false};
     Argument<uint8_t> cq = {"cq", "Set the FFmpeg cp (0-51).", 0, false};
+    Argument<uint64_t> bitrate = {"bitrate", "Set the FFmpeg bitrate.", 2000000, false};
+    Argument<uint64_t> maxBFrames = {"maxBFrames", "Set the FFmpeg maxBFrames.", 0, false};
+    Argument<uint64_t> gopSize = {"gopSize", "Set the FFmpeg GOP size.", 1, false};
     Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "slow", false};
     #endif
 
@@ -615,6 +656,12 @@ struct CommandLine
           << argumentHelp(qp)
           << "\n"
           << argumentHelp(cq)
+          << "\n"
+          << argumentHelp(bitrate)
+          << "\n"
+          << argumentHelp(maxBFrames)
+          << "\n"
+          << argumentHelp(gopSize)
           << "\n"
           << argumentHelp(preset)
           #endif

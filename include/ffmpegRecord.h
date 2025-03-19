@@ -50,10 +50,13 @@ public:
         uint8_t crf = 0,
         uint8_t cq = 0,
         uint8_t qp = 0,
-        std::string codecName = "libx264"
+        std::string codecName = "libx264",
+        uint32_t bitrate = 2000000,
+        uint32_t max_b_frames = 0,
+        uint32_t gop_size = 1
     )
     :
-      Record(file, resolution, fps)
+      Record(file, resolution, fps), bitrate(bitrate)
     {
         outputFormat = av_guess_format(nullptr, file.extension().string().c_str(), nullptr);
         if (!outputFormat)
@@ -94,8 +97,8 @@ public:
         stream->codecpar->bit_rate = bitrate;
         avcodec_parameters_to_context(context, stream->codecpar);
         context->time_base = (AVRational){ 1, fps };
-        context->max_b_frames = 0;
-        context->gop_size = 1;
+        context->max_b_frames = max_b_frames;
+        context->gop_size = gop_size;
         context->framerate = (AVRational){ fps, 1 };
         context->pix_fmt = AV_PIX_FMT_YUV420P;
 

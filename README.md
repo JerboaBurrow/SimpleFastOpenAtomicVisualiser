@@ -14,7 +14,7 @@ The code is accelerated using OpenGL for 3D rendering and builds for Linux, Wind
 
 - **Simple**: a trivial interface for loading and displaying AMSs configurations and trajectories. Via command line or GUI.
 - **Fast**: rendering as fast as e.g. VMD or other 3d-viewers, with many efficiency options for level of detail.
-- **Open**: GPL licensed and open source, enabling commercial use, adaptation, extension etc.
+- **Open**: open source and GPL licensed, enabling commercial use, adaptation, extension etc.
 - **Atomic visualisation**: render, colourable, atoms and bonds in 3D space loaded from standard AMSs configuration and trajectory data files.
 
 # Quickstart
@@ -147,6 +147,14 @@ On macOS and Windows one release exists using jo_mpeg to write mp4 files.
 
 On Linux two releases exist, the standalone ```sfoav``` which uses jo_mpeg for video writing, and the FFmpeg enabled version ```sfoav-ffmpeg``` which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.
 
+Videos are written out with the filename as the current timestamp.
+
+Video frames are recorded at 60 fps whenever the camera or atoms are updated e.g. a new trajectory frame, new colours, camera moved etc.
+
+Frames are written in the background which will impact visualisation frame rate.
+
+For FFmpeg the ```-codec``` option accepts strings as seen via ```ffmpeg -codecs``` e.g. ```-codec nvenc_h264 -qp 21 -preset lossless``` for Nvidia's H264 encoder. Quality may be controlled by ```-preset```, as well as (depending on the codec) the ```-cp```, ```-crf```, and ```-qp``` arguments where 0 is best and 51 is worst. Other FFmpeg options are ```-bitrate``` and ```-maxBFrames``` and ```-gopSize```.
+
 ## Performance
 
 For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.
@@ -179,8 +187,8 @@ An MIT version prior to the inclusion of FFmpeg and the GPL v2 license can be fo
     - [x] CONFIG/REVCON/HISTORY.
   - [ ] Atom connectivity file formats.
 - [ ] Output
-  - [ ] Render to ```png```.
-  - [ ] Render to ```mp4```.
+  - [ ] Screenshot to ```png```.
+  - [x] Render to ```mp4```.
   - [ ] Headless context (e.g. for commandline HPC use).
 - [x] Atom (bill-boarded) imposter spheres.
 - [x] Impostor bonds.
