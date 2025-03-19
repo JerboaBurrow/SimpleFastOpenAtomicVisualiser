@@ -16,12 +16,14 @@ VisualisationState vs
     keyCodes
 );
 
+CommandLine options;
+
 SCENARIO("Lua atom interop")
 {
     jLog::Log l;
     GIVEN("A Lua console")
     {
-        Console console(l, &vs);
+        Console console(l, &vs, &options);
         WHEN("The script \"atoms = sfoav.atomCount()\" is run")
         {
             console.runString("atoms = sfoav.atomCount()");
@@ -288,7 +290,7 @@ SCENARIO("Lua bond interop")
     GIVEN("A Lua console (and no bonds)")
     {
         vs.bonds.clear();
-        Console console(l, &vs);
+        Console console(l, &vs, &options);
         WHEN("The script \"empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
         {
             console.runString("empty = next(sfoav.getAtomsBonds(0))==nil");

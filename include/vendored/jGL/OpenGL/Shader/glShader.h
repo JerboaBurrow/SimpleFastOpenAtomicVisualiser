@@ -4,52 +4,83 @@
 #include <jGL/OpenGL/gl.h>
 #include <jGL/shader.h>
 
-/*
-
-    Create a shader like so
-    
-        Shader s(vs, fs) # for std::strings vs and fs
-    
-    Uniforms are auto scraped in the form "uniform TYPE NAME;"
-    
-    Get and Set like so
-    
-        s.getUniform<int>("anInteger");
-        s.setUniform<glm::mat4>("projection",myMat4Variable);
-    
-    Use, compile and release
-
-        s.compile()     # compiles code, creates a program if its not one
-        s.use();        # glUseProgram
-        s.release();    # glDeleteProgram 
-        
-*/
-
 namespace jGL::GL
 {
 
+    /**
+     * @brief An OpenGL implementation of Shader.
+     * 
+     */
     struct glShader : public Shader
     {
 
+        /**
+         * @brief Construct a glShader from a vertex and fragment source.
+         * 
+         * @param v vertex shader source.
+         * @param f fragment shader source.
+         */
         glShader(const char * v, const char * f)
         : Shader(v, f), program(0), compiled(false), used(false)
         {}
 
+        /**
+         * @brief Construct an empty glShader.
+         */
         glShader()
         : Shader(), program(0), compiled(false), used(false)
         {}
 
+        /**
+         * @brief Construct a glShader from source given by paths.
+         * 
+         * @param path path the .vs and .fs shader sources.
+         * @param name name of sources in path: name.vs and name.fs
+         */
         glShader(std::string path, std::string name)
         : Shader(path, name), program(0), compiled(false), used(false)
         {}
 
         ~glShader(){if(isProgram()){release();}}
 
+        /**
+         * @brief Create the shader program.
+         * 
+         */
         void create();
+
+        /**
+         * @brief Destroy the shader program.
+         * 
+         */
         void release();
+
+        /**
+         * @brief Compile the shader program.
+         * @remark If not a program, call glShader::create.
+         */
         void compile();
+
+        /**
+         * @brief Use the shader program (and compile if required).
+         * @remark If not compiled call glShader::compile.
+         */
         void use();
+
+        /**
+         * @brief Checks if the glShader is compiled.
+         * 
+         * @return true it is compiled.
+         * @return false it is not compiled.
+         */
         bool isCompiled(){return compiled;}
+
+        /**
+         * @brief Checks if an OpenGL program is created.
+         * 
+         * @return true a program has been created.
+         * @return false a program has not been created.
+         */
         bool isProgram(){return glIsProgram(program);}
 
     private:

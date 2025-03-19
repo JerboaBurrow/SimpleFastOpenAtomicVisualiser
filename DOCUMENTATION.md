@@ -13,7 +13,7 @@
 
 SimpleFastOpenAtomicVisualiser (SFOAV) is intented to enable fast visualisation of atomic and molecular structure files and trajectories.
 
-It is an MIT licensed C++ project hosted here [https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/](https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser). The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.
+It is a GPL licensed C++ project hosted here [https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/](https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser). The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.
 
 You can find the latest html Doxygen docs at [https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/](https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/).
 
@@ -83,6 +83,7 @@ Miscellaneous key bindings are:
 | X      | Toggle drawing the coordinate axes | |
 | C      | Toggle drawing the simulation cell | |
 | I      | Toggle information text | |
+| V      | Start or finish a video recording | |
 | ESC    | Quit | |
 
 To enable MSAA at 16x
@@ -99,7 +100,7 @@ sfoav struct.xyz -bondCutOff 1.5
 
 ## Lua scripting
 
-It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as ```--script PATH.lua``` to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.
+It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as ```-script PATH.lua``` to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.
 
 > [!warning]
 > Lua indexes from 1, but all sfoav library functions index from 0.
@@ -114,8 +115,11 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | getAtom        | Atom index a | The Atom structure for a |
 | atomCount      | | The number of atoms |
 | getAtomsNeighbours | Atom index x, cutoff distance | The neighbours of a within the cutoff |
-| setText | Text string | The neighbours of a within the cutoff |
+| setText | Text string | Set the text display |
 | getFrame | | The current frame number (from 0) |
+| toggleRecord | | Start or stop video recording |
+| play | | Play the trajectory |
+| pause | | Pause playing the trajectory |
 
 E.g. the following script will set Atom 0 to a random colour every frame.
 
@@ -142,6 +146,20 @@ for i = 1, #neighbours do
     sfoav.setAtomColour(neighbours[i]["index"], r, g, b, 1.0);
 end
 ```
+
+## Video
+
+On macOS and Windows one release exists using jo_mpeg to write mp4 files.
+
+On Linux two releases exist, the standalone ```sfoav``` which uses jo_mpeg for video writing, and the FFmpeg enabled version ```sfoav-ffmpeg``` which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.
+
+Videos are written out with the filename as the current timestamp.
+
+Video frames are recorded at 60 fps whenever the camera or atoms are updated e.g. a new trajectory frame, new colours, camera moved etc.
+
+Frames are written in the background which will impact visualisation frame rate.
+
+For FFmpeg the ```-codec``` option accepts strings as seen via ```ffmpeg -codecs``` e.g. ```-codec nvenc_h264 -qp 21 -preset lossless``` for Nvidia's H264 encoder. Quality may be controlled by ```-preset```, as well as (depending on the codec) the ```-cp```, ```-crf```, and ```-qp``` arguments where 0 is best and 51 is worst. Other FFmpeg options are ```-bitrate``` and ```-maxBFrames``` and ```-gopSize```.
 
 ## Performance
 

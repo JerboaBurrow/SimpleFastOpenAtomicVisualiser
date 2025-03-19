@@ -35,28 +35,38 @@ namespace jGL
     const std::regex UNIFORM_DATA_REGEX<Sampler2D> = std::regex("uniform(\\slowp\\s|\\shighp\\s|\\smediump\\s|\\s)sampler2D (\\S+);");
 
 
+    /**
+     * @brief Generic shader program with vertex and fragment shader.
+     * @remark Uniforms are automatically detected.
+     * 
+     */
     struct Shader 
     {
-
-        /*
-        
-            A generic Shader object that can read vertex and fragment shaders from 
-                file or from const char *'s
-
-                Uniforms are detected within the shader program
-        
-        */
-
+        /**
+         * @brief Construct a Shader from a vertex and fragment source.
+         * 
+         * @param v vertex shader source.
+         * @param f fragment shader source.
+         */
         Shader(const char * v, const char * f)
         : vertex(v), fragment(f)
         {
             parseUniforms();
         }
 
+        /**
+         * @brief Construct an empty Shader.
+         */
         Shader()
         : vertex(""),fragment("")
         {}
 
+        /**
+         * @brief Construct a Shader from source given by paths.
+         * 
+         * @param path path the .vs and .fs shader sources.
+         * @param name name of sources in path: name.vs and name.fs
+         */
         Shader(std::string path, std::string name);
 
         virtual ~Shader() = default;
@@ -66,8 +76,21 @@ namespace jGL
             return this->vertex == s.vertex && this->fragment == s.fragment;
         }
 
+        /**
+         * @brief Check for common shader errors.
+         * 
+         * @return true linting passes.
+         * @return false linting fails.
+         */
         bool lint();
         
+        /**
+         * @brief Set a Uniform to a value.
+         * 
+         * @tparam T the type of uniform.
+         * @param name the name of the uniform.
+         * @param value the value of type T.
+         */
         template <class T>
         void setUniform(std::string name, T value)
         { 
@@ -92,6 +115,13 @@ namespace jGL
         const std::string & getVertex() const { return vertex; }
         const std::string & getFragment() const { return fragment; }
 
+        /**
+         * @brief Get a Uniform by name.
+         * 
+         * @tparam T the type of the uniform.
+         * @param name the name of the uniform to get.
+         * @return jGLUniform<T> the uniform found.
+         */
         template <class T>
         jGLUniform<T> getUniform(std::string name)
         {
@@ -113,6 +143,11 @@ namespace jGL
             return NULL_UNIFORM<T>;
         }
 
+        /**
+         * @brief Get all the parsed uniforms in the Shader.
+         * 
+         * @return std::vector<std::string> the available uniform names.
+         */
         std::vector<std::string> getUniformNames()
         {
             std::vector<std::string> v;
@@ -123,7 +158,25 @@ namespace jGL
             return v;
         }
 
+        /**
+         * @brief Use the shader.
+         * @remark Use will auto-compile if required.
+         */
         virtual void use() = 0;
+
+        /**
+         * @brief Display the vertex shader with line numbers.
+         * 
+         * @return std::string the formatted vertex shader
+         */
+        std::string displayVertexSource() const { return formatWithLineNumbers(vertex); }
+        
+        /**
+         * @brief Display the fragment shader with line numbers.
+         * 
+         * @return std::string the formatted fragment shader
+         */
+        std::string displayFragmentSource() const { return formatWithLineNumbers(fragment); }
 
     protected:
 
@@ -137,6 +190,28 @@ namespace jGL
         virtual void compile() = 0;
 
         bool parseUniforms();
+
+        std::string formatWithLineNumbers(std::string shader) const
+        {
+            if (shader.length() == 0) { return shader; }
+            std::string source = "1: ";
+            uint32_t line = 1;
+            auto iter = shader.begin();
+            while (iter != shader.end())
+            {
+                if (*iter == '\n' && iter+1 != shader.end())
+                {
+                    line += 1;
+                    source += "\n" + std::to_string(line)+": ";
+                }
+                else
+                {
+                    source += *iter;
+                }
+                iter++;
+            }
+            return source;
+        }
         
         template <class T>
         void detectUniformsAndCreate(std::string code)

@@ -4,6 +4,7 @@
 #include <sstream>
 #include <chrono>
 #include <exception>
+#include <algorithm>
 
 #include <jGL/jGL.h>
 #include <jGL/OpenGL/openGLInstance.h>
@@ -36,7 +37,35 @@ const float dphi = (2.0*3.14)*0.05;
 
 const float emphasisedAlpha = 1.0f;
 
+bool closing = false;
+
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
+
+/**
+ * @brief Override jGL default event callback.
+ * @remark So window closing can account for video writing.
+ *
+ * @param window the active GLFWwindow.
+ * @param key the key code.
+ * @param scancode the key's scancode.
+ * @param action the action performed.
+ * @param mods mods.
+ */
+void keyEventCallback
+(
+    GLFWwindow * window,
+    int key,
+    int scancode,
+    int action,
+    int mods
+)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        closing = true;
+    }
+    jGL::parseAction(window, key, action);
+}
 
 /**
  * @brief A background and text colour theme.
@@ -87,32 +116,32 @@ Theme lightTheme()
 bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
 {
     bool moved = false;
-    if (display.keyHasEvent(GLFW_KEY_W, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_W, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_W, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(-dr);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_S, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_S, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_S, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(dr);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_Q, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_Q, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(dtheta);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_E, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_E, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_E, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(-dtheta);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_A, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_A, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_A, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(-dphi);
         moved = true;
     }
-    if (display.keyHasEvent(GLFW_KEY_D, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_D, jGL::EventType::HOLD))
+    if (display.keyHasAnyEvents(GLFW_KEY_D, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(dphi);
         moved = true;

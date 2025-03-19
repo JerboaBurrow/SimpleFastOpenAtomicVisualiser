@@ -15,6 +15,16 @@
 #include <atom.h>
 #include <element.h>
 #include <LuaNumber.h>
+#include <util.h>
+#include <commandLine.h>
+
+#include <record.h>
+
+#ifdef WITH_FFMPEG
+    #include <ffmpegRecord.h>
+#else
+    #include <jompegRecord.h>
+#endif
 
 /**
  * @brief Holds editable data for the visualisation state.
@@ -115,6 +125,124 @@ struct VisualisationState
     uint64_t frame;
 
     uint64_t atomCount;
+
+    std::unique_ptr<Record> record = nullptr;
+
+    bool recording = false;
+    bool recordClosing = false;
+
+    /**
+     * @brief Video writing is behind.
+     *
+     * @return true the main process should wait.
+     * @return false the main process may continue the trajectory.
+     */
+    bool recordWaiting() const { return waitingForRecord; }
+
+    /**
+     * @brief Toggle recording to video.
+     *
+     * @param options the command line options (with video options).
+     */
+    void toggleRecord(const CommandLine & options)
+    {
+        if (!recording)
+        {
+            std::string name = timeStamp()+std::string(".mp4");
+            #ifdef WITH_FFMPEG
+            record = std::make_unique<FFmpegRecord>
+            (
+                name,
+                options.resolution.value,
+                60,
+                options.preset.value,
+                options.crf.value,
+                options.cq.value,
+                options.qp.value,
+                options.codec.value
+            );
+            std::cout << "FFmpeg ";
+            #else
+            record = std::make_unique<JompegRecord>
+            (
+                name,
+                options.resolution.value,
+                60
+            );
+            std::cout << "jo_mpeg ";
+            #endif
+            std::cout << "recording to " + name + "\n";
+            record->open();
+            recording = true;
+        }
+        else if (recording)
+        {
+            if (record->finalise())
+            {
+                record.reset();
+                recording = false;
+            }
+            else
+            {
+                recordClosing = true;
+            }
+        }
+    }
+
+    /**
+     * @brief If recording, obtain the pixels for the current frame and submit for recording.
+     *
+     * @param resX the x resolution.
+     * @param resY the y resolution.
+     */
+    void recordFrame
+    (
+        uint32_t resX,
+        uint32_t resY
+    )
+    {
+        if (recordClosing || record == nullptr || (!record->isOpen()))
+        {
+            return;
+        }
+
+        std::vector<uint8_t> pixels(resX*resY*4, 0);
+        glReadPixels
+        (
+            0,
+            0,
+            resX,
+            resY,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            pixels.data()
+        );
+
+        for(int j = 0; j < int(resY/2); j++)
+        {
+            std::swap_ranges
+            (
+                pixels.begin()+4*resX*j,
+                pixels.begin()+4*resX*(j+1),
+                pixels.begin()+4*resX*(resY-j-1)
+            );
+        }
+        record->queueFrame(pixels);
+
+        if (record->queueSize() >= 32)
+        {
+            record->writeFrames();
+        }
+
+        if (record->framesLeft() >= 64)
+        {
+            waitingForRecord = true;
+        }
+        else
+        {
+            waitingForRecord = false;
+        }
+    }
 
     /**
      * @brief Lua binding to set an Atom's colour by index.
@@ -220,6 +348,10 @@ struct VisualisationState
      * @return int the return code.
      */
     inline int lua_getFrame(lua_State * lua);
+
+private:
+
+    bool waitingForRecord = false;
 
 };
 

@@ -18,7 +18,16 @@ int main(int argv, char ** argc)
     #ifdef MACOS
     conf.COCOA_RETINA = true;
     #endif
-    jGL::DesktopDisplay display(glm::ivec2(resX, resY), "SimpleFastOpenAtomicVisualiser", conf);
+    jGL::DesktopDisplay display
+    (
+        glm::ivec2(resX, resY),
+        "SimpleFastOpenAtomicVisualiser",
+        keyEventCallback,
+        jGL::defaultMouseButtonCallback,
+        jGL::defaultScrollCallback,
+        conf
+    );
+
     display.setFrameLimit(60);
     std::vector<std::byte> vicon(icon.begin(), icon.end());
     display.setIcon({vicon});
@@ -104,7 +113,7 @@ int main(int argv, char ** argc)
     );
 
     jLog::Log log;
-    Console console(log, &visualisationState);
+    Console console(log, &visualisationState, &options);
 
     if (!options.noCentering.value) { center(structure->atoms); }
     if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
@@ -162,6 +171,35 @@ int main(int argv, char ** argc)
 
         jGLInstance->clear();
 
+        if (closing)
+        {
+            if (visualisationState.record != nullptr)
+            {
+                if (visualisationState.record->finalise())
+                {
+                    display.close();
+                    break;
+                }
+            }
+            else
+            {
+                display.close();
+                break;
+            }
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_V, jGL::EventType::PRESS))
+        {
+            visualisationState.toggleRecord(options);
+        }
+
+        if (visualisationState.recordClosing && visualisationState.record->finalise())
+        {
+            visualisationState.record.reset();
+            visualisationState.recording = false;
+            visualisationState.recordClosing = false;
+        }
+
         if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
         {
             options.hideAtoms.value = !options.hideAtoms.value;
@@ -184,7 +222,7 @@ int main(int argv, char ** argc)
             options.deemphasisAlpha.value
         );
 
-        if (display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SPACE, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             if (!options.noCentering.value) { center(structure->atoms); }
             if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
@@ -193,7 +231,7 @@ int main(int argv, char ** argc)
             cameraMoved = true;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_F, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_F, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_F, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             playBackward = false;
             if (!readInProgress)
@@ -204,7 +242,7 @@ int main(int argv, char ** argc)
             }
         }
 
-        if (display.keyHasEvent(GLFW_KEY_B, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_B, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_B, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             playBackward = true;
             if (!readInProgress)
@@ -239,12 +277,12 @@ int main(int argv, char ** argc)
             options.play.value = !options.play.value;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_K, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_K, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_K, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             options.speed.value = std::min(options.speed.value+1, 60);
         }
 
-        if (display.keyHasEvent(GLFW_KEY_J, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_J, jGL::EventType::HOLD))
+        if (display.keyHasAnyEvents(GLFW_KEY_J, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
             if (options.speed.value > 1)
             {
@@ -306,8 +344,6 @@ int main(int argv, char ** argc)
         }
         bondRenderer.draw();
 
-        elementsNeedUpdate = false;
-
         visualisationState.frame = structure->framePosition();
         if (visualisationState.frame > 0) { visualisationState.frame -= 1; }
         else { visualisationState.frame = structure->frameCount()-1; }
@@ -344,6 +380,16 @@ int main(int argv, char ** argc)
             );
         }
 
+        if ((closing || visualisationState.recordClosing) && visualisationState.record != nullptr && visualisationState.record->isOpen())
+        {
+            jGLInstance->text(
+                "Writing video frames: " + std::to_string(visualisationState.record->framesLeft()),
+                glm::vec2(64.0f, 64.0f),
+                0.5f,
+                theme.text
+            );
+        }
+
         if (options.showAxes.value)
         {
             axes.updateCamera(camera);
@@ -356,7 +402,7 @@ int main(int argv, char ** argc)
             cell.draw();
         }
 
-        if (!readInProgress && options.play.value)
+        if (!closing && !readInProgress && options.play.value && !visualisationState.recordWaiting())
         {
             uint8_t t = frameId < lastAutoPlayIncrement ?
               uint8_t(60)-std::min(lastAutoPlayIncrement,uint8_t(60))+frameId :
@@ -379,6 +425,12 @@ int main(int argv, char ** argc)
         }
 
         jGLInstance->endFrame();
+
+        if (!closing && elementsNeedUpdate)
+        {
+            visualisationState.recordFrame(resX, resY);
+        }
+
         display.loop();
 
         delta = 0.0;
