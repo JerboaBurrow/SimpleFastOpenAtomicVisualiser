@@ -47,7 +47,7 @@ var searchData=
   ['stringsymboltocolour_44',['stringSymbolToColour',['../colour_8h.html#aec9601aea874b096fe87c2fe237a17ac',1,'colour.h']]],
   ['stringsymboltoelement_45',['stringSymbolToElement',['../element_8h.html#ad7125c4976075b1536a012a3841ffc9a',1,'element.h']]],
   ['stringsymboltoelementradius_46',['stringSymbolToElementRadius',['../element_8h.html#a492753edd5a99a8139d50b1f2501a728',1,'element.h']]],
-  ['structure_47',['structure',['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure::Structure()'],['../classStructure.html',1,'Structure'],['../structCommandLine.html#ab4c0706e8ddff80dd222af99844d453f',1,'CommandLine::structure']]],
+  ['structure_47',['structure',['../structCommandLine.html#ab4c0706e8ddff80dd222af99844d453f',1,'CommandLine::structure'],['../classStructure.html',1,'Structure'],['../classStructure.html#aa8e1f88ae0590cdf354b9aa71242610a',1,'Structure::Structure()']]],
   ['structure_2eh_48',['structure.h',['../structure_8h.html',1,'']]],
   ['structureutils_2eh_49',['structureUtils.h',['../structureUtils_8h.html',1,'']]],
   ['subdividetrixel_50',['subdivideTrixel',['../trixel_8h.html#a8c83380639b6d63422b68771415b8b87',1,'trixel.h']]],

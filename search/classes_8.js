@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['visualisationstate_0',['VisualisationState',['../structVisualisationState.html',1,'']]]
+  ['record_0',['Record',['../classRecord.html',1,'']]]
 ];

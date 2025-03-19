@@ -11,10 +11,11 @@ var searchData=
   ['checkread_8',['checkRead',['../classStructure.html#ad1b53b4c4b923c895c1628be2a12bf1a',1,'Structure']]],
   ['checkspecial_9',['checkSpecial',['../structCommandLine.html#a202f4fad170023049f58a0b656cfd937',1,'CommandLine']]],
   ['clear_10',['clear',['../classNeighbours.html#ad03f8fb21f33e54f14a342e1202e01b1',1,'Neighbours']]],
-  ['coloursfromfile_11',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
-  ['commandline_12',['CommandLine',['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine']]],
-  ['config_13',['CONFIG',['../classCONFIG.html#ab9b483b37eb5e99727c56b106544f28d',1,'CONFIG']]],
-  ['console_14',['Console',['../classConsole.html#a548a20e348bba253192e3693fa538ed6',1,'Console']]],
-  ['countcontentlinesinfile_15',['countContentLinesInFile',['../classStructure.html#af8e853939d598f9c78da269aff304dcd',1,'Structure']]],
-  ['createbuffer_16',['createBuffer',['../glUtils_8h.html#aa3971f7f37836082291c26e06b02de92',1,'glUtils.h']]]
+  ['close_11',['close',['../classFFmpegRecord.html#a150a33f8be9292148ac3a38e9a03ac10',1,'FFmpegRecord::close()'],['../classJompegRecord.html#a95a26dadd25fccaa56482fabed2507fa',1,'JompegRecord::close()'],['../classRecord.html#ad864242d717c1bc76fe5621011021604',1,'Record::close()']]],
+  ['coloursfromfile_12',['coloursFromFile',['../colour_8h.html#a63568d2c83fbba08ab3284a883bbe3d5',1,'colour.h']]],
+  ['commandline_13',['commandline',['../structCommandLine.html#aa665c1133f9d3d679a18576959165014',1,'CommandLine::CommandLine(uint8_t count, char **commandLine)'],['../structCommandLine.html#af40f0132c25b37966874e127361915f4',1,'CommandLine::CommandLine()=default']]],
+  ['config_14',['CONFIG',['../classCONFIG.html#ab9b483b37eb5e99727c56b106544f28d',1,'CONFIG']]],
+  ['console_15',['Console',['../classConsole.html#afcf7dd3dddad07044533597d4d976d2b',1,'Console']]],
+  ['countcontentlinesinfile_16',['countContentLinesInFile',['../classStructure.html#af8e853939d598f9c78da269aff304dcd',1,'Structure']]],
+  ['createbuffer_17',['createBuffer',['../glUtils_8h.html#aa3971f7f37836082291c26e06b02de92',1,'glUtils.h']]]
 ];

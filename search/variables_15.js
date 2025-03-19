@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_0',['z',['../classTriangle.html#a355163c65f21df42aace71d43e86681a',1,'Triangle']]]
+  ['x_0',['x',['../classTriangle.html#af0a3322d33aaef66e3e106ea9ad793a5',1,'Triangle']]]
 ];

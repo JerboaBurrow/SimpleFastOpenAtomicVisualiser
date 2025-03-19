@@ -87,6 +87,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae15418668b5556e4d2297f978ab99734" id="r_ae15418668b5556e4d2297f978ab99734"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#ae15418668b5556e4d2297f978ab99734">VisualisationState</a> (std::vector&lt; <a class="el" href="classAtom.html">Atom</a> &gt; &amp;<a class="el" href="structVisualisationState.html#a70d85cc3f5ce9d79c2c7adcc4c44b186">atoms</a>, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::filesystem::path &amp;atomColours, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> bondFocus, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> bondCutoff, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> sizeByMass, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> std::map&lt; <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>, std::string &gt; &amp;<a class="el" href="util_8h.html#a09ad702a7327edc7854a596952532186">keyCodes</a>)</td></tr>
 <tr class="memdesc:ae15418668b5556e4d2297f978ab99734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="structVisualisationState.html" title="Holds editable data for the visualisation state.">VisualisationState</a> from a some Atoms.  <br /></td></tr>
 <tr class="separator:ae15418668b5556e4d2297f978ab99734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d74d7dfb7432afb723de4cc60dbf9bc" id="r_a0d74d7dfb7432afb723de4cc60dbf9bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a0d74d7dfb7432afb723de4cc60dbf9bc">recordWaiting</a> () <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a></td></tr>
+<tr class="memdesc:a0d74d7dfb7432afb723de4cc60dbf9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Video writing is behind.  <br /></td></tr>
+<tr class="separator:a0d74d7dfb7432afb723de4cc60dbf9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87b3b1941c7b3e8f520d7d953b68d48" id="r_aa87b3b1941c7b3e8f520d7d953b68d48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#aa87b3b1941c7b3e8f520d7d953b68d48">toggleRecord</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> <a class="el" href="structCommandLine.html">CommandLine</a> &amp;options)</td></tr>
+<tr class="memdesc:aa87b3b1941c7b3e8f520d7d953b68d48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle recording to video.  <br /></td></tr>
+<tr class="separator:aa87b3b1941c7b3e8f520d7d953b68d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396054122ec04d3c5912aabdfab7a699" id="r_a396054122ec04d3c5912aabdfab7a699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">recordFrame</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resX, <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resY)</td></tr>
+<tr class="memdesc:a396054122ec04d3c5912aabdfab7a699"><td class="mdescLeft">&#160;</td><td class="mdescRight">If recording, obtain the pixels for the current frame and submit for recording.  <br /></td></tr>
+<tr class="separator:a396054122ec04d3c5912aabdfab7a699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8557fe3f6f4847106f9e6ac2b0622f70" id="r_a8557fe3f6f4847106f9e6ac2b0622f70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a8557fe3f6f4847106f9e6ac2b0622f70">lua_setAtomColour</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> *lua)</td></tr>
 <tr class="memdesc:a8557fe3f6f4847106f9e6ac2b0622f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lua binding to set an <a class="el" href="classAtom.html" title="An atom structure.">Atom</a>'s colour by index.  <br /></td></tr>
 <tr class="separator:a8557fe3f6f4847106f9e6ac2b0622f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +151,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a63a6f0d0dfe8c7240b56a6ecb56d31b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9ed05baa6a6c3f2cb225708d27c4964" id="r_aa9ed05baa6a6c3f2cb225708d27c4964"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#aa9ed05baa6a6c3f2cb225708d27c4964">atomCount</a></td></tr>
 <tr class="separator:aa9ed05baa6a6c3f2cb225708d27c4964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53153ec416caf1d281c919d4a6245683" id="r_a53153ec416caf1d281c919d4a6245683"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classRecord.html">Record</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">nullptr</a></td></tr>
+<tr class="separator:a53153ec416caf1d281c919d4a6245683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0713f0194f706bd03a3bf2eae939f8ef" id="r_a0713f0194f706bd03a3bf2eae939f8ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a> = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">false</a></td></tr>
+<tr class="separator:a0713f0194f706bd03a3bf2eae939f8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdec0876d779c5854ac1d1481342b60" id="r_a9cdec0876d779c5854ac1d1481342b60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualisationState.html#a9cdec0876d779c5854ac1d1481342b60">recordClosing</a> = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">false</a></td></tr>
+<tr class="separator:a9cdec0876d779c5854ac1d1481342b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds editable data for the visualisation state. </p>
@@ -610,6 +625,115 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a396054122ec04d3c5912aabdfab7a699" name="a396054122ec04d3c5912aabdfab7a699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a396054122ec04d3c5912aabdfab7a699">&#9670;&#160;</a></span>recordFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a> VisualisationState::recordFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a>&#160;</td>
+          <td class="paramname"><em>resX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a>&#160;</td>
+          <td class="paramname"><em>resY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If recording, obtain the pixels for the current frame and submit for recording. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resX</td><td>the x resolution. </td></tr>
+    <tr><td class="paramname">resY</td><td>the y resolution. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0d74d7dfb7432afb723de4cc60dbf9bc" name="a0d74d7dfb7432afb723de4cc60dbf9bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d74d7dfb7432afb723de4cc60dbf9bc">&#9670;&#160;</a></span>recordWaiting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> VisualisationState::recordWaiting </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Video writing is behind. </p>
+<dl class="section return"><dt>Returns</dt><dd>true the main process should wait. </dd>
+<dd>
+false the main process may continue the trajectory. </dd></dl>
+
+</div>
+</div>
+<a id="aa87b3b1941c7b3e8f520d7d953b68d48" name="aa87b3b1941c7b3e8f520d7d953b68d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa87b3b1941c7b3e8f520d7d953b68d48">&#9670;&#160;</a></span>toggleRecord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a> VisualisationState::toggleRecord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">const</a> <a class="el" href="structCommandLine.html">CommandLine</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toggle recording to video. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>the command line options (with video options). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a405fbb6a02959bebe4c7b090bf249e4d" name="a405fbb6a02959bebe4c7b090bf249e4d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a405fbb6a02959bebe4c7b090bf249e4d">&#9670;&#160;</a></span>atomColourOverrides</h2>
@@ -745,6 +869,48 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint64_t</a> VisualisationState::frame</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53153ec416caf1d281c919d4a6245683" name="a53153ec416caf1d281c919d4a6245683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53153ec416caf1d281c919d4a6245683">&#9670;&#160;</a></span>record</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classRecord.html">Record</a>&gt; VisualisationState::record = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">nullptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cdec0876d779c5854ac1d1481342b60" name="a9cdec0876d779c5854ac1d1481342b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdec0876d779c5854ac1d1481342b60">&#9670;&#160;</a></span>recordClosing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> VisualisationState::recordClosing = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">false</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0713f0194f706bd03a3bf2eae939f8ef" name="a0713f0194f706bd03a3bf2eae939f8ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0713f0194f706bd03a3bf2eae939f8ef">&#9670;&#160;</a></span>recording</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> VisualisationState::recording = <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">false</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

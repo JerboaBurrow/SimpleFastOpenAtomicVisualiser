@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['hideatoms_0',['hideAtoms',['../structCommandLine.html#ab268d13aaac2e9b9212dc1b254994c38',1,'CommandLine']]],
-  ['hideinfotext_1',['hideInfoText',['../structCommandLine.html#ab845cb63dbd4b7ee8b8f924bcc5b5fb5',1,'CommandLine']]]
+  ['gpl_0',['GPL',['../structCommandLine.html#a6ba78bf642aa80f3ab709c266d71a02f',1,'CommandLine']]]
 ];

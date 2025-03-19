@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['required_0',['required',['../structArgument.html#aba731a2e49710b50dca2074724c7fc27',1,'Argument']]],
-  ['resolution_1',['resolution',['../structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a',1,'CommandLine']]]
+  ['path_0',['path',['../classStructure.html#ab2db3755e3397468a23a922513db5826',1,'Structure']]],
+  ['phi_1',['phi',['../meshes_8h.html#a5a7933eb2f6850e89e72f605c71dbe91',1,'meshes.h']]],
+  ['play_2',['play',['../structCommandLine.html#ab56668a70d424e792d24136543ab4223',1,'CommandLine']]],
+  ['position_3',['position',['../classAtom.html#a6203936c817773d74620f4644d8551fc',1,'Atom::position'],['../structArgument.html#ae117abf1e5d5ed0b06aaabed018a6406',1,'Argument::position']]]
 ];

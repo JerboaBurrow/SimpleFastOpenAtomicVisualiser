@@ -1,0 +1,20 @@
+<map id="include/record.h" name="include/record.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="231,5,358,31"/>
+<area shape="rect" id="Node000002" href="$ffmpegRecord_8h.html" title=" " alt="" coords="5,79,181,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,38,127,81,125,76,248,33"/>
+<area shape="rect" id="Node000003" href="$jompegRecord_8h.html" title=" " alt="" coords="205,79,384,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="297,44,297,79,292,79,292,44"/>
+<area shape="rect" id="Node000004" href="$visualisationState_8h.html" title=" " alt="" coords="256,152,459,177"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="346,34,375,52,398,77,403,98,397,119,372,153,368,150,392,117,398,98,394,80,372,56,344,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="316,113,349,150,345,154,312,116"/>
+<area shape="rect" id="Node000005" href="$console_8h.html" title=" " alt="" coords="129,233,263,258"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,186,221,235,218,230,321,181"/>
+<area shape="rect" id="Node000006" href="$main_8h.html" title=" " alt="" coords="189,313,307,339"/>
+<area shape="poly" id="edge9_Node000004_Node000006" title=" " alt="" coords="344,190,258,314,254,311,340,187"/>
+<area shape="rect" id="Node000008" href="$atoms_8h.html" title=" " alt="" coords="339,225,488,265"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="368,188,394,224,390,227,364,191"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="214,268,243,312,238,315,209,271"/>
+<area shape="rect" id="Node000007" href="$main_8cpp.html" title=" " alt="" coords="195,387,301,412"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="251,352,251,387,245,387,245,352"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="398,215,370,179,374,176,402,212"/>
+</map>

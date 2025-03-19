@@ -83,7 +83,7 @@ $(function() {
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md0"></a>
 About</h1>
 <p>SimpleFastOpenAtomicVisualiser (SFOAV) is intented to enable fast visualisation of atomic and molecular structure files and trajectories.</p>
-<p>It is an MIT licensed C++ project hosted here <a href="https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser">https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/</a>. The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.</p>
+<p>It is a GPL licensed C++ project hosted here <a href="https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser">https://github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/</a>. The visualisations are produced using OpenGL 3.3. There are options for "ray-traced" atoms and bonds or procedural meshes.</p>
 <p>You can find the latest html Doxygen docs at <a href="https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/">https://jerboaburrow.github.io/SimpleFastAtomicVisualiser/</a>.</p>
 <p>The UI will be very unstable until 0.1.X, expect many breaking changes until then.</p>
 <div class="image">
@@ -171,6 +171,8 @@ Quickstart</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">I   </td><td class="markdownTableBodyLeft">Toggle information text   </td><td class="markdownTableBodyLeft"></td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">V   </td><td class="markdownTableBodyLeft">Start or finish a video recording   </td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">ESC   </td><td class="markdownTableBodyLeft">Quit   </td><td class="markdownTableBodyLeft"></td></tr>
 </table>
 <p>To enable MSAA at 16x</p>
@@ -179,7 +181,7 @@ Quickstart</h1>
 <div class="fragment"><div class="line">sfoav struct.xyz -bondCutOff 1.5</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
 Lua scripting</h2>
-<p>It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as <code>--script PATH.lua</code> to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.</p>
+<p>It is possible to write Lua scripts to manipulate visualisation in SFOAV. By supplying a path as <code>-script PATH.lua</code> to a Lua file, SFOAV will run the file each frame update. The console exports the following methods in the sfoav library.</p>
 <blockquote class="doxtable">
 <p>&zwj;[!warning] Lua indexes from 1, but all sfoav library functions index from 0. </p>
 </blockquote>
@@ -203,9 +205,15 @@ Lua scripting</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">getAtomsNeighbours   </td><td class="markdownTableBodyLeft"><a class="el" href="classAtom.html" title="An atom structure.">Atom</a> index x, cutoff distance   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">setText   </td><td class="markdownTableBodyLeft">Text string   </td><td class="markdownTableBodyLeft">The neighbours of a within the cutoff    </td></tr>
+<td class="markdownTableBodyLeft">setText   </td><td class="markdownTableBodyLeft">Text string   </td><td class="markdownTableBodyLeft">Set the text display    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">getFrame   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The current frame number (from 0)   </td></tr>
+<td class="markdownTableBodyLeft">getFrame   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The current frame number (from 0)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">toggleRecord   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Start or stop video recording    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">play   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Play the trajectory    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">pause   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Pause playing the trajectory   </td></tr>
 </table>
 <p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
 <div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
@@ -226,10 +234,18 @@ Lua scripting</h2>
 <div class="line">    sfoav.setAtomColour(neighbours[i][&quot;index&quot;], r, g, b, 1.0);</div>
 <div class="line">end</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
+Video</h2>
+<p>On macOS and Windows one release exists using jo_mpeg to write mp4 files.</p>
+<p>On Linux two releases exist, the standalone <code>sfoav</code> which uses jo_mpeg for video writing, and the FFmpeg enabled version <code>sfoav-ffmpeg</code> which requires additional runtime dependencies (FFmpeg). The FFmpeg video quality is generally superior.</p>
+<p>Videos are written out with the filename as the current timestamp.</p>
+<p>Video frames are recorded at 60 fps whenever the camera or atoms are updated e.g. a new trajectory frame, new colours, camera moved etc.</p>
+<p>Frames are written in the background which will impact visualisation frame rate.</p>
+<p>For FFmpeg the <code>-codec</code> option accepts strings as seen via <code>ffmpeg -codecs</code> e.g. <code>-codec nvenc_h264 -qp 21 -preset lossless</code> for Nvidia's H264 encoder. Quality may be controlled by <code>-preset</code>, as well as (depending on the codec) the <code>-cp</code>, <code>-crf</code>, and <code>-qp</code> arguments where 0 is best and 51 is worst. Other FFmpeg options are <code>-bitrate</code> and <code>-maxBFrames</code> and <code>-gopSize</code>.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Performance</h2>
 <p>For a system with an intel i7-4790K, Kingston A400 SATA SSD, a GTX 1080 ti, and 16 GB available RAM. SFOAV is capable of rendering at least 5,000,000 static atoms at 60 frames per second with 16x MSAA and with a moveable camera. At this scale moving the atoms will run cause drops to 30 fps, and frame increments will cost ~5 seconds.</p>
 <p>Transparency sorting is on by default, if there are transparent atoms/bonds. This is expensive for the CPU on camera movements or atom/bond changes. This can be disabled with <code>-noTransparencySorting</code>, but will render atoms/bonds out of order.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Meshes</h2>
 <blockquote class="doxtable">
 <p>&zwj;[!tip] Meshes are much slower than the ray-traced elements due to higher triangle counts. </p>
@@ -258,7 +274,7 @@ Meshes</h2>
 <td class="markdownTableBodyLeft">ANY   </td><td class="markdownTableBodyLeft">6   </td><td class="markdownTableBodyLeft">Uses all mesh types controlled by LOD   </td></tr>
 </table>
 <p>The maximum level of detail is 7 for invidual meshes and 23 for ANY. This is the number of refinements to the mesh or for ANY refinements for all meshes ordered by triangle count.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Colouring</h2>
 <p>It is possible to set the colour map taking Elements into RGBA values. This can be done by specifying a partial list in a file and supplying the CLI argument <code>-colourmap YOUR_FILE_PATH</code>. An example file is</p>
 <div class="fragment"><div class="line">Ar 1.0 0.0 0.0 1.0</div>

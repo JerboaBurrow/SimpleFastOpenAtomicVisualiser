@@ -7,9 +7,12 @@ var searchData=
   ['icosahedron_5fx_4',['ICOSAHEDRON_X',['../meshes_8h.html#a410e50b631d1806494b5b5ffa0735a3c',1,'meshes.h']]],
   ['icosahedron_5fz_5',['ICOSAHEDRON_Z',['../meshes_8h.html#afaf9a1fba04d0da5fd7a2ca9185e70b4',1,'meshes.h']]],
   ['in_6',['In',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aefeb369cccbd560588a756610865664c',1,'element.h']]],
-  ['incline_7',['incline',['../classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0',1,'Camera']]],
-  ['initialise_8',['initialise',['../classStructure.html#a19ee40d0445665e979a299ae75d79a80',1,'Structure']]],
-  ['inv_5fsqrt2_9',['INV_SQRT2',['../meshes_8h.html#a55e3b0ca9e965647293b01e632dac28d',1,'meshes.h']]],
-  ['inv_5fsqrt3_10',['INV_SQRT3',['../meshes_8h.html#ad91b6fbef7c3bd891d97cc0d3a79b70f',1,'meshes.h']]],
-  ['ir_11',['Ir',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa114df82272b5decd19d513b63d6bd8f',1,'element.h']]]
+  ['inbuffer_7',['inBuffer',['../classRecord.html#ab1f8072d49ec8f39de44b25b3b582f20',1,'Record']]],
+  ['incline_8',['incline',['../classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0',1,'Camera']]],
+  ['initialise_9',['initialise',['../classStructure.html#a19ee40d0445665e979a299ae75d79a80',1,'Structure']]],
+  ['inv_5fsqrt2_10',['INV_SQRT2',['../meshes_8h.html#a55e3b0ca9e965647293b01e632dac28d',1,'meshes.h']]],
+  ['inv_5fsqrt3_11',['INV_SQRT3',['../meshes_8h.html#ad91b6fbef7c3bd891d97cc0d3a79b70f',1,'meshes.h']]],
+  ['ir_12',['Ir',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa114df82272b5decd19d513b63d6bd8f',1,'element.h']]],
+  ['isopen_13',['isOpen',['../classRecord.html#a1cc78ac0061d3b749c02b756e50b476b',1,'Record']]],
+  ['iswriting_14',['isWriting',['../classRecord.html#a8a53283d5c1db02d3162d9ba40dc81b1',1,'Record']]]
 ];
