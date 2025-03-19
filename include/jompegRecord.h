@@ -12,7 +12,7 @@
 /**
  * @brief An jo_mpeg based Record.
  * @remark Records to mpg.
- * @remark Generally lower quality than FFmpeg but not additional
+ * @remark Generally lower quality than FFmpeg but no additional
  * runtime dependencies are required.
  */
 class JompegRecord : public Record
