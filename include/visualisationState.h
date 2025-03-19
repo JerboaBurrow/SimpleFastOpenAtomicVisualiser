@@ -131,8 +131,19 @@ struct VisualisationState
     bool recording = false;
     bool recordClosing = false;
 
+    /**
+     * @brief Video writing is behind.
+     *
+     * @return true the main process should wait.
+     * @return false the main process may continue the trajectory.
+     */
     bool recordWaiting() const { return waitingForRecord; }
 
+    /**
+     * @brief Toggle recording to video.
+     *
+     * @param options the command line options (with video options).
+     */
     void toggleRecord(const CommandLine & options)
     {
         if (!recording)
