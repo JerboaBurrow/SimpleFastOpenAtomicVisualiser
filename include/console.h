@@ -18,6 +18,7 @@
 #include <LuaBool.h>
 #include <visualisationState.h>
 #include <commandLine.h>
+#include <camera.h>
 
 /**
  * @brief Store for lua global state.
@@ -28,6 +29,8 @@ struct LuaExtraSpace
 {
     VisualisationState * visualisationState;
     CommandLine * options;
+    Camera * camera;
+    bool * exit;
 };
 
 /**
@@ -53,17 +56,59 @@ int dispatchVisualisationState(lua_State * lua)
 }
 
 /**
- * @brief Toggle video recording.
+ * @brief A Lua binding in Camera;
+ *
+ */
+typedef int (Camera::*CameraMember)(lua_State * lua);
+
+/**
+ * @brief Dispath to a Lua binding of Camera.
+ *
+ * @see LuaExtraSpace.
+ * @tparam function the Lua binding to dispatch.
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+template <CameraMember function>
+int dispatchCamera(lua_State * lua)
+{
+    LuaExtraSpace * store = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    Camera * ptr = store->camera;
+    return ((*ptr).*function)(lua);
+}
+
+/**
+ * @brief Start video recording (if not already recording).
  *
  * @param lua the Lua context.
  * @return int the return code.
  */
-int lua_toggleRecord(lua_State * lua)
+int lua_startRecord(lua_State * lua)
 {
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
-    extraSpace->visualisationState->toggleRecord(*extraSpace->options);
+    if (!extraSpace->visualisationState->recording)
+    {
+        extraSpace->visualisationState->toggleRecord(*extraSpace->options);
+    }
     return 0;
 }
+
+/**
+ * @brief Stop video recording (if already recording).
+ *
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+int lua_stopRecord(lua_State * lua)
+{
+    LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    if (extraSpace->visualisationState->recording)
+    {
+        extraSpace->visualisationState->toggleRecord(*extraSpace->options);
+    }
+    return 0;
+}
+
 
 /**
  * @brief Start playing frames.
@@ -75,6 +120,19 @@ int lua_play(lua_State * lua)
 {
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     extraSpace->options->play.value = true;
+    return 0;
+}
+
+/**
+ * @brief Exit SFOAV.
+ *
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+int lua_exit(lua_State * lua)
+{
+    LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    *(extraSpace->exit) = true;
     return 0;
 }
 
@@ -107,7 +165,8 @@ public:
     (
         jLog::Log & l,
         VisualisationState * visualisationState,
-        CommandLine * options
+        CommandLine * options,
+        Camera * camera
     )
     : lastCommandOrProgram(""), lastStatus(false), log(l)
     {
@@ -116,6 +175,8 @@ public:
         luaL_requiref(lua,"sfoav",load_sfoavLib,1);
         extraSpace.visualisationState = visualisationState;
         extraSpace.options = options;
+        extraSpace.camera = camera;
+        extraSpace.exit = &exit;
         *static_cast<LuaExtraSpace**>(lua_getextraspace(lua)) = &extraSpace;
     }
 
@@ -209,6 +270,14 @@ public:
         return value;
     }
 
+    /**
+     * @brief If sfoav.exit() has been called.
+     *
+     * @return true exit has been requested in Lua.
+     * @return false exit has not been requested in Lua.
+     */
+    bool exitCalled() const { return exit; }
+
 private:
 
     lua_State * lua;
@@ -218,6 +287,7 @@ private:
     std::stringstream input;
     static std::string stackTrace;
     bool lastStatus;
+    bool exit = false;
 
     jLog::Log & log;
 
@@ -250,7 +320,7 @@ private:
 
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[14] =
+        luaL_Reg sfoavLib[21] =
         {
             {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {"getAtomColour", &dispatchVisualisationState<&VisualisationState::lua_getAtomColour>},
@@ -262,9 +332,16 @@ private:
             {"getAtomsNeighbours", &dispatchVisualisationState<&VisualisationState::lua_getAtomsNeighbours>},
             {"setText", &dispatchVisualisationState<&VisualisationState::lua_setText>},
             {"getFrame", &dispatchVisualisationState<&VisualisationState::lua_getFrame>},
-            {"toggleRecord", &lua_toggleRecord},
+            {"startRecording", &lua_startRecord},
+            {"stopRecording", &lua_stopRecord},
             {"play", &lua_play},
             {"pause", &lua_pause},
+            {"cameraPosition", &dispatchCamera<&Camera::lua_cameraPosition>},
+            {"setCameraPosition", &dispatchCamera<&Camera::lua_setCameraPosition>},
+            {"rotateCamera", &dispatchCamera<&Camera::lua_rotateCamera>},
+            {"zoomCamera", &dispatchCamera<&Camera::lua_zoomCamera>},
+            {"inclineCamera", &dispatchCamera<&Camera::lua_inclineCamera>},
+            {"exit", &lua_exit},
             {NULL, NULL}
         };
 

@@ -17,13 +17,14 @@ VisualisationState vs
 );
 
 CommandLine options;
+Camera camera(testAtoms, 64, 64);
 
 SCENARIO("Lua atom interop")
 {
     jLog::Log l;
     GIVEN("A Lua console")
     {
-        Console console(l, &vs, &options);
+        Console console(l, &vs, &options, &camera);
         WHEN("The script \"atoms = sfoav.atomCount()\" is run")
         {
             console.runString("atoms = sfoav.atomCount()");
@@ -290,7 +291,7 @@ SCENARIO("Lua bond interop")
     GIVEN("A Lua console (and no bonds)")
     {
         vs.bonds.clear();
-        Console console(l, &vs, &options);
+        Console console(l, &vs, &options, &camera);
         WHEN("The script \"empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
         {
             console.runString("empty = next(sfoav.getAtomsBonds(0))==nil");
@@ -343,6 +344,81 @@ SCENARIO("Lua bond interop")
             AND_THEN("1 is in bonds[0]")
             {
                 REQUIRE(vs.bonds[0].find(1) != vs.bonds[0].cend());
+            }
+        }
+    }
+}
+
+SCENARIO("Lua camera interop")
+{
+    jLog::Log l;
+    GIVEN("A Lua console and a camera at spherical coordinates (1,3.14,1.57)")
+    {
+        Console console(l, &vs, &options, &camera);
+        camera.setPosition({1,3.14,1.57});
+        WHEN("The script \"x, y, z = sfoav.cameraPosition(true)\"")
+        {
+            console.runString("x, y, z = sfoav.cameraPosition(true)");
+            THEN("x, y, and z are 1, 3.14, and 1.57 ")
+            {
+                auto x = console.getGlobal<LuaNumber>("x");
+                auto y = console.getGlobal<LuaNumber>("y");
+                auto z = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(x.n, WithinAbs(1.0, 0.01));
+                REQUIRE_THAT(y.n, WithinAbs(3.14, 0.01));
+                REQUIRE_THAT(z.n, WithinAbs(1.57, 0.01));
+            }
+        }
+        WHEN("The script \"sfoav.setCameraPosition(1.0, 0.0, 0.0); x, y, z = sfoav.cameraPosition(false)\"")
+        {
+            console.runString("x, y, z = sfoav.cameraPosition(false)");
+            THEN("x, y, and z are 1, 3.14, and 1.57 ")
+            {
+                auto x = console.getGlobal<LuaNumber>("x");
+                auto y = console.getGlobal<LuaNumber>("y");
+                auto z = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(x.n, WithinAbs(0.0, 0.01));
+                REQUIRE_THAT(y.n, WithinAbs(-1.0, 0.01));
+                REQUIRE_THAT(z.n, WithinAbs(0.0, 0.01));
+            }
+        }
+        WHEN("The script \"sfoav.inclineCamera(-1.0); x, y, z = sfoav.cameraPosition(true)\"")
+        {
+            console.runString("sfoav.inclineCamera(-1.0); x, y, z = sfoav.cameraPosition(true)");
+            THEN("x, y, and z are 1, 2.14, and 1.57 ")
+            {
+                auto x = console.getGlobal<LuaNumber>("x");
+                auto y = console.getGlobal<LuaNumber>("y");
+                auto z = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(x.n, WithinAbs(1.0, 0.01));
+                REQUIRE_THAT(y.n, WithinAbs(2.14, 0.01));
+                REQUIRE_THAT(z.n, WithinAbs(1.57, 0.01));
+            }
+        }
+        WHEN("The script \"sfoav.rotateCamera(-1.0); x, y, z = sfoav.cameraPosition(true)\"")
+        {
+            console.runString("sfoav.rotateCamera(-1.0); x, y, z = sfoav.cameraPosition(true)");
+            THEN("x, y, and z are 1, 3.14, and 0.57 ")
+            {
+                auto x = console.getGlobal<LuaNumber>("x");
+                auto y = console.getGlobal<LuaNumber>("y");
+                auto z = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(x.n, WithinAbs(1.0, 0.01));
+                REQUIRE_THAT(y.n, WithinAbs(3.14, 0.01));
+                REQUIRE_THAT(z.n, WithinAbs(0.57, 0.01));
+            }
+        }
+        WHEN("The script \"sfoav.zoomCamera(-1.0); x, y, z = sfoav.cameraPosition(true)\"")
+        {
+            console.runString("sfoav.zoomCamera(-1.0); x, y, z = sfoav.cameraPosition(true)");
+            THEN("x, y, and z are 2, 3.14, and 1.57 ")
+            {
+                auto x = console.getGlobal<LuaNumber>("x");
+                auto y = console.getGlobal<LuaNumber>("y");
+                auto z = console.getGlobal<LuaNumber>("z");
+                REQUIRE_THAT(x.n, WithinAbs(2.0, 0.01));
+                REQUIRE_THAT(y.n, WithinAbs(3.14, 0.01));
+                REQUIRE_THAT(z.n, WithinAbs(1.57, 0.01));
             }
         }
     }

@@ -112,14 +112,14 @@ int main(int argv, char ** argc)
         keyCodes
     );
 
-    jLog::Log log;
-    Console console(log, &visualisationState, &options);
-
     if (!options.noCentering.value) { center(structure->atoms); }
     if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
     com = getCenter(structure->atoms);
 
     Camera camera {structure->atoms, resX, resY};
+
+    jLog::Log log;
+    Console console(log, &visualisationState, &options, &camera);
 
     AtomRenderer atomRenderer
     (
@@ -321,6 +321,8 @@ int main(int argv, char ** argc)
             setAlpha(structure->atoms, visualisationState.atomEmphasisOverrides);
             applyColours(structure->atoms, visualisationState.atomColourOverrides);
             applySizes(structure->atoms, visualisationState.atomSizes);
+            atomRenderer.updateCamera(camera);
+            bondRenderer.updateCamera(camera);
             elementsNeedUpdate = true;
         }
 
@@ -432,6 +434,8 @@ int main(int argv, char ** argc)
         }
 
         display.loop();
+
+        if (console.exitCalled()) { closing = true; }
 
         delta = 0.0;
         for (int n = 0; n < 60; n++)
