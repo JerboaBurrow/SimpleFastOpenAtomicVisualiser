@@ -548,7 +548,7 @@ struct CommandLine
     Argument<uint64_t> maxBFrames = {"maxBFrames", "Set the FFmpeg maxBFrames.", 0, false};
     Argument<uint64_t> gopSize = {"gopSize", "Set the FFmpeg GOP size.", 1, false};
     Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "slow", false};
-    Argument<std::string> profile = {"profile", "Set the FFmpeg profile.", "high", false};
+    Argument<std::string> profile = {"profile", "Set the FFmpeg profile.", "main", false};
     #endif
 
     /**
