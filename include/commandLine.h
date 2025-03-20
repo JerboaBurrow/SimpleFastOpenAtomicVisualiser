@@ -542,8 +542,8 @@ struct CommandLine
 
     #ifdef WITH_FFMPEG
     Argument<std::string> codec = {"codec", "FFmpeg codec name (see ffmpeg -codecs).", "libx264", false};
-    Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 0, false};
-    Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", 0, false};
+    Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 18, false};
+    Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", 18, false};
     Argument<uint8_t> cq = {"cq", "Set the FFmpeg cp (0-51).", 0, false};
     Argument<uint64_t> maxBFrames = {"maxBFrames", "Set the FFmpeg maxBFrames.", 0, false};
     Argument<uint64_t> gopSize = {"gopSize", "Set the FFmpeg GOP size.", 1, false};
