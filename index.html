@@ -209,11 +209,25 @@ Lua scripting</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">getFrame   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">The current frame number (from 0)    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">toggleRecord   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Start or stop video recording    </td></tr>
+<td class="markdownTableBodyLeft">startRecording   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Start video recording if not already recording    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">play   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Play the trajectory    </td></tr>
+<td class="markdownTableBodyLeft">stopRecording   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Stop video recording if already recording    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">pause   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Pause playing the trajectory   </td></tr>
+<td class="markdownTableBodyLeft">play   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Play the trajectory    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">pause   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Pause playing the trajectory    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">cameraPosition   </td><td class="markdownTableBodyLeft">Bool for spherical coordinates   </td><td class="markdownTableBodyLeft">Get the camera's position    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">setCameraPosition   </td><td class="markdownTableBodyLeft">r, theta, phi spherical coordinates   </td><td class="markdownTableBodyLeft">Set the camera's position    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">rotateCamera   </td><td class="markdownTableBodyLeft">dphi, the azimuthal increment   </td><td class="markdownTableBodyLeft">Rotate the camera    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">zoomCamera   </td><td class="markdownTableBodyLeft">dr, move the camera to or from the focus   </td><td class="markdownTableBodyLeft">Zoom the camera    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">inclineCamera   </td><td class="markdownTableBodyLeft">dtheta, the inclination increment   </td><td class="markdownTableBodyLeft">Incline the camera    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">exit   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft">Exit sfoav   </td></tr>
 </table>
 <p>E.g. the following script will set <a class="el" href="classAtom.html" title="An atom structure.">Atom</a> 0 to a random colour every frame.</p>
 <div class="fragment"><div class="line">-- Set atom 0 to a random colour.</div>
@@ -232,6 +246,26 @@ Lua scripting</h2>
 <div class="line">for i = 1, #neighbours do</div>
 <div class="line">    r, g, b, a = sfoav.getAtomColour(neighbours[i][&quot;index&quot;])</div>
 <div class="line">    sfoav.setAtomColour(neighbours[i][&quot;index&quot;], r, g, b, 1.0);</div>
+<div class="line">end</div>
+</div><!-- fragment --><p>Another example for automated video rendering</p>
+<div class="fragment"><div class="line">if (record == nil) then</div>
+<div class="line">    -- Will only run once.</div>
+<div class="line">    record = true</div>
+<div class="line">    sfoav.inclineCamera(3.14*0.25)</div>
+<div class="line">    -- Begins recording.</div>
+<div class="line">    sfoav.startRecording()</div>
+<div class="line">    -- Begins trajectory playing.</div>
+<div class="line">    sfoav.play()</div>
+<div class="line">end</div>
+<div class="line"> </div>
+<div class="line">if (record and sfoav.getFrame() == 200) then</div>
+<div class="line">    -- At frame 200 finish recording and exit when done.</div>
+<div class="line">    sfoav.stopRecording()</div>
+<div class="line">    sfoav.pause()</div>
+<div class="line">    -- Exit will occur after frames are written.</div>
+<div class="line">    sfoav.exit()</div>
+<div class="line">    -- Ensure no duplicate calls.</div>
+<div class="line">    record = false</div>
 <div class="line">end</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
 Video</h2>

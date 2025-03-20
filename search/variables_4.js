@@ -6,5 +6,6 @@ var searchData=
   ['elementmap_3',['elementMap',['../structVisualisationState.html#a4c1f141f3626ecf0ba657c9f263256e4',1,'VisualisationState']]],
   ['elements_4',['elements',['../structLuaArray.html#a106fcaf74aeab5104550e2e93c6ad44e',1,'LuaArray::elements'],['../structLuaVec.html#aaa8a109ed90ea60f1daf4f039c0b18d8',1,'LuaVec::elements']]],
   ['emphasiscontrols_5',['emphasisControls',['../structVisualisationState.html#a5e4ea41e72b740ce3d95eb3bb610a615',1,'VisualisationState']]],
-  ['emphasisedalpha_6',['emphasisedAlpha',['../main_8h.html#aec9856feac1103725a97f6cd44a409ab',1,'main.h']]]
+  ['emphasisedalpha_6',['emphasisedAlpha',['../main_8h.html#aec9856feac1103725a97f6cd44a409ab',1,'main.h']]],
+  ['exit_7',['exit',['../structLuaExtraSpace.html#a5f14b02178d7f493124bc47eb09ec3ae',1,'LuaExtraSpace']]]
 ];

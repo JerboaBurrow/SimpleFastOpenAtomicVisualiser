@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['vec_0',['vec',['../commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801',1,'commandLine.h']]],
-  ['vec3_1',['vec3',['../triangle_8h.html#a73355acf560befc44a0924d1c0489c4d',1,'triangle.h']]],
-  ['visualisationstatemember_2',['VisualisationStateMember',['../console_8h.html#a0a465743b3a1bfc75daae84ec580a911',1,'console.h']]]
+  ['cameramember_0',['CameraMember',['../console_8h.html#ac2b82eec555012cee159d5c8293aa970',1,'console.h']]]
 ];

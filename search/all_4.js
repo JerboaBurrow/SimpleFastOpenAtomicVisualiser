@@ -15,5 +15,7 @@ var searchData=
   ['er_12',['Er',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a222b57de868c251432f8cd2a3eb03fc6',1,'element.h']]],
   ['es_13',['Es',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a24dd08cf43692996cf27a1bc921ce3be',1,'element.h']]],
   ['eu_14',['Eu',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5adbf59bd164fe55695cc7d960da4f1516',1,'element.h']]],
-  ['extent_15',['extent',['../atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2',1,'atom.h']]]
+  ['exit_15',['exit',['../structLuaExtraSpace.html#a5f14b02178d7f493124bc47eb09ec3ae',1,'LuaExtraSpace']]],
+  ['exitcalled_16',['exitCalled',['../classConsole.html#a203398a7ff7f290b395756897be3b98d',1,'Console']]],
+  ['extent_17',['extent',['../atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2',1,'atom.h']]]
 ];
