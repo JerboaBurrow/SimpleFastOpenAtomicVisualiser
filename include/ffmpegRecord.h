@@ -47,13 +47,14 @@ public:
         glm::ivec2 resolution,
         uint8_t fps,
         std::string preset = "slow",
+        std::string profile = "high",
         uint8_t crf = 0,
         uint8_t cq = 0,
         uint8_t qp = 0,
         std::string codecName = "libx264",
-        uint32_t bitrate = 2000000,
         uint32_t max_b_frames = 0,
-        uint32_t gop_size = 1
+        uint32_t gop_size = 1,
+        uint32_t bitrate = 2000000
     )
     :
       Record(file, resolution, fps), bitrate(bitrate)
@@ -94,7 +95,13 @@ public:
         stream->codecpar->width = resolution.x;
         stream->codecpar->height = resolution.y;
         stream->codecpar->format = AV_PIX_FMT_YUV420P;
+        stream->codecpar->color_primaries = AVCOL_PRI_BT709;
+        stream->codecpar->color_space = AVCOL_SPC_BT709;
+        stream->codecpar->color_trc = AVCOL_TRC_BT709;
         stream->codecpar->bit_rate = bitrate;
+        stream->time_base = (AVRational){ 1, fps };
+        stream->r_frame_rate = (AVRational){ fps, 1 };
+        stream->avg_frame_rate = (AVRational){ fps, 1 };
         avcodec_parameters_to_context(context, stream->codecpar);
         context->time_base = (AVRational){ 1, fps };
         context->max_b_frames = max_b_frames;
@@ -103,6 +110,7 @@ public:
         context->pix_fmt = AV_PIX_FMT_YUV420P;
 
         av_opt_set(context->priv_data, "preset", preset.c_str(), 0);
+        av_opt_set(context->priv_data, "profile", profile.c_str(), 0);
         av_opt_set_int(context->priv_data, "cq", cq, 0);
         av_opt_set_int(context->priv_data, "qp", qp, 0);
         av_opt_set_int(context->priv_data, "crf", crf, 0);
@@ -254,7 +262,7 @@ private:
             videoFrame->linesize
         );
 
-        videoFrame->pts = (1.0 / float(fps)) * 90000 * (frameCounter++);
+        videoFrame->pts = (1.0 / float(fps)) * 15360 * (frameCounter++);
         if ((avcodec_send_frame(context, videoFrame)) < 0)
         {
             throw std::runtime_error("Failed to send frame");

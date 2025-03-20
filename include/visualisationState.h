@@ -156,10 +156,13 @@ struct VisualisationState
                 options.resolution.value,
                 60,
                 options.preset.value,
+                options.profile.value,
                 options.crf.value,
                 options.cq.value,
                 options.qp.value,
-                options.codec.value
+                options.codec.value,
+                options.maxBFrames.value,
+                options.gopSize.value
             );
             std::cout << "FFmpeg ";
             #else
