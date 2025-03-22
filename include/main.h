@@ -6,6 +6,9 @@
 #include <exception>
 #include <algorithm>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
+
 #include <jGL/jGL.h>
 #include <jGL/OpenGL/openGLInstance.h>
 #include <jGL/Display/desktopDisplay.h>
@@ -40,6 +43,30 @@ const float emphasisedAlpha = 1.0f;
 bool closing = false;
 
 std::unique_ptr<jGL::jGLInstance> jGLInstance;
+
+/**
+ * @brief Obtain screen pixels and write to a png.
+ *
+ * @param resolution the screen resolution.
+ * @remark The file name is a timestamp.
+ */
+void screenshot(glm::ivec2 resolution)
+{
+    std::vector<uint8_t> pixels(resolution.x*resolution.y*4, 0);
+    glReadPixels
+    (
+        0,
+        0,
+        resolution.x,
+        resolution.y,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pixels.data()
+    );
+    stbi_flip_vertically_on_write(true);
+    std::string name = timeStamp()+".png";
+    stbi_write_png(name.c_str(), resolution.x, resolution.y, 4, pixels.data(), 4*resolution.x);
+}
 
 /**
  * @brief Override jGL default event callback.

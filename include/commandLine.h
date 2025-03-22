@@ -759,6 +759,10 @@ STBIMAGE
   Public domain
   by Sean Barrett (nothings).
 
+STBIMAGEWRITE
+  Public domain
+  by Sean Barrett (nothings).
+
 Lua
   MIT
   Copyright © 1994-2023 Lua.org, PUC-Rio.

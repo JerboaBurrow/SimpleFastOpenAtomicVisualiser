@@ -18,6 +18,8 @@ int main(int argv, char ** argc)
     #ifdef MACOS
     conf.COCOA_RETINA = true;
     #endif
+    conf.CLIP_TO_MONITOR = false;
+    conf.CLIP_TO_WORK_AREA = false;
     jGL::DesktopDisplay display
     (
         glm::ivec2(resX, resY),
@@ -431,6 +433,11 @@ int main(int argv, char ** argc)
         if (!closing && elementsNeedUpdate)
         {
             visualisationState.recordFrame(resX, resY);
+        }
+
+        if (display.keyHasEvent(GLFW_KEY_G, jGL::EventType::PRESS))
+        {
+            screenshot(options.resolution.value);
         }
 
         display.loop();
