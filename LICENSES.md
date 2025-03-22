@@ -429,8 +429,12 @@ SOFTWARE.
 
 ```
 stb_image - v2.28 - public domain image loader - http://nothings.org/stb
+```
 
-no warranty implied; use at your own risk
+## STBIMAGEWRITE
+
+```
+stb_image_write - v1.16 - public domain - http://nothings.org/stb
 ```
 
 ## Lua

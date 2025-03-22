@@ -79,6 +79,7 @@ Miscellaneous key bindings are:
 | X      | Toggle drawing the coordinate axes | |
 | C      | Toggle drawing the simulation cell | |
 | I      | Toggle information text | |
+| G      | Screen grab | |
 | V      | Start or finish a video recording | |
 | ESC    | Quit | |
 
@@ -208,7 +209,7 @@ An MIT version prior to the inclusion of FFmpeg and the GPL v2 license can be fo
   - [ ] "Atom/molecule" cam.
   - [x] Simulation cell.
   - [x] Coordinate axes.
-  - [ ] Dynamic bonds.
+  - [x] Dynamic bonds.
   - [ ] User supplied emphasis file.
   - [ ] Atom/molecule info hover.
   - [ ] Imgui UI??.
@@ -218,7 +219,7 @@ An MIT version prior to the inclusion of FFmpeg and the GPL v2 license can be fo
     - [x] CONFIG/REVCON/HISTORY.
   - [ ] Atom connectivity file formats.
 - [ ] Output
-  - [ ] Screenshot to ```png```.
+  - [x] Screenshot to ```png```.
   - [x] Render to ```mp4```.
   - [ ] Headless context (e.g. for commandline HPC use).
 - [x] Atom (bill-boarded) imposter spheres.

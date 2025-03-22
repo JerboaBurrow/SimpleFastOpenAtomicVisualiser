@@ -83,6 +83,7 @@ Miscellaneous key bindings are:
 | X      | Toggle drawing the coordinate axes | |
 | C      | Toggle drawing the simulation cell | |
 | I      | Toggle information text | |
+| G      | Screen grab | |
 | V      | Start or finish a video recording | |
 | ESC    | Quit | |
 

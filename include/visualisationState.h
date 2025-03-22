@@ -209,28 +209,33 @@ struct VisualisationState
             return;
         }
 
-        std::vector<uint8_t> pixels(resX*resY*4, 0);
-        glReadPixels
-        (
-            0,
-            0,
-            resX,
-            resY,
-            GL_RGBA,
-            GL_UNSIGNED_BYTE,
-            pixels.data()
-        );
-
-        for(int j = 0; j < int(resY/2); j++)
+        if (!waitingForRecord)
         {
-            std::swap_ranges
+
+            std::vector<uint8_t> pixels(resX*resY*4, 0);
+            glReadPixels
             (
-                pixels.begin()+4*resX*j,
-                pixels.begin()+4*resX*(j+1),
-                pixels.begin()+4*resX*(resY-j-1)
+                0,
+                0,
+                resX,
+                resY,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                pixels.data()
             );
+
+            for(int j = 0; j < int(resY/2); j++)
+            {
+                std::swap_ranges
+                (
+                    pixels.begin()+4*resX*j,
+                    pixels.begin()+4*resX*(j+1),
+                    pixels.begin()+4*resX*(resY-j-1)
+                );
+            }
+
+            record->queueFrame(pixels);
         }
-        record->queueFrame(pixels);
 
         if (record->queueSize() >= 32)
         {
