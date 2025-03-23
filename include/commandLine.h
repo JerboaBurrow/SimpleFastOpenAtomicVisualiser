@@ -53,7 +53,7 @@ struct Argument
  *
  * @tparam T the argument's type.
  * @param arg the Argument to return help on.
- * @return std::string the help message including name, description, default value and requirement.
+ * @return std::string the help message including name, description, and default value.
  */
 template <class T>
 std::string argumentHelp(const Argument<T> & arg)
@@ -69,10 +69,10 @@ std::string argumentHelp(const Argument<T> & arg)
 }
 
 /**
- * @brief Return a formatted help message for a Argument.
+ * @brief Return a formatted help message for a uint8_t Argument.
  *
  * @param arg the Argument to return help on.
- * @return std::string the help message including name, description, default value and requirement.
+ * @return std::string the help message including name, description, and default value.
  */
 template <>
 std::string argumentHelp<uint8_t>(const Argument<uint8_t> & arg)
@@ -83,6 +83,26 @@ std::string argumentHelp<uint8_t>(const Argument<uint8_t> & arg)
       << arg.description
       << "\n   Default: "
       << int(arg.defaultValue)
+      << ".";
+    return h.str();
+}
+
+/**
+ * @brief Return a formatted help message for a flag Argument.
+ *
+ * @param arg the Argument to return help on.
+ * @return std::string the help message including name, description, and default value.
+ */
+template <>
+std::string argumentHelp<bool>(const Argument<bool> & arg)
+{
+    std::stringstream h;
+    h << " --"
+      << arg.name << "\n  "
+      << "Flag\n  "
+      << arg.description
+      << "\n   Default: "
+      << (arg.defaultValue ? "True" : "False")
       << ".";
     return h.str();
 }
