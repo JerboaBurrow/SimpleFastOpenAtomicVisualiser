@@ -123,7 +123,7 @@ enum class Element : uint8_t
  */
 const std::map<std::string, Element> ELEMENT_FROM_STRING =
 {
-    {"Unkown", Element::Unknown},
+    {"Unknown", Element::Unknown},
     {"H", Element::H},
     {"He", Element::He},
     {"Li", Element::Li},
@@ -227,6 +227,118 @@ const std::map<std::string, Element> ELEMENT_FROM_STRING =
     {"Md", Element::Md},
     {"No", Element::No},
     {"Lw", Element::Lw}
+};
+
+/**
+ * @brief Map Element names to string symbols.
+ *
+ */
+const std::map<std::string, std::string> ELEMENT_NAME_TO_STRING_SYMBOL =
+{
+    {"unknown", "Unknown"},
+    {"hydrogen", "H"},
+    {"helium", "He"},
+    {"lithium", "Li"},
+    {"beryllium", "Be"},
+    {"boron", "B"},
+    {"carbon", "C"},
+    {"nitrogen", "N"},
+    {"oxygen", "O"},
+    {"fluorine", "F"},
+    {"neon", "Ne"},
+    {"sodium", "Na"},
+    {"magnesium", "Mg"},
+    {"aluminium", "Al"},
+    {"silicon", "Si"},
+    {"phosphorus", "P"},
+    {"sulfur", "S"},
+    {"chlorine", "Cl"},
+    {"argon", "Ar"},
+    {"potassium", "K"},
+    {"calcium", "Ca"},
+    {"scandium", "Sc"},
+    {"titanium", "Ti"},
+    {"vanadium", "V"},
+    {"chromium", "Cr"},
+    {"manganese", "Mn"},
+    {"iron", "Fe"},
+    {"cobalt", "Co"},
+    {"nickel", "Ni"},
+    {"copper", "Cu"},
+    {"zinc", "Zn"},
+    {"gallium", "Ga"},
+    {"germanium", "Ge"},
+    {"arsenic", "As"},
+    {"selenium", "Se"},
+    {"bromine", "Br"},
+    {"krypton", "Kr"},
+    {"rubidium", "Rb"},
+    {"strontium", "Sr"},
+    {"yttrium", "Y"},
+    {"zirconium", "Zr"},
+    {"niobium", "Nb"},
+    {"molybdenum", "Mo"},
+    {"technetium", "Tc"},
+    {"ruthenium", "Ru"},
+    {"rhodium", "Rh"},
+    {"palladium", "Pd"},
+    {"silver", "Ag"},
+    {"cadmium", "Cd"},
+    {"indium", "In"},
+    {"tin", "Sn"},
+    {"antimony", "Sb"},
+    {"tellurium", "Te"},
+    {"iodine", "I"},
+    {"xenon", "Xe"},
+    {"caesium", "Cs"},
+    {"barium", "Ba"},
+    {"lanthanum", "La"},
+    {"cerium", "Ce"},
+    {"praseodymium", "Pr"},
+    {"neodymium", "Nd"},
+    {"promethium", "Pm"},
+    {"samarium", "Sm"},
+    {"europium", "Eu"},
+    {"gadolinium", "Gd"},
+    {"terbium", "Tb"},
+    {"dysprosium", "Dy"},
+    {"holmium", "Ho"},
+    {"erbium", "Er"},
+    {"thulium", "Tm"},
+    {"ytterbium", "Yb"},
+    {"lutetium", "Lu"},
+    {"hafnium", "Hf"},
+    {"tantalum", "Ta"},
+    {"tungsten", "W"},
+    {"rhenium", "Re"},
+    {"osmium", "Os"},
+    {"iridium", "Ir"},
+    {"platinum", "Pt"},
+    {"gold", "Au"},
+    {"mercury", "Hg"},
+    {"thallium", "Tl"},
+    {"lead", "Pb"},
+    {"bismuth", "Bi"},
+    {"polonium", "Po"},
+    {"astatine", "At"},
+    {"radon", "Rn"},
+    {"francium", "Fr"},
+    {"radium", "Ra"},
+    {"actinium", "Ac"},
+    {"thorium", "Th"},
+    {"protactinium", "Pa"},
+    {"uranium", "U"},
+    {"neptunium", "Np"},
+    {"plutonium", "Pu"},
+    {"americium", "Am"},
+    {"curium", "Cm"},
+    {"berkelium", "Bk"},
+    {"californium", "Cf"},
+    {"einsteinium", "Es"},
+    {"fermium", "Fm"},
+    {"mendelevium", "Md"},
+    {"nobelium", "No"},
+    {"lawrencium", "Lw"}
 };
 
 /**
@@ -560,14 +672,72 @@ const std::map<Element, float> ELEMENT_MASS =
  * @brief Map a string symbol to an Element.
  *
  * @remark Defaults to Element::Unknown.
+ * @remark If s is not an element symbol (C, Pt, Au, ...) attempts to
+ * match with element names (carbon, platinum, gold, ...).
+ * If all else fails the first two letters then first letter will be checked for a match.
  * @param s the string symbol
  * @return Element the element.
  */
-Element stringSymbolToElement(std::string & s)
+Element stringSymbolToElement(const std::string & s)
 {
+    std::string stripped = s;
+    stripped.erase(std::remove_if(stripped.begin(), stripped.end(), [](const char & c) { return !std::isalpha(c); }), stripped.end());
+    if (stripped.size() < s.size()) { return stringSymbolToElement(stripped); }
     if (ELEMENT_FROM_STRING.find(s) != ELEMENT_FROM_STRING.cend())
     {
         return ELEMENT_FROM_STRING.at(s);
+    }
+    if (s.size() == 1)
+    {
+        std::string s1 = s.substr(0, 1);
+        s1[0] = std::toupper(s1[0]);
+        if (ELEMENT_FROM_STRING.find(s1) != ELEMENT_FROM_STRING.cend())
+        {
+            return ELEMENT_FROM_STRING.at(s1);
+        }
+    }
+    else if (s.size() == 2)
+    {
+        std::string s2 = s.substr(0, 2);
+        s2[0] = std::toupper(s2[0]);
+        s2[1] = std::tolower(s2[1]);
+        if (ELEMENT_FROM_STRING.find(s2) != ELEMENT_FROM_STRING.cend())
+        {
+            return ELEMENT_FROM_STRING.at(s2);
+        }
+        return stringSymbolToElement(s.substr(0, 1));
+    }
+    else if (s.size() > 2)
+    {
+        std::string name = s;
+        std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c){ return std::tolower(c); });
+        if (ELEMENT_NAME_TO_STRING_SYMBOL.find(name) != ELEMENT_NAME_TO_STRING_SYMBOL.cend())
+        {
+            return ELEMENT_FROM_STRING.at(ELEMENT_NAME_TO_STRING_SYMBOL.at(name));
+        }
+        std::vector<std::string> names;
+        for (const auto & ns : ELEMENT_NAME_TO_STRING_SYMBOL)
+        {
+            names.push_back(ns.first);
+        }
+        uint64_t i = 1;
+        while (names.size() > 1)
+        {
+            std::string check = name.substr(0, i);
+            std::vector<std::string> newNames;
+            for (const auto & n : names)
+            {
+                if (n.rfind(check, 0) == 0)
+                {
+                    newNames.push_back(n);
+                }
+            }
+            i++;
+            names = newNames;
+            if (i > name.size()) { break; }
+        }
+        if (names.size() == 1) { return ELEMENT_FROM_STRING.at(ELEMENT_NAME_TO_STRING_SYMBOL.at(names[0])); }
+        return stringSymbolToElement(s.substr(0, 2));
     }
     return Element::Unknown;
 }
@@ -578,7 +748,7 @@ Element stringSymbolToElement(std::string & s)
  * @param s the string symbol to map.
  * @return float the radius.
  */
-float stringSymbolToElementRadius(std::string & s)
+float stringSymbolToElementRadius(const std::string & s)
 {
     Element element = stringSymbolToElement(s);
     if (ELEMENT_RADIUS.find(element) == ELEMENT_RADIUS.cend())
