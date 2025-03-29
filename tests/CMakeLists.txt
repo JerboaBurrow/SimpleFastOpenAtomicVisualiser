@@ -46,6 +46,38 @@ else()
     target_link_libraries(${OUTPUT_NAME} PUBLIC Lua)
 endif()
 
+if(FFMPEG)
+    add_compile_definitions(WITH_FFMPEG)
+    find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
+    find_library(AVCODEC_LIBRARY avcodec)
+
+    find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h)
+    find_library(AVFORMAT_LIBRARY avformat)
+
+    find_path(AVUTIL_INCLUDE_DIR libavutil/avutil.h)
+    find_library(AVUTIL_LIBRARY avutil)
+
+    find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h)
+    find_library(SWSCALE_LIBRARY swscale)
+
+    target_link_libraries(${OUTPUT_NAME}
+        PUBLIC
+        ${AVCODEC_LIBRARY}
+        ${AVFORMAT_LIBRARY}
+        ${AVUTIL_LIBRARY}
+        ${SWSCALE_LIBRARY}
+    )
+
+    target_include_directories(
+        ${OUTPUT_NAME}
+        PUBLIC
+        ${AVCODEC_INCLUDE_DIR}
+        ${AVFORMAT_INCLUDE_DIR}
+        ${AVUTIL_INCLUDE_DIR}
+        ${SWSCALE_INCLUDE_DIR}
+    )
+endif()
+
 target_compile_definitions(${OUTPUT_NAME} PUBLIC VERSION="Version: ${PRODUCT}-${MAJOR}.${MINOR}.${PATCH}")
 
 file(COPY "test_structure_input/CONFIG" DESTINATION "${CMAKE_BINARY_DIR}")

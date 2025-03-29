@@ -78,6 +78,28 @@ int dispatchCamera(lua_State * lua)
 }
 
 /**
+ * @brief A Lua binding in CommandLine;
+ *
+ */
+typedef int (CommandLine::*CommandLineMember)(lua_State * lua);
+
+/**
+ * @brief Dispath to a Lua binding of CommandLine.
+ *
+ * @see LuaExtraSpace.
+ * @tparam function the Lua binding to dispatch.
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+template <CommandLineMember function>
+int dispatchCommandLine(lua_State * lua)
+{
+    LuaExtraSpace * store = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
+    CommandLine * ptr = store->options;
+    return ((*ptr).*function)(lua);
+}
+
+/**
  * @brief Start video recording (if not already recording).
  *
  * @param lua the Lua context.
@@ -108,7 +130,6 @@ int lua_stopRecord(lua_State * lua)
     }
     return 0;
 }
-
 
 /**
  * @brief Start playing frames.
@@ -320,7 +341,7 @@ private:
 
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[21] =
+        luaL_Reg sfoavLib[23] =
         {
             {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {"getAtomColour", &dispatchVisualisationState<&VisualisationState::lua_getAtomColour>},
@@ -342,6 +363,8 @@ private:
             {"zoomCamera", &dispatchCamera<&Camera::lua_zoomCamera>},
             {"inclineCamera", &dispatchCamera<&Camera::lua_inclineCamera>},
             {"exit", &lua_exit},
+            {"getOption", &dispatchCommandLine<&CommandLine::lua_getOption>},
+            {"setOption", &dispatchCommandLine<&CommandLine::lua_setOption>},
             {NULL, NULL}
         };
 

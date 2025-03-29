@@ -13,6 +13,10 @@
 
 #include <hierarchicalTriangularMesh.h>
 #include <constants.h>
+#include <lua.h>
+#include <LuaBool.h>
+#include <LuaNumber.h>
+#include <LuaString.h>
 
 /**
  * @brief A command line argument.
@@ -304,20 +308,24 @@ struct CommandLine
         #endif
     }
 
+    Argument<std::filesystem::path> structure = {"atoms", "The structure path.", {}};
+
     Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0};
     Argument<uint8_t> msaa = {"msaa", "MSAA level [0-32].", 0};
+    Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60};
     Argument<BASE_MESH> mesh = {"mesh", "The procedural mesh type.", BASE_MESH::ANY};
-    Argument<std::filesystem::path> structure = {"atoms", "The structure path.", {}};
     Argument<float> bondCutoff = {"bondCutOff","Angstrom cutoff to create a bond.", 0.0f};
     Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f};
+    Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f};
+    Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
+    Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}};
     Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", {}};
-    Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX};
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", NULL_INDEX};
-    Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60};
+
     Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}};
     Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
     Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
@@ -343,6 +351,173 @@ struct CommandLine
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false};
     Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting for faster rendering.", false};
     Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", false};
+
+    /**
+     * @brief Set an option from Lua.
+     *
+     * @remark Lua arguments are:
+     * 1. option name
+     * 2. option value
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_setOption(lua_State * lua)
+    {
+        int args = lua_gettop(lua);
+        if (args != 2)
+        {
+            const std::string msg = "setOption expects a name and value as argument.\n";
+            lua_pushlstring(lua, msg.c_str(), msg.length());
+            return lua_error(lua);
+        }
+        LuaString s; s.read(lua, 1);
+
+        bool * bval = boolFromName(s.characters);
+        if (bval != nullptr)
+        {
+            if (lua_isboolean(lua, 2))
+            {
+                LuaBool b; b.read(lua, 2);
+                *bval = b.bit;
+                return 0;
+            }
+            else
+            {
+                const std::string msg = "setOption for " + s.characters + " expects boolean value.\n";
+                lua_pushlstring(lua, msg.c_str(), msg.length());
+                return lua_error(lua);
+            }
+        }
+
+        float * fval = floatFromName(s.characters);
+        if (fval != nullptr)
+        {
+            if (lua_isnumber(lua, 2))
+            {
+                LuaNumber n; n.read(lua, 2);
+                *fval = n.n;
+                return 0;
+            }
+            else
+            {
+                const std::string msg = "setOption for " + s.characters + " expects numeric value.\n";
+                lua_pushlstring(lua, msg.c_str(), msg.length());
+                return lua_error(lua);
+            }
+        }
+
+        uint8_t * i8val = i8FromName(s.characters);
+        if (i8val != nullptr)
+        {
+            if (lua_isnumber(lua, 2))
+            {
+                LuaNumber n; n.read(lua, 2);
+                *i8val = n.n;
+                return 0;
+            }
+            else
+            {
+                const std::string msg = "setOption for " + s.characters + " expects numeric value.\n";
+                lua_pushlstring(lua, msg.c_str(), msg.length());
+                return lua_error(lua);
+            }
+        }
+
+        uint64_t * i64val = i64FromName(s.characters);
+        if (i64val != nullptr)
+        {
+            if (lua_isnumber(lua, 2))
+            {
+                LuaNumber n; n.read(lua, 2);
+                *i64val = n.n;
+                return 0;
+            }
+            else
+            {
+                const std::string msg = "setOption for " + s.characters + " expects numeric value.\n";
+                lua_pushlstring(lua, msg.c_str(), msg.length());
+                return lua_error(lua);
+            }
+        }
+
+        std::string * sval = stringFromName(s.characters);
+        if (sval != nullptr)
+        {
+            if (lua_isstring(lua, 2))
+            {
+                LuaString v; v.read(lua, 2);
+                *sval = v.characters;
+                return 0;
+            }
+            else
+            {
+                const std::string msg = "setOption for " + s.characters + " expects string value.\n";
+                lua_pushlstring(lua, msg.c_str(), msg.length());
+                return lua_error(lua);
+            }
+        }
+        const std::string msg = "setOption, no option " + s.characters + ".\n";
+        lua_pushlstring(lua, msg.c_str(), msg.length());
+        return lua_error(lua);
+    }
+
+    /**
+     * @brief Get an option value in Lua.
+     *
+     * @remark Lua arguments are:
+     * 1. option name
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getOption(lua_State * lua)
+    {
+        int args = lua_gettop(lua);
+        if (args != 1)
+        {
+            const std::string msg = "setOption expects a name as argument.\n";
+            lua_pushlstring(lua, msg.c_str(), msg.length());
+            return lua_error(lua);
+        }
+        LuaString s; s.read(lua, 1);
+
+        bool * bval = boolFromName(s.characters);
+        if (bval != nullptr)
+        {
+            lua_pushboolean(lua, *bval);
+            return 1;
+        }
+
+        float * fval = floatFromName(s.characters);
+        if (fval != nullptr)
+        {
+            lua_pushnumber(lua, *fval);
+            return 1;
+        }
+
+        uint8_t * i8val = i8FromName(s.characters);
+        if (i8val != nullptr)
+        {
+            lua_pushinteger(lua, *i8val);
+            return 1;
+        }
+
+        uint64_t * i64val = i64FromName(s.characters);
+        if (i64val != nullptr)
+        {
+            lua_pushinteger(lua, *i64val);
+            return 1;
+        }
+
+        std::string * sval = stringFromName(s.characters);
+        if (sval != nullptr)
+        {
+            lua_pushstring(lua, sval->c_str());
+            return 1;
+        }
+        const std::string msg = "getOption, no option " + s.characters + ".\n";
+        lua_pushlstring(lua, msg.c_str(), msg.length());
+        return lua_error(lua);
+    }
 
     /**
      * @brief Determine if help or licenses should be printed.
@@ -742,6 +917,120 @@ private:
         {
             flag.value = false;
         }
+    }
+
+    bool * boolFromName(const std::string & name)
+    {
+        std::map<std::string, Argument<bool> &> values
+        {
+            {meshes.name, meshes},
+            {hideAtoms.name, hideAtoms},
+            {showAxes.name, showAxes},
+            {showCell.name, showCell},
+            {hideInfoText.name, hideInfoText},
+            {play.name, play},
+            {noCentering.name, noCentering},
+            {darkTheme.name, darkTheme},
+            {noTransparencySorting.name, noTransparencySorting},
+            {sizeByMass.name, sizeByMass}
+        };
+
+        if (values.find(name) != values.cend())
+        {
+            return &values.at(name).value;
+        }
+        return nullptr;
+    }
+
+    float * floatFromName(const std::string & name)
+    {
+        std::map<std::string, Argument<float> &> values
+        {
+            {bondCutoff.name, bondCutoff},
+            {bondSize.name, bondSize},
+            {atomSize.name, atomSize},
+            {globalAtomAlpha.name, globalAtomAlpha},
+            {globalBondAlpha.name, globalBondAlpha},
+            {deemphasisAlpha.name, deemphasisAlpha}
+        };
+
+        if (values.find(name) != values.cend())
+        {
+            return &values.at(name).value;
+        }
+        return nullptr;
+    }
+
+    uint8_t * i8FromName(const std::string & name)
+    {
+        #ifdef WITH_FFMPEG
+        std::map<std::string, Argument<uint8_t> &> values
+        {
+            {levelOfDetail.name, levelOfDetail},
+            {msaa.name, msaa},
+            {speed.name, speed},
+            {crf.name, crf},
+            {qp.name, qp},
+            {cq.name, cq}
+        };
+        #else
+        std::map<std::string, Argument<uint8_t> &> values
+        {
+            {levelOfDetail.name, levelOfDetail},
+            {msaa.name, msaa},
+            {speed.name, speed}
+        };
+        #endif
+
+        if (values.find(name) != values.cend())
+        {
+            return &values.at(name).value;
+        }
+        return nullptr;
+    }
+
+    uint64_t * i64FromName(const std::string & name)
+    {
+        #ifdef WITH_FFMPEG
+        std::map<std::string, Argument<uint64_t> &> values
+        {
+            {bondFocus.name, bondFocus},
+            {focus.name, focus},
+            {maxBFrames.name, maxBFrames},
+            {gopSize.name, gopSize}
+        };
+        #else
+        std::map<std::string, Argument<uint64_t> &> values
+        {
+            {bondFocus.name, bondFocus},
+            {focus.name, focus}
+        };
+        #endif
+
+        if (values.find(name) != values.cend())
+        {
+            return &values.at(name).value;
+        }
+        return nullptr;
+    }
+
+    std::string * stringFromName(const std::string & name)
+    {
+        #ifdef WITH_FFMPEG
+        std::map<std::string, Argument<std::string> &> values
+        {
+            {preset.name, preset},
+            {codec.name, codec},
+            {profile.name, profile}
+        };
+        if (values.find(name) != values.cend())
+        {
+            return &values.at(name).value;
+        }
+        return nullptr;
+        #else
+        return nullptr;
+        #endif
     }
 };
 
