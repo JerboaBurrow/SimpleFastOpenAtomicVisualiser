@@ -7,7 +7,7 @@ var searchData=
   ['nb_4',['Nb',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a04d25f81d9337b5b5c640de788559d87',1,'element.h']]],
   ['nd_5',['Nd',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a0f685c57363a378127e7487e5b670d40',1,'element.h']]],
   ['ne_6',['Ne',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a4dec99baa99738721da9c9b0c1a92498',1,'element.h']]],
-  ['neighbours_7',['neighbours',['../classNeighbours.html#a5a0c4099ef9df82dabfd104219abe2a2',1,'Neighbours::neighbours(const std::vector&lt; Atom &gt; &amp;atoms, glm::vec3 position, float cutoff, bool noDirect=false, bool nearestImage=true) const'],['../classNeighbours.html#a3d721788dbd8a373fe7b8f838ec96109',1,'Neighbours::Neighbours(const std::vector&lt; Atom &gt; &amp;atoms, float domainSideLength=-1.0)'],['../classNeighbours.html',1,'Neighbours']]],
+  ['neighbours_7',['neighbours',['../classNeighbours.html#a3d721788dbd8a373fe7b8f838ec96109',1,'Neighbours::Neighbours(const std::vector&lt; Atom &gt; &amp;atoms, float domainSideLength=-1.0)'],['../classNeighbours.html#a5a0c4099ef9df82dabfd104219abe2a2',1,'Neighbours::neighbours(const std::vector&lt; Atom &gt; &amp;atoms, glm::vec3 position, float cutoff, bool noDirect=false, bool nearestImage=true) const'],['../classNeighbours.html',1,'Neighbours']]],
   ['neighbours_2eh_8',['neighbours.h',['../neighbours_8h.html',1,'']]],
   ['neighboursdirect_9',['neighboursDirect',['../classNeighbours.html#a061cd3740f9ce96333be645001cf4c98',1,'Neighbours']]],
   ['ni_10',['Ni',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa26e174e330476756d2601ea5368aec3',1,'element.h']]],

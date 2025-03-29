@@ -123,6 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aae7e69f01b709cb1cd58bd0656760f38" id="r_aae7e69f01b709cb1cd58bd0656760f38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#aae7e69f01b709cb1cd58bd0656760f38">setTransparencySorting</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">bool</a> <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">sort</a>)</td></tr>
 <tr class="memdesc:aae7e69f01b709cb1cd58bd0656760f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether transparency sorting is performed.  <br /></td></tr>
 <tr class="separator:aae7e69f01b709cb1cd58bd0656760f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513341157000934968180271a875a123" id="r_a513341157000934968180271a875a123"><td class="memItemLeft" align="right" valign="top"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAtomRenderer.html#a513341157000934968180271a875a123">setGlobalAlpha</a> (<a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a> <a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">alpha</a>)</td></tr>
+<tr class="memdesc:a513341157000934968180271a875a123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the global alpha multiplier.  <br /></td></tr>
+<tr class="separator:a513341157000934968180271a875a123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Render atoms as sphere meshes. </p>
@@ -317,6 +320,41 @@ Choosing a specific BASE_MESH will mean the level of detail is refinements of ju
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a513341157000934968180271a875a123" name="a513341157000934968180271a875a123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a513341157000934968180271a875a123">&#9670;&#160;</a></span>setGlobalAlpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">void</a> AtomRenderer::setGlobalAlpha </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">float</a>&#160;</td>
+          <td class="paramname"><em>alpha</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the global alpha multiplier. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alpha</td><td>the new alpha multiplier. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd>alpha is clamped to [0, 1]. </dd></dl>
 
 </div>
 </div>

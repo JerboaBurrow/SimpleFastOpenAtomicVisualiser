@@ -9,7 +9,7 @@ var searchData=
   ['characters_6',['characters',['../structLuaString.html#a4d9d1720dff5f6db6442bddf512ceceb',1,'LuaString']]],
   ['closing_7',['closing',['../main_8h.html#a009fe61aa7b9d66614c1b33a04e01c8f',1,'main.h']]],
   ['colour_8',['colour',['../classAtom.html#af507bf7c80bb0f2c963af2e104b10250',1,'Atom']]],
-  ['colourmap_9',['colourmap',['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap'],['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap']]],
+  ['colourmap_9',['colourmap',['../structCommandLine.html#a2edd360e26d8cbd205466017b20fa992',1,'CommandLine::colourmap'],['../classStructure.html#a87cc5207899f9255ba93b458c75e176f',1,'Structure::colourMap']]],
   ['cpk_5fcolours_10',['CPK_COLOURS',['../colour_8h.html#a2cf483741023eb51f5cd3ba774fb5917',1,'colour.h']]],
   ['cube_11',['CUBE',['../meshes_8h.html#a6b60ed773f60245a23cf75cd309cdd4c',1,'meshes.h']]],
   ['cube_5fvertices_12',['CUBE_VERTICES',['../meshes_8h.html#a301492ba83104cc2fd7d38eca8089af9',1,'meshes.h']]],
