@@ -1,6 +1,8 @@
 #include <console.h>
 #include <util.h>
 #include <visualisationState.h>
+#include <limits.h>
+#include <cstdint>
 
 std::string Console::stackTrace("");
 
@@ -421,5 +423,100 @@ SCENARIO("Lua camera interop")
                 REQUIRE_THAT(z.n, WithinAbs(1.57, 0.01));
             }
         }
+    }
+}
+
+SCENARIO("Lua options interop")
+{
+    jLog::Log l;
+    GIVEN("A Lua console with default CommandLine values")
+    {
+        Console console(l, &vs, &options, &camera);
+        WHEN("The script \"b = sfoav.getOption(\"meshes\");\"")
+        {
+            console.runString("b = sfoav.getOption(\"meshes\");");
+            THEN("b is false")
+            {
+                REQUIRE(!console.getGlobal<LuaBool>("b").bit);
+            }
+            WHEN("The script \"sfoav.setOption(\"meshes\", true); b = sfoav.getOption(\"meshes\");\"")
+            {
+                console.runString("sfoav.setOption(\"meshes\", true); b = sfoav.getOption(\"meshes\");");
+                THEN("b is true")
+                {
+                    REQUIRE(console.getGlobal<LuaBool>("b").bit);
+                }
+            }
+        }
+
+        WHEN("The script \"v = sfoav.getOption(\"speed\");\"")
+        {
+            console.runString("v = sfoav.getOption(\"speed\");");
+            THEN("v is 60")
+            {
+                REQUIRE(60 == int(console.getGlobal<LuaNumber>("v").n));
+            }
+            WHEN("The script \"sfoav.setOption(\"speed\", 1); v = sfoav.getOption(\"speed\");\"")
+            {
+                console.runString("sfoav.setOption(\"speed\", 1); v = sfoav.getOption(\"speed\");");
+                THEN("v is 1")
+                {
+                    REQUIRE(1 == int(console.getGlobal<LuaNumber>("v").n));
+                }
+            }
+        }
+
+        WHEN("The script \"v = sfoav.getOption(\"bondCutOff\");\"")
+        {
+            console.runString("v = sfoav.getOption(\"bondCutOff\");");
+            THEN("v is 0.0")
+            {
+                REQUIRE_THAT(console.getGlobal<LuaNumber>("v").n, WithinAbs(0.0, tol));
+            }
+            WHEN("The script \"sfoav.setOption(\"bondCutOff\", 1); v = sfoav.getOption(\"bondCutOff\");\"")
+            {
+                console.runString("sfoav.setOption(\"bondCutOff\", 1.0); v = sfoav.getOption(\"bondCutOff\");");
+                THEN("v is 1.0")
+                {
+                    REQUIRE_THAT(console.getGlobal<LuaNumber>("v").n, WithinAbs(1.0, tol));
+                }
+            }
+        }
+
+        WHEN("The script \"v = sfoav.getOption(\"focus\");\"")
+        {
+            console.runString("v = sfoav.getOption(\"focus\");");
+            THEN("v is -1.0")
+            {
+                REQUIRE(-1.0 == console.getGlobal<LuaNumber>("v").n);
+            }
+            WHEN("The script \"sfoav.setOption(\"focus\", 1); v = sfoav.getOption(\"focus\");\"")
+            {
+                console.runString("sfoav.setOption(\"focus\", 1); v = sfoav.getOption(\"focus\");");
+                THEN("v is 1")
+                {
+                    REQUIRE(1 == int(console.getGlobal<LuaNumber>("v").n));
+                }
+            }
+        }
+
+        #ifdef WITH_FFMPEG
+        WHEN("The script \"v = sfoav.getOption(\"codec\");\"")
+        {
+            console.runString("v = sfoav.getOption(\"codec\");");
+            THEN("v is \"libx264\"")
+            {
+                REQUIRE("libx264" == console.getGlobal<LuaString>("v").characters);
+            }
+            WHEN("The script \"sfoav.setOption(\"codec\", \"hevc_nvenc\"); v = sfoav.getOption(\"codec\");\"")
+            {
+                console.runString("sfoav.setOption(\"codec\", \"hevc_nvenc\"); v = sfoav.getOption(\"codec\");");
+                THEN("v is \"hevc_nvenc\"")
+                {
+                    REQUIRE("hevc_nvenc" == console.getGlobal<LuaString>("v").characters);
+                }
+            }
+        }
+        #endif
     }
 }
