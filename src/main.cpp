@@ -456,6 +456,7 @@ int main(int argv, char ** argc)
         auto toc = std::chrono::high_resolution_clock::now();
         deltas[frameId] = std::chrono::duration_cast<std::chrono::milliseconds>(toc-tic).count();
         frameId = (frameId+1) % 60;
+        if (frameId == 0 && log.size() > 0) { std::cout << log << "\n"; }
     }
 
     if (options.msaa.value > 0)
