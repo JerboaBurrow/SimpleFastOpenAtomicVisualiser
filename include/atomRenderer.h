@@ -111,6 +111,7 @@ public:
 
         updateAtoms(atoms);
         setAtomScale(1.0f);
+        setGlobalAlpha(globalAlpha);
 
         jGL::GL::glError("AtomRenderer::AtomRenderer");
     }
@@ -265,6 +266,21 @@ public:
      */
     void setTransparencySorting(bool sort) { buffer->setTransparencySorting(sort); }
 
+    /**
+     * @brief Set the global alpha multiplier.
+     *
+     * @param alpha the new alpha multiplier.
+     * @remark alpha is clamped to [0, 1].
+     */
+    void setGlobalAlpha(float alpha)
+    {
+        globalAlpha = std::max(0.0f, std::min(alpha, 1.0f));
+        meshShader->use();
+        meshShader->setUniform<float>("globalAlpha", globalAlpha);
+        imposterShader->use();
+        imposterShader->setUniform<float>("globalAlpha", globalAlpha);
+    }
+
 private:
 
     std::unique_ptr<jGL::GL::glShader> meshShader, imposterShader;
@@ -281,6 +297,8 @@ private:
     std::vector<float> cameraDistances;
 
     glm::mat4 view, projection;
+
+    float globalAlpha = 1.0f;
 
     const char * meshVertexShader =
         "#version " GLSL_VERSION "\n"
@@ -309,6 +327,7 @@ private:
         "uniform vec4 lightPos;\n"
         "uniform vec4 lightColour;\n"
         "uniform float ambientLight;\n"
+        "uniform float globalAlpha;\n"
         "in vec4 o_colour;\n"
         "in vec3 o_normal;\n"
         "in vec3 fragPos;\n"
@@ -317,7 +336,7 @@ private:
         "{\n"
         "    vec3 lightDir = normalize(lightPos.xyz - fragPos);\n"
         "    float diff = max(dot(normalize(o_normal), lightDir), 0.0);\n"
-        "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a);\n"
+        "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a*globalAlpha);\n"
         "}";
 
     const char * imposterVertexShader =
@@ -357,6 +376,7 @@ private:
         "uniform vec4 lightPos;\n"
         "uniform vec4 lightColour;\n"
         "uniform float ambientLight;\n"
+        "uniform float globalAlpha;\n"
         "bool sphereHit(vec3 rayDirection, vec3 centre, float radius, out vec3 pos, out vec3 normal)\n"
         "{\n"
         "    float b = 2.0 * dot(rayDirection, -centre);\n"
@@ -380,7 +400,7 @@ private:
         "    float ndcDepth = clipPos.z / clipPos.w;\n"
         "    gl_FragDepth = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;\n"
         "    float diff = max(dot(normalize(viewNormal), normalize(lightViewPos-atomViewPos)), 0.0);\n"
-        "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a);\n"
+        "    colour = vec4((ambientLight + diff)*lightColour.rgb * o_colour.rgb, o_colour.a*globalAlpha);\n"
         "}";
 
     void setProjectionView()

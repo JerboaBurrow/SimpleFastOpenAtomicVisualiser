@@ -131,6 +131,7 @@ int main(int argv, char ** argc)
         options.mesh.value
     );
     atomRenderer.setAtomScale(options.atomSize.value);
+    atomRenderer.setGlobalAlpha(options.globalAtomAlpha.value);
 
     BondRenderer bondRenderer
     (
@@ -140,6 +141,7 @@ int main(int argv, char ** argc)
     );
 
     bondRenderer.setBondScale(options.bondSize.value);
+    bondRenderer.setGlobalAlpha(options.globalBondAlpha.value);
 
     Axes axes(camera);
     Cell cell
@@ -342,11 +344,12 @@ int main(int argv, char ** argc)
             }
         }
 
+        bondRenderer.draw();
         if (!options.hideAtoms.value)
         {
             atomRenderer.draw(!options.meshes.value);
         }
-        bondRenderer.draw();
+
 
         visualisationState.frame = structure->framePosition();
         if (visualisationState.frame > 0) { visualisationState.frame -= 1; }

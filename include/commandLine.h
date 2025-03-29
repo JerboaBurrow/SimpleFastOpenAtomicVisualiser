@@ -289,6 +289,8 @@ struct CommandLine
         extractArgument(focus, arguments);
         extractArgument(speed, arguments);
         extractArgument(script, arguments);
+        extractArgument(globalAtomAlpha, arguments);
+        extractArgument(globalBondAlpha, arguments);
 
         #ifdef WITH_FFMPEG
         extractArgument(cq, arguments);
@@ -317,6 +319,8 @@ struct CommandLine
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", NULL_INDEX};
     Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60};
     Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}};
+    Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
+    Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
 
     #ifdef WITH_FFMPEG
     Argument<std::string> codec = {"codec", "FFmpeg codec name (see ffmpeg -codecs).", "libx264"};
@@ -424,6 +428,10 @@ struct CommandLine
           << argumentHelp(showCell)
           << "\n"
           << argumentHelp(deemphasisAlpha)
+          << "\n"
+          << argumentHelp(globalAtomAlpha)
+          << "\n"
+          << argumentHelp(globalBondAlpha)
           << "\n"
           << argumentHelp(noTransparencySorting)
           << "\n"

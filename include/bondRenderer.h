@@ -48,6 +48,7 @@ public:
         shader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
         shader->setUniform<float>("ambientLight", 0.1f);
         setBondScale(1.0f);
+        setGlobalAlpha(globalAlpha);
         init();
         for (const auto & ibonds : bonds)
         {
@@ -240,6 +241,19 @@ public:
      */
     void draw() { draw(nBonds); }
 
+    /**
+     * @brief Set the global alpha multiplier.
+     *
+     * @param alpha the new alpha multiplier.
+     * @remark alpha is clamped to [0, 1].
+     */
+    void setGlobalAlpha(float alpha)
+    {
+        globalAlpha = std::max(0.0f, std::min(alpha, 1.0f));
+        shader->use();
+        shader->setUniform<float>("globalAlpha", globalAlpha);
+    }
+
 
 private:
 
@@ -260,6 +274,8 @@ private:
 
     uint64_t index = 0;
     bool transparencySortingEnabled = true;
+
+    float globalAlpha;
 
     const std::array<float, 8> quad =
     {
@@ -320,6 +336,7 @@ private:
         "uniform vec4 lightColour;\n"
         "uniform float ambientLight;\n"
         "uniform float bondScale;\n"
+        "uniform float globalAlpha;\n"
         "bool sphereHit(vec3 rayDirection, vec3 centre, float radius, out vec3 pos, out vec3 normal)\n"
         "{\n"
         "    float b = 2.0 * dot(rayDirection, -centre);\n"
@@ -407,7 +424,7 @@ private:
         "       float diff = max(dot(viewNormal, normalize(lightViewPos-projectedHitPoint)), 0.0);\n"
         "       vec4 col = a_colour;\n"
         "       if (s > 0.5*midLength) { col = b_colour; }\n"
-        "       colour = vec4((ambientLight + diff)*lightColour.rgb * col.rgb, col.a);\n"
+        "       colour = vec4((ambientLight + diff)*lightColour.rgb * col.rgb, col.a*globalAlpha);\n"
         "    }\n"
         "}";
 
