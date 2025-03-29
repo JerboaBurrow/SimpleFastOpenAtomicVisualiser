@@ -309,6 +309,7 @@ struct CommandLine
     }
 
     Argument<std::filesystem::path> structure = {"atoms", "The structure path.", {}};
+    Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}};
 
     Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0};
     Argument<uint8_t> msaa = {"msaa", "MSAA level [0-32].", 0};
@@ -325,10 +326,6 @@ struct CommandLine
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX};
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", NULL_INDEX};
-
-    Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}};
-    Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
-    Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
 
     #ifdef WITH_FFMPEG
     Argument<std::string> codec = {"codec", "FFmpeg codec name (see ffmpeg -codecs).", "libx264"};
