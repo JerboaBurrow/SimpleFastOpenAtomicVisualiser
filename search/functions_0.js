@@ -10,6 +10,6 @@ var searchData=
   ['atomcoloursfromfile_7',['atomColoursFromFile',['../colour_8h.html#a761e4379a6151ad25fd373d9d8a9c521',1,'colour.h']]],
   ['atomcontrols_8',['atomControls',['../main_8h.html#a57d875f716a27f2802253e281f332c64',1,'main.h']]],
   ['atomcount_9',['atomCount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure']]],
-  ['atomrenderer_10',['AtomRenderer',['../classAtomRenderer.html#aa76ad11c26c5e57f0a383a05c7e5921a',1,'AtomRenderer']]],
+  ['atomrenderer_10',['AtomRenderer',['../classAtomRenderer.html#a7242aeaa5d53be070da37c3d8d9638ed',1,'AtomRenderer']]],
   ['axes_11',['Axes',['../classAxes.html#af7cf27b215938a08ed5bb11e59a48cc3',1,'Axes']]]
 ];
