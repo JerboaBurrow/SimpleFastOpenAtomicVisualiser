@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <string>
+#include <sstream>
 #include <limits.h>
 #include <filesystem>
 #include <algorithm>
@@ -99,6 +100,7 @@ std::string fixedLengthNumber(double x, unsigned length)
 /**
  * @brief Split a std::string by a std::regex token.
  *
+ * @remark The token match is retained as part of the split strings.
  * @param str the std::string to split.
  * @param delim the std::regex delimiter.
  * @return std::vector<std::string> the substrings split on delim.
@@ -121,6 +123,52 @@ std::vector<std::string> split(std::string str, std::regex delim)
         s.push_back(str.substr(key, next-1-key));
     }
     return s;
+}
+
+void remove(std::string & str, const char ch)
+{
+    str.erase(std::remove(str.begin(), str.end(), ch), str.cend());
+}
+
+/**
+ * @brief Combined two strings (split by newlines) side by side.
+ *
+ * @param left the strings to place on the left.
+ * @param right the strings to place on the right.
+ * @param rjust the start of the right hand strings.
+ * @return std::string the combined strings.
+ */
+std::string sidebyside(std::string left, std::string right, uint8_t rjust)
+{
+    std::vector<std::string> l = split(left, std::regex("\\n"));
+    std::vector<std::string> r = split(right, std::regex("\\n"));
+
+    for (auto & str : l) { remove(str, '\n'); }
+    for (auto & str : r) { remove(str, '\n'); }
+
+    std::string combined;
+    std::vector<std::string>::iterator riter = r.begin();
+    for (auto liter = l.begin(); liter != l.end(); liter++)
+    {
+        combined += *liter;
+        if (riter != r.end())
+        {
+            int padding = std::max(int(rjust)-int((*liter).size()), 0);
+            combined += std::string(padding, ' ') + *riter + "\n";
+            riter++;
+        }
+        else
+        {
+            combined += "\n";
+        }
+    }
+
+    while (riter != r.end())
+    {
+        combined += std::string(rjust, ' ') + *riter + "\n";
+        riter++;
+    }
+    return combined;
 }
 
 /**
