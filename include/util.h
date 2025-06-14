@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <string>
+#include <sstream>
 #include <limits.h>
 #include <filesystem>
 #include <algorithm>
@@ -111,16 +112,54 @@ std::vector<std::string> split(std::string str, std::regex delim)
     auto key = matches->position();
     if (key > 0)
     {
-        s.push_back(str.substr(0, key-1));
+        s.push_back(str.substr(0, key));
     }
     while (matches != std::sregex_iterator())
     {
         key = matches->position();
         matches++;
         auto next = matches->position();
-        s.push_back(str.substr(key, next-1-key));
+        s.push_back(str.substr(key+1, next-1-key));
     }
     return s;
+}
+
+/**
+ * @brief Combined two strings (split by newlines) side by side.
+ *
+ * @param left the strings to place on the left.
+ * @param right the strings to place on the right.
+ * @param rjust the start of the right hand strings.
+ * @return std::string the combined strings.
+ */
+std::string sidebyside(std::string left, std::string right, uint8_t rjust)
+{
+    std::vector<std::string> l = split(left, std::regex("\\n"));
+    std::vector<std::string> r = split(right, std::regex("\\n"));
+
+    std::string combined;
+    std::vector<std::string>::iterator riter = r.begin();
+    for (auto liter = l.begin(); liter != l.end(); liter++)
+    {
+        combined += *liter;
+        if (riter != r.end())
+        {
+            int padding = std::max(int(rjust)-int((*liter).size()), 0);
+            combined += std::string(padding, ' ') + *riter + "\n";
+            riter++;
+        }
+        else
+        {
+            combined += "\n";
+        }
+    }
+
+    while (riter != r.end())
+    {
+        combined += std::string(rjust, ' ') + *riter + "\n";
+        riter++;
+    }
+    return combined;
 }
 
 /**

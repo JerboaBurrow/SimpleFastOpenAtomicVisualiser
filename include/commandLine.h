@@ -13,11 +13,11 @@
 
 #include <hierarchicalTriangularMesh.h>
 #include <constants.h>
+#include <util.h>
 #include <lua.h>
 #include <LuaBool.h>
 #include <LuaNumber.h>
 #include <LuaString.h>
-
 /**
  * @brief A command line argument.
  *
@@ -28,6 +28,7 @@ struct Argument
 {
     std::string name;
     std::string description;
+    std::string note;
     T defaultValue;
     T value;
 
@@ -37,16 +38,19 @@ struct Argument
      * @tparam T the Argument's value type.
      * @param name the arguments name (without "-" prefix).
      * @param description the help description.
+     * @param note the argument note.
      * @param defaultValue the default value.
      */
     Argument
     (
         std::string name,
         std::string description,
+        std::string note,
         T defaultValue
     )
     : name(name),
       description(description),
+      note(note),
       defaultValue(defaultValue),
       value(defaultValue)
     {}
@@ -69,6 +73,11 @@ std::string argumentHelp(const Argument<T> & arg)
       << "\n   Default: "
       << arg.defaultValue
       << ".";
+      if (arg.note != "")
+      {
+        h << "\n   Note: "
+        << arg.note;
+      }
     return h.str();
 }
 
@@ -88,6 +97,11 @@ std::string argumentHelp<uint8_t>(const Argument<uint8_t> & arg)
       << "\n   Default: "
       << int(arg.defaultValue)
       << ".";
+      if (arg.note != "")
+      {
+        h << "\n   Note: "
+        << arg.note;
+      }
     return h.str();
 }
 
@@ -103,11 +117,15 @@ std::string argumentHelp<bool>(const Argument<bool> & arg)
     std::stringstream h;
     h << " --"
       << arg.name << "\n  "
-      << "Flag\n  "
       << arg.description
       << "\n   Default: "
       << (arg.defaultValue ? "True" : "False")
       << ".";
+      if (arg.note != "")
+      {
+        h << "\n   Note: "
+        << arg.note;
+      }
     return h.str();
 }
 
@@ -310,48 +328,48 @@ struct CommandLine
         #endif
     }
 
-    Argument<std::filesystem::path> structure = {"atoms", "The structure path.", {}};
-    Argument<std::filesystem::path> script = {"script", "Path for a Lua script", {}};
+    Argument<std::filesystem::path> structure = {"atoms", "Structure path.", "", {}};
+    Argument<std::filesystem::path> script = {"script", "Path to Lua script", "Called each frame.", {}};
 
-    Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail for procedural meshes.", 0};
-    Argument<uint8_t> msaa = {"msaa", "MSAA level [0-32].", 0};
-    Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", 60};
-    Argument<BASE_MESH> mesh = {"mesh", "The procedural mesh type.", BASE_MESH::ANY};
-    Argument<float> bondCutoff = {"bondCutOff","Angstrom cutoff to create a bond.", 0.0f};
-    Argument<float> bondSize = {"bondSize", "The size of bonds.", 1.0f};
-    Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", 1.0f};
-    Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
-    Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
-    Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f};
-    Argument<float> atomClipCorrection = {"atomClipCorrection", "Correction factor atom impostor rendering.", 1.5f};
-    Argument<float> bondClipCorrection = {"bondClipCorrection", "Correction factor bond impostor rendering.", 5.0f};
-    Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}};
-    Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", {}};
-    Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}};
-    Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds involving this atom index.", NULL_INDEX};
-    Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", NULL_INDEX};
+    Argument<uint8_t> levelOfDetail = {"levelOfDetail", "Level of detail of meshes.", "", 0};
+    Argument<uint8_t> msaa = {"msaa", "MSAA level [0-32].", "", 0};
+    Argument<uint8_t> speed = {"speed", "Play speed between 1 and 60.", "", 60};
+    Argument<BASE_MESH> mesh = {"mesh", "Procedural mesh type.", "", BASE_MESH::ANY};
+    Argument<float> bondCutoff = {"bondCutOff","Cutoff to create a bond.", "", 0.0f};
+    Argument<float> bondSize = {"bondSize", "Size of bonds.", "", 1.0f};
+    Argument<float> atomSize = {"atomSize", "Global atom size scaling factor.", "", 1.0f};
+    Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", "", 1.0f};
+    Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", "", 1.0f};
+    Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour for deemphasised atoms.", "", 0.25f};
+    Argument<float> atomClipCorrection = {"atomClipCorrection", "Correction for atom impostors.", "Increase if atoms clipped.", 1.5f};
+    Argument<float> bondClipCorrection = {"bondClipCorrection", "Correction for bond impostors.", "Increase if atoms clipped.", 5.0f};
+    Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", "", {}};
+    Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", "", {}};
+    Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", "", {512, 512}};
+    Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds for this atom.", "", NULL_INDEX};
+    Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", "", NULL_INDEX};
 
     #ifdef WITH_FFMPEG
-    Argument<std::string> codec = {"codec", "FFmpeg codec name (see ffmpeg -codecs).", "libx264"};
-    Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", 18};
-    Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", 18};
-    Argument<uint8_t> cq = {"cq", "Set the FFmpeg cp (0-51).", 0};
-    Argument<uint64_t> maxBFrames = {"maxBFrames", "Set the FFmpeg maxBFrames.", 0};
-    Argument<uint64_t> gopSize = {"gopSize", "Set the FFmpeg GOP size.", 1};
-    Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "slow"};
-    Argument<std::string> profile = {"profile", "Set the FFmpeg profile.", "main"};
+    Argument<std::string> codec = {"codec", "FFmpeg codec name.", "See ffmpeg -codecs", "libx264"};
+    Argument<uint8_t> crf = {"crf", "Set the FFmpeg crf (0-51).", "Use with e.g. libx264", 18};
+    Argument<uint8_t> qp = {"qp", "Set the FFmpeg qp (0-51).", "Use with e.g. h264_nvenc", 18};
+    Argument<uint8_t> cq = {"cq", "Set the FFmpeg cp (0-51).", "", 0};
+    Argument<uint64_t> maxBFrames = {"maxBFrames", "Set the FFmpeg maxBFrames.", "", 0};
+    Argument<uint64_t> gopSize = {"gopSize", "Set the FFmpeg GOP size.", "", 1};
+    Argument<std::string> preset = {"preset", "Set the FFmpeg preset.", "", "slow"};
+    Argument<std::string> profile = {"profile", "Set the FFmpeg profile.", "", "main"};
     #endif
 
-    Argument<bool> meshes = {"meshes", "Whether to use meshes for atoms.", false};
-    Argument<bool> hideAtoms = {"hideAtoms", "Whether to hide atoms (toggle-able at runtime).", false};
-    Argument<bool> showAxes = {"showAxes", "Whether to show the coordinate axes (toggle-able at runtime).", false};
-    Argument<bool> showCell = {"showCell", "Whether to show the simulation cell (toggle-able at runtime).", false};
-    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text (toggle-able at runtime).", false};
-    Argument<bool> play = {"play", "Set to play trajectories at start up (toggle-able at runtime).", false};
-    Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", false};
-    Argument<bool> darkTheme = {"darkTheme", "Use dark theme", false};
-    Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting for faster rendering.", false};
-    Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", false};
+    Argument<bool> meshes = {"meshes", "Use meshes for atoms.", "Toggleable at runtime.", false};
+    Argument<bool> hideAtoms = {"hideAtoms", "Hide atoms.", "Toggleable at runtime.", false};
+    Argument<bool> showAxes = {"showAxes", "Show the coordinate axes.", "Toggleable at runtime.", false};
+    Argument<bool> showCell = {"showCell", "Show the simulation cell.", "Toggleable at runtime.", false};
+    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text.", "Toggleable at runtime.", false};
+    Argument<bool> play = {"play", "Play trajectory.", "Toggleable at runtime.", false};
+    Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", "Toggleable at runtime.", false};
+    Argument<bool> darkTheme = {"darkTheme", "Use dark theme", "Toggleable at runtime.", false};
+    Argument<bool> noTransparencySorting = {"noTransparencySorting", "Disable transparency sorting.", "Toggleable at runtime.", false};
+    Argument<bool> sizeByMass = {"sizeByMass", "Size elements by mass.", "Toggleable at runtime.", false};
 
     /**
      * @brief Set an option from Lua.
@@ -570,81 +588,47 @@ struct CommandLine
         h << banner
           << "\n"
           << VERSION
-          << "\nUsage:\n"
-          << argumentHelp(structure)
+          << "\nUsage:\n\n sfoav structure_path [options...]"
+          << "\n\nOptions:\n\n"
+          << " -[] takes a value, --[] is a flag.\n\n"
+          << sidebyside(argumentHelp(resolution), argumentHelp(msaa), 42)
           << "\n"
-          << argumentHelp(play)
+          << sidebyside(argumentHelp(script), argumentHelp(darkTheme), 42)
           << "\n"
-          << argumentHelp(colourmap)
+          << sidebyside(argumentHelp(bondSize), argumentHelp(bondCutoff), 42)
           << "\n"
-          << argumentHelp(atomColours)
+          << sidebyside(argumentHelp(atomSize), argumentHelp(sizeByMass), 42)
           << "\n"
-          << argumentHelp(mesh)
+          << sidebyside(argumentHelp(bondFocus), argumentHelp(focus), 42)
           << "\n"
-          << argumentHelp(meshes)
+          << sidebyside(argumentHelp(play), argumentHelp(speed), 42)
           << "\n"
-          << argumentHelp(levelOfDetail)
+          << sidebyside(argumentHelp(colourmap), argumentHelp(atomColours), 42)
           << "\n"
-          << argumentHelp(bondFocus)
+          << sidebyside(argumentHelp(mesh), argumentHelp(meshes), 42)
           << "\n"
-          << argumentHelp(focus)
+          << sidebyside(argumentHelp(hideAtoms), argumentHelp(deemphasisAlpha), 42)
           << "\n"
-          << argumentHelp(bondCutoff)
+          << sidebyside(argumentHelp(showAxes), argumentHelp(showCell), 42)
           << "\n"
-          << argumentHelp(bondSize)
+          << sidebyside(argumentHelp(atomClipCorrection), argumentHelp(bondClipCorrection), 42)
           << "\n"
-          << argumentHelp(atomSize)
+          << sidebyside(argumentHelp(globalAtomAlpha), argumentHelp(globalBondAlpha), 42)
           << "\n"
-          << argumentHelp(sizeByMass)
+          << sidebyside(argumentHelp(noCentering), argumentHelp(noTransparencySorting), 42)
           << "\n"
-          << argumentHelp(hideAtoms)
+          << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideInfoText), 42)
           << "\n"
-          << argumentHelp(showAxes)
-          << "\n"
-          << argumentHelp(showCell)
-          << "\n"
-          << argumentHelp(deemphasisAlpha)
-          << "\n"
-          << argumentHelp(atomClipCorrection)
-          << "\n"
-          << argumentHelp(bondClipCorrection)
-          << "\n"
-          << argumentHelp(globalAtomAlpha)
-          << "\n"
-          << argumentHelp(globalBondAlpha)
-          << "\n"
-          << argumentHelp(noTransparencySorting)
-          << "\n"
-          << argumentHelp(hideInfoText)
-          << "\n"
-          << argumentHelp(resolution)
-          << "\n"
-          << argumentHelp(msaa)
-          << "\n"
-          << argumentHelp(darkTheme)
-          << "\n"
-          << argumentHelp(speed)
-          << "\n"
-          << argumentHelp(noCentering)
-          << "\n"
-          << argumentHelp(script)
           #ifdef WITH_FFMPEG
+          << "\n FFMPEG recording options:\n\n"
+          << "   See here for advice https://trac.ffmpeg.org/wiki/Encode/H.264\n\n"
+          << sidebyside(argumentHelp(codec), argumentHelp(qp), 42)
           << "\n"
-          << argumentHelp(codec)
+          << sidebyside(argumentHelp(crf), argumentHelp(cq), 42)
           << "\n"
-          << argumentHelp(crf)
+          << sidebyside(argumentHelp(maxBFrames), argumentHelp(gopSize), 42)
           << "\n"
-          << argumentHelp(qp)
-          << "\n"
-          << argumentHelp(cq)
-          << "\n"
-          << argumentHelp(maxBFrames)
-          << "\n"
-          << argumentHelp(gopSize)
-          << "\n"
-          << argumentHelp(preset)
-          << "\n"
-          << argumentHelp(profile)
+          << sidebyside(argumentHelp(preset), argumentHelp(profile), 42)
           #endif
           << "\n";
         std::cout << h.str();
@@ -679,7 +663,8 @@ for details pass the argument `-gpl'.  This is free software,
 and you are welcome to redistribute it under certain conditions;
 pass the argument `-gpl' for details.
 
-Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser)";
+Repository: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser
+Bug reports: github.com/JerboaBurrow/SimpleFastOpenAtomicVisualiser/issues)";
 
     /**
      * @brief The OSS licenses.
