@@ -14,12 +14,13 @@ var searchData=
   ['recordframe_11',['recordFrame',['../structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699',1,'VisualisationState']]],
   ['recording_12',['recording',['../structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef',1,'VisualisationState']]],
   ['recordwaiting_13',['recordWaiting',['../structVisualisationState.html#a0d74d7dfb7432afb723de4cc60dbf9bc',1,'VisualisationState']]],
-  ['reset_14',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
-  ['resolution_15',['resolution',['../structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a',1,'CommandLine::resolution'],['../classRecord.html#a648cc4b7de39f266d76bdc8552673cf6',1,'Record::resolution']]],
-  ['rh_16',['Rh',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6148fe1f88038beee78fbaf681419d60',1,'element.h']]],
-  ['rn_17',['Rn',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ab102860774a4a4dd7a3737076df55605',1,'element.h']]],
-  ['rotate_18',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
-  ['ru_19',['Ru',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aabe295e74fbc82f9450d6537bcfebbed',1,'element.h']]],
-  ['runfile_20',['runFile',['../classConsole.html#a3b28d5cde30e2f5640dbe08081eb0f7f',1,'Console']]],
-  ['runstring_21',['runString',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console']]]
+  ['remove_14',['remove',['../util_8h.html#a928e1f5d56e044578ac29fba3b689eec',1,'util.h']]],
+  ['reset_15',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
+  ['resolution_16',['resolution',['../structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a',1,'CommandLine::resolution'],['../classRecord.html#a648cc4b7de39f266d76bdc8552673cf6',1,'Record::resolution']]],
+  ['rh_17',['Rh',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a6148fe1f88038beee78fbaf681419d60',1,'element.h']]],
+  ['rn_18',['Rn',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5ab102860774a4a4dd7a3737076df55605',1,'element.h']]],
+  ['rotate_19',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
+  ['ru_20',['Ru',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aabe295e74fbc82f9450d6537bcfebbed',1,'element.h']]],
+  ['runfile_21',['runFile',['../classConsole.html#a3b28d5cde30e2f5640dbe08081eb0f7f',1,'Console']]],
+  ['runstring_22',['runString',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console']]]
 ];

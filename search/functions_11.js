@@ -8,8 +8,9 @@ var searchData=
   ['record_5',['Record',['../classRecord.html#a7f283873b7ab2337c3ba801163be4f61',1,'Record']]],
   ['recordframe_6',['recordFrame',['../structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699',1,'VisualisationState']]],
   ['recordwaiting_7',['recordWaiting',['../structVisualisationState.html#a0d74d7dfb7432afb723de4cc60dbf9bc',1,'VisualisationState']]],
-  ['reset_8',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
-  ['rotate_9',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
-  ['runfile_10',['runFile',['../classConsole.html#a3b28d5cde30e2f5640dbe08081eb0f7f',1,'Console']]],
-  ['runstring_11',['runString',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console']]]
+  ['remove_8',['remove',['../util_8h.html#a928e1f5d56e044578ac29fba3b689eec',1,'util.h']]],
+  ['reset_9',['reset',['../classCamera.html#a02be8aa0dbef77e02dddc715a726fb67',1,'Camera::reset()'],['../classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634',1,'Camera::reset(const std::vector&lt; Atom &gt; &amp;atoms)']]],
+  ['rotate_10',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
+  ['runfile_11',['runFile',['../classConsole.html#a3b28d5cde30e2f5640dbe08081eb0f7f',1,'Console']]],
+  ['runstring_12',['runString',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console']]]
 ];

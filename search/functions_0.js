@@ -2,7 +2,7 @@ var searchData=
 [
   ['applycolours_0',['applyColours',['../atom_8h.html#a53f882dc290bdd9ff140a6033ec162f2',1,'atom.h']]],
   ['applysizes_1',['applySizes',['../atom_8h.html#a13042db1167690c39832c6741917abdf',1,'atom.h']]],
-  ['argument_2',['Argument',['../structArgument.html#a07495b1c0f801a84862f6b1f4831fc9f',1,'Argument']]],
+  ['argument_2',['Argument',['../structArgument.html#a4c368cc36620f46927470a6a3ab0f2bb',1,'Argument']]],
   ['argumenthelp_3',['argumentHelp',['../commandLine_8h.html#a794a1aa8ccd247194fa0c5e64138926a',1,'commandLine.h']]],
   ['argumenthelp_3c_20bool_20_3e_4',['argumentHelp&lt; bool &gt;',['../commandLine_8h.html#a5039bceffa43e4f1a086ef9094aa2d1f',1,'commandLine.h']]],
   ['argumenthelp_3c_20uint8_5ft_20_3e_5',['argumentHelp&lt; uint8_t &gt;',['../commandLine_8h.html#a724666a5ee496a9956cb5c87c72e20e1',1,'commandLine.h']]],
