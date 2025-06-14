@@ -113,7 +113,7 @@ std::vector<std::string> split(std::string str, std::regex delim)
     auto key = matches->position();
     if (key > 0)
     {
-        s.push_back(str.substr(0, key-1));
+        s.push_back(str.substr(0, key));
     }
     while (matches != std::sregex_iterator())
     {
