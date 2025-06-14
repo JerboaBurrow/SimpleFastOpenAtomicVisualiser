@@ -86,7 +86,8 @@ int main(int argv, char ** argc)
         sfoavAtoms,
         options.levelOfDetail.value,
         loadingCamera.position(),
-        options.mesh.value
+        options.mesh.value,
+        options.atomClipCorrection.value
     );
     loadingAtoms.setAtomScale(options.atomSize.value);
 
@@ -128,7 +129,8 @@ int main(int argv, char ** argc)
         structure->atoms,
         options.levelOfDetail.value,
         camera.position(),
-        options.mesh.value
+        options.mesh.value,
+        options.atomClipCorrection.value
     );
     atomRenderer.setAtomScale(options.atomSize.value);
     atomRenderer.setGlobalAlpha(options.globalAtomAlpha.value);
@@ -137,7 +139,8 @@ int main(int argv, char ** argc)
     (
         visualisationState.bonds,
         structure->atoms,
-        visualisationState.bonds.size()
+        visualisationState.bonds.size(),
+        options.bondClipCorrection.value
     );
 
     bondRenderer.setBondScale(options.bondSize.value);
