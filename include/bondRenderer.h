@@ -25,6 +25,7 @@ public:
      * @param atoms the Atoms with bonds Bonds.
      * @param maxBonds a hint to the maximum number of Bonds.
      * @param bondPad number of bonds to increase maximum by on overflow.
+     * @param clipCorrection correction factor for impostor rendering.
      * Default to 1024.
      */
     BondRenderer
@@ -32,7 +33,8 @@ public:
         const std::map<uint64_t, std::set<uint64_t>> & bonds,
         const std::vector<Atom> & atoms,
         uint64_t maxBonds,
-        uint64_t bondPad = 1024
+        uint64_t bondPad = 1024,
+        float clipCorrection = 5.0f
     )
     : nBonds(0), bondPadding(bondPad)
     {
@@ -44,7 +46,7 @@ public:
 
         shader = std::make_unique<jGL::GL::glShader>(vertexShader, fragmentShader);
         shader->use();
-        shader->setUniform<float>("clipCorrection", 3.0f);
+        shader->setUniform<float>("clipCorrection", clipCorrection);
         shader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
         shader->setUniform<float>("ambientLight", 0.1f);
         setBondScale(1.0f);

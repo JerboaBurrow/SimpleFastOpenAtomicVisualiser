@@ -285,6 +285,8 @@ struct CommandLine
         extractArgument(bondCutoff, arguments);
         extractArgument(bondSize, arguments);
         extractArgument(deemphasisAlpha, arguments);
+        extractArgument(atomClipCorrection, arguments);
+        extractArgument(bondClipCorrection, arguments);
         extractArgument(colourmap, arguments);
         extractArgument(atomColours, arguments);
         extractArgument(atomSize, arguments);
@@ -321,6 +323,8 @@ struct CommandLine
     Argument<float> globalAtomAlpha = {"globalAtomAlpha", "Alpha colour multiplier for atoms", 1.0f};
     Argument<float> globalBondAlpha = {"globalBondAlpha", "Alpha colour multiplier for bonds", 1.0f};
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour channel for deemphasised atoms.", 0.25f};
+    Argument<float> atomClipCorrection = {"atomClipCorrection", "Correction factor atom impostor rendering.", 1.5f};
+    Argument<float> bondClipCorrection = {"bondClipCorrection", "Correction factor bond impostor rendering.", 5.0f};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", {}};
     Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", {}};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", {512, 512}};
@@ -600,6 +604,10 @@ struct CommandLine
           << argumentHelp(showCell)
           << "\n"
           << argumentHelp(deemphasisAlpha)
+          << "\n"
+          << argumentHelp(atomClipCorrection)
+          << "\n"
+          << argumentHelp(bondClipCorrection)
           << "\n"
           << argumentHelp(globalAtomAlpha)
           << "\n"
@@ -948,7 +956,9 @@ private:
             {atomSize.name, atomSize},
             {globalAtomAlpha.name, globalAtomAlpha},
             {globalBondAlpha.name, globalBondAlpha},
-            {deemphasisAlpha.name, deemphasisAlpha}
+            {deemphasisAlpha.name, deemphasisAlpha},
+            {atomClipCorrection.name, atomClipCorrection},
+            {bondClipCorrection.name, bondClipCorrection},
         };
 
         if (values.find(name) != values.cend())

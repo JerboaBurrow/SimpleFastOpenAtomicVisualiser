@@ -36,19 +36,21 @@ public:
      * @param levelOfDetail the level of detail.
      * @param cameraPosition the cartesian position of the camera.
      * @param mesh the base mesh type. @see BASE_MESH.
+     * @param clipCorrection correction factor for impostor rendering.
      */
     AtomRenderer
     (
         const std::vector<Atom> & atoms,
         uint8_t levelOfDetail = 0,
         glm::vec3 cameraPosition = glm::vec3(0),
-        BASE_MESH mesh = BASE_MESH::ANY
+        BASE_MESH mesh = BASE_MESH::ANY,
+        float clipCorrection = 1.5f
     )
     {
         meshShader = std::make_unique<jGL::GL::glShader>(meshVertexShader, meshFragmentShader);
         imposterShader = std::make_unique<jGL::GL::glShader>(imposterVertexShader, imposterFragmentShader);
         imposterShader->use();
-        imposterShader->setUniform<float>("clipCorrection", 1.5f);
+        imposterShader->setUniform<float>("clipCorrection", clipCorrection);
         imposterShader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
         imposterShader->setUniform<float>("ambientLight", 0.1f);
 
