@@ -759,6 +759,23 @@ SCENARIO("Lua options interop")
             }
         }
 
+        WHEN("The script \"v = sfoav.getOption(\"videoName\");\"")
+        {
+            console.runString("v = sfoav.getOption(\"videoName\");");
+            THEN("v is """)
+            {
+                REQUIRE(console.getGlobal<LuaString>("v").characters == "");
+            }
+            WHEN("The script \"sfoav.setOption(\"videoName\", \"TEST\"); v = sfoav.getOption(\"videoName\");\"")
+            {
+                console.runString("sfoav.setOption(\"videoName\", \"TEST\"); v = sfoav.getOption(\"videoName\");");
+                THEN("v is \"TEST\"")
+                {
+                    REQUIRE("TEST" == console.getGlobal<LuaString>("v").characters);
+                }
+            }
+        }
+
         #ifdef WITH_FFMPEG
         WHEN("The script \"v = sfoav.getOption(\"preset\");\"")
         {
@@ -767,10 +784,10 @@ SCENARIO("Lua options interop")
             {
                 REQUIRE(console.getGlobal<LuaString>("v").characters == slow);
             }
-            WHEN("The script \"sfoav.setOption(\"preset\", TEST); v = sfoav.getOption(\"preset\");\"")
+            WHEN("The script \"sfoav.setOption(\"preset\", \"TEST\"); v = sfoav.getOption(\"preset\");\"")
             {
-                console.runString("sfoav.setOption(\"preset\", TEST); v = sfoav.getOption(\"preset\");");
-                THEN("v is TEST")
+                console.runString("sfoav.setOption(\"preset\", \"TEST\"); v = sfoav.getOption(\"preset\");");
+                THEN("v is \"TEST\"")
                 {
                     REQUIRE("TEST" == console.getGlobal<LuaString>("v").characters);
                 }
@@ -783,10 +800,10 @@ SCENARIO("Lua options interop")
             {
                 REQUIRE(console.getGlobal<LuaString>("v").characters == libx264);
             }
-            WHEN("The script \"sfoav.setOption(\"codec\", TEST); v = sfoav.getOption(\"codec\");\"")
+            WHEN("The script \"sfoav.setOption(\"codec\", \"TEST\"); v = sfoav.getOption(\"codec\");\"")
             {
-                console.runString("sfoav.setOption(\"codec\", TEST); v = sfoav.getOption(\"codec\");");
-                THEN("v is TEST")
+                console.runString("sfoav.setOption(\"codec\", \"TEST\"); v = sfoav.getOption(\"codec\");");
+                THEN("v is \"TEST\"")
                 {
                     REQUIRE("TEST" == console.getGlobal<LuaString>("v").characters);
                 }
@@ -799,10 +816,10 @@ SCENARIO("Lua options interop")
             {
                 REQUIRE(console.getGlobal<LuaString>("v").characters == main);
             }
-            WHEN("The script \"sfoav.setOption(\"profile\", TEST); v = sfoav.getOption(\"profile\");\"")
+            WHEN("The script \"sfoav.setOption(\"profile\", \"TEST\"); v = sfoav.getOption(\"profile\");\"")
             {
-                console.runString("sfoav.setOption(\"profile\", TEST); v = sfoav.getOption(\"profile\");");
-                THEN("v is TEST")
+                console.runString("sfoav.setOption(\"profile\", \"TEST\"); v = sfoav.getOption(\"profile\");");
+                THEN("v is \"TEST\"")
                 {
                     REQUIRE("TEST" == console.getGlobal<LuaString>("v").characters);
                 }

@@ -52,12 +52,21 @@ for (option, default) in [("levelOfDetail", 0), ("msaa", 0),
         test = test.replace(k, v)
     tests += test+"\n"
 
+for (option, default) in [("videoName", "\"\"")]:
+    test = generate_test
+    for (k, v) in [("meshes", option), ("DEFAULT", str(default)),
+                   ("SET", "\\\"TEST\\\""), ("TYPE", "LuaString"),
+                   ("MEMBER", "characters"),
+                   ("CONDITION", "REQUIRE(\"TEST\" == console.getGlobal<LuaString>(\"v\").characters);")]:
+        test = test.replace(k, v)
+    tests += test+"\n"
+
 tests += "        #ifdef WITH_FFMPEG\n"
 for (option, default) in [("preset", "slow"), ("codec", "libx264"),
                           ("profile", "main")]:
     test = generate_test
     for (k, v) in [("meshes", option), ("DEFAULT", str(default)),
-                   ("SET", "TEST"), ("TYPE", "LuaString"),
+                   ("SET", "\\\"TEST\\\""), ("TYPE", "LuaString"),
                    ("MEMBER", "characters"),
                    ("CONDITION", "REQUIRE(\"TEST\" == console.getGlobal<LuaString>(\"v\").characters);")]:
         test = test.replace(k, v)

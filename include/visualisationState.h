@@ -148,7 +148,8 @@ struct VisualisationState
     {
         if (!recording)
         {
-            std::string name = timeStamp()+std::string(".mp4");
+            std::string name = options.videoName.value;
+            if (name == "") {  name = timeStamp()+std::string(".mp4"); }
             #ifdef WITH_FFMPEG
             record = std::make_unique<FFmpegRecord>
             (
