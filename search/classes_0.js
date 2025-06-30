@@ -5,10 +5,11 @@ var searchData=
   ['argument_3c_20bool_20_3e_2',['Argument&lt; bool &gt;',['../structArgument.html',1,'']]],
   ['argument_3c_20float_20_3e_3',['Argument&lt; float &gt;',['../structArgument.html',1,'']]],
   ['argument_3c_20std_3a_3afilesystem_3a_3apath_20_3e_4',['Argument&lt; std::filesystem::path &gt;',['../structArgument.html',1,'']]],
-  ['argument_3c_20uint64_5ft_20_3e_5',['Argument&lt; uint64_t &gt;',['../structArgument.html',1,'']]],
-  ['argument_3c_20uint8_5ft_20_3e_6',['Argument&lt; uint8_t &gt;',['../structArgument.html',1,'']]],
-  ['argument_3c_20vec_3c_202_20_3e_20_3e_7',['Argument&lt; vec&lt; 2 &gt; &gt;',['../structArgument.html',1,'']]],
-  ['atom_8',['Atom',['../classAtom.html',1,'']]],
-  ['atomrenderer_9',['AtomRenderer',['../classAtomRenderer.html',1,'']]],
-  ['axes_10',['Axes',['../classAxes.html',1,'']]]
+  ['argument_3c_20std_3a_3astring_20_3e_5',['Argument&lt; std::string &gt;',['../structArgument.html',1,'']]],
+  ['argument_3c_20uint64_5ft_20_3e_6',['Argument&lt; uint64_t &gt;',['../structArgument.html',1,'']]],
+  ['argument_3c_20uint8_5ft_20_3e_7',['Argument&lt; uint8_t &gt;',['../structArgument.html',1,'']]],
+  ['argument_3c_20vec_3c_202_20_3e_20_3e_8',['Argument&lt; vec&lt; 2 &gt; &gt;',['../structArgument.html',1,'']]],
+  ['atom_9',['Atom',['../classAtom.html',1,'']]],
+  ['atomrenderer_10',['AtomRenderer',['../classAtomRenderer.html',1,'']]],
+  ['axes_11',['Axes',['../classAxes.html',1,'']]]
 ];

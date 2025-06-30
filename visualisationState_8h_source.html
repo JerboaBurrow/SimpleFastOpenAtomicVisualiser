@@ -211,139 +211,140 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    {</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a>)</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        {</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            std::string name = <a class="code hl_function" href="util_8h.html#adbd99c78cd13454678fd744c97e28542">timeStamp</a>()+std::string(<span class="stringliteral">&quot;.mp4&quot;</span>);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">            #ifdef WITH_FFMPEG</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> = std::make_unique&lt;FFmpegRecord&gt;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            (</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                name,</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                options.<a class="code hl_variable" href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">resolution</a>.<a class="code hl_variable" href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">value</a>,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                60,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                options.preset.value,</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                options.profile.value,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                options.crf.value,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                options.cq.value,</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                options.qp.value,</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                options.codec.value,</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                options.maxBFrames.value,</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                options.gopSize.value</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            );</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;FFmpeg &quot;</span>;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> = std::make_unique&lt;JompegRecord&gt;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            (</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                name,</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                options.<a class="code hl_variable" href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">resolution</a>.<a class="code hl_variable" href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">value</a>,</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                60</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            );</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;jo_mpeg &quot;</span>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">            #endif</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;recording to &quot;</span> + name + <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;open();</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        }</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a>)</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;finalise())</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>.reset();</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                <a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            }</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            {</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <a class="code hl_variable" href="structVisualisationState.html#a9cdec0876d779c5854ac1d1481342b60">recordClosing</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            }</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            std::string name = options.<a class="code hl_variable" href="structCommandLine.html#ad5fafe85e2aef507395548f22afd6151">videoName</a>.<a class="code hl_variable" href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">value</a>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;&quot;</span>) {  name = <a class="code hl_function" href="util_8h.html#adbd99c78cd13454678fd744c97e28542">timeStamp</a>()+std::string(<span class="stringliteral">&quot;.mp4&quot;</span>); }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">            #ifdef WITH_FFMPEG</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> = std::make_unique&lt;FFmpegRecord&gt;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            (</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                name,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                options.<a class="code hl_variable" href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">resolution</a>.<a class="code hl_variable" href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">value</a>,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                60,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                options.preset.value,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                options.profile.value,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                options.crf.value,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                options.cq.value,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                options.qp.value,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                options.codec.value,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                options.maxBFrames.value,</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                options.gopSize.value</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            );</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;FFmpeg &quot;</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">            #else</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> = std::make_unique&lt;JompegRecord&gt;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            (</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                name,</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                options.<a class="code hl_variable" href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">resolution</a>.<a class="code hl_variable" href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">value</a>,</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                60</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            );</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;jo_mpeg &quot;</span>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">            #endif</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;recording to &quot;</span> + name + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;open();</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        }</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a>)</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;finalise())</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            {</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>.reset();</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                <a class="code hl_variable" href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">recording</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            }</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                <a class="code hl_variable" href="structVisualisationState.html#a9cdec0876d779c5854ac1d1481342b60">recordClosing</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
 </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">  201</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">recordFrame</a></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    (</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resX,</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resY</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    )</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    {</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a9cdec0876d779c5854ac1d1481342b60">recordClosing</a> || <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> == <span class="keyword">nullptr</span> || (!<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;isOpen()))</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        {</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        }</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">if</span> (!waitingForRecord)</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        {</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            std::vector&lt;uint8_t&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>(resX*resY*4, 0);</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glReadPixels</a></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            (</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                0,</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="foldopen" id="foldopen00202" data-start="{" data-end="}">
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">  202</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">recordFrame</a></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    (</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resX,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">uint32_t</a> resY</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    )</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a9cdec0876d779c5854ac1d1481342b60">recordClosing</a> || <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a> == <span class="keyword">nullptr</span> || (!<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;isOpen()))</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordflow">if</span> (!waitingForRecord)</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            std::vector&lt;uint8_t&gt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>(resX*resY*4, 0);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">glReadPixels</a></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            (</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                0,</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                resX,</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                resY,</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_RGBA</a>,</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_UNSIGNED_BYTE</a>,</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.data()</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            );</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a> = 0; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a> &lt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>(resY/2); <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>++)</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                std::swap_ranges</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                (</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>,</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>+1),</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*(resY-<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>-1)</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                );</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            }</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;queueFrame(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        }</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;queueSize() &gt;= 32)</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;writeFrames();</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;framesLeft() &gt;= 64)</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            waitingForRecord = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        {</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            waitingForRecord = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        }</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                0,</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                resX,</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                resY,</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_RGBA</a>,</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">GL_UNSIGNED_BYTE</a>,</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.data()</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            );</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a> = 0; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a> &lt; <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">int</a>(resY/2); <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>++)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                std::swap_ranges</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                (</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>,</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>+1),</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                    <a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>.begin()+4*resX*(resY-<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">j</a>-1)</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                );</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;queueFrame(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">pixels</a>);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;queueSize() &gt;= 32)</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;writeFrames();</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        }</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structVisualisationState.html#a53153ec416caf1d281c919d4a6245683">record</a>-&gt;framesLeft() &gt;= 64)</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            waitingForRecord = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            waitingForRecord = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
 </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a8557fe3f6f4847106f9e6ac2b0622f70">lua_setAtomColour</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ad5a87980352598c75074dfb0f88ce7c3">lua_getAtomColour</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ab7b1bf7017f580be70c420a04a65f9e0">lua_bond</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ab2f8ead081c238238b91bccb094b524f">lua_unbond</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ac70fea5d8b4e47c030ac90a6fc12cda7">lua_getAtomsBonds</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a5230ac141d2b45f132bab3f848456239">lua_atomCount</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ac6b6b90d67bc77b8d8d968960f3fabe6">lua_getAtomsNeighbours</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a733e57da37ae749ef19f2c0100300849">lua_getAtom</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a5d5ed03198d1c584938a02f94a85a3d6">lua_setText</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ade0da0a4b1321c1fe104683d6d6d47c6">lua_getFrame</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordtype">bool</span> waitingForRecord = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>};</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a8557fe3f6f4847106f9e6ac2b0622f70">lua_setAtomColour</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ad5a87980352598c75074dfb0f88ce7c3">lua_getAtomColour</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ab7b1bf7017f580be70c420a04a65f9e0">lua_bond</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ab2f8ead081c238238b91bccb094b524f">lua_unbond</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ac70fea5d8b4e47c030ac90a6fc12cda7">lua_getAtomsBonds</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a5230ac141d2b45f132bab3f848456239">lua_atomCount</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ac6b6b90d67bc77b8d8d968960f3fabe6">lua_getAtomsNeighbours</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a733e57da37ae749ef19f2c0100300849">lua_getAtom</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#a5d5ed03198d1c584938a02f94a85a3d6">lua_setText</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structVisualisationState.html#ade0da0a4b1321c1fe104683d6d6d47c6">lua_getFrame</a>(<a class="code hl_typedef" href="commandLine_8h.html#af9517d9d8d6198886f93a8e0520c9801">lua_State</a> * lua);</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordtype">bool</span> waitingForRecord = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>};</div>
 </div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="preprocessor">#endif </span><span class="comment">/* VISUALISATIONSTATE_H */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="preprocessor">#include &lt;<a class="code" href="atoms_8h.html">luaBindings/visualisationState/atoms.h</a>&gt;</span></div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="preprocessor">#include &lt;<a class="code" href="bonds_8h.html">luaBindings/visualisationState/bonds.h</a>&gt;</span></div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="preprocessor">#include &lt;<a class="code" href="utils_8h.html">luaBindings/visualisationState/utils.h</a>&gt;</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="preprocessor">#endif </span><span class="comment">/* VISUALISATIONSTATE_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="preprocessor">#include &lt;<a class="code" href="atoms_8h.html">luaBindings/visualisationState/atoms.h</a>&gt;</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="preprocessor">#include &lt;<a class="code" href="bonds_8h.html">luaBindings/visualisationState/bonds.h</a>&gt;</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><span class="preprocessor">#include &lt;<a class="code" href="utils_8h.html">luaBindings/visualisationState/utils.h</a>&gt;</span></div>
 <div class="ttc" id="aLuaNumber_8h_html"><div class="ttname"><a href="LuaNumber_8h.html">LuaNumber.h</a></div></div>
 <div class="ttc" id="aatom_8h_html"><div class="ttname"><a href="atom_8h.html">atom.h</a></div></div>
 <div class="ttc" id="aatom_8h_html_a13042db1167690c39832c6741917abdf"><div class="ttname"><a href="atom_8h.html#a13042db1167690c39832c6741917abdf">applySizes</a></div><div class="ttdeci">void applySizes(std::vector&lt; Atom &gt; &amp;atoms, const std::vector&lt; float &gt; sizes)</div><div class="ttdoc">Apply sizes by index.</div><div class="ttdef"><b>Definition</b> atom.h:283</div></div>
@@ -368,13 +369,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="arecord_8h_html"><div class="ttname"><a href="record_8h.html">record.h</a></div></div>
 <div class="ttc" id="astructArgument_html_a66f57f1f434db0d0c1ee7ca58e63fd79"><div class="ttname"><a href="structArgument.html#a66f57f1f434db0d0c1ee7ca58e63fd79">Argument::value</a></div><div class="ttdeci">T value</div><div class="ttdef"><b>Definition</b> commandLine.h:33</div></div>
 <div class="ttc" id="astructCommandLine_html"><div class="ttname"><a href="structCommandLine.html">CommandLine</a></div><div class="ttdoc">Extract command line arguments.</div><div class="ttdef"><b>Definition</b> commandLine.h:240</div></div>
-<div class="ttc" id="astructCommandLine_html_abf8b5dcb7a1830928cd12b0a030f073a"><div class="ttname"><a href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">CommandLine::resolution</a></div><div class="ttdeci">Argument&lt; vec&lt; 2 &gt; &gt; resolution</div><div class="ttdef"><b>Definition</b> commandLine.h:348</div></div>
+<div class="ttc" id="astructCommandLine_html_abf8b5dcb7a1830928cd12b0a030f073a"><div class="ttname"><a href="structCommandLine.html#abf8b5dcb7a1830928cd12b0a030f073a">CommandLine::resolution</a></div><div class="ttdeci">Argument&lt; vec&lt; 2 &gt; &gt; resolution</div><div class="ttdef"><b>Definition</b> commandLine.h:350</div></div>
+<div class="ttc" id="astructCommandLine_html_ad5fafe85e2aef507395548f22afd6151"><div class="ttname"><a href="structCommandLine.html#ad5fafe85e2aef507395548f22afd6151">CommandLine::videoName</a></div><div class="ttdeci">Argument&lt; std::string &gt; videoName</div><div class="ttdef"><b>Definition</b> commandLine.h:349</div></div>
 <div class="ttc" id="astructVisualisationState_html"><div class="ttname"><a href="structVisualisationState.html">VisualisationState</a></div><div class="ttdoc">Holds editable data for the visualisation state.</div><div class="ttdef"><b>Definition</b> visualisationState.h:34</div></div>
 <div class="ttc" id="astructVisualisationState_html_a0713f0194f706bd03a3bf2eae939f8ef"><div class="ttname"><a href="structVisualisationState.html#a0713f0194f706bd03a3bf2eae939f8ef">VisualisationState::recording</a></div><div class="ttdeci">bool recording</div><div class="ttdef"><b>Definition</b> visualisationState.h:131</div></div>
 <div class="ttc" id="astructVisualisationState_html_a0bb10bdcd6d02f1f412a5df54e09e6c8"><div class="ttname"><a href="structVisualisationState.html#a0bb10bdcd6d02f1f412a5df54e09e6c8">VisualisationState::bondsFor</a></div><div class="ttdeci">std::vector&lt; uint64_t &gt; bondsFor</div><div class="ttdef"><b>Definition</b> visualisationState.h:118</div></div>
 <div class="ttc" id="astructVisualisationState_html_a0d74d7dfb7432afb723de4cc60dbf9bc"><div class="ttname"><a href="structVisualisationState.html#a0d74d7dfb7432afb723de4cc60dbf9bc">VisualisationState::recordWaiting</a></div><div class="ttdeci">bool recordWaiting() const</div><div class="ttdoc">Video writing is behind.</div><div class="ttdef"><b>Definition</b> visualisationState.h:140</div></div>
 <div class="ttc" id="astructVisualisationState_html_a3739a6b1fe64d886392ccb754879b680"><div class="ttname"><a href="structVisualisationState.html#a3739a6b1fe64d886392ccb754879b680">VisualisationState::atomSizes</a></div><div class="ttdeci">std::vector&lt; float &gt; atomSizes</div><div class="ttdef"><b>Definition</b> visualisationState.h:121</div></div>
-<div class="ttc" id="astructVisualisationState_html_a396054122ec04d3c5912aabdfab7a699"><div class="ttname"><a href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">VisualisationState::recordFrame</a></div><div class="ttdeci">void recordFrame(uint32_t resX, uint32_t resY)</div><div class="ttdoc">If recording, obtain the pixels for the current frame and submit for recording.</div><div class="ttdef"><b>Definition</b> visualisationState.h:202</div></div>
+<div class="ttc" id="astructVisualisationState_html_a396054122ec04d3c5912aabdfab7a699"><div class="ttname"><a href="structVisualisationState.html#a396054122ec04d3c5912aabdfab7a699">VisualisationState::recordFrame</a></div><div class="ttdeci">void recordFrame(uint32_t resX, uint32_t resY)</div><div class="ttdoc">If recording, obtain the pixels for the current frame and submit for recording.</div><div class="ttdef"><b>Definition</b> visualisationState.h:203</div></div>
 <div class="ttc" id="astructVisualisationState_html_a405fbb6a02959bebe4c7b090bf249e4d"><div class="ttname"><a href="structVisualisationState.html#a405fbb6a02959bebe4c7b090bf249e4d">VisualisationState::atomColourOverrides</a></div><div class="ttdeci">std::map&lt; uint64_t, glm::vec4 &gt; atomColourOverrides</div><div class="ttdef"><b>Definition</b> visualisationState.h:120</div></div>
 <div class="ttc" id="astructVisualisationState_html_a4c1f141f3626ecf0ba657c9f263256e4"><div class="ttname"><a href="structVisualisationState.html#a4c1f141f3626ecf0ba657c9f263256e4">VisualisationState::elementMap</a></div><div class="ttdeci">std::multimap&lt; Element, uint64_t &gt; elementMap</div><div class="ttdef"><b>Definition</b> visualisationState.h:122</div></div>
 <div class="ttc" id="astructVisualisationState_html_a5230ac141d2b45f132bab3f848456239"><div class="ttname"><a href="structVisualisationState.html#a5230ac141d2b45f132bab3f848456239">VisualisationState::lua_atomCount</a></div><div class="ttdeci">int lua_atomCount(lua_State *lua)</div><div class="ttdoc">Lua binding to get the Atom count.</div><div class="ttdef"><b>Definition</b> atoms.h:114</div></div>
