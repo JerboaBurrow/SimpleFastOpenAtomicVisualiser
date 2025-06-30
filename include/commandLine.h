@@ -315,6 +315,7 @@ struct CommandLine
         extractArgument(script, arguments);
         extractArgument(globalAtomAlpha, arguments);
         extractArgument(globalBondAlpha, arguments);
+        extractArgument(videoName, arguments);
 
         #ifdef WITH_FFMPEG
         extractArgument(cq, arguments);
@@ -345,6 +346,7 @@ struct CommandLine
     Argument<float> bondClipCorrection = {"bondClipCorrection", "Correction for bond impostors.", "Increase if atoms clipped.", 5.0f};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", "", {}};
     Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", "", {}};
+    Argument<std::string> videoName = {"videoName", "Name of saved video.", "", ""};
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", "", {512, 512}};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds for this atom.", "", NULL_INDEX};
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", "", NULL_INDEX};
@@ -462,8 +464,10 @@ struct CommandLine
         std::string * sval = stringFromName(s.characters);
         if (sval != nullptr)
         {
+            std::cout << "yes\n";
             if (lua_isstring(lua, 2))
             {
+                std::cout << "yes2\n";
                 LuaString v; v.read(lua, 2);
                 *sval = v.characters;
                 return 0;
@@ -618,6 +622,8 @@ struct CommandLine
           << sidebyside(argumentHelp(noCentering), argumentHelp(noTransparencySorting), 42)
           << "\n"
           << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideInfoText), 42)
+          << "\n"
+          << argumentHelp(videoName)
           << "\n"
           #ifdef WITH_FFMPEG
           << "\n FFMPEG recording options:\n\n"
@@ -1013,16 +1019,17 @@ private:
         {
             {preset.name, preset},
             {codec.name, codec},
-            {profile.name, profile}
+            {profile.name, profile},
+            {videoName.name, videoName}
         };
         if (values.find(name) != values.cend())
         {
             return &values.at(name).value;
         }
-        return nullptr;
         #else
-        return nullptr;
+        if (name == videoName.name) { return &videoName.value; }
         #endif
+        return nullptr;
     }
 };
 
