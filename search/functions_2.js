@@ -1,7 +1,7 @@
 var searchData=
 [
   ['cachepositions_0',['cachePositions',['../classStructure.html#a066839b43c8b4f5fc528b63a47db896e',1,'Structure']]],
-  ['camera_1',['camera',['../classCamera.html#a104196e052c28be88d97126de9c10191',1,'Camera::Camera(const std::vector&lt; Atom &gt; &amp;atoms, uint16_t resX, uint16_t resY)'],['../classCamera.html#aa8e44fa40c01e257a536e3979751aeb8',1,'Camera::Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY)']]],
+  ['camera_1',['camera',['../classCamera.html#ab84f61b73d474a9a72672d92c2c39414',1,'Camera::Camera(const std::vector&lt; Atom &gt; &amp;atoms, uint16_t resX, uint16_t resY, float fieldOfView)'],['../classCamera.html#a299391066ad2ec23d42e285748627916',1,'Camera::Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY, float fieldOfView)']]],
   ['cameracontrols_2',['cameraControls',['../main_8h.html#af6cc686bb94975ecf8ace04741f99cd8',1,'main.h']]],
   ['cartesian2spherical_3',['cartesian2Spherical',['../util_8h.html#af47d0eeb76203e06f023871134fd221c',1,'util.h']]],
   ['cell_4',['Cell',['../classCell.html#aad9173c257fef7a5cd9bc1b7ec971cda',1,'Cell']]],
