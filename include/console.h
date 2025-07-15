@@ -341,7 +341,7 @@ private:
 
     static int load_sfoavLib(lua_State * lua)
     {
-        luaL_Reg sfoavLib[23] =
+        luaL_Reg sfoavLib[25] =
         {
             {"setAtomColour", &dispatchVisualisationState<&VisualisationState::lua_setAtomColour>},
             {"getAtomColour", &dispatchVisualisationState<&VisualisationState::lua_getAtomColour>},
@@ -362,6 +362,8 @@ private:
             {"rotateCamera", &dispatchCamera<&Camera::lua_rotateCamera>},
             {"zoomCamera", &dispatchCamera<&Camera::lua_zoomCamera>},
             {"inclineCamera", &dispatchCamera<&Camera::lua_inclineCamera>},
+            {"setCameraFieldOfView", &dispatchCamera<&Camera::lua_setCameraFieldOfView>},
+            {"getCameraFieldOfView", &dispatchCamera<&Camera::lua_getCameraFieldOfView>},
             {"exit", &lua_exit},
             {"getOption", &dispatchCommandLine<&CommandLine::lua_getOption>},
             {"setOption", &dispatchCommandLine<&CommandLine::lua_setOption>},

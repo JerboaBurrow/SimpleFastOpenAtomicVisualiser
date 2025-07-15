@@ -305,6 +305,7 @@ struct CommandLine
         extractArgument(deemphasisAlpha, arguments);
         extractArgument(atomClipCorrection, arguments);
         extractArgument(bondClipCorrection, arguments);
+        extractArgument(fieldOfView, arguments);
         extractArgument(colourmap, arguments);
         extractArgument(atomColours, arguments);
         extractArgument(atomSize, arguments);
@@ -344,6 +345,7 @@ struct CommandLine
     Argument<float> deemphasisAlpha = {"deemphasisAlpha", "Alpha colour for deemphasised atoms.", "", 0.25f};
     Argument<float> atomClipCorrection = {"atomClipCorrection", "Correction for atom impostors.", "Increase if atoms clipped.", 1.5f};
     Argument<float> bondClipCorrection = {"bondClipCorrection", "Correction for bond impostors.", "Increase if atoms clipped.", 5.0f};
+    Argument<float> fieldOfView = {"fieldOfView", "Field of view in degrees.", "", 60.0f};
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", "", {}};
     Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", "", {}};
     Argument<std::string> videoName = {"videoName", "Name of saved video.", "", ""};
@@ -464,10 +466,8 @@ struct CommandLine
         std::string * sval = stringFromName(s.characters);
         if (sval != nullptr)
         {
-            std::cout << "yes\n";
             if (lua_isstring(lua, 2))
             {
-                std::cout << "yes2\n";
                 LuaString v; v.read(lua, 2);
                 *sval = v.characters;
                 return 0;
@@ -623,7 +623,7 @@ struct CommandLine
           << "\n"
           << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideInfoText), 42)
           << "\n"
-          << argumentHelp(videoName)
+          << sidebyside(argumentHelp(videoName), argumentHelp(fieldOfView), 42)
           << "\n"
           #ifdef WITH_FFMPEG
           << "\n FFMPEG recording options:\n\n"
@@ -949,7 +949,7 @@ private:
             {globalBondAlpha.name, globalBondAlpha},
             {deemphasisAlpha.name, deemphasisAlpha},
             {atomClipCorrection.name, atomClipCorrection},
-            {bondClipCorrection.name, bondClipCorrection},
+            {bondClipCorrection.name, bondClipCorrection}
         };
 
         if (values.find(name) != values.cend())

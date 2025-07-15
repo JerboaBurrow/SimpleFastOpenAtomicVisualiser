@@ -19,7 +19,7 @@ VisualisationState vs
 );
 
 CommandLine options;
-Camera camera(testAtoms, 64, 64);
+Camera camera(testAtoms, 64, 64, 60.0);
 
 SCENARIO("Lua atom interop")
 {
@@ -354,7 +354,7 @@ SCENARIO("Lua bond interop")
 SCENARIO("Lua camera interop")
 {
     jLog::Log l;
-    GIVEN("A Lua console and a camera at spherical coordinates (1,3.14,1.57)")
+    GIVEN("A Lua console and a camera at spherical coordinates (1,3.14,1.57) and 60 fov.")
     {
         Console console(l, &vs, &options, &camera);
         camera.setPosition({1,3.14,1.57});
@@ -421,6 +421,24 @@ SCENARIO("Lua camera interop")
                 REQUIRE_THAT(x.n, WithinAbs(2.0, 0.01));
                 REQUIRE_THAT(y.n, WithinAbs(3.14, 0.01));
                 REQUIRE_THAT(z.n, WithinAbs(1.57, 0.01));
+            }
+        }
+        WHEN("The script \"fov = sfoav.getCameraFieldOfView()\" is run")
+        {
+            console.runString("fov = sfoav.getCameraFieldOfView()");
+            THEN("fov is 60.0")
+            {
+                auto fov = console.getGlobal<LuaNumber>("fov");
+                REQUIRE_THAT(fov.n, WithinAbs(60.0, tol));
+            }
+        }
+        WHEN("The script \"sfoav.setCameraFieldOfView(35.0); fov = sfoav.getCameraFieldOfView()\" is run")
+        {
+            console.runString("sfoav.setCameraFieldOfView(35.0); fov = sfoav.getCameraFieldOfView()");
+            THEN("fov is 35.0")
+            {
+                auto fov = console.getGlobal<LuaNumber>("fov");
+                REQUIRE_THAT(fov.n, WithinAbs(35.0, tol));
             }
         }
     }
@@ -762,7 +780,7 @@ SCENARIO("Lua options interop")
         WHEN("The script \"v = sfoav.getOption(\"videoName\");\"")
         {
             console.runString("v = sfoav.getOption(\"videoName\");");
-            THEN("v is """)
+            THEN("v is ")
             {
                 REQUIRE(console.getGlobal<LuaString>("v").characters == "");
             }
@@ -782,7 +800,7 @@ SCENARIO("Lua options interop")
             console.runString("v = sfoav.getOption(\"preset\");");
             THEN("v is slow")
             {
-                REQUIRE(console.getGlobal<LuaString>("v").characters == slow);
+                REQUIRE(console.getGlobal<LuaString>("v").characters == "slow");
             }
             WHEN("The script \"sfoav.setOption(\"preset\", \"TEST\"); v = sfoav.getOption(\"preset\");\"")
             {
@@ -798,7 +816,7 @@ SCENARIO("Lua options interop")
             console.runString("v = sfoav.getOption(\"codec\");");
             THEN("v is libx264")
             {
-                REQUIRE(console.getGlobal<LuaString>("v").characters == libx264);
+                REQUIRE(console.getGlobal<LuaString>("v").characters == "libx264");
             }
             WHEN("The script \"sfoav.setOption(\"codec\", \"TEST\"); v = sfoav.getOption(\"codec\");\"")
             {
@@ -814,7 +832,7 @@ SCENARIO("Lua options interop")
             console.runString("v = sfoav.getOption(\"profile\");");
             THEN("v is main")
             {
-                REQUIRE(console.getGlobal<LuaString>("v").characters == main);
+                REQUIRE(console.getGlobal<LuaString>("v").characters == "main");
             }
             WHEN("The script \"sfoav.setOption(\"profile\", \"TEST\"); v = sfoav.getOption(\"profile\");\"")
             {

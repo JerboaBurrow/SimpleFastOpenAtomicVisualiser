@@ -78,7 +78,7 @@ int main(int argv, char ** argc)
 
     structure->readFrame(0);
 
-    Camera loadingCamera {sfoavAtoms, resX, resY};
+    Camera loadingCamera {sfoavAtoms, resX, resY, options.fieldOfView.value};
     loadingCamera.rotate(-M_PI/2.0);
 
     AtomRenderer loadingAtoms
@@ -119,7 +119,7 @@ int main(int argv, char ** argc)
     if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
     com = getCenter(structure->atoms);
 
-    Camera camera {structure->atoms, resX, resY};
+    Camera camera {structure->atoms, resX, resY, options.fieldOfView.value};
 
     jLog::Log log;
     Console console(log, &visualisationState, &options, &camera);

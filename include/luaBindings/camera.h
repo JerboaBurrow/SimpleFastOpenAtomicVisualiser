@@ -133,4 +133,43 @@ inline int Camera::lua_inclineCamera(lua_State * lua)
     return 0;
 }
 
+/**
+ * @brief Set the field of view.
+ *
+ * @remark Lua arguments are:
+ * 1. Field of view in degrees.
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+inline int Camera::lua_setCameraFieldOfView(lua_State * lua)
+{
+    int args = lua_gettop(lua);
+    if (args != 1)
+    {
+        const std::string msg = "setCameraFieldOfView expects a number as argument.\n";
+        lua_pushlstring(lua, msg.c_str(), msg.length());
+        return lua_error(lua);
+    }
+
+    LuaNumber fov;
+    fov.read(lua, 1);
+    fieldOfView = fov.n;
+    reset();
+
+    return 0;
+}
+
+/**
+ * @brief Set the field of view.
+ *
+ * @remark Lua arguments are:
+ * @param lua the Lua context.
+ * @return int the return code.
+ */
+inline int Camera::lua_getCameraFieldOfView(lua_State * lua)
+{
+    lua_pushnumber(lua, fieldOfView);
+    return 1;
+}
+
 #endif /* LUA_CAMERA_H */

@@ -37,8 +37,8 @@ public:
      * @param resX the screen resolution width.
      * @param resY the screen resolution in height.
      */
-    Camera(const std::vector<Atom> & atoms, uint16_t resX, uint16_t resY)
-    : resX(resX), resY(resY)
+    Camera(const std::vector<Atom> & atoms, uint16_t resX, uint16_t resY, float fieldOfView)
+    : resX(resX), resY(resY), fieldOfView(fieldOfView)
     {
         reset(atoms);
     }
@@ -50,8 +50,8 @@ public:
      * @param resX the screen resolution width.
      * @param resY the screen resolution in height.
      */
-    Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY)
-    : resX(resX), resY(resY), positionSpherical(positionSpherical)
+    Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY, float fieldOfView)
+    : resX(resX), resY(resY), fieldOfView(fieldOfView), positionSpherical(positionSpherical)
     {
         reset();
     }
@@ -66,7 +66,7 @@ public:
 
         projection = glm::perspective
         (
-            glm::radians(45.0f), float(resX)/float(resY),
+            glm::radians(fieldOfView), float(resX)/float(resY),
             0.1f,
             1000.0f
         );
@@ -181,6 +181,25 @@ public:
     float getUp() const { return up; }
 
     /**
+     * @brief Set the Field Of View
+     *
+     * @param degrees the field of view in degrees.
+     * @remark clipped to [30, 90].
+     */
+    void setFieldOfView(float degrees)
+    {
+        fieldOfView = std::min(std::max(30.0f, degrees), 90.0f);
+        reset();
+    }
+
+    /**
+     * @brief Get the Field Of View
+     *
+     * @return float the field of view in degrees.
+     */
+    float getFieldOfView() const { return fieldOfView; }
+
+    /**
      * @brief Get the Projection matrix.
      *
      * @return glm::mat4 the current projection.
@@ -278,10 +297,31 @@ public:
      */
     inline int lua_inclineCamera(lua_State * lua);
 
+    /**
+     * @brief Set the field of view.
+     *
+     * @remark Lua arguments are:
+     * 1. Field of view in degrees.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_setCameraFieldOfView(lua_State * lua);
+
+    /**
+     * @brief Set the field of view.
+     *
+     * @remark Lua arguments are:
+     * 1. Field of view in degrees.
+     * @param lua the Lua context.
+     * @return int the return code.
+     */
+    inline int lua_getCameraFieldOfView(lua_State * lua);
+
 private:
 
     uint16_t resX;
     uint16_t resY;
+    float fieldOfView;
 
     glm::vec3 positionSpherical;
     glm::vec3 focus;
