@@ -127,6 +127,8 @@ It is possible to write Lua scripts to manipulate visualisation in SFOAV. By sup
 | rotateCamera | dphi, the azimuthal increment | Rotate the camera |
 | zoomCamera | dr, move the camera to or from the focus | Zoom the camera |
 | inclineCamera | dtheta, the inclination increment | Incline the camera |
+| setCameraFieldOfView | fov, degrees | Set the field of view |
+| getCameraFieldOfView | | Get the field of view in degrees |
 | exit | | Exit sfoav |
 
 E.g. the following script will set Atom 0 to a random colour every frame.

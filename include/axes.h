@@ -15,7 +15,7 @@ class Axes
 public:
 
     Axes(const Camera & camera)
-    : camera({3.5, M_PI*0.5f, M_PI}, camera.getResX(), camera.getResY()),
+    : camera({3.5, M_PI*0.5f, M_PI}, camera.getResX(), camera.getResY(), camera.getFieldOfView()),
       renderer(axes, axesPoints, axes.size())
     {
         renderer.setBondScale(0.33f);
