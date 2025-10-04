@@ -5,7 +5,7 @@ var searchData=
   ['cachecomplete_2',['cacheComplete',['../classStructure.html#a42b6b8069663ff3b7cb1845a09988667',1,'Structure']]],
   ['cachepositions_3',['cachePositions',['../classStructure.html#a066839b43c8b4f5fc528b63a47db896e',1,'Structure']]],
   ['camera_4',['camera',['../structLuaExtraSpace.html#abf6be4bc246ea9e5e8de33ec02ffadde',1,'LuaExtraSpace::camera'],['../classCamera.html#a299391066ad2ec23d42e285748627916',1,'Camera::Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY, float fieldOfView)'],['../classCamera.html#ab84f61b73d474a9a72672d92c2c39414',1,'Camera::Camera(const std::vector&lt; Atom &gt; &amp;atoms, uint16_t resX, uint16_t resY, float fieldOfView)'],['../classCamera.html',1,'Camera']]],
-  ['camera_2eh_5',['camera.h',['../camera_8h.html',1,'(Global Namespace)'],['../luaBindings_2camera_8h.html',1,'(Global Namespace)']]],
+  ['camera_2eh_5',['camera.h',['../luaBindings_2camera_8h.html',1,'(Global Namespace)'],['../camera_8h.html',1,'(Global Namespace)']]],
   ['cameracontrols_6',['cameraControls',['../main_8h.html#af6cc686bb94975ecf8ace04741f99cd8',1,'main.h']]],
   ['cameramember_7',['CameraMember',['../console_8h.html#ac2b82eec555012cee159d5c8293aa970',1,'console.h']]],
   ['cartesian2spherical_8',['cartesian2Spherical',['../util_8h.html#af47d0eeb76203e06f023871134fd221c',1,'util.h']]],
