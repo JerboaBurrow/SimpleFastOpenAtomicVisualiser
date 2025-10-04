@@ -29,7 +29,7 @@ var searchData=
   ['atomcolouroverrides_26',['atomColourOverrides',['../structVisualisationState.html#a405fbb6a02959bebe4c7b090bf249e4d',1,'VisualisationState']]],
   ['atomcolours_27',['atomColours',['../structCommandLine.html#aee7c47676090ea6293c3f0699a07cfec',1,'CommandLine']]],
   ['atomcoloursfromfile_28',['atomColoursFromFile',['../colour_8h.html#a761e4379a6151ad25fd373d9d8a9c521',1,'colour.h']]],
-  ['atomcontrols_29',['atomControls',['../main_8h.html#a57d875f716a27f2802253e281f332c64',1,'main.h']]],
+  ['atomcontrols_29',['atomControls',['../main_8h.html#a33bf28cd936e6833bd2b7b7f4ab1fd03',1,'main.h']]],
   ['atomcount_30',['atomcount',['../classStructure.html#ae7ffc203112cf236149caf491591a7b2',1,'Structure::atomCount()'],['../structVisualisationState.html#aa9ed05baa6a6c3f2cb225708d27c4964',1,'VisualisationState::atomCount']]],
   ['atomemphasisoverrides_31',['atomEmphasisOverrides',['../structVisualisationState.html#a927484fe1fa5d0a5dd7a62b4187c9ce5',1,'VisualisationState']]],
   ['atomrenderer_32',['atomrenderer',['../classAtomRenderer.html#a7242aeaa5d53be070da37c3d8d9638ed',1,'AtomRenderer::AtomRenderer()'],['../classAtomRenderer.html',1,'AtomRenderer']]],

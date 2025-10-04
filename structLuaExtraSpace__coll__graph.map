@@ -1,25 +1,25 @@
 <map id="LuaExtraSpace" name="LuaExtraSpace">
-<area shape="rect" id="Node000001" title="Store for lua global state. For the console to have access to these classes they must be set into Lua..." alt="" coords="709,374,828,399"/>
-<area shape="rect" id="Node000002" href="$structVisualisationState.html" title="Holds editable data for the visualisation state." alt="" coords="400,325,540,350"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="554,344,686,364,720,371,718,377,685,369,553,349"/>
-<area shape="rect" id="Node000003" href="$structCommandLine.html" title="Extract command line arguments." alt="" coords="412,374,528,399"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="542,384,709,384,709,389,542,389"/>
+<area shape="rect" id="Node000001" title="Store for lua global state. For the console to have access to these classes they must be set into Lua..." alt="" coords="709,403,828,429"/>
+<area shape="rect" id="Node000002" href="$structVisualisationState.html" title="Holds editable data for the visualisation state." alt="" coords="400,354,540,379"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="554,373,686,393,720,401,718,406,685,399,553,379"/>
+<area shape="rect" id="Node000003" href="$structCommandLine.html" title="Extract command line arguments." alt="" coords="412,403,528,429"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="542,413,709,413,709,419,542,419"/>
 <area shape="rect" id="Node000004" href="$structArgument.html" title=" " alt="" coords="5,60,203,100"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="217,61,259,62,303,69,343,84,378,110,389,131,394,161,393,235,390,309,393,339,402,360,416,372,413,376,398,363,388,340,385,309,387,235,389,162,384,133,374,114,340,89,301,74,259,67,216,66"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="217,60,259,61,303,69,343,84,378,110,390,134,395,167,393,250,389,332,393,366,402,389,416,401,413,405,398,392,387,367,384,333,387,249,390,168,385,136,374,114,341,89,301,74,259,67,217,66"/>
 <area shape="rect" id="Node000005" href="$structArgument.html" title=" " alt="" coords="23,141,185,166"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="199,156,310,166,354,173,378,182,394,204,399,226,398,249,393,271,386,315,390,337,402,360,417,372,414,376,398,363,384,339,381,315,388,270,393,248,394,227,389,206,374,186,352,178,310,171,198,161"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="199,156,310,166,354,173,378,182,396,208,402,233,400,259,394,285,387,311,384,337,388,363,402,389,417,401,413,405,398,392,383,364,379,337,382,310,389,284,395,258,397,234,391,210,374,186,353,178,310,171,198,161"/>
 <area shape="rect" id="Node000006" href="$structArgument.html" title=" " alt="" coords="7,190,201,215"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="215,200,311,208,351,217,378,231,390,247,395,263,393,296,389,328,392,344,402,360,417,372,414,376,398,363,388,346,384,328,387,295,390,264,385,250,374,235,349,222,311,213,215,205"/>
-<area shape="rect" id="Node000007" href="$structArgument.html" title=" " alt="" coords="31,347,177,373"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="191,364,412,380,412,385,190,369"/>
-<area shape="rect" id="Node000008" href="$structArgument.html" title=" " alt="" coords="13,397,195,422"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="209,412,291,411,376,405,422,397,423,402,376,411,291,417,209,417"/>
-<area shape="rect" id="Node000009" href="$structArgument.html" title=" " alt="" coords="15,446,193,471"/>
-<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="206,461,291,454,334,445,375,431,387,421,398,410,425,397,428,402,402,414,390,425,377,436,335,450,291,460,207,467"/>
-<area shape="rect" id="Node000010" href="$structArgument.html" title=" " alt="" coords="19,502,189,527"/>
-<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="170,527,220,533,274,532,327,521,352,510,374,495,382,486,386,477,387,456,387,434,390,422,398,410,415,397,419,402,402,414,395,424,392,434,392,456,392,478,387,489,378,499,354,515,329,526,274,537,219,538,170,532"/>
-<area shape="rect" id="Node000011" href="$structArgument.html" title=" " alt="" coords="32,694,176,719"/>
-<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="155,721,206,733,266,738,295,735,324,729,351,718,374,701,386,679,392,646,388,560,384,473,387,437,398,410,413,398,416,402,402,414,392,438,389,473,394,560,397,646,392,680,378,704,353,722,326,734,296,741,265,743,206,738,153,726"/>
-<area shape="rect" id="Node000012" href="$classCamera.html" title="A 3D projective camera centered on a focus moving on a sphere." alt="" coords="433,423,507,449"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="520,428,685,404,718,397,720,402,686,409,520,433"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="215,199,312,207,351,217,378,231,392,251,398,271,393,310,387,350,391,369,402,389,417,401,414,405,398,392,386,371,382,350,388,309,392,271,387,253,374,235,349,222,311,213,215,205"/>
+<area shape="rect" id="Node000007" href="$structArgument.html" title=" " alt="" coords="31,377,177,402"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="191,393,412,409,412,414,190,398"/>
+<area shape="rect" id="Node000008" href="$structArgument.html" title=" " alt="" coords="13,426,195,451"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="209,441,291,441,376,435,422,426,423,431,376,440,291,446,209,446"/>
+<area shape="rect" id="Node000009" href="$structArgument.html" title=" " alt="" coords="15,475,193,501"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="206,491,291,484,334,474,375,460,387,451,398,439,425,426,428,431,402,444,390,455,377,465,335,480,291,489,207,496"/>
+<area shape="rect" id="Node000010" href="$structArgument.html" title=" " alt="" coords="19,531,189,557"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="170,556,220,562,274,561,327,550,352,539,374,525,382,516,386,506,387,486,387,463,390,451,398,439,415,427,419,431,402,443,395,453,392,464,392,486,392,508,387,518,378,529,354,544,329,555,274,567,219,567,170,562"/>
+<area shape="rect" id="Node000011" href="$structArgument.html" title=" " alt="" coords="32,723,176,749"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="155,750,206,762,266,767,295,765,324,758,351,747,374,730,386,708,392,675,388,590,384,502,387,466,398,440,413,427,416,431,402,443,392,467,389,502,394,589,397,675,392,710,378,734,353,752,326,764,296,770,265,772,206,767,153,755"/>
+<area shape="rect" id="Node000012" href="$classCamera.html" title="A 3D projective camera centered on a focus moving on a sphere." alt="" coords="433,453,507,478"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="520,457,685,433,718,426,720,431,686,439,520,463"/>
 </map>
