@@ -129,7 +129,7 @@ private:
             filestream.seekg(std::ios::beg);
             skipLine(filestream);
             skipLine(filestream);
-            getCell();
+            if (imcon != 0) { getCell(); }
         }
 
         if (!HISTORY) { metaDataLines = 2+(imcon != 0 ? 3 : 0); }
