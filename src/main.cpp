@@ -217,7 +217,14 @@ int main(int argv, char ** argc)
             options.hideInfoText.value = !options.hideInfoText.value;
         }
 
-        bool cameraMoved = cameraControls(display, camera);
+        bool cameraMoved = cameraControls
+        (
+            display,
+            camera,
+            options.cameraZoomSpeed.value,
+            options.cameraRotateSpeed.value,
+            options.cameraInclineSpeed.value
+        );
 
         elementsNeedUpdate = atomControls
         (
@@ -226,7 +233,8 @@ int main(int argv, char ** argc)
             visualisationState.emphasisControls,
             visualisationState.elementMap,
             visualisationState.atomEmphasisOverrides,
-            options.deemphasisAlpha.value
+            options.deemphasisAlpha.value,
+            options.cameraPanSpeed.value
         );
 
         if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
