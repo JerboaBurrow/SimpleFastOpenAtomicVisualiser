@@ -137,40 +137,50 @@ Theme lightTheme()
  *
  * @param display display to obtain events from.
  * @param camera the camera to update.
+ * @param zoomSpeed multiplier for zoom.
+ * @param rotateSpeed multiplier for rotation.
+ * @param inclineSpeed multiplier for inclination.
  * @return true if the camera moved.
  * @return false if the camera did not move.
  */
-bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
+bool cameraControls
+(
+    jGL::DesktopDisplay & display,
+    Camera & camera,
+    float zoomSpeed,
+    float rotateSpeed,
+    float inclineSpeed
+)
 {
     bool moved = false;
     if (display.keyHasAnyEvents(GLFW_KEY_W, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.zoom(-dr);
+        camera.zoom(-dr*zoomSpeed);
         moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_S, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.zoom(dr);
+        camera.zoom(dr*zoomSpeed);
         moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_Q, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.incline(dtheta);
+        camera.incline(dtheta*inclineSpeed);
         moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_E, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.incline(-dtheta);
+        camera.incline(-dtheta*inclineSpeed);
         moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_A, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.rotate(-dphi);
+        camera.rotate(-dphi*rotateSpeed);
         moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_D, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
-        camera.rotate(dphi);
+        camera.rotate(dphi*rotateSpeed);
         moved = true;
     }
     return moved;
@@ -182,6 +192,10 @@ bool cameraControls(jGL::DesktopDisplay & display, Camera & camera)
  * @param display the display to get events from.
  * @param atoms the Atoms to modify.
  * @param emphasisControls key bindings to emphasise elements.
+ * @param elementMap map elements to indices.
+ * @param alphaOverrides overriding alpha channels.
+ * @param deemphasisAlpha alpha for faded atoms.
+ * @param translateSpeed atom translation speed.
  *
  * @return true if the Atoms were modified.
  * @return false if the Atoms were not modified.
@@ -193,38 +207,39 @@ bool atomControls
     std::map<int, Element> & emphasisControls,
     std::multimap<Element, uint64_t> & elementMap,
     std::vector<float> & alphaOverrides,
-    float deemphasisAlpha
+    float deemphasisAlpha,
+    float translateSpeed
 )
 {
     bool elementsNeedUpdate = false;
     if (display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_LEFT, jGL::EventType::HOLD))
     {
-        translate(atoms, {-dr, 0.0, 0.0});
+        translate(atoms, {-dr*translateSpeed, 0.0, 0.0});
         elementsNeedUpdate = true;
     }
     if (display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_RIGHT, jGL::EventType::HOLD))
     {
-        translate(atoms, {dr, 0.0, 0.0});
+        translate(atoms, {dr*translateSpeed, 0.0, 0.0});
         elementsNeedUpdate = true;
     }
     if (display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_PERIOD, jGL::EventType::HOLD))
     {
-        translate(atoms, {0.0, -dr, 0.0});
+        translate(atoms, {0.0, -dr*translateSpeed, 0.0});
         elementsNeedUpdate = true;
     }
     if (display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_SLASH, jGL::EventType::HOLD))
     {
-        translate(atoms, {0.0, dr, 0.0});
+        translate(atoms, {0.0, dr*translateSpeed, 0.0});
         elementsNeedUpdate = true;
     }
     if (display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_DOWN, jGL::EventType::HOLD))
     {
-        translate(atoms, {0.0, 0.0, -dr});
+        translate(atoms, {0.0, 0.0, -dr*translateSpeed});
         elementsNeedUpdate = true;
     }
     if (display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::PRESS) || display.keyHasEvent(GLFW_KEY_UP, jGL::EventType::HOLD))
     {
-        translate(atoms, {0.0, 0.0, dr});
+        translate(atoms, {0.0, 0.0, dr*translateSpeed});
         elementsNeedUpdate = true;
     }
 
@@ -287,7 +302,7 @@ void loadingScreenFrame
     jGLInstance->setClear(theme.background);
     jGLInstance->clear();
 
-    cameraControls(display, camera);
+    cameraControls(display, camera, 1.0f, 1.0f, 1.0f);
 
     loadingAtoms.updateCamera(camera);
     loadingAtoms.draw(true);

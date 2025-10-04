@@ -317,6 +317,10 @@ struct CommandLine
         extractArgument(globalAtomAlpha, arguments);
         extractArgument(globalBondAlpha, arguments);
         extractArgument(videoName, arguments);
+        extractArgument(cameraZoomSpeed, arguments);
+        extractArgument(cameraPanSpeed, arguments);
+        extractArgument(cameraInclineSpeed, arguments);
+        extractArgument(cameraRotateSpeed, arguments);
 
         #ifdef WITH_FFMPEG
         extractArgument(cq, arguments);
@@ -352,6 +356,10 @@ struct CommandLine
     Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", "", {512, 512}};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds for this atom.", "", NULL_INDEX};
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", "", NULL_INDEX};
+    Argument<float> cameraZoomSpeed = {"cameraZoomSpeed", "Speed of the camera's zoom.", "", 1.0};
+    Argument<float> cameraRotateSpeed = {"cameraRotateSpeed", "Speed of the camera's rotation", "", 1.0};
+    Argument<float> cameraInclineSpeed = {"cameraInclineSpeed", "Speed of the camera's inclination.", "", 1.0};
+    Argument<float> cameraPanSpeed = {"cameraPanSpeed", "Speed of the camera's pan.", "", 1.0};
 
     #ifdef WITH_FFMPEG
     Argument<std::string> codec = {"codec", "FFmpeg codec name.", "See ffmpeg -codecs", "libx264"};
@@ -624,6 +632,10 @@ struct CommandLine
           << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideInfoText), 42)
           << "\n"
           << sidebyside(argumentHelp(videoName), argumentHelp(fieldOfView), 42)
+          << "\n"
+          << sidebyside(argumentHelp(cameraRotateSpeed), argumentHelp(cameraInclineSpeed), 42)
+          << "\n"
+          << sidebyside(argumentHelp(cameraPanSpeed), argumentHelp(cameraZoomSpeed), 42)
           << "\n"
           #ifdef WITH_FFMPEG
           << "\n FFMPEG recording options:\n\n"
