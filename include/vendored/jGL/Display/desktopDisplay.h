@@ -11,6 +11,10 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
+
 #include <jGL/Display/event.h>
 #include <jGL/Display/display.h>
 
@@ -21,6 +25,11 @@
 #ifdef WINDOWS
 #include <windows.h>
 #include <mmsystem.h>
+#include <imgui/imgui_impl_win32.h>
+#endif
+
+#ifdef MACOS
+#include <imgui/imgui_impl_osx.h>
 #endif
 
 namespace jGL
@@ -187,7 +196,8 @@ namespace jGL
                     }
                 }
 
-                glfwWindow = glfwCreateWindow(getResX(), getResY(),title,NULL,NULL);
+                main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
+                glfwWindow = glfwCreateWindow(getResX()*main_scale, getResY()*main_scale,title,NULL,NULL);
                 glfwSwapInterval(1);
                 setWindowPosition(pos);
             }
@@ -397,6 +407,23 @@ namespace jGL
                 glfwSetWindowPos(glfwWindow, s.x, s.y);
             }
         }
+        
+        void initImgui()
+        {
+            IMGUI_CHECKVERSION();
+            ImGui::CreateContext();
+            ImGuiIO& io = ImGui::GetIO(); (void)io;
+            io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+            ImGui::StyleColorsDark();
+
+            ImGuiStyle& style = ImGui::GetStyle();
+            style.ScaleAllSizes(main_scale);
+            style.FontScaleDpi = main_scale;
+
+            ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
+            ImGui_ImplOpenGL3_Init("#version " GLSL_VERSION "");
+        }
 
     private:
 
@@ -409,6 +436,8 @@ namespace jGL
         WindowData data;
 
         Config windowConfig;
+
+        float main_scale;
 
         void swap(){ if (glfwWindow != NULL) { glfwSwapBuffers(glfwWindow); } }
 
