@@ -407,6 +407,15 @@ namespace jGL
                 glfwSetWindowPos(glfwWindow, s.x, s.y);
             }
         }
+
+        void setResolution(glm::ivec2 wh)
+        {
+            resolution = wh;
+            if (glfwWindow != NULL)
+            {
+                glfwSetWindowSize(glfwWindow, resolution.x*main_scale, resolution.y*main_scale);
+            }
+        }
         
         void initImgui()
         {

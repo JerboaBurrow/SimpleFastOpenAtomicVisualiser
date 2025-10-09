@@ -105,6 +105,7 @@ namespace jGL
     void setPosition(glm::vec2 newPosition){position=newPosition; update();}
     void setPosition(float x, float y){position=glm::vec2(x,y); update();}
     void move(float dx, float dy){position += glm::vec2(dx,dy); update();}
+    void setResolution(glm::ivec2 wh){resolution = wh; update();}
 
   private:
 

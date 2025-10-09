@@ -16,7 +16,7 @@ namespace jGL::GL
 
   public:
 
-    TextRenderer(glm::vec2 res);
+    TextRenderer();
 
     ~TextRenderer()
     {
@@ -85,7 +85,6 @@ namespace jGL::GL
     std::vector<float> vertices;
 
     glm::mat4 projection;
-    glm::vec2 res;
 
 
     void setBufferSize(uint16_t s);

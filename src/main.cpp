@@ -38,29 +38,16 @@ int main(int argv, char ** argc)
 
     jGLInstance = std::move(std::make_unique<jGL::GL::OpenGLInstance>(glm::ivec2(resX, resY)));
 
-    jGL::OrthoCam jglCamera(resX, resY, glm::vec2(0.0,0.0));
-    jglCamera.setPosition(0.0f, 0.0f);
-
     jGLInstance->setTextProjection(glm::ortho(0.0,double(resX),0.0,double(resY)));
     jGLInstance->setMSAA(options.msaa.value);
 
     double deltas[60];
     double delta = 0;
     unsigned frameId = 0;
-    unsigned int rbo;
     bool readInProgress = false;
     bool elementsNeedUpdate = false;
     bool playBackward = false;
     uint8_t lastAutoPlayIncrement = 0;
-
-    if (options.msaa.value > 0)
-    {
-        glGenRenderbuffers(1, &rbo);
-        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-        glRenderbufferStorageMultisample(GL_RENDERBUFFER, options.msaa.value, GL_DEPTH24_STENCIL8, resX, resY);
-        glBindRenderbuffer(GL_RENDERBUFFER, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-    }
 
     if (options.structure.value.empty())
     {
@@ -470,10 +457,6 @@ int main(int argv, char ** argc)
         if (frameId == 0 && log.size() > 0) { std::cout << log << "\n"; }
     }
 
-    if (options.msaa.value > 0)
-    {
-        glDeleteRenderbuffers(1, &rbo);
-    }
     jGLInstance->finish();
 
     return 0;
