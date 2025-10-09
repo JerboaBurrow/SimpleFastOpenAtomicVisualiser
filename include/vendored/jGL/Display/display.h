@@ -25,6 +25,7 @@ namespace jGL
         unsigned getResX() const { return resolution.x; }
         unsigned getResY() const { return resolution.y; }
         glm::ivec2 getRes() const { return resolution; }
+        virtual void setResolution(glm::ivec2 wh) { resolution = wh; }
 
         virtual void setFrameLimit(unsigned fps)
         {

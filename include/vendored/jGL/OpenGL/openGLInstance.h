@@ -16,22 +16,27 @@ namespace jGL::GL
 
     class OpenGLInstance : public jGLInstance
     {
-        
+
         public:
 
             OpenGLInstance(glm::ivec2 res, uint8_t msaa = 0)
-            : jGLInstance(res), 
+            : jGLInstance(res),
               framebuffer(glDrawFramebuffer()),
-              textRenderer(res)
+              textRenderer()
             {
                 framebuffer.setResolution
                 (
                     res
                 );
                 framebuffer.setMSAA(msaa);
+                setTextProjection(glm::ortho(0.0,double(resolution.x),0.0,double(resolution.y)));
             }
 
-            ~OpenGLInstance(){framebuffer.destroy();}
+            ~OpenGLInstance()
+            {
+                if (glIsBuffer(rbo)) { glDeleteRenderbuffers(1, &rbo); }
+                framebuffer.destroy();
+            }
 
             void beginFrame(){framebuffer.bind();}
             void endFrame(){framebuffer.blit();}
@@ -40,7 +45,7 @@ namespace jGL::GL
 
             void text
             (
-                std::string characters, 
+                std::string characters,
                 glm::vec2 position,
                 float scale,
                 glm::vec4 colour,
@@ -57,26 +62,45 @@ namespace jGL::GL
 
             void setMSAA(uint8_t samples)
             {
+                if (samples == 0) { msaaSamples = 0; return; }
                 GLint maxSamples;
                 glGetIntegerv(GL_MAX_SAMPLES, &maxSamples);
 
                 if (samples > maxSamples){samples = maxSamples;}
 
+                msaaSamples = samples;
+
                 framebuffer.setMSAA(samples);
+
+                if (glIsBuffer(rbo)) { glDeleteRenderbuffers(1, &rbo); }
+                glGenRenderbuffers(1, &rbo);
+                glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+                glRenderbufferStorageMultisample(GL_RENDERBUFFER, msaaSamples, GL_DEPTH24_STENCIL8, resolution.x, resolution.y);
+                glBindRenderbuffer(GL_RENDERBUFFER, 0);
+                glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+            }
+
+            void setResolution(glm::ivec2 wh)
+            {
+                resolution = wh;
+                framebuffer.setResolution(resolution);
+                setMSAA(msaaSamples);
+                setTextProjection(glm::ortho(0.0,double(resolution.x),0.0,double(resolution.y)));
+                glViewport(0.0f, 0.0f, resolution.x, resolution.y);
             }
 
             void setClear(glm::vec4 colour) { clearColour = colour; }
             void setProjection(glm::mat4 proj) {/*TODO*/}
             void setTextProjection(glm::mat4 proj) { textRenderer.setProjection(proj); }
             void setViewport(glm::vec4 view) { glViewport(view.x, view.y, view.z, view.w); }
-            
-            std::shared_ptr<Particles> createParticles(size_t sizeHint) 
+
+            std::shared_ptr<Particles> createParticles(size_t sizeHint)
             {
-                return std::static_pointer_cast<Particles>(std::make_shared<glParticles>(sizeHint)); 
+                return std::static_pointer_cast<Particles>(std::make_shared<glParticles>(sizeHint));
             }
 
-            std::shared_ptr<Texture> createTexture(std::filesystem::path imageFile, Texture::Type type) 
-            { 
+            std::shared_ptr<Texture> createTexture(std::filesystem::path imageFile, Texture::Type type)
+            {
                 switch (type)
                 {
                     case Texture::Type::RGB:
@@ -85,11 +109,11 @@ namespace jGL::GL
                         return std::static_pointer_cast<Texture>(std::make_shared<glTexture2DRGBA>(imageFile));
                     default:
                         return std::static_pointer_cast<Texture>(std::make_shared<glTexture2DRGB>(imageFile));
-                }   
+                }
             }
 
             std::shared_ptr<Texture> createTexture(std::vector<std::byte> data, Texture::Type type)
-            { 
+            {
                 switch (type)
                 {
                     case Texture::Type::RGB:
@@ -98,7 +122,7 @@ namespace jGL::GL
                         return std::static_pointer_cast<Texture>(std::make_shared<glTexture2DRGBA>(data));
                     default:
                         return std::static_pointer_cast<Texture>(std::make_shared<glTexture2DRGB>(data));
-                }   
+                }
             }
 
             std::shared_ptr<SpriteRenderer> createSpriteRenderer(size_t sizeHint)
@@ -132,6 +156,8 @@ namespace jGL::GL
             TextRenderer textRenderer;
 
             glm::vec4 clearColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+            GLuint rbo;
     };
 }
 
