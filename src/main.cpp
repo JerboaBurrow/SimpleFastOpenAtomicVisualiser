@@ -87,7 +87,7 @@ int main(int argv, char ** argc)
         progress << "Frame: " << frame+1 << "/" << structure->frameCount()
                  << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
                  << "\nRead atom " << structure->frameReadProgress() << "/" << structure->atomCount();
-        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), theme, resX, resY, options.hideInfoText.value);
+        loadingScreenFrame(display, loadingCamera, loadingAtoms, progress.str(), theme, resX, resY, options.hideUI.value);
     }
 
     if (!display.isOpen()) { return 0; }
@@ -155,6 +155,9 @@ int main(int argv, char ** argc)
         bondRenderer.setTransparencySorting(false);
     }
 
+    display.initImgui();
+    loadFonts();
+
     jGLInstance->setClear(theme.background);
 
     while (display.isOpen())
@@ -199,9 +202,9 @@ int main(int argv, char ** argc)
             options.hideAtoms.value = !options.hideAtoms.value;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_I, jGL::EventType::PRESS))
+        if (display.keyHasEvent(GLFW_KEY_U, jGL::EventType::PRESS))
         {
-            options.hideInfoText.value = !options.hideInfoText.value;
+            options.hideUI.value = !options.hideUI.value;
         }
 
         bool cameraMoved = cameraControls
@@ -223,6 +226,10 @@ int main(int argv, char ** argc)
             options.deemphasisAlpha.value,
             options.cameraPanSpeed.value
         );
+
+        CameraWindow::CameraUpdates updates = CameraWindow().applyQueueActions(camera, structure->atoms, options, dr, dtheta, dphi);
+        cameraMoved = cameraMoved || updates.cameraMoved;
+        elementsNeedUpdate = elementsNeedUpdate || updates.atomsMoved;
 
         if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
         {
@@ -353,29 +360,20 @@ int main(int argv, char ** argc)
         if (visualisationState.frame > 0) { visualisationState.frame -= 1; }
         else { visualisationState.frame = structure->frameCount()-1; }
 
-        if (!options.hideInfoText.value)
+        if (!options.hideUI.value)
         {
-            auto cx = fixedLengthNumber(camera.position().x, 6);
-            auto cy = fixedLengthNumber(camera.position().y, 6);
-            auto cz = fixedLengthNumber(camera.position().z, 6);
-            std::stringstream debugText;
-            debugText << "Frame: " << visualisationState.frame+1 << "/" << structure->frameCount()
-                      << "\nFrame cacheing " << (structure->framePositionsLoaded() ? "complete." : "in progress.")
-                      << "\nCamera: " << cx << ", " << cy << ", " << cz
-                      << "\nDelta: " << fixedLengthNumber(delta,6) << " ms"
-                      << " (FPS: " << fixedLengthNumber(1.0/(delta*1e-3),4)
-                      << ")\n"
-                      << "Atoms/Triangles: " << structure->atoms.size() << "/" << atomRenderer.triangles(true)+bondRenderer.triangles()
-                      << "\nSpeed " << fixedLengthNumber(int(100.0*float(options.speed.value)/float(60)), 3);
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
 
-            jGLInstance->text(
-                debugText.str(),
-                glm::vec2(64.0f, resY-64.0f),
-                0.5f,
-                theme.text
-            );
+            infoWindow(structure, camera, visualisationState, delta);
+            CameraWindow().draw(options);
+
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
-        else if (visualisationState.text != "")
+
+        if (visualisationState.text != "")
         {
             jGLInstance->text(
                 visualisationState.text,

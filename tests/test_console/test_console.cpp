@@ -522,16 +522,16 @@ SCENARIO("Lua options interop")
             }
         }
 
-        WHEN("The script \"v = sfoav.getOption(\"hideInfoText\");\"")
+        WHEN("The script \"v = sfoav.getOption(\"hideUI\");\"")
         {
-            console.runString("v = sfoav.getOption(\"hideInfoText\");");
+            console.runString("v = sfoav.getOption(\"hideUI\");");
             THEN("v is false")
             {
                 REQUIRE(console.getGlobal<LuaBool>("v").bit == false);
             }
-            WHEN("The script \"sfoav.setOption(\"hideInfoText\", true); v = sfoav.getOption(\"hideInfoText\");\"")
+            WHEN("The script \"sfoav.setOption(\"hideUI\", true); v = sfoav.getOption(\"hideUI\");\"")
             {
-                console.runString("sfoav.setOption(\"hideInfoText\", true); v = sfoav.getOption(\"hideInfoText\");");
+                console.runString("sfoav.setOption(\"hideUI\", true); v = sfoav.getOption(\"hideUI\");");
                 THEN("v is true")
                 {
                     REQUIRE(console.getGlobal<LuaBool>("v").bit == true);
