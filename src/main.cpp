@@ -366,7 +366,7 @@ int main(int argv, char ** argc)
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            infoWindow(structure, camera, visualisationState, atomRenderer, bondRenderer, options, delta);
+            infoWindow(structure, camera, visualisationState, delta);
             CameraWindow().draw(options);
 
             ImGui::Render();

@@ -18,10 +18,18 @@
 #include <atom.h>
 #include <helpMarker.h>
 
+/**
+ * @brief The camera controls window.
+ *
+ */
 class CameraWindow
 {
 public:
 
+    /**
+     * @brief If the Camera or Atoms require updates.
+     *
+     */
     struct CameraUpdates
     {
         CameraUpdates()
@@ -35,6 +43,14 @@ public:
 
     CameraWindow() {}
 
+    /**
+     * @brief Draw the window with Imgui
+     *
+     * @param options the current options.
+     *
+     * @remark Actions in the UI are queued for later application.
+     * @see CameraWindow::applyQueueActions.
+     */
     void draw
     (
         CommandLine & options
@@ -125,6 +141,17 @@ public:
         ImGui::End();
     }
 
+    /**
+     * @brief Apply queued actions from the UI.
+     *
+     * @param camera the Camera to update.
+     * @param atoms the Atoms to update.
+     * @param options the options to use for actions.
+     * @param dr the length unit.
+     * @param dtheta the rotation unit.
+     * @param dphi the incline unit.
+     * @return CameraUpdates Whether the Camera or Atoms were updated.
+     */
     CameraUpdates applyQueueActions
     (
         Camera & camera,

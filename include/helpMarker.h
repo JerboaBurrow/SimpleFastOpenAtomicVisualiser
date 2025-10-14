@@ -13,6 +13,11 @@
 #include <imgui/imgui_impl_osx.h>
 #endif
 
+/**
+ * @brief Draw a help marker (?) in Imgui UIs
+ *
+ * @param desc the help message.
+ */
 static void HelpMarker(const char* desc)
 {
     ImGui::TextDisabled("(?)");

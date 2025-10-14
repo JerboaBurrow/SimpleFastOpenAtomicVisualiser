@@ -25,12 +25,9 @@
 /**
  * @brief Draw an information window.
  *
- * @param structure
- * @param camera
- * @param visualisationState
- * @param atomRenderer
- * @param bondRenderer
- * @param options
+ * @param structure the Structure to get info from.
+ * @param camera the Camera to get info from.
+ * @param visualisationState the VisualisationState to get info from.
  * @param delta the frame delta in milliseconds.
  */
 void infoWindow
@@ -38,9 +35,6 @@ void infoWindow
     const std::unique_ptr<Structure> & structure,
     const Camera & camera,
     const VisualisationState & visualisationState,
-    const AtomRenderer & atomRenderer,
-    const BondRenderer & bondRenderer,
-    const CommandLine & options,
     const float & delta
 )
 {
