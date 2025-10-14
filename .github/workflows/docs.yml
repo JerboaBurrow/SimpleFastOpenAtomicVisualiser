@@ -10,6 +10,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Increase TeX buf_size
+        run: |
+          sudo sh -c "echo 'buf_size = 1000000' >> $(kpsewhich texmf.cnf)"
+
       - uses: DenverCoder1/doxygen-github-pages-action@v1.3.1
         with:
           github_token: ${{ secrets.BURROW_BOT }}
