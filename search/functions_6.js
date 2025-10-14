@@ -24,12 +24,13 @@ var searchData=
   ['getlevelofdetail_21',['getLevelOfDetail',['../classAtomRenderer.html#ad490634bf9e2c4fba440debc51fe3804',1,'AtomRenderer']]],
   ['getluatableofnumericluatable_22',['getLuaTableOfNumericLuaTable',['../lua_8h.html#af9d185f063d3e5cac8ea960c20541b2a',1,'lua.h']]],
   ['getnumericluatable_23',['getNumericLuaTable',['../lua_8h.html#a6d08091c1c516dfacee4355e0284f31a',1,'lua.h']]],
-  ['getprojection_24',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
-  ['getpv_25',['getPV',['../classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced',1,'Camera']]],
-  ['getresx_26',['getResX',['../classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8',1,'Camera']]],
-  ['getresy_27',['getResY',['../classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7',1,'Camera']]],
-  ['getup_28',['getUp',['../classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9',1,'Camera']]],
-  ['getvertices_29',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
-  ['getview_30',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]],
-  ['gpl_31',['gpl',['../structCommandLine.html#abcbe57f3815000521805412d8b93f547',1,'CommandLine']]]
+  ['getpath_24',['getPath',['../classStructure.html#a7448a6c73e335da473fcce4eb11ee530',1,'Structure']]],
+  ['getprojection_25',['getProjection',['../classCamera.html#a5890b40d92902a1b15624c268aab1c53',1,'Camera']]],
+  ['getpv_26',['getPV',['../classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced',1,'Camera']]],
+  ['getresx_27',['getResX',['../classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8',1,'Camera']]],
+  ['getresy_28',['getResY',['../classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7',1,'Camera']]],
+  ['getup_29',['getUp',['../classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9',1,'Camera']]],
+  ['getvertices_30',['getVertices',['../classTriangle.html#a6f448f69f182b8ce0f34d231c475598a',1,'Triangle']]],
+  ['getview_31',['getView',['../classCamera.html#a73701b7992ffac7426b469501e5a17df',1,'Camera']]],
+  ['gpl_32',['gpl',['../structCommandLine.html#abcbe57f3815000521805412d8b93f547',1,'CommandLine']]]
 ];

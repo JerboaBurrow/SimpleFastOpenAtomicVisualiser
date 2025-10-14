@@ -1,0 +1,9 @@
+<map id="include/helpMarker.h" name="include/helpMarker.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="153,5,311,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,117,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,33,103,76,101,71,204,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="141,79,323,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,31,235,65,229,65,229,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="347,79,554,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="268,28,403,72,401,77,266,33"/>
+</map>

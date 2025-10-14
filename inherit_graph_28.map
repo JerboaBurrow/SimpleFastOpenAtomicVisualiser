@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structTheme.html" title="A background and text colour theme." alt="" coords="5,5,72,31"/>
+<area shape="rect" id="Node000000" href="$classRecord.html" title="An API for recording video." alt="" coords="5,31,72,56"/>
+<area shape="rect" id="Node000001" href="$classFFmpegRecord.html" title="An FFmpeg based Record." alt="" coords="120,5,240,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="85,32,119,26,120,31,86,38"/>
+<area shape="rect" id="Node000002" href="$classJompegRecord.html" title="An jo_mpeg based Record." alt="" coords="122,55,238,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="86,49,122,55,121,60,85,54"/>
 </map>
