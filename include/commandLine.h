@@ -289,7 +289,7 @@ struct CommandLine
         extractFlag(hideAtoms, flags);
         extractFlag(showAxes, flags);
         extractFlag(showCell, flags);
-        extractFlag(hideInfoText, flags);
+        extractFlag(hideUI, flags);
         extractFlag(play, flags);
         extractFlag(meshes, flags);
         extractFlag(darkTheme, flags);
@@ -353,7 +353,7 @@ struct CommandLine
     Argument<std::filesystem::path> colourmap = {"colourmap", "The colourmap path.", "", {}};
     Argument<std::filesystem::path> atomColours = {"atomColours", "Path for per-atom colour overrides.", "", {}};
     Argument<std::string> videoName = {"videoName", "Name of saved video.", "", ""};
-    Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", "", {512, 512}};
+    Argument<vec<2>> resolution = {"resolution", "Window resolution in pixels.", "", {800, 800}};
     Argument<uint64_t> bondFocus = {"bondFocus", "Only draw bonds for this atom.", "", NULL_INDEX};
     Argument<uint64_t> focus = {"focus", "Centre on a particular atom.", "", NULL_INDEX};
     Argument<float> cameraZoomSpeed = {"cameraZoomSpeed", "Speed of the camera's zoom.", "", 1.0};
@@ -376,7 +376,7 @@ struct CommandLine
     Argument<bool> hideAtoms = {"hideAtoms", "Hide atoms.", "Toggleable at runtime.", false};
     Argument<bool> showAxes = {"showAxes", "Show the coordinate axes.", "Toggleable at runtime.", false};
     Argument<bool> showCell = {"showCell", "Show the simulation cell.", "Toggleable at runtime.", false};
-    Argument<bool> hideInfoText = {"hideInfoText", "Hide information and statistics text.", "Toggleable at runtime.", false};
+    Argument<bool> hideUI = {"hideUI", "Hide information and statistics text.", "Toggleable at runtime.", false};
     Argument<bool> play = {"play", "Play trajectory.", "Toggleable at runtime.", false};
     Argument<bool> noCentering = {"noCentering", "Do not centre the atoms", "Toggleable at runtime.", false};
     Argument<bool> darkTheme = {"darkTheme", "Use dark theme", "Toggleable at runtime.", false};
@@ -629,7 +629,7 @@ struct CommandLine
           << "\n"
           << sidebyside(argumentHelp(noCentering), argumentHelp(noTransparencySorting), 42)
           << "\n"
-          << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideInfoText), 42)
+          << sidebyside(argumentHelp(levelOfDetail), argumentHelp(hideUI), 42)
           << "\n"
           << sidebyside(argumentHelp(videoName), argumentHelp(fieldOfView), 42)
           << "\n"
@@ -758,6 +758,10 @@ FFmpeg
 jo_mpeg
   Public domain.
   Jon Olick.
+
+Dear Imgui
+  MIT.
+  Omar Cornut.
 
 With thanks, Jerboa.
 )";
@@ -935,7 +939,7 @@ private:
             {hideAtoms.name, hideAtoms},
             {showAxes.name, showAxes},
             {showCell.name, showCell},
-            {hideInfoText.name, hideInfoText},
+            {hideUI.name, hideUI},
             {play.name, play},
             {noCentering.name, noCentering},
             {darkTheme.name, darkTheme},

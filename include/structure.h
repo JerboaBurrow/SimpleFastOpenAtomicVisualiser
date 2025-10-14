@@ -173,6 +173,13 @@ public:
      */
     std::map<Element, glm::vec4> colourMap = CPK_COLOURS;
 
+    /**
+     * @brief Get the Path of the structure.
+     *
+     * @return std::string the path to the structure file.
+     */
+    std::string getPath() { return path.string(); }
+
 protected:
 
     std::filesystem::path path;

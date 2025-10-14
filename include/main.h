@@ -33,6 +33,9 @@
 #include <console.h>
 #include <visualisationState.h>
 #include <neighbours.h>
+#include <infoWindow.h>
+#include <cameraWindow.h>
+#include <font.h>
 
 const float dr = (1.0)*0.5;
 const float dtheta = (3.14)*0.025;
@@ -371,6 +374,17 @@ void setTransparencySorting
     }
     atomRenderer.setTransparencySorting(false);
     bondRenderer.setTransparencySorting(false);
+}
+
+/**
+ * @brief Loads fonts for ImGui.
+ *
+ */
+void loadFonts()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImFontConfig font_cfg;
+    io.Fonts->AddFontFromMemoryTTF(OpenDyslexicMono, sizeof(OpenDyslexicMono), 20.0);
 }
 
 #endif /* MAIN_H */
