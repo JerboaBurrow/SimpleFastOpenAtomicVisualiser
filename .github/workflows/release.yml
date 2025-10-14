@@ -25,7 +25,7 @@ jobs:
       - name: Build doxygen
         run: |
           doxygen docs/doxygen.config
-          (cd docs/latex; buf_size=100000 make; ls; mv refman.pdf SimpleFastOpenAtomicVisualiser.pdf)
+          (cd docs/latex; buf_size=1000000 make; ls; mv refman.pdf SimpleFastOpenAtomicVisualiser.pdf)
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
