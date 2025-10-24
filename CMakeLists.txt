@@ -64,7 +64,7 @@ if (NOT WINDOWS)
     add_compile_definitions(LUA_USE_POSIX)
 endif()
 
-file(GLOB LUA_SRC "include/vendored/lua/src/*.c")
+file(GLOB LUA_SRC "include/vendored/lua/src/*.cpp")
 include_directories(include/vendored/lua/src)
 add_library(Lua STATIC ${LUA_SRC})
 

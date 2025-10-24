@@ -56,6 +56,7 @@ inline int VisualisationState::lua_setAtomColour(lua_State * lua)
         a = std::clamp(float(lua_a.n), 0.0f, 1.0f);
     }
     atomColourOverrides[index] = glm::vec4(r, g, b, a);
+    elementsUpdated = true;
 
     return 0;
 }

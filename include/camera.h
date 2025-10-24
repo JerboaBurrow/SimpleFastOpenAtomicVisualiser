@@ -82,6 +82,7 @@ public:
 
         pv = projection*view;
         invPv = glm::inverse(pv);
+        updated = true;
     }
 
     /**
@@ -317,6 +318,8 @@ public:
      */
     inline int lua_getCameraFieldOfView(lua_State * lua);
 
+    bool updated = false;
+
 private:
 
     uint16_t resX;
@@ -345,6 +348,7 @@ private:
         invView = glm::inverse(view);
         pv = projection*view;
         invPv = glm::inverse(pv);
+        updated = true;
     }
 
 };

@@ -6,8 +6,7 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-
-#include <jLog/jLog.h>
+#include <iostream>
 
 #include <lua.h>
 #include <LuaNumber.h>
@@ -178,18 +177,16 @@ class Console
 public:
 
     /**
-     * @brief Construct a new Console with a jLog::Log.
+     * @brief Construct a new Console.
      *
-     * @param l jLog::Log outputting Lua's messages.
      */
     Console
     (
-        jLog::Log & l,
         VisualisationState * visualisationState,
         CommandLine * options,
         Camera * camera
     )
-    : lastCommandOrProgram(""), lastStatus(false), log(l)
+    : lastCommandOrProgram(""), lastStatus(false)
     {
         lua = luaL_newstate();
         luaL_openlibs(lua);
@@ -199,6 +196,17 @@ public:
         extraSpace.camera = camera;
         extraSpace.exit = &exit;
         *static_cast<LuaExtraSpace**>(lua_getextraspace(lua)) = &extraSpace;
+
+        const char * init = R"(
+            function use(module)
+                for k,v in pairs(module) do
+                    if not _G[k] then
+                        _G[k] = module[k]
+                    end
+                end
+            end
+            use(sfoav))";
+        runString(init);
     }
 
     ~Console(){ lua_close(lua); }
@@ -216,11 +224,7 @@ public:
         {
             lastCommandOrProgram = file;
             lastStatus = luaL_loadfile(lua, file.c_str());
-            int epos = lua_gettop(lua);
-            lua_pushcfunction(lua, traceback);
-            lua_insert(lua, epos);
-            lastStatus = lastStatus || lua_pcall(lua, 0, LUA_MULTRET, epos);
-            lua_remove(lua, epos);
+            lastStatus = lastStatus || lua_pcall(lua, 0, LUA_MULTRET, 0);
             return handleErrors();
         }
         return false;
@@ -236,8 +240,26 @@ public:
     bool runString(std::string program)
     {
         if (luaIsOk())
-        {   lastCommandOrProgram = program;
+        {
+            lastCommandOrProgram = program;
             lastStatus = luaL_dostring(lua,program.c_str());
+            return handleErrors();
+        }
+        return false;
+    }
+
+    /**
+     * @brief Attempt to run a Lua script from std::string.
+     *
+     * @param file Lua script.
+     * @return true Error occured.
+     * @return false OK.
+     */
+    bool runString(const char * program)
+    {
+        if (luaIsOk())
+        {   lastCommandOrProgram = std::string(program);
+            lastStatus = luaL_dostring(lua,program);
             return handleErrors();
         }
         return false;
@@ -310,27 +332,12 @@ private:
     bool lastStatus;
     bool exit = false;
 
-    jLog::Log & log;
-
-    static int traceback(lua_State * lua) {
-        if (lua_isstring(lua, -1))
-        {
-            stackTrace = lua_tostring(lua, -1);
-            lua_pop(lua, 1);
-        }
-        luaL_traceback(lua, lua, NULL, 1);
-        stackTrace += std::string("\n") + lua_tostring(lua, -1);
-        lua_pop(lua, 1);
-        return 0;
-    }
-
     bool handleErrors()
     {
         if (lastStatus)
         {
-            std::string msg = "Exited with error running "+lastCommandOrProgram+"\n";
-            msg += stackTrace;
-            jLog::ERR(jLog::ERRORCODE::LUA_ERROR, msg) >> log;
+            if (lua_isstring(lua, -1)) { std::cerr << lua_tostring(lua, -1) << "\n"; }
+            else { std::cerr << "Exited with error running "+lastCommandOrProgram+"\n"; }
             return true;
         }
         else

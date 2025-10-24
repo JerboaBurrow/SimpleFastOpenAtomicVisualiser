@@ -7,12 +7,9 @@
 #include <stdexcept>
 #include <algorithm>
 
-extern "C"
-{
-    #include <lua/src/lua.h>
-    #include <lua/src/lauxlib.h>
-    #include <lua/src/lualib.h>
-}
+#include <lua/src/lua.h>
+#include <lua/src/lauxlib.h>
+#include <lua/src/lualib.h>
 
 /**
 * @brief Get the a Lua table of doubles.

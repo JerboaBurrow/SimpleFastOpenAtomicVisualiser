@@ -111,6 +111,7 @@ struct VisualisationState
 
         text = "";
         frame = 0;
+        elementsUpdated = true;
     }
 
     std::vector<Atom> & atoms;
@@ -130,6 +131,8 @@ struct VisualisationState
 
     bool recording = false;
     bool recordClosing = false;
+
+    bool elementsUpdated = false;
 
     /**
      * @brief Video writing is behind.

@@ -23,10 +23,9 @@ Camera camera(testAtoms, 64, 64, 60.0);
 
 SCENARIO("Lua atom interop")
 {
-    jLog::Log l;
     GIVEN("A Lua console")
     {
-        Console console(l, &vs, &options, &camera);
+        Console console(&vs, &options, &camera);
         WHEN("The script \"atoms = sfoav.atomCount()\" is run")
         {
             console.runString("atoms = sfoav.atomCount()");
@@ -289,11 +288,10 @@ SCENARIO("Lua atom interop")
 
 SCENARIO("Lua bond interop")
 {
-    jLog::Log l;
     GIVEN("A Lua console (and no bonds)")
     {
         vs.bonds.clear();
-        Console console(l, &vs, &options, &camera);
+        Console console(&vs, &options, &camera);
         WHEN("The script \"empty = next(sfoav.getAtomsBonds(0))==nil\" is run")
         {
             console.runString("empty = next(sfoav.getAtomsBonds(0))==nil");
@@ -353,10 +351,9 @@ SCENARIO("Lua bond interop")
 
 SCENARIO("Lua camera interop")
 {
-    jLog::Log l;
     GIVEN("A Lua console and a camera at spherical coordinates (1,3.14,1.57) and 60 fov.")
     {
-        Console console(l, &vs, &options, &camera);
+        Console console(&vs, &options, &camera);
         camera.setPosition({1,3.14,1.57});
         WHEN("The script \"x, y, z = sfoav.cameraPosition(true)\"")
         {
@@ -449,10 +446,9 @@ SCENARIO("Lua camera interop")
 */
 SCENARIO("Lua options interop")
 {
-    jLog::Log l;
     GIVEN("A Lua console with default CommandLine values")
     {
-        Console console(l, &vs, &options, &camera);
+        Console console(&vs, &options, &camera);
 
         WHEN("The script \"v = sfoav.getOption(\"meshes\");\"")
         {

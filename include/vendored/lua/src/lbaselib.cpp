@@ -20,35 +20,15 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-#ifdef ANDROID
-  #include <android/log.h>
-#endif
-
-
-#if !defined(ANDROID) && !defined(WINDOWS)
-  const char * LUA_PRINT_ENTRY = "\033[1;34m[LUA] \033[0m\0";
-  const size_t LUA_ENTRY_LENGTH = 23;
-#else
-// it is more complicated than this, LUA interprets some of
-// the escapes differently
-  const char * LUA_PRINT_ENTRY = "[LUA]  \0";
-  const size_t LUA_ENTRY_LENGTH = 6;
-#endif
-
-
 static int luaB_print (lua_State *L) {
   int n = lua_gettop(L);  /* number of arguments */
   int i;
-  lua_writestring(LUA_PRINT_ENTRY,LUA_ENTRY_LENGTH);
   for (i = 1; i <= n; i++) {  /* for each argument */
     size_t l;
     const char *s = luaL_tolstring(L, i, &l);  /* convert it to string */
     if (i > 1)  /* not the first element? */
       lua_writestring("\t", 1);  /* add a tab before it */
     lua_writestring(s, l);  /* print it */
-    #if defined(ANDROID)
-        __android_log_print(ANDROID_LOG_INFO,"LUA","%s",s);
-    #endif
     lua_pop(L, 1);  /* pop result */
   }
   lua_writeline();
