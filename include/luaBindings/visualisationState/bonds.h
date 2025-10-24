@@ -40,6 +40,7 @@ inline int VisualisationState::lua_bond(lua_State * lua)
     {
         bonds[j].erase(i);
     }
+    elementsUpdated = true;
 
     return 0;
 }
@@ -88,6 +89,7 @@ inline int VisualisationState::lua_unbond(lua_State * lua)
     {
         bonds[j].erase(i);
     }
+    elementsUpdated = true;
 
     return 0;
 }

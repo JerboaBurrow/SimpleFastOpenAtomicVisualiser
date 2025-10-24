@@ -180,6 +180,8 @@ public:
      */
     std::string getPath() { return path.string(); }
 
+    bool updated = false;
+
 protected:
 
     std::filesystem::path path;

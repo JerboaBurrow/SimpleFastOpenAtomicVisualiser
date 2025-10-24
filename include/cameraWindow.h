@@ -26,21 +26,6 @@ class CameraWindow
 {
 public:
 
-    /**
-     * @brief If the Camera or Atoms require updates.
-     *
-     */
-    struct CameraUpdates
-    {
-        CameraUpdates()
-        : cameraMoved(false),
-          atomsMoved(false)
-        {}
-
-        bool cameraMoved;
-        bool atomsMoved;
-    };
-
     CameraWindow() {}
 
     /**
@@ -146,43 +131,42 @@ public:
      *
      * @param camera the Camera to update.
      * @param atoms the Atoms to update.
+     * @param atomsMoved signal if atoms have been modified.
      * @param options the options to use for actions.
      * @param dr the length unit.
      * @param dtheta the rotation unit.
      * @param dphi the incline unit.
-     * @return CameraUpdates Whether the Camera or Atoms were updated.
      */
-    CameraUpdates applyQueueActions
+    void applyQueueActions
     (
         Camera & camera,
         std::vector<Atom> & atoms,
+        bool & atomsMoved,
         const CommandLine & options,
         const float & dr,
         const float & dtheta,
         const float & dphi
     )
     {
-        CameraUpdates moved;
-
         if (zoomQueue != 0)
         {
             camera.zoom(dr*options.cameraZoomSpeed.value*zoomQueue);
             zoomQueue = 0;
-            moved.cameraMoved = true;
+            atomsMoved = true;
         }
 
         if (rotateQueue != 0)
         {
             camera.rotate(dtheta*options.cameraRotateSpeed.value*rotateQueue);
             rotateQueue = 0;
-            moved.cameraMoved = true;
+            atomsMoved = true;
         }
 
         if (inclineQueue != 0)
         {
             camera.incline(dphi*options.cameraInclineSpeed.value*inclineQueue);
             inclineQueue = 0;
-            moved.cameraMoved = true;
+            atomsMoved = true;
         }
 
         if (resetCamera)
@@ -190,8 +174,7 @@ public:
             if (!options.noCentering.value) { center(atoms); }
             if (options.focus.value < atoms.size()) { centerOn(atoms, options.focus.value); }
             camera.reset(atoms);
-            moved.atomsMoved = true;
-            moved.cameraMoved = true;
+            atomsMoved = true;
             resetCamera = false;
         }
 
@@ -199,24 +182,22 @@ public:
         {
             translate(atoms, {dr*options.cameraPanSpeed.value*panxQueue, 0.0, 0.0});
             panxQueue = 0;
-            moved.atomsMoved = true;
+            atomsMoved = true;
         }
 
         if (panyQueue != 0)
         {
             translate(atoms, {0.0, dr*options.cameraPanSpeed.value*panyQueue, 0.0});
             panyQueue = 0;
-            moved.atomsMoved = true;
+            atomsMoved = true;
         }
 
         if (panzQueue != 0)
         {
             translate(atoms, {0.0, 0.0, dr*options.cameraPanSpeed.value*panzQueue});
             panzQueue = 0;
-            moved.atomsMoved = true;
+            atomsMoved = true;
         }
-
-        return moved;
     }
 
 private:

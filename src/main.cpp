@@ -47,8 +47,6 @@ int main(int argv, char ** argc)
     double delta = 0;
     unsigned frameId = 0;
     bool readInProgress = false;
-    bool elementsNeedUpdate = false;
-    bool cameraMoved = false;
     bool playBackward = false;
     uint8_t lastAutoPlayIncrement = 0;
 
@@ -143,8 +141,6 @@ int main(int argv, char ** argc)
         structure->getCellC()
     );
 
-    elementsNeedUpdate = true;
-
     atomRenderer.updateCamera(camera);
     bondRenderer.updateCamera(camera);
     if (!options.noTransparencySorting.value)
@@ -188,8 +184,8 @@ int main(int argv, char ** argc)
             }
         }
 
-        cameraMoved = false;
-        elementsNeedUpdate = false;
+        visualisationState.elementsUpdated = false;
+        camera.updated = false;
 
         if (!consoleWindow.focussed)
         {
@@ -209,7 +205,7 @@ int main(int argv, char ** argc)
                 options.hideUI.value = !options.hideUI.value;
             }
 
-            cameraMoved = cameraControls
+            cameraControls
             (
                 display,
                 camera,
@@ -218,7 +214,7 @@ int main(int argv, char ** argc)
                 options.cameraInclineSpeed.value
             );
 
-            elementsNeedUpdate = atomControls
+            visualisationState.elementsUpdated = atomControls
             (
                 display,
                 structure->atoms,
@@ -234,8 +230,7 @@ int main(int argv, char ** argc)
                 if (!options.noCentering.value) { center(structure->atoms); }
                 if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
                 camera.reset(structure->atoms);
-                elementsNeedUpdate = true;
-                cameraMoved = true;
+                visualisationState.elementsUpdated =  true;
             }
 
             if (display.keyHasAnyEvents(GLFW_KEY_F, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
@@ -305,9 +300,7 @@ int main(int argv, char ** argc)
             visualisationState.recordClosing = false;
         }
 
-        CameraWindow::CameraUpdates updates = CameraWindow().applyQueueActions(camera, structure->atoms, options, dr, dtheta, dphi);
-        cameraMoved = cameraMoved || updates.cameraMoved;
-        elementsNeedUpdate = elementsNeedUpdate || updates.atomsMoved;
+        CameraWindow().applyQueueActions(camera, structure->atoms, visualisationState.elementsUpdated, options, dr, dtheta, dphi);
 
         if (readInProgress && structure->frameReadComplete())
         {
@@ -325,13 +318,14 @@ int main(int argv, char ** argc)
             applyColours(structure->atoms, visualisationState.atomColourOverrides);
             applySizes(structure->atoms, visualisationState.atomSizes);
             cell.setVectors(structure->getCellA(), structure->getCellB(), structure->getCellC());
-            elementsNeedUpdate = true;
+            visualisationState.elementsUpdated = true;
         }
 
-        if (cameraMoved)
+        if (camera.updated)
         {
             atomRenderer.updateCamera(camera);
             bondRenderer.updateCamera(camera);
+            camera.updated = false;
         }
 
         if (!readInProgress && std::filesystem::exists(options.script.value))
@@ -342,10 +336,10 @@ int main(int argv, char ** argc)
             applySizes(structure->atoms, visualisationState.atomSizes);
             atomRenderer.updateCamera(camera);
             bondRenderer.updateCamera(camera);
-            elementsNeedUpdate = true;
+            visualisationState.elementsUpdated = true;
         }
 
-        if (elementsNeedUpdate)
+        if (visualisationState.elementsUpdated)
         {
             if (!options.hideAtoms.value)
             {
@@ -357,6 +351,7 @@ int main(int argv, char ** argc)
             {
                 setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
             }
+            visualisationState.elementsUpdated = false;
         }
 
         bondRenderer.draw();
@@ -439,7 +434,7 @@ int main(int argv, char ** argc)
 
         jGLInstance->endFrame();
 
-        if (!closing && elementsNeedUpdate)
+        if (!closing && visualisationState.elementsUpdated)
         {
             visualisationState.recordFrame(resX, resY);
         }

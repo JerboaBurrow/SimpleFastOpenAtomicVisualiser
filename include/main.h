@@ -144,7 +144,7 @@ Theme lightTheme()
  * @return true if the camera moved.
  * @return false if the camera did not move.
  */
-bool cameraControls
+void cameraControls
 (
     jGL::DesktopDisplay & display,
     Camera & camera,
@@ -153,38 +153,30 @@ bool cameraControls
     float inclineSpeed
 )
 {
-    bool moved = false;
     if (display.keyHasAnyEvents(GLFW_KEY_W, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(-dr*zoomSpeed);
-        moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_S, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.zoom(dr*zoomSpeed);
-        moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_Q, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(dtheta*inclineSpeed);
-        moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_E, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.incline(-dtheta*inclineSpeed);
-        moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_A, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(-dphi*rotateSpeed);
-        moved = true;
     }
     if (display.keyHasAnyEvents(GLFW_KEY_D, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
     {
         camera.rotate(dphi*rotateSpeed);
-        moved = true;
     }
-    return moved;
 }
 
 /**
