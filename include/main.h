@@ -16,8 +16,6 @@
 
 #include <icon.h>
 
-#include <jLog/jLog.h>
-
 #include <atom.h>
 #include <atomRenderer.h>
 #include <bondRenderer.h>

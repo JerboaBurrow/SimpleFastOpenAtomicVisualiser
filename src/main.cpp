@@ -1,5 +1,7 @@
 #include <main.h>
 
+#include <consoleWindow.h>
+
 std::string Console::stackTrace("");
 
 int main(int argv, char ** argc)
@@ -46,6 +48,7 @@ int main(int argv, char ** argc)
     unsigned frameId = 0;
     bool readInProgress = false;
     bool elementsNeedUpdate = false;
+    bool cameraMoved = false;
     bool playBackward = false;
     uint8_t lastAutoPlayIncrement = 0;
 
@@ -108,8 +111,7 @@ int main(int argv, char ** argc)
 
     Camera camera {structure->atoms, resX, resY, options.fieldOfView.value};
 
-    jLog::Log log;
-    Console console(log, &visualisationState, &options, &camera);
+    Console console(&visualisationState, &options, &camera);
 
     AtomRenderer atomRenderer
     (
@@ -157,6 +159,7 @@ int main(int argv, char ** argc)
 
     display.initImgui();
     loadFonts();
+    ConsoleWindow consoleWindow;
 
     jGLInstance->setClear(theme.background);
 
@@ -185,9 +188,114 @@ int main(int argv, char ** argc)
             }
         }
 
-        if (display.keyHasEvent(GLFW_KEY_V, jGL::EventType::PRESS))
+        cameraMoved = false;
+        elementsNeedUpdate = false;
+
+        if (!consoleWindow.focussed)
         {
-            visualisationState.toggleRecord(options);
+
+            if (display.keyHasEvent(GLFW_KEY_V, jGL::EventType::PRESS))
+            {
+                visualisationState.toggleRecord(options);
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
+            {
+                options.hideAtoms.value = !options.hideAtoms.value;
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_U, jGL::EventType::PRESS))
+            {
+                options.hideUI.value = !options.hideUI.value;
+            }
+
+            cameraMoved = cameraControls
+            (
+                display,
+                camera,
+                options.cameraZoomSpeed.value,
+                options.cameraRotateSpeed.value,
+                options.cameraInclineSpeed.value
+            );
+
+            elementsNeedUpdate = atomControls
+            (
+                display,
+                structure->atoms,
+                visualisationState.emphasisControls,
+                visualisationState.elementMap,
+                visualisationState.atomEmphasisOverrides,
+                options.deemphasisAlpha.value,
+                options.cameraPanSpeed.value
+            );
+
+            if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
+            {
+                if (!options.noCentering.value) { center(structure->atoms); }
+                if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
+                camera.reset(structure->atoms);
+                elementsNeedUpdate = true;
+                cameraMoved = true;
+            }
+
+            if (display.keyHasAnyEvents(GLFW_KEY_F, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
+            {
+                playBackward = false;
+                if (!readInProgress)
+                {
+                    com = getCenter(structure->atoms);
+                    structure->readFrame(structure->framePosition());
+                    readInProgress = true;
+                }
+            }
+
+            if (display.keyHasAnyEvents(GLFW_KEY_B, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
+            {
+                playBackward = true;
+                if (!readInProgress)
+                {
+                    com = getCenter(structure->atoms);
+                    backward(structure);
+                    readInProgress = true;
+                }
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_R, jGL::EventType::PRESS))
+            {
+                if (!readInProgress)
+                {
+                    structure->readFrame(0);
+                    readInProgress = true;
+                }
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_X, jGL::EventType::PRESS))
+            {
+                options.showAxes.value = !options.showAxes.value;
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_C, jGL::EventType::PRESS))
+            {
+                options.showCell.value = !options.showCell.value;
+            }
+
+            if (display.keyHasEvent(GLFW_KEY_P, jGL::EventType::PRESS))
+            {
+                options.play.value = !options.play.value;
+            }
+
+            if (display.keyHasAnyEvents(GLFW_KEY_K, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
+            {
+                options.speed.value = std::min(options.speed.value+1, 60);
+            }
+
+            if (display.keyHasAnyEvents(GLFW_KEY_J, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
+            {
+                if (options.speed.value > 1)
+                {
+                    options.speed.value--;
+                }
+            }
         }
 
         if (visualisationState.recordClosing && visualisationState.record->finalise())
@@ -197,107 +305,9 @@ int main(int argv, char ** argc)
             visualisationState.recordClosing = false;
         }
 
-        if (display.keyHasEvent(GLFW_KEY_H, jGL::EventType::PRESS))
-        {
-            options.hideAtoms.value = !options.hideAtoms.value;
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_U, jGL::EventType::PRESS))
-        {
-            options.hideUI.value = !options.hideUI.value;
-        }
-
-        bool cameraMoved = cameraControls
-        (
-            display,
-            camera,
-            options.cameraZoomSpeed.value,
-            options.cameraRotateSpeed.value,
-            options.cameraInclineSpeed.value
-        );
-
-        elementsNeedUpdate = atomControls
-        (
-            display,
-            structure->atoms,
-            visualisationState.emphasisControls,
-            visualisationState.elementMap,
-            visualisationState.atomEmphasisOverrides,
-            options.deemphasisAlpha.value,
-            options.cameraPanSpeed.value
-        );
-
         CameraWindow::CameraUpdates updates = CameraWindow().applyQueueActions(camera, structure->atoms, options, dr, dtheta, dphi);
         cameraMoved = cameraMoved || updates.cameraMoved;
         elementsNeedUpdate = elementsNeedUpdate || updates.atomsMoved;
-
-        if (display.keyHasAnyEvents(GLFW_KEY_SPACE, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
-        {
-            if (!options.noCentering.value) { center(structure->atoms); }
-            if (options.focus.value < structure->atoms.size()) { centerOn(structure->atoms, options.focus.value); }
-            camera.reset(structure->atoms);
-            elementsNeedUpdate = true;
-            cameraMoved = true;
-        }
-
-        if (display.keyHasAnyEvents(GLFW_KEY_F, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
-        {
-            playBackward = false;
-            if (!readInProgress)
-            {
-                com = getCenter(structure->atoms);
-                structure->readFrame(structure->framePosition());
-                readInProgress = true;
-            }
-        }
-
-        if (display.keyHasAnyEvents(GLFW_KEY_B, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
-        {
-            playBackward = true;
-            if (!readInProgress)
-            {
-                com = getCenter(structure->atoms);
-                backward(structure);
-                readInProgress = true;
-            }
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_R, jGL::EventType::PRESS))
-        {
-            if (!readInProgress)
-            {
-                structure->readFrame(0);
-                readInProgress = true;
-            }
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_X, jGL::EventType::PRESS))
-        {
-            options.showAxes.value = !options.showAxes.value;
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_C, jGL::EventType::PRESS))
-        {
-            options.showCell.value = !options.showCell.value;
-        }
-
-        if (display.keyHasEvent(GLFW_KEY_P, jGL::EventType::PRESS))
-        {
-            options.play.value = !options.play.value;
-        }
-
-        if (display.keyHasAnyEvents(GLFW_KEY_K, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
-        {
-            options.speed.value = std::min(options.speed.value+1, 60);
-        }
-
-        if (display.keyHasAnyEvents(GLFW_KEY_J, {jGL::EventType::PRESS, jGL::EventType::HOLD}))
-        {
-            if (options.speed.value > 1)
-            {
-                options.speed.value--;
-            }
-        }
 
         if (readInProgress && structure->frameReadComplete())
         {
@@ -368,7 +378,7 @@ int main(int argv, char ** argc)
 
             infoWindow(structure, camera, visualisationState, delta);
             CameraWindow().draw(options);
-
+            consoleWindow.draw("Console", console);
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
@@ -452,7 +462,6 @@ int main(int argv, char ** argc)
         auto toc = std::chrono::high_resolution_clock::now();
         deltas[frameId] = std::chrono::duration_cast<std::chrono::milliseconds>(toc-tic).count();
         frameId = (frameId+1) % 60;
-        if (frameId == 0 && log.size() > 0) { std::cout << log << "\n"; }
     }
 
     jGLInstance->finish();
