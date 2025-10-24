@@ -22,5 +22,5 @@ var searchData=
   ['rotate_19',['rotate',['../classCamera.html#aa53aa547b21212e18d172ffae581195f',1,'Camera']]],
   ['ru_20',['Ru',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aabe295e74fbc82f9450d6537bcfebbed',1,'element.h']]],
   ['runfile_21',['runFile',['../classConsole.html#a3b28d5cde30e2f5640dbe08081eb0f7f',1,'Console']]],
-  ['runstring_22',['runString',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console']]]
+  ['runstring_22',['runstring',['../classConsole.html#ab2a1576578e11a10bab2ab60689d5cd3',1,'Console::runString(std::string program)'],['../classConsole.html#afb0d1f60e65ec939b992211ac5369902',1,'Console::runString(const char *program)']]]
 ];

@@ -141,178 +141,183 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        pv = projection*view;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        invPv = glm::inverse(pv);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_variable" href="classCamera.html#a1266fc2c21d337a7eb9c7dfd83a9e443">updated</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">   93</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">reset</a>(<span class="keyword">const</span> std::vector&lt;Atom&gt; &amp; atoms)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        glm::vec3 ext = <a class="code hl_function" href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a>(atoms);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        positionSpherical = glm::vec3</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        (</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            2.0f*std::max(std::max(ext.x, ext.y), ext.z),</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            M_PI*0.5f,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            M_PI</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        );</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>();</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">   94</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">reset</a>(<span class="keyword">const</span> std::vector&lt;Atom&gt; &amp; atoms)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        glm::vec3 ext = <a class="code hl_function" href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a>(atoms);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        positionSpherical = glm::vec3</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        (</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            2.0f*std::max(std::max(ext.x, ext.y), ext.z),</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            M_PI*0.5f,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            M_PI</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        );</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
 </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">  110</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">zoom</a>(<span class="keywordtype">float</span> increment) { positionSpherical.x += increment; setView(); }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">  117</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">incline</a>(<span class="keywordtype">float</span> increment)</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        positionSpherical.y += increment*up;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span> (positionSpherical.y &gt; M_PI || positionSpherical.y &lt; 0.0)</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            positionSpherical.y -= 2.0*increment*up;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            up = -1.0*up;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            positionSpherical.z += M_PI;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">if</span> ( positionSpherical.z &lt; 0) { positionSpherical.z += 2.0*M_PI; }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( positionSpherical.z &gt; 2.0*M_PI) { positionSpherical.z = std::fmod(positionSpherical.z, 2.0*M_PI); }</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        setView();</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">  111</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">zoom</a>(<span class="keywordtype">float</span> increment) { positionSpherical.x += increment; setView(); }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">  118</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">incline</a>(<span class="keywordtype">float</span> increment)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        positionSpherical.y += increment*up;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">if</span> (positionSpherical.y &gt; M_PI || positionSpherical.y &lt; 0.0)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            positionSpherical.y -= 2.0*increment*up;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            up = -1.0*up;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            positionSpherical.z += M_PI;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">if</span> ( positionSpherical.z &lt; 0) { positionSpherical.z += 2.0*M_PI; }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( positionSpherical.z &gt; 2.0*M_PI) { positionSpherical.z = std::fmod(positionSpherical.z, 2.0*M_PI); }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        setView();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
 </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classCamera.html#aa53aa547b21212e18d172ffae581195f">  136</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aa53aa547b21212e18d172ffae581195f">rotate</a>(<span class="keywordtype">float</span> increment)</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    {</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        positionSpherical.z -= increment;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">if</span> ( positionSpherical.z &lt; 0) { positionSpherical.z += 2.0*M_PI; }</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( positionSpherical.z &gt; 2.0*M_PI) { positionSpherical.z = std::fmod(positionSpherical.z, 2.0*M_PI); }</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        setView();</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classCamera.html#aa53aa547b21212e18d172ffae581195f">  137</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aa53aa547b21212e18d172ffae581195f">rotate</a>(<span class="keywordtype">float</span> increment)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        positionSpherical.z -= increment;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">if</span> ( positionSpherical.z &lt; 0) { positionSpherical.z += 2.0*M_PI; }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( positionSpherical.z &gt; 2.0*M_PI) { positionSpherical.z = std::fmod(positionSpherical.z, 2.0*M_PI); }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        setView();</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
 </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="foldopen" id="foldopen00150" data-start="{" data-end="}">
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">  150</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">setPosition</a>(glm::vec3 positionSpherical)</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    {</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        this-&gt;positionSpherical = positionSpherical;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        setView();</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">  151</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">setPosition</a>(glm::vec3 positionSpherical)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        this-&gt;positionSpherical = positionSpherical;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        setView();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
 </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">  163</a></span>    glm::vec3 <a class="code hl_function" href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">position</a>(<span class="keywordtype">bool</span> spherical = <span class="keyword">false</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">return</span> spherical ? positionSpherical : <a class="code hl_function" href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a>(positionSpherical);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">  164</a></span>    glm::vec3 <a class="code hl_function" href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">position</a>(<span class="keywordtype">bool</span> spherical = <span class="keyword">false</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">return</span> spherical ? positionSpherical : <a class="code hl_function" href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a>(positionSpherical);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
 </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">  174</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">setUp</a>(<span class="keywordtype">float</span> up) { this-&gt;up = up &lt; 0 ? -1.0 : 1.0; setView(); }</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">  181</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">getUp</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> up; }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">  189</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">setFieldOfView</a>(<span class="keywordtype">float</span> degrees)</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        fieldOfView = std::min(std::max(30.0f, degrees), 90.0f);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>();</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">  175</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">setUp</a>(<span class="keywordtype">float</span> up) { this-&gt;up = up &lt; 0 ? -1.0 : 1.0; setView(); }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">  182</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">getUp</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> up; }</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">  190</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">setFieldOfView</a>(<span class="keywordtype">float</span> degrees)</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        fieldOfView = std::min(std::max(30.0f, degrees), 90.0f);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <a class="code hl_function" href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">reset</a>();</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
 </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">  200</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">getFieldOfView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> fieldOfView; }</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">  207</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">getProjection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> projection; }</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="classCamera.html#a988146b60811d7ed1f0ede9121291328">  214</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a988146b60811d7ed1f0ede9121291328">getInverseProjection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invProjection; }</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="classCamera.html#a73701b7992ffac7426b469501e5a17df">  221</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a73701b7992ffac7426b469501e5a17df">getView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> view; }</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">  228</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">getInverseView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invView; }</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">  235</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">getPV</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pv; }</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="classCamera.html#a68819b248761ec8de1919ca3a512caee">  242</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a68819b248761ec8de1919ca3a512caee">getInversePV</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invPv; }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">  201</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">getFieldOfView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> fieldOfView; }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">  208</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">getProjection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> projection; }</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="classCamera.html#a988146b60811d7ed1f0ede9121291328">  215</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a988146b60811d7ed1f0ede9121291328">getInverseProjection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invProjection; }</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="classCamera.html#a73701b7992ffac7426b469501e5a17df">  222</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a73701b7992ffac7426b469501e5a17df">getView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> view; }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">  229</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">getInverseView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invView; }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">  236</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">getPV</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pv; }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classCamera.html#a68819b248761ec8de1919ca3a512caee">  243</a></span>    glm::mat4 <a class="code hl_function" href="classCamera.html#a68819b248761ec8de1919ca3a512caee">getInversePV</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> invPv; }</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">  245</a></span>    uint16_t <a class="code hl_function" href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">getResX</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> resX; }</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">  246</a></span>    uint16_t <a class="code hl_function" href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">getResY</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> resY; }</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a518894f865c6a822ce439a112af42f8a">lua_cameraPosition</a>(lua_State * lua);</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a34b309771bce71bf2d9f209e426b3f85">lua_setCameraPosition</a>(lua_State * lua);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a6457e16ece5c1888acaad59679099d87">lua_rotateCamera</a>(lua_State * lua);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#afbbe04538763c482b7531359f13f3db9">lua_zoomCamera</a>(lua_State * lua);</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a994f3b8eaea31649c94413bd269b57fc">lua_inclineCamera</a>(lua_State * lua);</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#ab0357f9afa04daecce5a03bad6361ee6">lua_setCameraFieldOfView</a>(lua_State * lua);</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a7f40d3d219cdd7998879b366a610c5f5">lua_getCameraFieldOfView</a>(lua_State * lua);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    uint16_t resX;</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    uint16_t resY;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordtype">float</span> fieldOfView;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    glm::vec3 positionSpherical;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    glm::vec3 focus;</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keywordtype">float</span> up;</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    glm::mat4 projection;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    glm::mat4 invProjection;</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    glm::mat4 view;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    glm::mat4 invView;</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    glm::mat4 pv;</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    glm::mat4 invPv;</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <span class="keywordtype">void</span> setView()</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    {</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        view = glm::lookAt</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        (</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            <a class="code hl_function" href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a>(positionSpherical),</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            focus,</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            glm::vec3(0.0, up, 0.0)</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        );</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        invView = glm::inverse(view);</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        pv = projection*view;</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        invPv = glm::inverse(pv);</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    }</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>};</div>
-</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">#include &lt;<a class="code" href="luaBindings_2camera_8h.html">luaBindings/camera.h</a>&gt;</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">  246</a></span>    uint16_t <a class="code hl_function" href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">getResX</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> resX; }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">  247</a></span>    uint16_t <a class="code hl_function" href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">getResY</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> resY; }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a518894f865c6a822ce439a112af42f8a">lua_cameraPosition</a>(lua_State * lua);</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a34b309771bce71bf2d9f209e426b3f85">lua_setCameraPosition</a>(lua_State * lua);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a6457e16ece5c1888acaad59679099d87">lua_rotateCamera</a>(lua_State * lua);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#afbbe04538763c482b7531359f13f3db9">lua_zoomCamera</a>(lua_State * lua);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a994f3b8eaea31649c94413bd269b57fc">lua_inclineCamera</a>(lua_State * lua);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#ab0357f9afa04daecce5a03bad6361ee6">lua_setCameraFieldOfView</a>(lua_State * lua);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classCamera.html#a7f40d3d219cdd7998879b366a610c5f5">lua_getCameraFieldOfView</a>(lua_State * lua);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno"><a class="line" href="classCamera.html#a1266fc2c21d337a7eb9c7dfd83a9e443">  321</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classCamera.html#a1266fc2c21d337a7eb9c7dfd83a9e443">updated</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    uint16_t resX;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    uint16_t resY;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="keywordtype">float</span> fieldOfView;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    glm::vec3 positionSpherical;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    glm::vec3 focus;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordtype">float</span> up;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    glm::mat4 projection;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    glm::mat4 invProjection;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    glm::mat4 view;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    glm::mat4 invView;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    glm::mat4 pv;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    glm::mat4 invPv;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordtype">void</span> setView()</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    {</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        view = glm::lookAt</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        (</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            <a class="code hl_function" href="util_8h.html#abf79d5d2b1fa4f488ac4660f2d33d90a">spherical2cartesian</a>(positionSpherical),</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            focus,</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            glm::vec3(0.0, up, 0.0)</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        );</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        invView = glm::inverse(view);</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        pv = projection*view;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        invPv = glm::inverse(pv);</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <a class="code hl_variable" href="classCamera.html#a1266fc2c21d337a7eb9c7dfd83a9e443">updated</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    }</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="preprocessor">#endif </span><span class="comment">/* CAMERA_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>};</div>
+</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">#include &lt;<a class="code" href="luaBindings_2camera_8h.html">luaBindings/camera.h</a>&gt;</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">#endif </span><span class="comment">/* CAMERA_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aLuaBool_8h_html"><div class="ttname"><a href="LuaBool_8h.html">LuaBool.h</a></div></div>
 <div class="ttc" id="aLuaNumber_8h_html"><div class="ttname"><a href="LuaNumber_8h.html">LuaNumber.h</a></div></div>
 <div class="ttc" id="aatom_8h_html"><div class="ttname"><a href="atom_8h.html">atom.h</a></div></div>
 <div class="ttc" id="aatom_8h_html_a8f22f6f993dd09e5340698195c7f02b2"><div class="ttname"><a href="atom_8h.html#a8f22f6f993dd09e5340698195c7f02b2">extent</a></div><div class="ttdeci">glm::vec3 extent(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Calculate the extent of some Atoms.</div><div class="ttdef"><b>Definition</b> atom.h:195</div></div>
 <div class="ttc" id="aclassCamera_html"><div class="ttname"><a href="classCamera.html">Camera</a></div><div class="ttdoc">A 3D projective camera centered on a focus moving on a sphere.</div><div class="ttdef"><b>Definition</b> camera.h:30</div></div>
 <div class="ttc" id="aclassCamera_html_a02be8aa0dbef77e02dddc715a726fb67"><div class="ttname"><a href="classCamera.html#a02be8aa0dbef77e02dddc715a726fb67">Camera::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Set the default view.</div><div class="ttdef"><b>Definition</b> camera.h:62</div></div>
-<div class="ttc" id="aclassCamera_html_a25664922d842c3f36a5be99bea0bda0d"><div class="ttname"><a href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">Camera::getInverseView</a></div><div class="ttdeci">glm::mat4 getInverseView() const</div><div class="ttdoc">Get the inverse View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:228</div></div>
+<div class="ttc" id="aclassCamera_html_a1266fc2c21d337a7eb9c7dfd83a9e443"><div class="ttname"><a href="classCamera.html#a1266fc2c21d337a7eb9c7dfd83a9e443">Camera::updated</a></div><div class="ttdeci">bool updated</div><div class="ttdef"><b>Definition</b> camera.h:321</div></div>
+<div class="ttc" id="aclassCamera_html_a25664922d842c3f36a5be99bea0bda0d"><div class="ttname"><a href="classCamera.html#a25664922d842c3f36a5be99bea0bda0d">Camera::getInverseView</a></div><div class="ttdeci">glm::mat4 getInverseView() const</div><div class="ttdoc">Get the inverse View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:229</div></div>
 <div class="ttc" id="aclassCamera_html_a299391066ad2ec23d42e285748627916"><div class="ttname"><a href="classCamera.html#a299391066ad2ec23d42e285748627916">Camera::Camera</a></div><div class="ttdeci">Camera(glm::vec3 positionSpherical, uint16_t resX, uint16_t resY, float fieldOfView)</div><div class="ttdoc">Construct a new Camera at a given position.</div><div class="ttdef"><b>Definition</b> camera.h:53</div></div>
 <div class="ttc" id="aclassCamera_html_a34b309771bce71bf2d9f209e426b3f85"><div class="ttname"><a href="classCamera.html#a34b309771bce71bf2d9f209e426b3f85">Camera::lua_setCameraPosition</a></div><div class="ttdeci">int lua_setCameraPosition(lua_State *lua)</div><div class="ttdoc">Set Camera position.</div><div class="ttdef"><b>Definition</b> camera.h:42</div></div>
-<div class="ttc" id="aclassCamera_html_a369b40d7b729c097edb91e0f577d74de"><div class="ttname"><a href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">Camera::setPosition</a></div><div class="ttdeci">void setPosition(glm::vec3 positionSpherical)</div><div class="ttdoc">Set the camera's position.</div><div class="ttdef"><b>Definition</b> camera.h:150</div></div>
+<div class="ttc" id="aclassCamera_html_a369b40d7b729c097edb91e0f577d74de"><div class="ttname"><a href="classCamera.html#a369b40d7b729c097edb91e0f577d74de">Camera::setPosition</a></div><div class="ttdeci">void setPosition(glm::vec3 positionSpherical)</div><div class="ttdoc">Set the camera's position.</div><div class="ttdef"><b>Definition</b> camera.h:151</div></div>
 <div class="ttc" id="aclassCamera_html_a518894f865c6a822ce439a112af42f8a"><div class="ttname"><a href="classCamera.html#a518894f865c6a822ce439a112af42f8a">Camera::lua_cameraPosition</a></div><div class="ttdeci">int lua_cameraPosition(lua_State *lua)</div><div class="ttdoc">Get the Camera position.</div><div class="ttdef"><b>Definition</b> camera.h:12</div></div>
-<div class="ttc" id="aclassCamera_html_a544d34ebe639ca58ac9a381f481d946e"><div class="ttname"><a href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">Camera::setUp</a></div><div class="ttdeci">void setUp(float up)</div><div class="ttdoc">Set the up direction.</div><div class="ttdef"><b>Definition</b> camera.h:174</div></div>
-<div class="ttc" id="aclassCamera_html_a5890b40d92902a1b15624c268aab1c53"><div class="ttname"><a href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">Camera::getProjection</a></div><div class="ttdeci">glm::mat4 getProjection() const</div><div class="ttdoc">Get the Projection matrix.</div><div class="ttdef"><b>Definition</b> camera.h:207</div></div>
+<div class="ttc" id="aclassCamera_html_a544d34ebe639ca58ac9a381f481d946e"><div class="ttname"><a href="classCamera.html#a544d34ebe639ca58ac9a381f481d946e">Camera::setUp</a></div><div class="ttdeci">void setUp(float up)</div><div class="ttdoc">Set the up direction.</div><div class="ttdef"><b>Definition</b> camera.h:175</div></div>
+<div class="ttc" id="aclassCamera_html_a5890b40d92902a1b15624c268aab1c53"><div class="ttname"><a href="classCamera.html#a5890b40d92902a1b15624c268aab1c53">Camera::getProjection</a></div><div class="ttdeci">glm::mat4 getProjection() const</div><div class="ttdoc">Get the Projection matrix.</div><div class="ttdef"><b>Definition</b> camera.h:208</div></div>
 <div class="ttc" id="aclassCamera_html_a6457e16ece5c1888acaad59679099d87"><div class="ttname"><a href="classCamera.html#a6457e16ece5c1888acaad59679099d87">Camera::lua_rotateCamera</a></div><div class="ttdeci">int lua_rotateCamera(lua_State *lua)</div><div class="ttdoc">Rotate the Camera.</div><div class="ttdef"><b>Definition</b> camera.h:69</div></div>
-<div class="ttc" id="aclassCamera_html_a68819b248761ec8de1919ca3a512caee"><div class="ttname"><a href="classCamera.html#a68819b248761ec8de1919ca3a512caee">Camera::getInversePV</a></div><div class="ttdeci">glm::mat4 getInversePV() const</div><div class="ttdoc">Get the inverse Projection*View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:242</div></div>
-<div class="ttc" id="aclassCamera_html_a6f490e019c2dc6192736e7e2105aa4f7"><div class="ttname"><a href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">Camera::getResY</a></div><div class="ttdeci">uint16_t getResY() const</div><div class="ttdef"><b>Definition</b> camera.h:246</div></div>
-<div class="ttc" id="aclassCamera_html_a73701b7992ffac7426b469501e5a17df"><div class="ttname"><a href="classCamera.html#a73701b7992ffac7426b469501e5a17df">Camera::getView</a></div><div class="ttdeci">glm::mat4 getView() const</div><div class="ttdoc">Get the View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:221</div></div>
-<div class="ttc" id="aclassCamera_html_a7829c0ea21844ce007620e76b70c2818"><div class="ttname"><a href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">Camera::setFieldOfView</a></div><div class="ttdeci">void setFieldOfView(float degrees)</div><div class="ttdoc">Set the Field Of View.</div><div class="ttdef"><b>Definition</b> camera.h:189</div></div>
+<div class="ttc" id="aclassCamera_html_a68819b248761ec8de1919ca3a512caee"><div class="ttname"><a href="classCamera.html#a68819b248761ec8de1919ca3a512caee">Camera::getInversePV</a></div><div class="ttdeci">glm::mat4 getInversePV() const</div><div class="ttdoc">Get the inverse Projection*View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:243</div></div>
+<div class="ttc" id="aclassCamera_html_a6f490e019c2dc6192736e7e2105aa4f7"><div class="ttname"><a href="classCamera.html#a6f490e019c2dc6192736e7e2105aa4f7">Camera::getResY</a></div><div class="ttdeci">uint16_t getResY() const</div><div class="ttdef"><b>Definition</b> camera.h:247</div></div>
+<div class="ttc" id="aclassCamera_html_a73701b7992ffac7426b469501e5a17df"><div class="ttname"><a href="classCamera.html#a73701b7992ffac7426b469501e5a17df">Camera::getView</a></div><div class="ttdeci">glm::mat4 getView() const</div><div class="ttdoc">Get the View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:222</div></div>
+<div class="ttc" id="aclassCamera_html_a7829c0ea21844ce007620e76b70c2818"><div class="ttname"><a href="classCamera.html#a7829c0ea21844ce007620e76b70c2818">Camera::setFieldOfView</a></div><div class="ttdeci">void setFieldOfView(float degrees)</div><div class="ttdoc">Set the Field Of View.</div><div class="ttdef"><b>Definition</b> camera.h:190</div></div>
 <div class="ttc" id="aclassCamera_html_a7f40d3d219cdd7998879b366a610c5f5"><div class="ttname"><a href="classCamera.html#a7f40d3d219cdd7998879b366a610c5f5">Camera::lua_getCameraFieldOfView</a></div><div class="ttdeci">int lua_getCameraFieldOfView(lua_State *lua)</div><div class="ttdoc">Set the field of view.</div><div class="ttdef"><b>Definition</b> camera.h:169</div></div>
-<div class="ttc" id="aclassCamera_html_a976f5d427ecc42ce38348e294e4a096f"><div class="ttname"><a href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">Camera::position</a></div><div class="ttdeci">glm::vec3 position(bool spherical=false) const</div><div class="ttdoc">Return the cartesian position vector.</div><div class="ttdef"><b>Definition</b> camera.h:163</div></div>
-<div class="ttc" id="aclassCamera_html_a988146b60811d7ed1f0ede9121291328"><div class="ttname"><a href="classCamera.html#a988146b60811d7ed1f0ede9121291328">Camera::getInverseProjection</a></div><div class="ttdeci">glm::mat4 getInverseProjection() const</div><div class="ttdoc">Get the inverse Projection matrix.</div><div class="ttdef"><b>Definition</b> camera.h:214</div></div>
+<div class="ttc" id="aclassCamera_html_a976f5d427ecc42ce38348e294e4a096f"><div class="ttname"><a href="classCamera.html#a976f5d427ecc42ce38348e294e4a096f">Camera::position</a></div><div class="ttdeci">glm::vec3 position(bool spherical=false) const</div><div class="ttdoc">Return the cartesian position vector.</div><div class="ttdef"><b>Definition</b> camera.h:164</div></div>
+<div class="ttc" id="aclassCamera_html_a988146b60811d7ed1f0ede9121291328"><div class="ttname"><a href="classCamera.html#a988146b60811d7ed1f0ede9121291328">Camera::getInverseProjection</a></div><div class="ttdeci">glm::mat4 getInverseProjection() const</div><div class="ttdoc">Get the inverse Projection matrix.</div><div class="ttdef"><b>Definition</b> camera.h:215</div></div>
 <div class="ttc" id="aclassCamera_html_a994f3b8eaea31649c94413bd269b57fc"><div class="ttname"><a href="classCamera.html#a994f3b8eaea31649c94413bd269b57fc">Camera::lua_inclineCamera</a></div><div class="ttdeci">int lua_inclineCamera(lua_State *lua)</div><div class="ttdoc">Incline the camera.</div><div class="ttdef"><b>Definition</b> camera.h:119</div></div>
-<div class="ttc" id="aclassCamera_html_aa53aa547b21212e18d172ffae581195f"><div class="ttname"><a href="classCamera.html#aa53aa547b21212e18d172ffae581195f">Camera::rotate</a></div><div class="ttdeci">void rotate(float increment)</div><div class="ttdoc">Rotate about the y OpenGL axis.</div><div class="ttdef"><b>Definition</b> camera.h:136</div></div>
-<div class="ttc" id="aclassCamera_html_aaa42ba9be9e1599496b9cca178521259"><div class="ttname"><a href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">Camera::getFieldOfView</a></div><div class="ttdeci">float getFieldOfView() const</div><div class="ttdoc">Get the Field Of View.</div><div class="ttdef"><b>Definition</b> camera.h:200</div></div>
+<div class="ttc" id="aclassCamera_html_aa53aa547b21212e18d172ffae581195f"><div class="ttname"><a href="classCamera.html#aa53aa547b21212e18d172ffae581195f">Camera::rotate</a></div><div class="ttdeci">void rotate(float increment)</div><div class="ttdoc">Rotate about the y OpenGL axis.</div><div class="ttdef"><b>Definition</b> camera.h:137</div></div>
+<div class="ttc" id="aclassCamera_html_aaa42ba9be9e1599496b9cca178521259"><div class="ttname"><a href="classCamera.html#aaa42ba9be9e1599496b9cca178521259">Camera::getFieldOfView</a></div><div class="ttdeci">float getFieldOfView() const</div><div class="ttdoc">Get the Field Of View.</div><div class="ttdef"><b>Definition</b> camera.h:201</div></div>
 <div class="ttc" id="aclassCamera_html_ab0357f9afa04daecce5a03bad6361ee6"><div class="ttname"><a href="classCamera.html#ab0357f9afa04daecce5a03bad6361ee6">Camera::lua_setCameraFieldOfView</a></div><div class="ttdeci">int lua_setCameraFieldOfView(lua_State *lua)</div><div class="ttdoc">Set the field of view.</div><div class="ttdef"><b>Definition</b> camera.h:144</div></div>
 <div class="ttc" id="aclassCamera_html_ab84f61b73d474a9a72672d92c2c39414"><div class="ttname"><a href="classCamera.html#ab84f61b73d474a9a72672d92c2c39414">Camera::Camera</a></div><div class="ttdeci">Camera(const std::vector&lt; Atom &gt; &amp;atoms, uint16_t resX, uint16_t resY, float fieldOfView)</div><div class="ttdoc">Construct a new Camera focussing on some Atoms.</div><div class="ttdef"><b>Definition</b> camera.h:40</div></div>
-<div class="ttc" id="aclassCamera_html_aba9702dabbfe067faa48dfcbd2dcb634"><div class="ttname"><a href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">Camera::reset</a></div><div class="ttdeci">void reset(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Set the default view.</div><div class="ttdef"><b>Definition</b> camera.h:93</div></div>
-<div class="ttc" id="aclassCamera_html_ac83166c11ec3ed9b364c7ef6c6ed2eaa"><div class="ttname"><a href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">Camera::zoom</a></div><div class="ttdeci">void zoom(float increment)</div><div class="ttdoc">Increment the zoom.</div><div class="ttdef"><b>Definition</b> camera.h:110</div></div>
-<div class="ttc" id="aclassCamera_html_ac96529aed48fd4fbf783de01dfffb0c9"><div class="ttname"><a href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">Camera::getUp</a></div><div class="ttdeci">float getUp() const</div><div class="ttdoc">Get the up direction.</div><div class="ttdef"><b>Definition</b> camera.h:181</div></div>
-<div class="ttc" id="aclassCamera_html_acd532d32330a56e5381fb8cd1e6d78a8"><div class="ttname"><a href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">Camera::getResX</a></div><div class="ttdeci">uint16_t getResX() const</div><div class="ttdef"><b>Definition</b> camera.h:245</div></div>
-<div class="ttc" id="aclassCamera_html_ad705ea31149c6bf0fd16bc5e150562a0"><div class="ttname"><a href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">Camera::incline</a></div><div class="ttdeci">void incline(float increment)</div><div class="ttdoc">Incline about the y OpenGL axis.</div><div class="ttdef"><b>Definition</b> camera.h:117</div></div>
-<div class="ttc" id="aclassCamera_html_aea42c6daae6f3cd5c6dc12ef05daaced"><div class="ttname"><a href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">Camera::getPV</a></div><div class="ttdeci">glm::mat4 getPV() const</div><div class="ttdoc">Get the Projection*View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:235</div></div>
+<div class="ttc" id="aclassCamera_html_aba9702dabbfe067faa48dfcbd2dcb634"><div class="ttname"><a href="classCamera.html#aba9702dabbfe067faa48dfcbd2dcb634">Camera::reset</a></div><div class="ttdeci">void reset(const std::vector&lt; Atom &gt; &amp;atoms)</div><div class="ttdoc">Set the default view.</div><div class="ttdef"><b>Definition</b> camera.h:94</div></div>
+<div class="ttc" id="aclassCamera_html_ac83166c11ec3ed9b364c7ef6c6ed2eaa"><div class="ttname"><a href="classCamera.html#ac83166c11ec3ed9b364c7ef6c6ed2eaa">Camera::zoom</a></div><div class="ttdeci">void zoom(float increment)</div><div class="ttdoc">Increment the zoom.</div><div class="ttdef"><b>Definition</b> camera.h:111</div></div>
+<div class="ttc" id="aclassCamera_html_ac96529aed48fd4fbf783de01dfffb0c9"><div class="ttname"><a href="classCamera.html#ac96529aed48fd4fbf783de01dfffb0c9">Camera::getUp</a></div><div class="ttdeci">float getUp() const</div><div class="ttdoc">Get the up direction.</div><div class="ttdef"><b>Definition</b> camera.h:182</div></div>
+<div class="ttc" id="aclassCamera_html_acd532d32330a56e5381fb8cd1e6d78a8"><div class="ttname"><a href="classCamera.html#acd532d32330a56e5381fb8cd1e6d78a8">Camera::getResX</a></div><div class="ttdeci">uint16_t getResX() const</div><div class="ttdef"><b>Definition</b> camera.h:246</div></div>
+<div class="ttc" id="aclassCamera_html_ad705ea31149c6bf0fd16bc5e150562a0"><div class="ttname"><a href="classCamera.html#ad705ea31149c6bf0fd16bc5e150562a0">Camera::incline</a></div><div class="ttdeci">void incline(float increment)</div><div class="ttdoc">Incline about the y OpenGL axis.</div><div class="ttdef"><b>Definition</b> camera.h:118</div></div>
+<div class="ttc" id="aclassCamera_html_aea42c6daae6f3cd5c6dc12ef05daaced"><div class="ttname"><a href="classCamera.html#aea42c6daae6f3cd5c6dc12ef05daaced">Camera::getPV</a></div><div class="ttdeci">glm::mat4 getPV() const</div><div class="ttdoc">Get the Projection*View matrix.</div><div class="ttdef"><b>Definition</b> camera.h:236</div></div>
 <div class="ttc" id="aclassCamera_html_afbbe04538763c482b7531359f13f3db9"><div class="ttname"><a href="classCamera.html#afbbe04538763c482b7531359f13f3db9">Camera::lua_zoomCamera</a></div><div class="ttdeci">int lua_zoomCamera(lua_State *lua)</div><div class="ttdoc">Zoom the Camera.</div><div class="ttdef"><b>Definition</b> camera.h:94</div></div>
 <div class="ttc" id="aluaBindings_2camera_8h_html"><div class="ttname"><a href="luaBindings_2camera_8h.html">camera.h</a></div></div>
 <div class="ttc" id="alua_8h_html"><div class="ttname"><a href="lua_8h.html">lua.h</a></div></div>

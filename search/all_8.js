@@ -12,9 +12,11 @@ var searchData=
   ['infowindow_9',['infoWindow',['../infoWindow_8h.html#afd74344e2b7434a2fc770af5c83b218d',1,'infoWindow.h']]],
   ['infowindow_2eh_10',['infoWindow.h',['../infoWindow_8h.html',1,'']]],
   ['initialise_11',['initialise',['../classStructure.html#a19ee40d0445665e979a299ae75d79a80',1,'Structure']]],
-  ['inv_5fsqrt2_12',['INV_SQRT2',['../meshes_8h.html#a55e3b0ca9e965647293b01e632dac28d',1,'meshes.h']]],
-  ['inv_5fsqrt3_13',['INV_SQRT3',['../meshes_8h.html#ad91b6fbef7c3bd891d97cc0d3a79b70f',1,'meshes.h']]],
-  ['ir_14',['Ir',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa114df82272b5decd19d513b63d6bd8f',1,'element.h']]],
-  ['isopen_15',['isOpen',['../classRecord.html#a1cc78ac0061d3b749c02b756e50b476b',1,'Record']]],
-  ['iswriting_16',['isWriting',['../classRecord.html#a8a53283d5c1db02d3162d9ba40dc81b1',1,'Record']]]
+  ['inputbuf_12',['InputBuf',['../structConsoleWindow.html#a70f653d83c8a93bc2fb242ef847ade8c',1,'ConsoleWindow']]],
+  ['inv_5fsqrt2_13',['INV_SQRT2',['../meshes_8h.html#a55e3b0ca9e965647293b01e632dac28d',1,'meshes.h']]],
+  ['inv_5fsqrt3_14',['INV_SQRT3',['../meshes_8h.html#ad91b6fbef7c3bd891d97cc0d3a79b70f',1,'meshes.h']]],
+  ['ir_15',['Ir',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5aa114df82272b5decd19d513b63d6bd8f',1,'element.h']]],
+  ['isopen_16',['isOpen',['../classRecord.html#a1cc78ac0061d3b749c02b756e50b476b',1,'Record']]],
+  ['iswriting_17',['isWriting',['../classRecord.html#a8a53283d5c1db02d3162d9ba40dc81b1',1,'Record']]],
+  ['items_18',['Items',['../structConsoleWindow.html#a0d538f8aeb2d59e5997ac19b4d4a5a55',1,'ConsoleWindow']]]
 ];

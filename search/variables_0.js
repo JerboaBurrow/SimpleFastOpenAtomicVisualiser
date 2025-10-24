@@ -8,6 +8,6 @@ var searchData=
   ['atoms_5',['atoms',['../classStructure.html#a719de7ae18af60a2d7086203b323b7ab',1,'Structure::atoms'],['../structVisualisationState.html#a70d85cc3f5ce9d79c2c7adcc4c44b186',1,'VisualisationState::atoms']]],
   ['atomsize_6',['atomSize',['../structCommandLine.html#a2eb01d3da725b9a8bc01b3aa42f85c92',1,'CommandLine']]],
   ['atomsizes_7',['atomSizes',['../structVisualisationState.html#a3739a6b1fe64d886392ccb754879b680',1,'VisualisationState']]],
-  ['atomsmoved_8',['atomsMoved',['../structCameraWindow_1_1CameraUpdates.html#a4369015e7371ea020ba4f9bf2103348c',1,'CameraWindow::CameraUpdates']]],
-  ['atomsread_9',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]]
+  ['atomsread_8',['atomsRead',['../classStructure.html#a0634a98b83dea4f6b73ec4599de29eeb',1,'Structure']]],
+  ['autoscroll_9',['AutoScroll',['../structConsoleWindow.html#a73ce589d8c7990d56c00f62c9c3edd63',1,'ConsoleWindow']]]
 ];

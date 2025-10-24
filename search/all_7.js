@@ -10,5 +10,7 @@ var searchData=
   ['hideui_7',['hideUI',['../structCommandLine.html#a4929e889f2719f13f43deecbee804b04',1,'CommandLine']]],
   ['hierarchicaltriangularmesh_8',['hierarchicaltriangularmesh',['../classHierarchicalTriangularMesh.html',1,'HierarchicalTriangularMesh&lt; T &gt;'],['../classHierarchicalTriangularMesh.html#a6dd44858969bcda359554c4e92be82d0',1,'HierarchicalTriangularMesh::HierarchicalTriangularMesh(BASE_MESH mesh)'],['../classHierarchicalTriangularMesh.html#ab202261a0eae27f3d1dd79320bcbfd46',1,'HierarchicalTriangularMesh::HierarchicalTriangularMesh(const std::vector&lt; Trixel&lt; T &gt; &gt; &amp;baseMesh)']]],
   ['hierarchicaltriangularmesh_2eh_9',['hierarchicalTriangularMesh.h',['../hierarchicalTriangularMesh_8h.html',1,'']]],
-  ['ho_10',['Ho',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a71aafd38484f3160708c6a6d2d5f736b',1,'element.h']]]
+  ['history_10',['History',['../structConsoleWindow.html#a38d9f4a5910c74af5c6e95504b02bd26',1,'ConsoleWindow']]],
+  ['historypos_11',['HistoryPos',['../structConsoleWindow.html#ae1d1e1a19e88dbe7f03fd58a19057097',1,'ConsoleWindow']]],
+  ['ho_12',['Ho',['../element_8h.html#a3ccc4cde4b2b307021677e636e447be5a71aafd38484f3160708c6a6d2d5f736b',1,'element.h']]]
 ];

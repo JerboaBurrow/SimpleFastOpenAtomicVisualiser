@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../classTriangle.html#af0a3322d33aaef66e3e106ea9ad793a5',1,'Triangle']]]
+  ['writing_0',['writing',['../classRecord.html#a9cf8688dcdab2999e319ea67c051b092',1,'Record']]]
 ];
