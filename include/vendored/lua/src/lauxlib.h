@@ -258,7 +258,7 @@ typedef struct luaL_Stream {
 
 /* print a string */
 #if !defined(lua_writestring)
-#define lua_writestring(s,l)   (std::cout << s)
+#define lua_writestring(s)   (std::cout << s)
 #endif
 
 /* print a newline and flush the output */

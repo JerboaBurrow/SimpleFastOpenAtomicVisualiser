@@ -394,6 +394,11 @@ struct CommandLine
      */
     inline int lua_setOption(lua_State * lua)
     {
+        if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+        {
+            lua_writestring("setOption:\n  Arguments:\n    name [string],\n    value\n  Set option name to value.\n");
+            return 0;
+        };
         int args = lua_gettop(lua);
         if (args != 2)
         {
@@ -502,6 +507,11 @@ struct CommandLine
      */
     inline int lua_getOption(lua_State * lua)
     {
+        if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+        {
+            lua_writestring("getOption:\n  Arguments:\n    name [string]\n  Get the value of option name.\n");
+            return 0;
+        };
         int args = lua_gettop(lua);
         if (args != 1)
         {

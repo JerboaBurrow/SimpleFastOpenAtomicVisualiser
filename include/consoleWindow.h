@@ -73,7 +73,6 @@ This is free software, and you are welcome to redistribute it under certain cond
         memset(InputBuf, 0, sizeof(InputBuf));
         HistoryPos = -1;
 
-        Commands.push_back("HELP");
         Commands.push_back("HISTORY");
         Commands.push_back("CLEAR");
         AutoScroll = true;
@@ -166,7 +165,8 @@ This is free software, and you are welcome to redistribute it under certain cond
 
         focussed = ImGui::IsWindowFocused();
 
-        ImGui::TextWrapped("Enter 'HELP' for help.");
+        ImGui::TextWrapped("Enter 'help()' for a list of functions.");
+        ImGui::TextWrapped("For help with each function: 'help(zoomCamera)'.");
 
         if (ImGui::SmallButton("Clear")) { clearLog(); }
 
@@ -259,14 +259,6 @@ This is free software, and you are welcome to redistribute it under certain cond
         if (Stricmp(command_line, "CLEAR") == 0)
         {
             clearLog();
-        }
-        else if (Stricmp(command_line, "HELP") == 0)
-        {
-            addLog("Commands:");
-            for (int i = 0; i < Commands.Size; i++)
-            {
-                addLog("- %s", Commands[i]);
-            }
         }
         else if (Stricmp(command_line, "HISTORY") == 0)
         {
