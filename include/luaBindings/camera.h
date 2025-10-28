@@ -11,6 +11,11 @@
  */
 inline int Camera::lua_cameraPosition(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("cameraPosition:\n  Arguments:\n    spherical [bool, optional]\n  Get the position of the camera.\n  By default in cartesian form.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     bool spherical = false;
     if (args == 1)
@@ -41,6 +46,11 @@ inline int Camera::lua_cameraPosition(lua_State * lua)
  */
 inline int Camera::lua_setCameraPosition(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("setCameraPosition:\n  Arguments:\n    x [number],\b    y [number],\n    z[number]\n  Set the position of the camera.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 3)
     {
@@ -68,6 +78,11 @@ inline int Camera::lua_setCameraPosition(lua_State * lua)
  */
 inline int Camera::lua_rotateCamera(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("rotateCamera:\n  Arguments:\n    phi [number]\n  Rotate the camera by phi radians.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 1)
     {
@@ -93,6 +108,11 @@ inline int Camera::lua_rotateCamera(lua_State * lua)
  */
 inline int Camera::lua_zoomCamera(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("zoomCamera:\n  Arguments:\n    r [number]\n  Zoom the camera.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 1)
     {
@@ -118,6 +138,11 @@ inline int Camera::lua_zoomCamera(lua_State * lua)
  */
 inline int Camera::lua_inclineCamera(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("inclineCamera:\n  Arguments:\n    theta [number]\n  Incline the camera by theta radians.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 1)
     {
@@ -143,6 +168,11 @@ inline int Camera::lua_inclineCamera(lua_State * lua)
  */
 inline int Camera::lua_setCameraFieldOfView(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("setCameraFieldOfView:\n  Arguments:\n    fov [number]\n  Set the camera's fov in degrees.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 1)
     {
@@ -160,7 +190,7 @@ inline int Camera::lua_setCameraFieldOfView(lua_State * lua)
 }
 
 /**
- * @brief Set the field of view.
+ * @brief Get the field of view.
  *
  * @remark Lua arguments are:
  * @param lua the Lua context.
@@ -168,6 +198,11 @@ inline int Camera::lua_setCameraFieldOfView(lua_State * lua)
  */
 inline int Camera::lua_getCameraFieldOfView(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("getCameraFieldOfView:\n  Arguments: none\n  Get the camera's fov in degrees.\n");
+        return 0;
+    };
     lua_pushnumber(lua, fieldOfView);
     return 1;
 }

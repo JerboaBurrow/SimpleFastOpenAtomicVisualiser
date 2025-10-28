@@ -24,6 +24,11 @@
 inline int VisualisationState::lua_setAtomColour(lua_State * lua)
 {
     int args = lua_gettop(lua);
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("setAtomColour:\n  Arguments:\n    i [number]\n    r [number]\n    g [nummber]\n    b [number]\n    a [number]\n  Set atom i's colour.\n");
+        return 0;
+    };
     if (args < 4 || args > 5)
     {
         const std::string msg = "setAtomColour expects an atom index and RGB or RGBA arguments.\n";
@@ -72,6 +77,11 @@ inline int VisualisationState::lua_setAtomColour(lua_State * lua)
 inline int VisualisationState::lua_getAtomColour(lua_State * lua)
 {
     int args = lua_gettop(lua);
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("setAtomColour:\n  Arguments: none\n  Get atom i's colour.\n");
+        return 0;
+    };
     if (args != 1)
     {
         const std::string msg = "getAtomColour expects an atom index as argument.\n";
@@ -114,6 +124,11 @@ inline int VisualisationState::lua_getAtomColour(lua_State * lua)
  */
 inline int VisualisationState::lua_atomCount(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("atomCount:\n  Arguments: none\n  Get number of atoms.\n");
+        return 0;
+    };
     lua_pushinteger(lua, atomCount);
     return 1;
 }
@@ -131,6 +146,11 @@ inline int VisualisationState::lua_atomCount(lua_State * lua)
 inline int VisualisationState::lua_getAtomsNeighbours(lua_State * lua)
 {
     int args = lua_gettop(lua);
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("setAtomColour:\n  Arguments:\n    i [number]\n    cutoff [number]\n  Get atom i's neighbours within cutoff.\n");
+        return 0;
+    };
     if (args < 2)
     {
         const std::string msg = "getAtomsNeighbours expects an atom index and cutoff distance as argument.\n";
@@ -187,6 +207,11 @@ inline int VisualisationState::lua_getAtomsNeighbours(lua_State * lua)
 inline int VisualisationState::lua_getAtom(lua_State * lua)
 {
     int args = lua_gettop(lua);
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("getAtom:\n  Arguments: \n    i [number]\n  Get atom i's state.\n");
+        return 0;
+    };
     if (args != 1)
     {
         const std::string msg = "getAtom expects an atom index as argument.\n";
@@ -264,6 +289,11 @@ inline int VisualisationState::lua_getAtom(lua_State * lua)
 inline int VisualisationState::lua_getAtomsBonds(lua_State * lua)
 {
     int args = lua_gettop(lua);
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("getAtomsBonds:\n  Arguments:\n    i [number]\n  Get atom i's bonds.\n");
+        return 0;
+    };
     if (args != 1)
     {
         const std::string msg = "getAtomsBonds expects an atom index as argument.\n";

@@ -12,6 +12,11 @@
  */
 inline int VisualisationState::lua_bond(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("bond:\n  Arguments:\n    i [number]\n    j [number]\n  Bond i and j.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 2)
     {
@@ -56,6 +61,11 @@ inline int VisualisationState::lua_bond(lua_State * lua)
  */
 inline int VisualisationState::lua_unbond(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("unbond:\n  Arguments:\n    i [number]\n    j [number]\n  Unbond i and j.\n");
+        return 0;
+    };
     int args = lua_gettop(lua);
     if (args != 2)
     {

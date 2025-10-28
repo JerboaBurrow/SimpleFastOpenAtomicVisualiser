@@ -106,6 +106,11 @@ int dispatchCommandLine(lua_State * lua)
  */
 int lua_startRecord(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("startRecord:\n  Arguments: none\n  Start video recording.\n");
+        return 0;
+    };
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     if (!extraSpace->visualisationState->recording)
     {
@@ -122,6 +127,11 @@ int lua_startRecord(lua_State * lua)
  */
 int lua_stopRecord(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("stopRecord:\n  Arguments: none\n  Stop video recording.\n");
+        return 0;
+    };
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     if (extraSpace->visualisationState->recording)
     {
@@ -138,6 +148,11 @@ int lua_stopRecord(lua_State * lua)
  */
 int lua_play(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("play:\n  Arguments: none\n  Play the trajectory.\n");
+        return 0;
+    };
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     extraSpace->options->play.value = true;
     return 0;
@@ -151,6 +166,11 @@ int lua_play(lua_State * lua)
  */
 int lua_exit(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("exit:\n  Arguments: none\n  Quit sfoav.\n");
+        return 0;
+    };
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     *(extraSpace->exit) = true;
     return 0;
@@ -164,6 +184,11 @@ int lua_exit(lua_State * lua)
  */
 int lua_pause(lua_State * lua)
 {
+    if (lua_gettop(lua) >= 1 && lua_isstring(lua, 1) && std::string(lua_tostring(lua, 1)) == "help")
+    {
+        lua_writestring("pause:\n  Arguments: none\n  Pause the trajectory.\n");
+        return 0;
+    };
     LuaExtraSpace * extraSpace = *static_cast<LuaExtraSpace**>(lua_getextraspace(lua));
     extraSpace->options->play.value = false;
     return 0;
@@ -207,6 +232,25 @@ public:
             end
             use(sfoav))";
         runString(init);
+
+        const char * help = R"(
+            function help(func)
+                if func == sfoav or func == nil then
+                    for k,v in pairs(sfoav) do
+                        v("help")
+                        print("\n")
+                    end
+                    return
+                end
+                for k,v in pairs(sfoav) do
+                    if v == func then
+                        func("help")
+                        print("\n")
+                        return
+                    end
+                end
+            end)";
+        runString(help);
     }
 
     ~Console(){ lua_close(lua); }
