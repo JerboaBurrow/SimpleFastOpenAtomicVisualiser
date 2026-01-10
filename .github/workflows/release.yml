@@ -188,7 +188,7 @@ jobs:
           sudo ${binary} --root ~/vulkan --accept-licenses --default-answer --confirm-command install
           ls ~/vulkan
           cd ~/vulkan/
-          python install_vulkan.py
+          sudo python install_vulkan.py
 
     - name: macos-macos
       run: |
