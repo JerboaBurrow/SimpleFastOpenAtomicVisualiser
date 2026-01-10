@@ -50,7 +50,7 @@ public:
         shader->setUniform<glm::vec4>("lightColour", glm::vec4(1.0f,1.0f,1.0f,1.0f));
         shader->setUniform<float>("ambientLight", 0.1f);
         setBondScale(1.0f);
-        setGlobalAlpha(globalAlpha);
+        setGlobalAlpha(1.0f);
         init();
         for (const auto & ibonds : bonds)
         {

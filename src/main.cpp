@@ -44,7 +44,9 @@ int main(int argv, char ** argc)
     jGLInstance->setMSAA(options.msaa.value);
 
     double deltas[60];
-    double delta = 0;
+    for (int i = 0; i < 60; i++) { deltas[i] = 0.0; }
+
+    float delta = 0;
     unsigned frameId = 0;
     bool readInProgress = false;
     bool playBackward = false;
@@ -351,7 +353,6 @@ int main(int argv, char ** argc)
             {
                 setTransparencySorting(structure->atoms, atomRenderer, bondRenderer);
             }
-            visualisationState.elementsUpdated = false;
         }
 
         bondRenderer.draw();
@@ -371,9 +372,9 @@ int main(int argv, char ** argc)
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            infoWindow(structure, camera, visualisationState, delta);
             CameraWindow().draw(options);
             consoleWindow.draw("Console", console);
+            infoWindow(structure, camera, visualisationState, delta);
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
@@ -457,6 +458,7 @@ int main(int argv, char ** argc)
         auto toc = std::chrono::high_resolution_clock::now();
         deltas[frameId] = std::chrono::duration_cast<std::chrono::milliseconds>(toc-tic).count();
         frameId = (frameId+1) % 60;
+        visualisationState.elementsUpdated = false;
     }
 
     jGLInstance->finish();

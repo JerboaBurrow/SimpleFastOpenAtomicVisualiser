@@ -77,6 +77,7 @@ This is free software, and you are welcome to redistribute it under certain cond
         Commands.push_back("CLEAR");
         AutoScroll = true;
         ScrollToBottom = false;
+        focussed = false;
         addLog(std::string(banner));
     }
     ~ConsoleWindow()
